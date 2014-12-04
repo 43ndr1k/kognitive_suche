@@ -21,7 +21,7 @@ import org.xml.sax.InputSource;
  * Dies ist die API, um die Faroo API anzusprechen.
  * 
  * @author Hendrik Sawade
- * @version 1.1
+ * @version 1.10
  */
 public class API {
 	private ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
