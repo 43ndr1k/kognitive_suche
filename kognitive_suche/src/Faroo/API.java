@@ -17,10 +17,21 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 
+/**
+ * Dies ist die API, um die Faroo API anzusprechen.
+ * 
+ * @author Hendrik Sawade
+ * @version 1.1
+ */
 public class API {
 	private ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
 	private NodeList nList = null;
 
+	/**
+	 * 
+	 * @param String key
+	 * @param String query
+	 */
 	public API(String key, String query) {
 		super();
 
@@ -29,6 +40,12 @@ public class API {
 		this.getData(url);
 	}
 
+	/**
+	 * 
+	 * @param String key
+	 * @param String query
+	 * @param int length
+	 */
 	public API(String key, String query, int length) {
 		super();
 		String url = "http://www.faroo.com/api?q=" + query + "&length="+ length + "&f=xml&key=" + key;
@@ -36,6 +53,10 @@ public class API {
 		this.getData(url);
 	}
 
+	/**
+	 * 
+	 * @param String u
+	 */
 	private void getData(String u) {
 
 		String xmlstring = "";
@@ -74,6 +95,11 @@ public class API {
 		}
 	}
 
+	/**
+	 * 
+	 * @return ArrayList results
+	 * 
+	 */
 	public ArrayList<HashMap<String, String>> getCompleteResults() {
 
 		// query
