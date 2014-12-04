@@ -28,9 +28,9 @@ public class API {
 	private NodeList nList = null;
 
 	/**
-	 * 
-	 * @param String key
-	 * @param String query
+	 * Abruf des Suchwortes
+	 * @param key API-Key
+	 * @param query Suchwort
 	 */
 	public API(String key, String query) {
 		super();
@@ -41,10 +41,10 @@ public class API {
 	}
 
 	/**
-	 * 
-	 * @param String key
-	 * @param String query
-	 * @param int length
+	 * Abruf nach Suchwort und beschränkter Anzahl von Suchergebnissen
+	 * @param key
+	 * @param query
+	 * @param length
 	 */
 	public API(String key, String query, int length) {
 		super();
@@ -55,7 +55,7 @@ public class API {
 
 	/**
 	 * 
-	 * @param String u
+	 * @param u
 	 */
 	private void getData(String u) {
 
@@ -97,7 +97,7 @@ public class API {
 
 	/**
 	 * 
-	 * @return ArrayList results
+	 * @return results
 	 * 
 	 */
 	public ArrayList<HashMap<String, String>> getCompleteResults() {
