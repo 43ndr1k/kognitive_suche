@@ -2,46 +2,20 @@ package Faroo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import org.w3c.dom.NodeList;
-
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.io.StringReader;
-import java.io.StringWriter;
-
-import javax.swing.text.html.parser.DocumentParser;
-import javax.xml.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import java.util.Properties;
-import java.io.File;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 
 public class API {
 	private ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
@@ -58,7 +32,7 @@ public class API {
 	public API(String key, String query, int length) {
 		super();
 		String url = "http://www.faroo.com/api?q=" + query + "&length="+ length + "&f=xml&key=" + key;
-		// get xml from faro
+		// get xml from faroo
 		this.getData(url);
 	}
 
@@ -108,41 +82,19 @@ public class API {
 		for (int NodeAtPosition = 0; NodeAtPosition < nList.getLength(); NodeAtPosition++) {
 			Element e = (Element) nList.item(NodeAtPosition);
 			HashMap<String, String> result = new HashMap<String, String>();
-			result.put("title",
-					NodeAtPosition + ": "+ e.getElementsByTagName("title").item(0).getTextContent().trim());
+			
+			result.put("title", NodeAtPosition + ": "+ e.getElementsByTagName("title").item(0).getTextContent().trim());
+			result.put("url", NodeAtPosition + ": "+ e.getElementsByTagName("url").item(0).getTextContent().trim());
+			result.put("domain", NodeAtPosition + ": "+ e.getElementsByTagName("domain").item(0).getTextContent().trim());
+			result.put("imageUrl", NodeAtPosition + ": "+ e.getElementsByTagName("imageUrl").item(0).getTextContent().trim());
+			result.put("firstIndexed", NodeAtPosition + ": "+ e.getElementsByTagName("firstIndexed").item(0).getTextContent().trim());
+			result.put("firstPublished", NodeAtPosition + ": "+ e.getElementsByTagName("firstPublished").item(0).getTextContent().trim());
+			result.put("kwic", NodeAtPosition + ": "+ e.getElementsByTagName("kwic").item(0).getTextContent().trim());
+			result.put("author", NodeAtPosition + ": "+ e.getElementsByTagName("author").item(0).getTextContent().trim());
+			result.put("votes", NodeAtPosition + ": "+ e.getElementsByTagName("votes").item(0).getTextContent().trim());
+			result.put("isNews", NodeAtPosition + ": "+ e.getElementsByTagName("isNews").item(0).getTextContent().trim());
+	
 			results.add(result);
-			// System.out.println("\n" +
-			// "Ergebnis "+ results[0].get("title") +"\n"+
-			// "Website url: " +
-			// e.getElementsByTagName("url").item(0).getTextContent().trim()
-			// +"\n"+
-			// "Domain: " +
-			// e.getElementsByTagName("domain").item(0).getTextContent().trim()
-			// +"\n"+
-			// "imageUrl: " +
-			// e.getElementsByTagName("imageUrl").item(0).getTextContent().trim()
-			// +"\n"+
-			// "firstIndexed: " +
-			// e.getElementsByTagName("firstIndexed").item(0).getTextContent().trim()
-			// +"\n"+
-			// "firstPublished: " +
-			// e.getElementsByTagName("firstPublished").item(0).getTextContent().trim()
-			// +"\n"+
-			// "kwic: " +
-			// e.getElementsByTagName("kwic").item(0).getTextContent().trim()
-			// +"\n"+
-			// "author: " +
-			// e.getElementsByTagName("author").item(0).getTextContent().trim()
-			// +"\n"+
-			// "votes: " +
-			// e.getElementsByTagName("votes").item(0).getTextContent().trim()
-			// +"\n"+
-			// "isNews: " +
-			// e.getElementsByTagName("isNews").item(0).getTextContent().trim()
-			// +"\n"+
-			// "==========================="
-			// );
-
 		}
 		return results;
 	}
