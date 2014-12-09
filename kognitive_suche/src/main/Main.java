@@ -11,14 +11,19 @@ public class Main {
 
 	/*********************************************************************************************
 	 * *******************************************************************************************
+	 *
 	 * Wichtig!!!
 	 * Die Main Klasse
 	 * Bevor das Projekt ausgeführt werden kann muss eine config.properties file angelegt werden.
 	 * Mit dem Inhalt:
-	 * key = Der Key
+	 *
+	 * key = 2CJIbhzsHU4nlSqBVZ2OP3fimb4_
+	 *
+	 * Die Abfrage für den Key wird in der Console erledigt!
 	 *
 	 * *******************************************************************************************
 	 * *******************************************************************************************
+	 *
 	 * @param args
 	 * 
 	 */
@@ -45,7 +50,15 @@ public class Main {
 
 		API api = new API(config.getKey());
 		try {
+			//TODO Leerzeilen in dem Suchbegriff abfangen
 			api.query("Foo");
+			api.query("oma");
+			//api.query("hallo");
+			//api.query("foo war");
+			//api.query("&&");
+			//api.query("Foäöü");
+			//api.query("mama");
+			//api.query("Huibu");
 			ArrayList<HashMap<String,String>> foo = api.getCompleteResults();
 			for(HashMap<String,String> result: foo){
 				System.out.println(result.get("title"));

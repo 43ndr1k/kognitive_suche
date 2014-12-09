@@ -19,6 +19,11 @@ public class ConfigFileManagement {
 
     private String key = "";
 
+    /**
+     * Konstruktor
+     * Testet ob das Config file existiert.
+     */
+
     public ConfigFileManagement(){
 
 
@@ -62,7 +67,7 @@ public class ConfigFileManagement {
         String key = "";
         Writer fw = null;
 
-        //ToDOO Einlesen des keys muss auf Grafik angepasst werden!!!
+        //TODO Einlesen des keys muss auf Grafik angepasst werden!!!
 
         System.out.print("Config file und der Faroo API Key fehlt!\n");
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));

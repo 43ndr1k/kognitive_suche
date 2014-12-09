@@ -21,16 +21,18 @@ import org.xml.sax.InputSource;
  * Dies ist die API, um die Faroo API anzusprechen.
  * 
  * @author Hendrik Sawade
- * @version 1.10
+ * @version 1.21
  */
 public class API {
 	private ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
 	private NodeList nList = null;
 	private String key = null;
+	private HttpURLConnection conn = null;
+
 	/**
 	 * Abruf des Suchwortes
 	 * @param key API-Key
-	 * @param query Suchwort
+	 *
 	 */
 	
 	public API(String key) {
@@ -40,9 +42,9 @@ public class API {
 
 	/**
 	 * Abruf nach Suchwort und beschränkter Anzahl von Suchergebnissen
-	 * @param key
+	 *
 	 * @param query
-	 * @param length
+	 *
 	 */
 
 	public void query(String query) throws APIExecption {
@@ -52,7 +54,14 @@ public class API {
 		this.getData(url);
 		
 	}
-	
+
+	/**
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query
+	 * @param length
+	 * @throws Exception
+	 */
 	public void query(String query, int length) throws Exception{
 
 		if(length < 1) {
@@ -68,15 +77,17 @@ public class API {
 	
 	/**
 	 * 
-	 *
-	 * @param u
+	 * Hier wird die Verbindung zu Faroo aufgebaut und die Daten empfangen.
+	 * Es wird eine XML Struktur empfangen
+	 * Aus der XML Struktur wird ein Dokument erstellt
+	 * @param u URL
 	 */
 	private void getData(String u) throws APIExecption {
 		nList = null;
 		String xmlstring = "";
 		try {
+			//TODO connection aufrecht erhalten
 
-			HttpURLConnection conn;
 			URL url = new URL(u);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -110,8 +121,12 @@ public class API {
 	}
 
 	/**
-	 * 
-	 * @return results
+	 * Hier wird aus dem ersetllen Dokument eine ArrayList
+	 * Es werden die einzelden Tags abgefragt und in eine HashMap eingefügt. Aus den vielen Ergebnissen wird so eine
+	 * Liste. Jeder Eintrag in der HashMap entspricht ein Tag. Diese Liste wird einer ArrayList hinzugefügt. Die ArrayList
+	 * enthält alle Suchergebnisse.
+	 *
+	 * @return results ArrayList
 	 * 
 	 */
 	public ArrayList<HashMap<String, String>> getCompleteResults() throws Exception {
