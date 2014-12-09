@@ -34,7 +34,6 @@ public class API {
 	 */
 	
 	public API(String key) {
-		super();
 		this.key = key;
 
 	}
@@ -46,7 +45,7 @@ public class API {
 	 * @param length
 	 */
 
-	public void query(String query){
+	public void query(String query) throws APIExecption {
 		
 		String url = "http://www.faroo.com/api?q=" + query + "&f=xml&key="+ key;
 		// get xml from faroo
@@ -56,7 +55,7 @@ public class API {
 	
 	public void query(String query, int length) throws Exception{
 
-		if(length < 1){
+		if(length < 1) {
 
 			throw new Exception("Wert kleiner 1");
 		}
@@ -72,8 +71,8 @@ public class API {
 	 *
 	 * @param u
 	 */
-	private void getData(String u) {
-
+	private void getData(String u) throws APIExecption {
+		nList = null;
 		String xmlstring = "";
 		try {
 
@@ -81,7 +80,9 @@ public class API {
 			URL url = new URL(u);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
-
+			if(conn.getResponseCode() >= 400){
+				throw new APIExecption(conn.getResponseCode());
+			}
 			BufferedReader rd;
 			String line;
 			rd = new BufferedReader(
@@ -91,8 +92,6 @@ public class API {
 			}
 			rd.close();
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -115,11 +114,11 @@ public class API {
 	 * @return results
 	 * 
 	 */
-	public ArrayList<HashMap<String, String>> getCompleteResults() {
+	public ArrayList<HashMap<String, String>> getCompleteResults() throws Exception {
 
 		// query
 		// "https://faroo-faroo-web-search.p.mashape.com/api?q=test&src=news&length=10&f=xml";
-
+		results.clear();
 		for (int NodeAtPosition = 0; NodeAtPosition < nList.getLength(); NodeAtPosition++) {
 			Element e = (Element) nList.item(NodeAtPosition);
 			HashMap<String, String> result = new HashMap<String, String>();
@@ -137,7 +136,13 @@ public class API {
 	
 			results.add(result);
 		}
-		return results;
+		if(results != null){
+			return results;
+		}
+		else{
+			throw new Exception("Kein Ergebnis");
+		}
+
 	}
 
 }
