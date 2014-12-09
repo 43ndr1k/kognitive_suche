@@ -3,13 +3,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import Faroo.API;
+import Faroo.ConfigFileManagement;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.BufferedInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.Properties;
 
 public class Main {
 
@@ -46,8 +41,9 @@ public class Main {
 		 *
 		 */
 
-		String key = leseConfig();
-		API api = new API(key);
+		ConfigFileManagement config = new ConfigFileManagement();
+
+		API api = new API(config.getKey());
 		try {
 			api.query("Foo");
 			ArrayList<HashMap<String,String>> foo = api.getCompleteResults();
@@ -65,43 +61,10 @@ public class Main {
 			
 			}
 
-
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-
-	/**
-	 * Diese Methode list eine Config file aus und speichert den API key in einer Variable key.
-	 *
-	 * @return key
-	 */
-	private static  String leseConfig(){
-		
-		String key = null;
-		Properties properties = new Properties();
-		BufferedInputStream stream = null;
-		try {
-
-			stream = new BufferedInputStream(new FileInputStream("config.properties"));
-		} catch (FileNotFoundException e2) {
-			e2.printStackTrace();
-		}
-		try {
-			properties.load(stream);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		try {
-			stream.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-			key = properties.getProperty("key");
-		
-		
-		return key;
-	}
 }
 
