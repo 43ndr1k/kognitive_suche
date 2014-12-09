@@ -26,18 +26,17 @@ import org.xml.sax.InputSource;
 public class API {
 	private ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
 	private NodeList nList = null;
-
+	private String key = null;
 	/**
 	 * Abruf des Suchwortes
 	 * @param key API-Key
 	 * @param query Suchwort
 	 */
-	public API(String key, String query) {
+	
+	public API(String key) {
 		super();
+		this.key = key;
 
-		String url = "http://www.faroo.com/api?q=" + query + "&f=xml&key="+ key;
-		// get xml from faroo
-		this.getData(url);
 	}
 
 	/**
@@ -46,13 +45,28 @@ public class API {
 	 * @param query
 	 * @param length
 	 */
-	public API(String key, String query, int length) {
-		super();
-		String url = "http://www.faroo.com/api?q=" + query + "&length="+ length + "&f=xml&key=" + key;
+
+	public void query(String query){
+		
+		String url = "http://www.faroo.com/api?q=" + query + "&f=xml&key="+ key;
 		// get xml from faroo
 		this.getData(url);
+		
 	}
+	
+	public void query(String query, int length) throws Exception{
 
+		if(length < 1){
+
+			throw new Exception("Wert kleiner 1");
+		}
+		
+		String url = "http://www.faroo.com/api?q=" + query + "&f=xml&key="+ key+"&length="+length;
+		// get xml from faroo
+		this.getData(url);
+		
+	}
+	
 	/**
 	 * 
 	 *
