@@ -21,35 +21,36 @@ import org.xml.sax.InputSource;
  * Dies ist die API, um die Faroo API anzusprechen.
  * 
  * @author Hendrik Sawade
- * @version 1.21
+ * @version 1.22
  */
 public class API {
+	private static String[] replacements = {"%","%25", " ","%20", "!","%21", "#","%23", "\\$","%24", "\"","%22", "&","%26", "’","%27", "\\(","%28", "\\)","%29", "\\*","%2A", "\\+","%2B", ",","%2C", "/","%2F", ":","%3A", ";","%3B", "=","%3D", "\\?","%3F", "@","%40", "\\[","%5B", "]","%5D"};
 	private ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
 	private NodeList nList = null;
 	private String key = null;
 	private HttpURLConnection conn = null;
 
 	/**
-	 * Abruf des Suchwortes
+	 * Key eintragen in die Klasse
 	 * @param key API-Key
 	 *
 	 */
 	
 	public API(String key) {
 		this.key = key;
-
 	}
 
 	/**
-	 * Abruf nach Suchwort und beschränkter Anzahl von Suchergebnissen
+	 * Abruf nach Suchwort
 	 *
 	 * @param query
 	 *
 	 */
 
 	public void query(String query) throws APIExecption {
-		
-		String url = "http://www.faroo.com/api?q=" + query + "&f=xml&key="+ key;
+
+		query = encoding(query);
+		String url = "&q=" + query;
 		// get xml from faroo
 		this.getData(url);
 		
@@ -68,13 +69,361 @@ public class API {
 
 			throw new Exception("Wert kleiner 1");
 		}
-		
-		String url = "http://www.faroo.com/api?q=" + query + "&f=xml&key="+ key+"&length="+length;
+		query = encoding(query);
+		String url = "&length="+length + "&q=" + query;
 		// get xml from faroo
 		this.getData(url);
-		
 	}
-	
+
+	/**
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param start Bei welchem Suchergebnis soll die Suche anfangen
+	 * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, int start, int length) throws Exception{
+
+		if(start < 1 || length < 1) {
+
+			throw new Exception("Wert kleiner 1");
+		}
+		query = encoding(query);
+		String url = "&start="+ start + "&length="+length + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param start Bei welchem Suchergebnis soll die Suche anfangen
+	 * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, int start, int length, String language) throws Exception{
+
+		if(start < 1 || length < 1) {
+
+			throw new Exception("Wert kleiner 1");
+		}
+		query = encoding(query);
+		String url = "&start="+ start + "&length="+length +
+				"&l=" + language + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 *
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param start Bei welchem Suchergebnis soll die Suche anfangen
+	 * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @param src Source
+						web Web Search (default) Sorted by relevancy Contains all
+						kinds of results
+						news News Search
+						Sorted by publishing date Contains only news articles from
+						newspapers, magazines and blogs
+						topics Trending Topics Similar to Trending News: Trending
+						News: for each topic a main article with all properties +
+						related articles with title, url, domain only. Trending Topics:
+						for each topic all the related articles are provided with all
+						properties (more data, slower transfer).
+						trends Trending Terms Trending terms, sorted by buzz
+						(number of sources reporting on same term).
+						suggest Suggestions Suggestions include auto completes for
+						query substrings and corrections for misspelled terms. When
+						using the above searches with parameter i=true, the suggesti-
+						ons are already included in the search result.
+
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, int start, int length, String language, String src) throws Exception{
+
+		if(start < 1 || length < 1) {
+
+			throw new Exception("Wert kleiner 1");
+		}
+		query = encoding(query);
+		String url = "&start="+ start + "&length="+length +
+				"&l=" + language + "&src=" + src + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 *
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param start Bei welchem Suchergebnis soll die Suche anfangen
+	 * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @param src Source
+						web Web Search (default) Sorted by relevancy Contains all
+						kinds of results
+						news News Search
+						Sorted by publishing date Contains only news articles from
+						newspapers, magazines and blogs
+						topics Trending Topics Similar to Trending News: Trending
+						News: for each topic a main article with all properties +
+						related articles with title, url, domain only. Trending Topics:
+						for each topic all the related articles are provided with all
+						properties (more data, slower transfer).
+						trends Trending Terms Trending terms, sorted by buzz
+						(number of sources reporting on same term).
+						suggest Suggestions Suggestions include auto completes for
+						query substrings and corrections for misspelled terms. When
+						using the above searches with parameter i=true, the suggesti-
+						ons are already included in the search result.
+
+	 * @param kwic Keyword in context false snippet is selected from the begin-
+					ning of the article.
+					true (default) snippet is selected from the article parts con-
+					taining the keywords.
+
+	 * @throws Exception Wert zu klein
+	 */
+
+	public void query(String query, int start, int length, String language, String src, String kwic) throws Exception{
+
+		if(start < 1 || length < 1) {
+
+			throw new Exception("Wert kleiner 1");
+		}
+		query = encoding(query);
+		String url = "&start="+ start + "&length="+length +
+				"&l=" + language + "&src=" + src + "&kwic=" + kwic + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 *
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param start Bei welchem Suchergebnis soll die Suche anfangen
+	 * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @param src Source
+						web Web Search (default) Sorted by relevancy Contains all
+						kinds of results
+						news News Search
+						Sorted by publishing date Contains only news articles from
+						newspapers, magazines and blogs
+						topics Trending Topics Similar to Trending News: Trending
+						News: for each topic a main article with all properties +
+						related articles with title, url, domain only. Trending Topics:
+						for each topic all the related articles are provided with all
+						properties (more data, slower transfer).
+						trends Trending Terms Trending terms, sorted by buzz
+						(number of sources reporting on same term).
+						suggest Suggestions Suggestions include auto completes for
+						query substrings and corrections for misspelled terms. When
+						using the above searches with parameter i=true, the suggesti-
+						ons are already included in the search result.
+
+	 * @param kwic Keyword in context false snippet is selected from the begin-
+					ning of the article.
+					true (default) snippet is selected from the article parts con-
+					taining the keywords.
+	 * @param i Instant search false (default) searches for query q
+				true searches for best suggestion if query q is substring or
+				misspelled. Slower search!
+
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, int start, int length, String language, String src, String kwic, boolean i) throws Exception{
+
+		if(start < 1 || length < 1) {
+
+			throw new Exception("Wert kleiner 1");
+		}
+		query = encoding(query);
+		String url = "&start="+ start + "&length="+length +
+				"&l=" + language + "&src=" + src + "&kwic=" + kwic + "&i=" + i + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 *
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param start Bei welchem Suchergebnis soll die Suche anfange
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @param src Source
+						web Web Search (default) Sorted by relevancy Contains all
+						kinds of results
+						news News Search
+						Sorted by publishing date Contains only news articles from
+						newspapers, magazines and blogs
+						topics Trending Topics Similar to Trending News: Trending
+						News: for each topic a main article with all properties +
+						related articles with title, url, domain only. Trending Topics:
+						for each topic all the related articles are provided with all
+						properties (more data, slower transfer).
+						trends Trending Terms Trending terms, sorted by buzz
+						(number of sources reporting on same term).
+						suggest Suggestions Suggestions include auto completes for
+						query substrings and corrections for misspelled terms. When
+						using the above searches with parameter i=true, the suggesti-
+						ons are already included in the search result.
+
+	 * @param kwic Keyword in context false snippet is selected from the begin-
+					ning of the article.
+					true (default) snippet is selected from the article parts con-
+					taining the keywords.
+	 * @param i Instant search false (default) searches for query q
+				true searches for best suggestion if query q is substring or
+				misspelled. Slower search!
+
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, int start, String language, String src, String kwic, boolean i) throws Exception{
+
+		if(start < 1) {
+
+			throw new Exception("Wert kleiner 1");
+		}
+		query = encoding(query);
+		String url = "&start="+ start +
+				"&l=" + language + "&src=" + src + "&kwic=" + kwic + "&i=" + i + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 *
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @param src Source
+					web Web Search (default) Sorted by relevancy Contains all
+					kinds of results
+					news News Search
+					Sorted by publishing date Contains only news articles from
+					newspapers, magazines and blogs
+					topics Trending Topics Similar to Trending News: Trending
+					News: for each topic a main article with all properties +
+					related articles with title, url, domain only. Trending Topics:
+					for each topic all the related articles are provided with all
+					properties (more data, slower transfer).
+					trends Trending Terms Trending terms, sorted by buzz
+					(number of sources reporting on same term).
+					suggest Suggestions Suggestions include auto completes for
+					query substrings and corrections for misspelled terms. When
+					using the above searches with parameter i=true, the suggesti-
+					ons are already included in the search result.
+
+	 * @param kwic Keyword in context false snippet is selected from the begin-
+				ning of the article.
+				true (default) snippet is selected from the article parts con-
+				taining the keywords.
+	 * @param i Instant search false (default) searches for query q
+				true searches for best suggestion if query q is substring or
+				misspelled. Slower search!
+
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, String language, String src, String kwic, boolean i) throws Exception{
+
+		query = encoding(query);
+		String url =
+				"&l=" + language + "&src=" + src + "&kwic=" + kwic + "&i=" + i + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 *
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param start Bei welchem Suchergebnis soll die Suche anfangen
+	 * @param src Source
+				web Web Search (default) Sorted by relevancy Contains all
+				kinds of results
+				news News Search
+				Sorted by publishing date Contains only news articles from
+				newspapers, magazines and blogs
+				topics Trending Topics Similar to Trending News: Trending
+				News: for each topic a main article with all properties +
+				related articles with title, url, domain only. Trending Topics:
+				for each topic all the related articles are provided with all
+				properties (more data, slower transfer).
+				trends Trending Terms Trending terms, sorted by buzz
+				(number of sources reporting on same term).
+				suggest Suggestions Suggestions include auto completes for
+				query substrings and corrections for misspelled terms. When
+				using the above searches with parameter i=true, the suggesti-
+				ons are already included in the search result.
+
+	 * @param kwic Keyword in context false snippet is selected from the begin-
+				ning of the article.
+				true (default) snippet is selected from the article parts con-
+				taining the keywords.
+
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, int start, String src, String kwic) throws Exception{
+
+		if(start < 1) {
+
+			throw new Exception("Wert kleiner 1");
+		}
+		query = encoding(query);
+		String url = "&start="+ start +
+				 "&src=" + src + "&kwic=" + kwic + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, String language) throws Exception{
+
+		query = encoding(query);
+		String url = "&l=" + language + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+	/**
+	 * Anfrage an die Faroo API stellen
+	 * url wird zusammen gestzt
+	 * @param query Suchwort
+	 * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+	 * @param i Instant search false (default) searches for query q
+				true searches for best suggestion if query q is substring or
+				misspelled. Slower search!
+	 * @throws Exception Wert zu klein
+	 */
+	public void query(String query, String language, boolean i) throws Exception{
+
+		query = encoding(query);
+		String url = "&l=" + language + "&i=" + i + "&q=" + query;
+		// get xml from faroo
+		this.getData(url);
+	}
+
+
+
 	/**
 	 * 
 	 * Hier wird die Verbindung zu Faroo aufgebaut und die Daten empfangen.
@@ -83,14 +432,19 @@ public class API {
 	 * @param u URL
 	 */
 	private void getData(String u) throws APIExecption {
+		
+
+
 		nList = null;
 		String xmlstring = "";
 		try {
 			//TODO connection aufrecht erhalten
 
-			URL url = new URL(u);
+			URL url = new URL("http://www.faroo.com/api?f=xml&key="+ key + u);
+
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
+
 			if(conn.getResponseCode() >= 400){
 				throw new APIExecption(conn.getResponseCode());
 			}
@@ -158,6 +512,20 @@ public class API {
 			throw new Exception("Kein Ergebnis");
 		}
 
+	}
+
+	/**
+	 * Diese Methode codiert die query nach URL-Envording Richtlien
+	 * @param u query
+	 * @return u
+	 */
+	private String encoding(String u){
+
+		for(int i = 0; i < replacements.length-1;i = i+2){
+			u = u.replaceAll(replacements[i],replacements[i+1]);
+		}
+
+		return u;
 	}
 
 }

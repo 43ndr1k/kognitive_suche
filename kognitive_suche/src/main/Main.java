@@ -44,15 +44,17 @@ public class Main {
 		 * gibt seitens des Verbindungsaufbaus oder ähnliches.
 		 *
 		 *
+		 * Falls die Methode "query" mit einer bestimmten kombination an Parametern nicht existiert, kann man sie leich implementieren.
+		 *
 		 */
 
 		ConfigFileManagement config = new ConfigFileManagement();
 
 		API api = new API(config.getKey());
 		try {
-			//TODO Leerzeilen in dem Suchbegriff abfangen
-			api.query("Foo");
-			api.query("oma");
+
+			api.query("Hallo Welt?", "de");
+			api.query("oma", "de", true);
 			//api.query("hallo");
 			//api.query("foo war");
 			//api.query("&&");
