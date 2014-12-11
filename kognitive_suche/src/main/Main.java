@@ -62,8 +62,11 @@ public class Main {
 			//api.query("Foäöü");
 			//api.query("mama");
 			//api.query("Huibu");
+
+
 			APIResults apiResults = api.getResult();
 			ArrayList<HashMap<String,String>> results = apiResults.getResultsList();
+
 			for(HashMap<String,String> result: results){
 					System.out.println(result.get("title"));
 					System.out.println(result.get("url"));
