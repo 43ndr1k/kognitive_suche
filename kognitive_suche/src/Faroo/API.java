@@ -476,16 +476,16 @@ public class API {
 				Element e = (Element) nList.item(NodeAtPosition);
 				HashMap<String, String> result = new HashMap<String, String>();
 
-				result.put("title", NodeAtPosition + ": "+ e.getElementsByTagName("title").item(0).getTextContent().trim());
-				result.put("url", NodeAtPosition + ": "+ e.getElementsByTagName("url").item(0).getTextContent().trim());
-				result.put("domain", NodeAtPosition + ": "+ e.getElementsByTagName("domain").item(0).getTextContent().trim());
-				result.put("imageUrl", NodeAtPosition + ": "+ e.getElementsByTagName("imageUrl").item(0).getTextContent().trim());
-				result.put("firstIndexed", NodeAtPosition + ": "+ e.getElementsByTagName("firstIndexed").item(0).getTextContent().trim());
-				result.put("firstPublished", NodeAtPosition + ": "+ e.getElementsByTagName("firstPublished").item(0).getTextContent().trim());
-				result.put("kwic", NodeAtPosition + ": "+ e.getElementsByTagName("kwic").item(0).getTextContent().trim());
-				result.put("author", NodeAtPosition + ": "+ e.getElementsByTagName("author").item(0).getTextContent().trim());
-				result.put("votes", NodeAtPosition + ": "+ e.getElementsByTagName("votes").item(0).getTextContent().trim());
-				result.put("isNews", NodeAtPosition + ": "+ e.getElementsByTagName("isNews").item(0).getTextContent().trim());
+				result.put("title", e.getElementsByTagName("title").item(0).getTextContent().trim());
+				result.put("url", e.getElementsByTagName("url").item(0).getTextContent().trim());
+				result.put("domain", e.getElementsByTagName("domain").item(0).getTextContent().trim());
+				result.put("imageUrl", e.getElementsByTagName("imageUrl").item(0).getTextContent().trim());
+				result.put("firstIndexed", e.getElementsByTagName("firstIndexed").item(0).getTextContent().trim());
+				result.put("firstPublished", e.getElementsByTagName("firstPublished").item(0).getTextContent().trim());
+				result.put("kwic", e.getElementsByTagName("kwic").item(0).getTextContent().trim());
+				result.put("author", e.getElementsByTagName("author").item(0).getTextContent().trim());
+				result.put("votes", e.getElementsByTagName("votes").item(0).getTextContent().trim());
+				result.put("isNews", e.getElementsByTagName("isNews").item(0).getTextContent().trim());
 
 				results.add(result);
 			}

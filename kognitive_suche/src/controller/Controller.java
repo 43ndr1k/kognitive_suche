@@ -24,7 +24,7 @@ public class Controller {
 	private String Config; //Erstmal nur zum Test, wird entweder 1 Array oder mehrere Variablen
 	
 	/* CONSTRUCTOR */
-	public Controller(String Suchstring, String Config){//Nen Test ob wir Netz haben wäre vlt. noch nützlich
+	public Controller(String Suchstring, String Config){//Nen Test ob wir Netz haben wï¿½re vlt. noch nï¿½tzlich
 		this.Suchstring = Suchstring;
 		this.Config = Config;
 		
@@ -44,8 +44,7 @@ public class Controller {
 		case4:
 			break; Schlechte IDee*/
 		
-	}
-	
+
 	
 	/* METHODS */
 	private void getconfig(){
