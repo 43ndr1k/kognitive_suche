@@ -25,8 +25,8 @@ import org.xml.sax.InputSource;
  */
 public class API {
 	private static String[] replacements = {"%","%25", " ","%20", "!","%21", "#","%23", "\\$","%24", "\"","%22", "&","%26", "’","%27", "\\(","%28", "\\)","%29", "\\*","%2A", "\\+","%2B", ",","%2C", "/","%2F", ":","%3A", ";","%3B", "=","%3D", "\\?","%3F", "@","%40", "\\[","%5B", "]","%5D"};
-	private ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
-	private NodeList nList = null;
+
+	private APIResults apiresult = null;
 	private String key = null;
 	private HttpURLConnection conn = null;
 
@@ -432,10 +432,10 @@ public class API {
 	 * @param u URL
 	 */
 	private void getData(String u) throws APIExecption {
-		
 
 
-		nList = null;
+		NodeList nList = null;
+
 		String xmlstring = "";
 		try {
 			//TODO connection aufrecht erhalten
@@ -469,6 +469,33 @@ public class API {
 
 			nList = document.getElementsByTagName("result");
 
+			// query
+			// "https://faroo-faroo-web-search.p.mashape.com/api?q=test&src=news&length=10&f=xml";
+			ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
+			for (int NodeAtPosition = 0; NodeAtPosition < nList.getLength(); NodeAtPosition++) {
+				Element e = (Element) nList.item(NodeAtPosition);
+				HashMap<String, String> result = new HashMap<String, String>();
+
+				result.put("title", NodeAtPosition + ": "+ e.getElementsByTagName("title").item(0).getTextContent().trim());
+				result.put("url", NodeAtPosition + ": "+ e.getElementsByTagName("url").item(0).getTextContent().trim());
+				result.put("domain", NodeAtPosition + ": "+ e.getElementsByTagName("domain").item(0).getTextContent().trim());
+				result.put("imageUrl", NodeAtPosition + ": "+ e.getElementsByTagName("imageUrl").item(0).getTextContent().trim());
+				result.put("firstIndexed", NodeAtPosition + ": "+ e.getElementsByTagName("firstIndexed").item(0).getTextContent().trim());
+				result.put("firstPublished", NodeAtPosition + ": "+ e.getElementsByTagName("firstPublished").item(0).getTextContent().trim());
+				result.put("kwic", NodeAtPosition + ": "+ e.getElementsByTagName("kwic").item(0).getTextContent().trim());
+				result.put("author", NodeAtPosition + ": "+ e.getElementsByTagName("author").item(0).getTextContent().trim());
+				result.put("votes", NodeAtPosition + ": "+ e.getElementsByTagName("votes").item(0).getTextContent().trim());
+				result.put("isNews", NodeAtPosition + ": "+ e.getElementsByTagName("isNews").item(0).getTextContent().trim());
+
+				results.add(result);
+			}
+			if(results != null){
+				apiresult = new APIResults(results);
+			}
+			else{
+				throw new Exception("Kein Ergebnis");
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -483,35 +510,8 @@ public class API {
 	 * @return results ArrayList
 	 * 
 	 */
-	public ArrayList<HashMap<String, String>> getCompleteResults() throws Exception {
-
-		// query
-		// "https://faroo-faroo-web-search.p.mashape.com/api?q=test&src=news&length=10&f=xml";
-		results.clear();
-		for (int NodeAtPosition = 0; NodeAtPosition < nList.getLength(); NodeAtPosition++) {
-			Element e = (Element) nList.item(NodeAtPosition);
-			HashMap<String, String> result = new HashMap<String, String>();
-			
-			result.put("title", NodeAtPosition + ": "+ e.getElementsByTagName("title").item(0).getTextContent().trim());
-			result.put("url", NodeAtPosition + ": "+ e.getElementsByTagName("url").item(0).getTextContent().trim());
-			result.put("domain", NodeAtPosition + ": "+ e.getElementsByTagName("domain").item(0).getTextContent().trim());
-			result.put("imageUrl", NodeAtPosition + ": "+ e.getElementsByTagName("imageUrl").item(0).getTextContent().trim());
-			result.put("firstIndexed", NodeAtPosition + ": "+ e.getElementsByTagName("firstIndexed").item(0).getTextContent().trim());
-			result.put("firstPublished", NodeAtPosition + ": "+ e.getElementsByTagName("firstPublished").item(0).getTextContent().trim());
-			result.put("kwic", NodeAtPosition + ": "+ e.getElementsByTagName("kwic").item(0).getTextContent().trim());
-			result.put("author", NodeAtPosition + ": "+ e.getElementsByTagName("author").item(0).getTextContent().trim());
-			result.put("votes", NodeAtPosition + ": "+ e.getElementsByTagName("votes").item(0).getTextContent().trim());
-			result.put("isNews", NodeAtPosition + ": "+ e.getElementsByTagName("isNews").item(0).getTextContent().trim());
-	
-			results.add(result);
-		}
-		if(results != null){
-			return results;
-		}
-		else{
-			throw new Exception("Kein Ergebnis");
-		}
-
+	public APIResults getResult() throws Exception {
+		return apiresult;
 	}
 
 	/**

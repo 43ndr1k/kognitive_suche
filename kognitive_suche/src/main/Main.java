@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import Faroo.API;
 import Faroo.ConfigFileManagement;
-
+import Faroo.APIResults;
 
 public class Main {
 
@@ -51,6 +51,7 @@ public class Main {
 		ConfigFileManagement config = new ConfigFileManagement();
 
 		API api = new API(config.getKey());
+
 		try {
 
 			api.query("Hallo Welt?", "de");
@@ -61,19 +62,19 @@ public class Main {
 			//api.query("Foäöü");
 			//api.query("mama");
 			//api.query("Huibu");
-			ArrayList<HashMap<String,String>> foo = api.getCompleteResults();
-			for(HashMap<String,String> result: foo){
-				System.out.println(result.get("title"));
-				System.out.println(result.get("url"));
-				System.out.println(result.get("domain"));
-				System.out.println(result.get("imageUrl"));
-				System.out.println(result.get("firstIndexed"));
-				System.out.println(result.get("firstPublished"));
-				System.out.println(result.get("kwic"));
-				System.out.println(result.get("author"));
-				System.out.println(result.get("votes"));
-				System.out.println(result.get("isNews"));
-			
+			APIResults apiResults = api.getResult();
+			ArrayList<HashMap<String,String>> results = apiResults.getResultsList();
+			for(HashMap<String,String> result: results){
+					System.out.println(result.get("title"));
+					System.out.println(result.get("url"));
+					System.out.println(result.get("domain"));
+					System.out.println(result.get("imageUrl"));
+					System.out.println(result.get("firstIndexed"));
+					System.out.println(result.get("firstPublished"));
+					System.out.println(result.get("kwic"));
+					System.out.println(result.get("author"));
+					System.out.println(result.get("votes"));
+					System.out.println(result.get("isNews"));
 			}
 
 			} catch (Exception e) {
