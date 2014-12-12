@@ -21,11 +21,12 @@ public class Controller {
 
 	/* CONSTANTS */
 	private int test1 = 1;
-    String pdfbox_path = "Data/PDFBox/pdfbox.jar"; //absolute Path to pdfbox.jar
+    static String pdfbox_path = "Data/PDFBox/pdfbox.jar"; //absolute Path to pdfbox.jar
 
 	/* VARIABLES */
 	private String Suchstring; // Die Eingabe an Farroo und pdfbox
 	private String Config; //Erstmal nur zum Test, wird entweder 1 Array oder mehrere Variablen
+
 	
 	/* CONSTRUCTOR */
 	public Controller(String Suchstring, String Config){//Nen Test ob wir Netz haben w�re vlt. noch n�tzlich
@@ -64,8 +65,8 @@ public class Controller {
 		return null;
 	}
 
-	private Object queryPdfBox(Object pObject){
-	    PDFBoxAccesControler PDFBoxAcces = new PDFBoxAccesControler(pdfbox_path); //Runs the PDFBox tool. CARE: It takes about 30 seconds until PDFBox is ready.
+	public static ArrayList<PDFDocument> queryPdfBox(){
+	    PDFBoxAccesControler PDFBoxAcces = new PDFBoxAccesControler(pdfbox_path); //Runs the PDFBox tool. CARE: It takes up to 30 seconds until PDFBox is ready.
 	    return PDFBoxAcces.getDocKeywords();
 	    }
 	
