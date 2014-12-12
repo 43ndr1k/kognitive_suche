@@ -17,7 +17,7 @@ public class PDFBoxAccesControler {
    * @author Fabian Freihube
    */
 
-  ArrayList<PDFKeyword> Keywords = new ArrayList<PDFKeyword>();
+  ArrayList<PDFDocument> PDFDoc = new ArrayList<PDFDocument>();
 
   String docname;
 
@@ -25,13 +25,13 @@ public class PDFBoxAccesControler {
 
     PDFBox PDFBox = new PDFBox(pdfbox_path);
 
-    this.Keywords = PDFBox.getKeywords();
-    this.docname = PDFBox.getDoc();
+    this.PDFDoc = PDFBox.getKeywords();
+  
 
   }
 
-  public PDFDocument getDocKeywords() {
-    return new PDFDocument(docname, Keywords);
+  public ArrayList<PDFDocument> getDocKeywords() {
+    return PDFDoc;
   }
 
 

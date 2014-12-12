@@ -32,7 +32,7 @@ public class PDFBox {
 
   }
 
-  public ArrayList<PDFKeyword> getKeywords() {
+  public ArrayList<PDFDocument> getKeywords() {
     /**
      * getKeywords
      *
@@ -42,7 +42,8 @@ public class PDFBox {
      * @author Fabian Freihube
      */
     
-    ArrayList<PDFKeyword> Keywords = new ArrayList<PDFKeyword>();
+    ArrayList<PDFKeyword> Keywords = null;
+    ArrayList<PDFDocument> PDFDoc = new ArrayList<PDFDocument>();
 
     InputStream inputStream = p.getInputStream();
     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream), 1);
@@ -57,7 +58,10 @@ public class PDFBox {
       while ((line = bufferedReader.readLine()) != null) {
         
         if (line.split(":")[0].equals("ENDKEY")) 
+        {
           reading = false;
+          PDFDoc.add(new PDFDocument(doc, Keywords));
+        }
 
         if(reading)  
           Keywords.add(new PDFKeyword(line.split(":")[0], Float.parseFloat(line.split(":")[1])));
@@ -66,6 +70,7 @@ public class PDFBox {
         {
           reading = true;
           doc = line.split(":")[1];
+          Keywords = new ArrayList<PDFKeyword>();
         }
         
       }
@@ -77,14 +82,12 @@ public class PDFBox {
       e.printStackTrace();
     }
 
-    this.doc = doc;
     
-    return Keywords;
+    
+    return PDFDoc;
   }
 
-  public String getDoc() {
-    return doc;
-  }
+
   
   
 
