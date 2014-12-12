@@ -17,12 +17,12 @@ public class Main {
 	 *
 	 * Wichtig!!!
 	 * Die Main Klasse
-	 * Bevor das Projekt ausgeführt werden kann muss eine config.properties file angelegt werden.
+	 * Bevor das Projekt ausgefÃ¼hrt werden kann muss eine config.properties file angelegt werden.
 	 * Mit dem Inhalt:
 	 *
 	 * key = 2CJIbhzsHU4nlSqBVZ2OP3fimb4_
 	 *
-	 * Die Abfrage für den Key wird in der Console erledigt!
+	 * Die Abfrage fÃ¼r den Key wird in der Console erledigt!
 	 *
 	 * *******************************************************************************************
 	 * *******************************************************************************************
@@ -37,7 +37,7 @@ public class Main {
 
 		// farooTest(); //Aufrufen um Faroo zu testen
 	  
-	     pdfBoxTest(); //Aufrufen um PDFBox zu Testen
+	    // pdfBoxTest(); //Aufrufen um PDFBox zu Testen
 		
 	  
 	  
@@ -48,10 +48,10 @@ public class Main {
     // TODO Auto-generated method stub
     /**
      * Demonstriert  den Zugriff auf die PDFBox. Das Programm wird gestarete (das dauert ca. 15 Sekunden) und kann dann vom Nutzer wie gewohnt genutzt werden. 
-     * Nach dem schlie�en der PDF Box wird in der Konsole die Anzahl der eingelesenen PDFs angezeigt, sowie die Namen der PDFs und die Anzahl der gefundenen Keywords.
+     * Nach dem schließen der PDF Box wird in der Konsole die Anzahl der eingelesenen PDFs angezeigt, sowie die Namen der PDFs und die Anzahl der gefundenen Keywords.
      * 
-     * !Achtung durch das ausf�hren der PDFBox werden im kognitive_suche Ordner 2 neue Ordner (index und Database) mit verschiedenen Files angelegt. Um Probleme mit Git zu vermeiden, 
-     * sollten diese Ordner vor dem n�chsten commit wieder gel�scht werden!
+     * !Achtung durch das ausführen der PDFBox werden im kognitive_suche Ordner 2 neue Ordner (index und Database) mit verschiedenen Files angelegt. Um Probleme mit Git zu vermeiden, 
+     * sollten diese Ordner vor dem nächsten commit wieder gelöscht werden!
      */
     
     ArrayList<PDFDocument> PDFDocs = new ArrayList<PDFDocument>();
@@ -68,15 +68,15 @@ public class Main {
     /**
      * Demonstriert das Aufrufen der FAROO API und die Ausgabe auf der Konsole
      * Der erste Parameter ist der Faroo API key
-     * Mit der Methode query wird die Suchanfrage eingeleitet. Dort übergibt man das Suchwort. Dies ist die einfachste
-     * Methode, des weiteren ist es möglich in der Methode query weitere Parameter zu übergeben. (Noch nicht implementiert)
+     * Mit der Methode query wird die Suchanfrage eingeleitet. Dort Ã¼bergibt man das Suchwort. Dies ist die einfachste
+     * Methode, des weiteren ist es mÃ¶glich in der Methode query weitere Parameter zu Ã¼bergeben. (Noch nicht implementiert)
      *
-     * Mit der Methode api.getCompleteResults werden alle Ergebnisse die die Suchanfrage liefert zurückgegeben und
-     * in eine ArrayList gespeichert. über result.get kann man dann auf die Einzelden Tags zugreifen und sich diese
+     * Mit der Methode api.getCompleteResults werden alle Ergebnisse die die Suchanfrage liefert zurÃ¼ckgegeben und
+     * in eine ArrayList gespeichert. Ã¼ber result.get kann man dann auf die Einzelden Tags zugreifen und sich diese
      * Ausgeben lassen.
      *
-     * Die Anweisungen müssen in einem try catch Block stehen da die Methode eine Exeption liefert, wenn es Probleme
-     * gibt seitens des Verbindungsaufbaus oder ähnliches.
+     * Die Anweisungen mÃ¼ssen in einem try catch Block stehen da die Methode eine Exeption liefert, wenn es Probleme
+     * gibt seitens des Verbindungsaufbaus oder Ã¤hnliches.
      *
      *
      * Falls die Methode "query" mit einer bestimmten kombination an Parametern nicht existiert, kann man sie leich implementieren.
@@ -94,7 +94,7 @@ public class Main {
 			//api.query("hallo");
 			//api.query("foo war");
 			//api.query("&&");
-			//api.query("Foäöü");
+			//api.query("FoÃ¤Ã¶Ã¼");
 			//api.query("mama");
 			//api.query("Huibu");
 
