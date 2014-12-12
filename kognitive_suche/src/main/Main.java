@@ -2,6 +2,7 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import pdfBoxAcces.PDFBoxAccesControler;
 import Faroo.API;
 import Faroo.ConfigFileManagement;
 import Faroo.APIResults;
@@ -83,6 +84,8 @@ public class Main {
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
+	  
+	  
 	}
 
 }
