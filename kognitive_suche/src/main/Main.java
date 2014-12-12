@@ -2,7 +2,9 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import controller.Controller;
 import pdfBoxAcces.PDFBoxAccesControler;
+import pdfBoxAcces.PDFDocument;
 import Faroo.API;
 import Faroo.ConfigFileManagement;
 import Faroo.APIResults;
@@ -31,25 +33,57 @@ public class Main {
 	
 
 	public static void main(String[] args) {
-		/**
-		 * Demonstriert das Aufrufen der FAROO API und die Ausgabe auf der Konsole
-		 * Der erste Parameter ist der Faroo API key
-		 * Mit der Methode query wird die Suchanfrage eingeleitet. Dort übergibt man das Suchwort. Dies ist die einfachste
-		 * Methode, des weiteren ist es möglich in der Methode query weitere Parameter zu übergeben. (Noch nicht implementiert)
-		 *
-		 * Mit der Methode api.getCompleteResults werden alle Ergebnisse die die Suchanfrage liefert zurückgegeben und
-		 * in eine ArrayList gespeichert. über result.get kann man dann auf die Einzelden Tags zugreifen und sich diese
-		 * Ausgeben lassen.
-		 *
-		 * Die Anweisungen müssen in einem try catch Block stehen da die Methode eine Exeption liefert, wenn es Probleme
-		 * gibt seitens des Verbindungsaufbaus oder ähnliches.
-		 *
-		 *
-		 * Falls die Methode "query" mit einer bestimmten kombination an Parametern nicht existiert, kann man sie leich implementieren.
-		 *
-		 */
+		
 
-		ConfigFileManagement config = new ConfigFileManagement();
+		// farooTest(); //Aufrufen um Faroo zu testen
+	  
+	     pdfBoxTest(); //Aufrufen um PDFBox zu Testen
+		
+	  
+	  
+	}
+
+ 
+  private static void pdfBoxTest() {
+    // TODO Auto-generated method stub
+    /**
+     * Demonstriert  den Zugriff auf die PDFBox. Das Programm wird gestarete (das dauert ca. 15 Sekunden) und kann dann vom Nutzer wie gewohnt genutzt werden. 
+     * Nach dem schlie�en der PDF Box wird in der Konsole die Anzahl der eingelesenen PDFs angezeigt, sowie die Namen der PDFs und die Anzahl der gefundenen Keywords.
+     * 
+     * !Achtung durch das ausf�hren der PDFBox werden im kognitive_suche Ordner 2 neue Ordner (index und Database) mit verschiedenen Files angelegt. Um Probleme mit Git zu vermeiden, 
+     * sollten diese Ordner vor dem n�chsten commit wieder gel�scht werden!
+     */
+    
+    ArrayList<PDFDocument> PDFDocs = new ArrayList<PDFDocument>();
+        PDFDocs = Controller.queryPdfBox();
+    
+    System.out.println("Es wurden " + PDFDocs.size() + " PDFs eingelesen." );
+
+    for(int i = 0; i < PDFDocs.size(); i++)
+      System.out.println("In " + PDFDocs.get(i).getDocname() + " wurden " + PDFDocs.get(i).getKeywords().size() + " Keywords gefunden");
+    
+  }
+
+  private static void farooTest() {
+    /**
+     * Demonstriert das Aufrufen der FAROO API und die Ausgabe auf der Konsole
+     * Der erste Parameter ist der Faroo API key
+     * Mit der Methode query wird die Suchanfrage eingeleitet. Dort übergibt man das Suchwort. Dies ist die einfachste
+     * Methode, des weiteren ist es möglich in der Methode query weitere Parameter zu übergeben. (Noch nicht implementiert)
+     *
+     * Mit der Methode api.getCompleteResults werden alle Ergebnisse die die Suchanfrage liefert zurückgegeben und
+     * in eine ArrayList gespeichert. über result.get kann man dann auf die Einzelden Tags zugreifen und sich diese
+     * Ausgeben lassen.
+     *
+     * Die Anweisungen müssen in einem try catch Block stehen da die Methode eine Exeption liefert, wenn es Probleme
+     * gibt seitens des Verbindungsaufbaus oder ähnliches.
+     *
+     *
+     * Falls die Methode "query" mit einer bestimmten kombination an Parametern nicht existiert, kann man sie leich implementieren.
+     *
+     */
+    
+    ConfigFileManagement config = new ConfigFileManagement();
 
 		API api = new API(config.getKey());
 
@@ -84,9 +118,7 @@ public class Main {
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
-	  
-	  
-	}
+  }
 
 }
 
