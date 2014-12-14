@@ -13,12 +13,12 @@ public class Result {
     //Date firstIndexed = null, firstPublished = null;
 
     String title="", kwic="", author="", votes="", isNews="";
-    URL url = null, domain =null, imageUrl=null;
+    String url = null, domain =null, imageUrl=null;
 
     String firstIndexed = "", firstPublished = "";
 
-    public Result(String title, String kwic, String author, String votes, String isNews, URL url, URL domain,
-                  URL imageUrl, String firstIndexed, String firstPublished) {
+    public Result(String title, String kwic, String author, String votes, String isNews, String url, String domain,
+                  String imageUrl, String firstIndexed, String firstPublished) {
         this.title = title;
         this.kwic = kwic;
         this.author = author;
@@ -51,15 +51,15 @@ public class Result {
         return isNews;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public URL getDomain() {
+    public String getDomain() {
         return domain;
     }
 
-    public URL getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 

@@ -471,6 +471,27 @@ public class API {
 
 			// query
 			// "https://faroo-faroo-web-search.p.mashape.com/api?q=test&src=news&length=10&f=xml";
+
+			ArrayList<Result> results = new ArrayList<Result>();
+			for (int NodeAtPosition = 0; NodeAtPosition < nList.getLength(); NodeAtPosition++) {
+				Element e = (Element) nList.item(NodeAtPosition);
+
+				String title = e.getElementsByTagName("title").item(0).getTextContent().trim();
+				String kwic = e.getElementsByTagName("kwic").item(0).getTextContent().trim();
+				String author = e.getElementsByTagName("author").item(0).getTextContent().trim();
+				String votes = e.getElementsByTagName("votes").item(0).getTextContent().trim();
+				String isNews = e.getElementsByTagName("isNews").item(0).getTextContent().trim();
+				String url = (e.getElementsByTagName("url").item(0).getTextContent().trim());
+				String domain = (e.getElementsByTagName("domain").item(0).getTextContent().trim());
+				String imageUrl = (e.getElementsByTagName("imageUrl").item(0).getTextContent().trim());
+				String firstIndexed = e.getElementsByTagName("firstIndexed").item(0).getTextContent().trim();
+				String firstPublished = e.getElementsByTagName("firstPublished").item(0).getTextContent().trim();
+
+				results.add(new Result(title,kwic,author,votes,isNews,url,domain,imageUrl,firstIndexed,firstPublished));
+
+			}
+
+/**
 			ArrayList<HashMap<String, String>> results = new ArrayList<HashMap<String, String>>();
 			for (int NodeAtPosition = 0; NodeAtPosition < nList.getLength(); NodeAtPosition++) {
 				Element e = (Element) nList.item(NodeAtPosition);
@@ -489,6 +510,7 @@ public class API {
 
 				results.add(result);
 			}
+ **/
 			if(results != null){
 				apiresult = new APIResults(results);
 			}

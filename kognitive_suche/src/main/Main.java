@@ -2,6 +2,7 @@ package main;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import Faroo.Result;
 import controller.Controller;
 
 import pdfBoxAcces.PDFBoxAccesControler;
@@ -22,12 +23,13 @@ public class Main {
 	 * Wichtig!!!
 	 * Die Main Klasse
 	 * Bevor das Projekt ausgefÃ¼hrt werden kann muss eine config.properties file angelegt werden.
-	 * Dies wird automatisch erzeugt!
+	 * Dies wird automatisch erzeugt! Falls dies der Fall ist wird der Key in der Konsole abgefragt!
 	 * Mit dem Inhalt:
+	 *
 	 *
 	 * key = 2CJIbhzsHU4nlSqBVZ2OP3fimb4_
 	 *
-	 * Die Abfrage fÃ¼r den Key wird in der Console erledigt!
+	 *
 	 *
 	 * *******************************************************************************************
 	 * *******************************************************************************************
@@ -41,9 +43,9 @@ public class Main {
 		
 
 		 farooTest(); //Aufrufen um Faroo zu testen
-	  
+
 	    // pdfBoxTest(); //Aufrufen um PDFBox zu Testen
-		GUI g = new GUI();
+
 
 	  
 	  
@@ -96,7 +98,7 @@ public class Main {
 		try {
 			System.out.println("Suche..");
 			api.query("Hallo Welt?", "de");
-			api.query("test", "de", true);
+			//api.query("test", "de", true);
 			//api.query("hallo");
 			//api.query("foo war");
 			//api.query("&&");
@@ -106,20 +108,22 @@ public class Main {
 
 
 			APIResults apiResults = api.getResult();
-			ArrayList<HashMap<String,String>> results = apiResults.getResultsList();
+			ArrayList<Result> results = apiResults.getResultsList();
 
-			for(HashMap<String,String> result: results){
-					System.out.println(result.get("title"));
-					System.out.println(result.get("url"));
-					System.out.println(result.get("domain"));
-					System.out.println(result.get("imageUrl"));
-					System.out.println(result.get("firstIndexed"));
-					System.out.println(result.get("firstPublished"));
-					System.out.println(result.get("kwic"));
-					System.out.println(result.get("author"));
-					System.out.println(result.get("votes"));
-					System.out.println(result.get("isNews"));
+			for(int i = 0; i < results.size(); i++) {
+				System.out.println(results.get(i).getAuthor());
+				System.out.println(results.get(i).getDomain());
+				System.out.println(results.get(i).getFirstIndexed());
+				System.out.println(results.get(i).getFirstPublished());
+				System.out.println(results.get(i).getImageUrl());
+				System.out.println(results.get(i).getIsNews());
+				System.out.println(results.get(i).getKwic());
+				System.out.println(results.get(i).getTitle());
+				System.out.println(results.get(i).getUrl());
+				System.out.println(results.get(i).getVotes());
 			}
+
+
 
 			} catch (Exception e) {
 			e.printStackTrace();

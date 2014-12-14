@@ -9,14 +9,14 @@ import java.util.HashMap;
  */
 public class APIResults {
 
-    private ArrayList<HashMap<String,String>> resultsList =null;
+    private ArrayList<Result> resultsList =null;
 
 
 
     /**
      * ArrayList mit den Suchergebnissen wird angefordert.
      */
-    public APIResults(ArrayList<HashMap<String, String>> results){
+    public APIResults(ArrayList<Result> results){
         this.resultsList = results;
 
     }
@@ -25,7 +25,7 @@ public class APIResults {
      * Es wird eie ArrayListe mit den Suchergebnissenzurück gegeben.
      * @return resultsList
      */
-    public ArrayList<HashMap<String, String>> getResultsList() {
+    public ArrayList<Result> getResultsList() {
         return resultsList;
     }
 
