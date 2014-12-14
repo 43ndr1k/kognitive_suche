@@ -40,7 +40,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 
-		// farooTest(); //Aufrufen um Faroo zu testen
+		 farooTest(); //Aufrufen um Faroo zu testen
 	  
 	    // pdfBoxTest(); //Aufrufen um PDFBox zu Testen
 		GUI g = new GUI();
