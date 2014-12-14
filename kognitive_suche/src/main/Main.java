@@ -55,7 +55,7 @@ public class Main {
 		try {
 
 			api.query("Hallo Welt?", "de");
-			api.query("oma", "de", true);
+			api.query("Hendrik%20Sawade", "de", true);
 			//api.query("hallo");
 			//api.query("foo war");
 			//api.query("&&");
