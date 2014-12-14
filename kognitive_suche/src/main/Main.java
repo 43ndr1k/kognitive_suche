@@ -3,11 +3,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import controller.Controller;
+
 import pdfBoxAcces.PDFBoxAccesControler;
 import pdfBoxAcces.PDFDocument;
+
 import Faroo.API;
 import Faroo.ConfigFileManagement;
 import Faroo.APIResults;
+
+import GUI.*;
 
 public class Main {
 
@@ -18,6 +22,7 @@ public class Main {
 	 * Wichtig!!!
 	 * Die Main Klasse
 	 * Bevor das Projekt ausgefÃ¼hrt werden kann muss eine config.properties file angelegt werden.
+	 * Dies wird automatisch erzeugt!
 	 * Mit dem Inhalt:
 	 *
 	 * key = 2CJIbhzsHU4nlSqBVZ2OP3fimb4_
@@ -38,7 +43,8 @@ public class Main {
 		// farooTest(); //Aufrufen um Faroo zu testen
 	  
 	    // pdfBoxTest(); //Aufrufen um PDFBox zu Testen
-		
+		GUI g = new GUI();
+
 	  
 	  
 	}
@@ -88,9 +94,9 @@ public class Main {
 		API api = new API(config.getKey());
 
 		try {
-
+			System.out.println("Suche..");
 			api.query("Hallo Welt?", "de");
-			api.query("Hendrik%20Sawade", "de", true);
+			api.query("test", "de", true);
 			//api.query("hallo");
 			//api.query("foo war");
 			//api.query("&&");
@@ -118,6 +124,7 @@ public class Main {
 			} catch (Exception e) {
 			e.printStackTrace();
 		}
+	  System.out.println("Ende..");
   }
 
 }
