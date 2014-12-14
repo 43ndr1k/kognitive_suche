@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
+import pdfBoxAcces.PDFBoxAccesControler;
+import pdfBoxAcces.PDFDocument;
 import Faroo.API;
 import Faroo.ConfigFileManagement;
 /**
@@ -19,9 +21,12 @@ public class Controller {
 
 	/* CONSTANTS */
 	private int test1 = 1;
+    static String pdfbox_path = "Data/PDFBox/pdfbox.jar"; //absolute Path to pdfbox.jar
+
 	/* VARIABLES */
 	private String Suchstring; // Die Eingabe an Farroo und pdfbox
 	private String Config; //Erstmal nur zum Test, wird entweder 1 Array oder mehrere Variablen
+
 	
 	/* CONSTRUCTOR */
 	public Controller(String Suchstring, String Config){//Nen Test ob wir Netz haben w�re vlt. noch n�tzlich
@@ -59,10 +64,11 @@ public class Controller {
 	private Object queryFaroo(Object pObject){
 		return null;
 	}
-	
-	private Object queryPdfBox(Object pObject){
-		return null;
-	}
+
+	public static ArrayList<PDFDocument> queryPdfBox(){
+	    PDFBoxAccesControler PDFBoxAcces = new PDFBoxAccesControler(pdfbox_path); //Runs the PDFBox tool. CARE: It takes up to 30 seconds until PDFBox is ready.
+	    return PDFBoxAcces.getDocKeywords();
+	    }
 	
 	private Object startSimpleAlgorithmn(Object pObject){
 		return null;
