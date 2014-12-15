@@ -6,8 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
-import main.APIResults;
-import main.Result;
+
 import Faroo.Result;
 import pdfBoxAcces.PDFBoxAccesControler;
 import pdfBoxAcces.PDFDocument;
@@ -44,14 +43,14 @@ public class Controller {
 	
 	/* CODE - Auswahl Farroo, PDFBox, Einfacher Suchalg., etc. */
 	
-	//Durchläufe zaehlen ?
+	//Durchlï¿½ufe zaehlen ?
 	
 	/* METHODS */
 	/*public void startSearch(test1){
 		switch (test1) {
 	
 			case1://Farroo-----------------------------------------------------------------------------------
-			//Übergabe von Config an Farroo scheint Hendrik schon direkt gemacht zu haben ???
+			//ï¿½bergabe von Config an Farroo scheint Hendrik schon direkt gemacht zu haben ???
 		 	
 				API api = new API(config.getKey());
 				api.query(Suchstring);
@@ -70,7 +69,13 @@ public class Controller {
 			break;
 			
 			case2://Pdfbox-----------------------------------------------------------------------------
-				//PDFbox bekommt keine Eingabe von Controller ? - läuft also extern, was für Daten kommen zurück
+				//PDFbox bekommt keine Eingabe von Controller ? - lï¿½uft also extern, was fï¿½r Daten kommen zurï¿½ck
+				 // Antwort von Fabian:
+				 // Es werden keine Daten Ã¼bergeben. Das Stand-Alone Programm PDF-Box wird ausgefÃ¼hrt. Da drinn kann man aussuchen welche PDFs eingelesen werden sollen.
+				 // Die Keywords von den ausgewÃ¤hlten PDFs werden dann zurÃ¼ck gegeben.
+				 // RÃ¼ckgabe Typ ist ArrayList<PDFDocument>. Das ist ein Objekt was sowohl den Namen des PDF-Files enthÃ¤lt ( String, getDocname()) 
+				 // als auch eine ArrayList<PDFKeyword>. Diese ArrayList enthÃ¤lt alle Keywords + dessen weight. (String getTerm(), float getWeight())
+	
 				public static ArrayList<Result> queryPdfBox(){  // Gleiches Format wie bei Hendrik formatieren oder andersrum ist ja bis jetzt alles String
 	    		PDFBoxAccesControler PDFBoxAcces = new PDFBoxAccesControler(pdfbox_path); //Runs the PDFBox tool. CARE: It takes up to 30 seconds until PDFBox is ready.
 	    		return PDFBoxAcces.getDocKeywords();
@@ -78,7 +83,7 @@ public class Controller {
 				break;
 			case3://----------------------------------------------------------------------------------------
 				// Aufruf vom SuchAlg. ?
-		 		* übergabe von ArrayList<Result> oder anders formatierter Liste
+		 		* ï¿½bergabe von ArrayList<Result> oder anders formatierter Liste
 				break;
 			case4: 
 				// Nochwas ?
@@ -90,7 +95,7 @@ public class Controller {
 	
 	
 	private void getconfig(){
-		//hier soll Die Config die Config der GUI erhalten - ob nötig kommt später
+		//hier soll Die Config die Config der GUI erhalten - ob nï¿½tig kommt spï¿½ter
 	}
 	//------------------------------------------------
 	/*public ArrayList<Result> getAData(){
