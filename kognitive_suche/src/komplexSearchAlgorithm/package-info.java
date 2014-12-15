@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author tlenz
- *
- */
-package komplexSearchAlgorithm;
