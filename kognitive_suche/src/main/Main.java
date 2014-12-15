@@ -55,7 +55,7 @@ public class Main {
   private static void pdfBoxTest() {
     // TODO Auto-generated method stub
     /**
-     * Demonstriert  den Zugriff auf die PDFBox. Das Programm wird gestarete (das dauert ca. 15 Sekunden) und kann dann vom Nutzer wie gewohnt genutzt werden. 
+     * Demonstriert  den Zugriff auf die PDFBox. Das Programm wird gestartet (das dauert ca. 15 Sekunden) und kann dann vom Nutzer wie gewohnt genutzt werden. 
      * Nach dem schließen der PDF Box wird in der Konsole die Anzahl der eingelesenen PDFs angezeigt, sowie die Namen der PDFs und die Anzahl der gefundenen Keywords.
      * 
      * !Achtung durch das ausführen der PDFBox werden im kognitive_suche Ordner 2 neue Ordner (index und Database) mit verschiedenen Files angelegt. Um Probleme mit Git zu vermeiden, 
