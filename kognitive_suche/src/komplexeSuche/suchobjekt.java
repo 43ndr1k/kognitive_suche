@@ -5,6 +5,7 @@ public class suchobjekt {
 	private String link, titel, searchtext;
 
 	/**
+	 * @author Tobias Lenz
 	 * Beispielhafte Implementation des Objekts Suchergebnis
 	 * Hinweis: in der Zeichenkette searchtext stehen die Begriffe, welche in dem Suchergebnis um den Suchtext herum gefunden wurden; getrennt durch Leerzeichen
 	 * @param link

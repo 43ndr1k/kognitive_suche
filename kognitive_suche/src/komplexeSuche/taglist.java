@@ -3,6 +3,10 @@ package komplexeSuche;
 import java.util.ArrayList;
 
 public class taglist {
+  
+  /** 
+   * @author Tobias Lenz
+   */
 
 	private ArrayList<String> tags = new ArrayList <String>();
 	private String address;

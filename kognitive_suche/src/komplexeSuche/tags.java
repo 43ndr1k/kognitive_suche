@@ -3,6 +3,10 @@ package komplexeSuche;
 import java.util.ArrayList;
 
 public class tags{
+  
+  /**
+   * @author Tobias Lenz
+   */
 
 	private Short count;
 	private String tag;

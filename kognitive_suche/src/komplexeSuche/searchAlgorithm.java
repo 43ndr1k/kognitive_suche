@@ -80,8 +80,11 @@ public class searchAlgorithm {
 		}
 		Collections.sort(tagfrequency, new SortTags());
 		retlist = merge(tagfrequency, tagnearby, ergebnis, searchword);
-		int n = tagfrequency.size()-1;
-		System.out.println(tagfrequency.get(n).gettag());
+		for(int i = 0; i< 5;i++){
+		  int n = tagfrequency.size()-1-i;
+		  System.out.println(tagfrequency.get(n).gettag());
+		}
+		  
 		return retlist;
 		
 		
