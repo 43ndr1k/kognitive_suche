@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 
 
+
 import Faroo.Result;
 import pdfBoxAcces.PDFBoxAccesControler;
 import pdfBoxAcces.PDFDocument;
@@ -122,7 +123,7 @@ public class Controller {
 		return null;
 	}
 	
-	private startComplexAlgorithmn(Object pObject){
+	private Object startComplexAlgorithmn(Object pObject){
 		return null;
 	}
 	

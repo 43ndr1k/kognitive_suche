@@ -1,4 +1,4 @@
-package kognitiverAlgorithmus;
+package komplexeSuche;
 
 
 
@@ -22,7 +22,7 @@ public class searchAlgorithm {
 	
 	
 	
-	ArrayList<tags> kognitivSuchen(suchobjekt[] ergebnis, String searchword){
+	public ArrayList<tags> kognitivSuchen(suchobjekt[] ergebnis, String searchword){
 		
 		boolean flag  = true;
 		int anzTags = 0;
@@ -62,7 +62,7 @@ public class searchAlgorithm {
 				
 					
 				
-					if(parts[j].equals(tagfrequency.get(k).gettag()) && !parts[j].equals("") && !badWord(parts[j])){
+					if(parts[j].equals(tagfrequency.get(k).gettag()) && !parts[j].equals("") && !badWord(parts[j]) && !doescontain(searchword, parts[j])){
 						flag = false;
 						tagfrequency.get(k).addaddress(ergebnis[i].getlink());
 						tagfrequency.get(k).setcount();
@@ -95,7 +95,7 @@ public class searchAlgorithm {
 
 	private boolean badWord(String string) {
 	  
-	  String wordList[] ={"der", "die", "das","und","des","da","wo"};
+	  String wordList[] ={"der", "die", "das","und","des","da","wo","von","den"};
 	  
 	 
 	  

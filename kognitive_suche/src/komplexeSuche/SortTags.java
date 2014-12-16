@@ -1,4 +1,4 @@
-package kognitiverAlgorithmus;
+package komplexeSuche;
 
 import java.util.Comparator;
 

@@ -1,4 +1,4 @@
-package kognitiverAlgorithmus;
+package komplexeSuche;
 
 public class suchobjekt {
 
@@ -11,7 +11,7 @@ public class suchobjekt {
 	 * @param titel
 	 * @param searchtext
 	 */
-	suchobjekt(String link, String titel, String searchtext){
+	public suchobjekt(String link, String titel, String searchtext){
 		this.link = link;
 		this.titel = titel;
 		this.searchtext = searchtext;
