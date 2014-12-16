@@ -2,16 +2,18 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+import komplexeSuche.searchAlgorithm;
+import komplexeSuche.suchobjekt;
+import komplexeSuche.tags;
 import Faroo.Result;
 import controller.Controller;
-
 import pdfBoxAcces.PDFBoxAccesControler;
 import pdfBoxAcces.PDFDocument;
-
+import simpleAlgorithm.ObBearbeitung;
 import Faroo.API;
 import Faroo.ConfigFileManagement;
 import Faroo.APIResults;
-
 import GUI.*;
 
 public class Main {
@@ -48,6 +50,15 @@ public class Main {
 		 farooTest(); //Aufrufen um Faroo zu testen
 
 	    // pdfBoxTest(); //Aufrufen um PDFBox zu Testen
+		 
+		 //komplexer Suchalg. Test mit "Karsten Weicker"
+		 
+		 suchobjekt[] ergebnis =new suchobjekt[2];
+	        ergebnis[0] = new suchobjekt("https://portal.imn.htwk-leipzig.de/fakultaet/weicker","Karsten Weicker, Prof. Dr. rer. nat. — Fakultät Informatik","Prof. Dr. rer. nat. Karsten Weicker Karsten Weicker, Prof. Dr. rer. nat. Leitungen und Ämter Studienfachberater (Informatik) Studienkommission Informatik (Vorsitzender) Studiendekan (Informatik) Fakultätsrat (Mitglied ) Aufgabenbereiche Lehrgebiet: Praktische Informatik Kontaktinformationen Sprechzeit: nach Vereinbarung Z410  Gustav-Freytag-Str. 42A 04277 Leipzig karsten.weicker [at] htwk-leipzig.de  +49 (0) 341 3076-6395 Lebenslauf1990-1997 Studium der Informatik mit Nebenfach Mathematik, Universität Stuttgart 1995-1997    Studium der Computer Science, University of Massachusetts in Amherst Gutachter für folgende Zeitschriften: IEEE Transactions on Evolutionary Computation, Evolutionary Computation Journal, ACM Computing Surveys, Information Processing Letters, Softcomputing Journal, Genetic Programming and Evolvable Machines");
+	        ergebnis[1] = new suchobjekt("http://www.weicker.info/","Informationen über die Weicker-Familie","www.weicker.info Informationen über die Weicker-Familie   Karsten Weicker [Filme] Die vollständige Sammlung der Filme, die ich auf großer Leinwand gesehen habe - bald wieder online [Musik]  Eine grobe Sammlung der memorizable live acts [Evolutionäre Algorithmen]    Das Lehrbuch in der 2. Auflage");
+	        searchAlgorithm suche = new searchAlgorithm();
+	        
+	        suche.kognitivSuchen(ergebnis, "Karsten Weicker");
 
 
 	  
@@ -114,19 +125,35 @@ public class Main {
 			ArrayList<Result> results = apiResults.getResultsList();
 
 			for(int i = 0; i < results.size(); i++) {
-				System.out.println(results.get(i).getAuthor());
-				System.out.println(results.get(i).getDomain());
-				System.out.println(results.get(i).getFirstIndexed());
-				System.out.println(results.get(i).getFirstPublished());
-				System.out.println(results.get(i).getImageUrl());
-				System.out.println(results.get(i).getIsNews());
-				System.out.println(results.get(i).getKwic());
-				System.out.println(results.get(i).getTitle());
-				System.out.println(results.get(i).getUrl());
-				System.out.println(results.get(i).getVotes());
+				System.out.println("Autor:  \t"  + results.get(i).getAuthor());
+				System.out.println("Domain:   \t" + results.get(i).getDomain());
+				System.out.println("FirstIndexed:   " + results.get(i).getFirstIndexed());
+				System.out.println("FirstPublished:   " + results.get(i).getFirstPublished());
+				System.out.println("ImageUrl:   \t" + results.get(i).getImageUrl());
+				System.out.println("IsNews:  \t " + results.get(i).getIsNews());
+				System.out.println("Kwic:  \t " + results.get(i).getKwic());  
+				System.out.println("Title:   \t" + results.get(i).getTitle());
+				System.out.println("Url:   \t" + results.get(i).getUrl());
+				System.out.println("Votes:   \t" + results.get(i).getVotes());
+				System.out.println( );
+				
 			}
+		
 
-
+			//testuebergabe von Suchergebnissen an simple Algorithm
+			
+			ObBearbeitung uebergabe = new ObBearbeitung();
+			ArrayList<tags> keywords = new ArrayList<tags>();
+			keywords = uebergabe.annahme(results);
+			String ausgabe;
+			ArrayList<String> addresses;
+			for(int i = 0; i < keywords.size(); i++){
+				ausgabe = keywords.get(i).gettag();
+				System.out.println(ausgabe);
+				addresses = keywords.get(i).getaddress();
+				System.out.println(addresses);
+			
+			}
 
 			} catch (Exception e) {
 			e.printStackTrace();
