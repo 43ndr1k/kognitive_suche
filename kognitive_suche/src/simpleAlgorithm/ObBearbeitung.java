@@ -8,7 +8,9 @@ import Faroo.Result;
 
 public class ObBearbeitung {
 		
-	
+	/**
+	   * @author Vadzim Naumchyk & Sadik Ulusan	   */
+	/*
 	/*
 	 * Die Methode nimmt Resultate von Faroo und erstes Wort von URL
 	 */
