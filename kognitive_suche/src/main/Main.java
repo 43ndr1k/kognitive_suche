@@ -44,9 +44,9 @@ public class Main {
 	public static void main(String[] args) {
 		
 
-		 farooTest(); //Aufrufen um Faroo zu testen
+		farooTest(); //Aufrufen um Faroo zu testen
 
-	    // pdfBoxTest(); //Aufrufen um PDFBox zu Testen
+	    pdfBoxTest(); //Aufrufen um PDFBox zu Testen
 		 
 		 //komplexer Suchalg. Test mit "Karsten Weicker"
 		 
@@ -79,7 +79,10 @@ public class Main {
     System.out.println("Es wurden " + PDFDocs.size() + " PDFs eingelesen." );
 
     for(int i = 0; i < PDFDocs.size(); i++)
-      System.out.println("In " + PDFDocs.get(i).getDocname() + " wurden " + PDFDocs.get(i).getKeywords().size() + " Keywords gefunden");
+    {
+      System.out.println("In " + PDFDocs.get(i).getDocname() + " wurden " + PDFDocs.get(i).getKeywords().size() + " Keywords gefunden"); //Besipiel für abrufen des Dokumentennamen
+      System.out.println("Das erste Keyword in dieser PDF heißt: " + PDFDocs.get(i).getKeywords().get(1).getTerm()); //Beispiel für abrufen der Keywords
+    }
     
   }
 
