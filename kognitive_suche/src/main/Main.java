@@ -10,14 +10,17 @@ import Faroo.Result;
 import controller.Controller;
 import pdfBoxAcces.PDFBoxAccesControler;
 import pdfBoxAcces.PDFDocument;
+
 import simpleAlgorithm.ObBearbeitung;
 import simpleAlgorithm.SimAlgTags;
+
 import Faroo.API;
 import Faroo.ConfigFileManagement;
 import Faroo.APIResults;
 import GUI.*;
 
 public class Main {
+
 
 
   /*********************************************************************************************
@@ -48,7 +51,7 @@ public class Main {
 
     farooTest(); // Aufrufen um Faroo zu testen
 
-    //pdfBoxTest(); //Aufrufen um PDFBox zu Testen
+    pdfBoxTest(); //Aufrufen um PDFBox zu Testen
 
     // komplexer Suchalg. Test mit "Karsten Weicker"
 
@@ -111,6 +114,7 @@ public class Main {
   }
 
 
+
   private static void pdfBoxTest() {
     // TODO Auto-generated method stub
     /**
@@ -134,6 +138,14 @@ public class Main {
     for (int i = 0; i < PDFDocs.size(); i++)
       System.out.println("In " + PDFDocs.get(i).getDocname() + " wurden "
           + PDFDocs.get(i).getKeywords().size() + " Keywords gefunden");
+
+
+    for(int i = 0; i < PDFDocs.size(); i++)
+    {
+      System.out.println("In " + PDFDocs.get(i).getDocname() + " wurden " + PDFDocs.get(i).getKeywords().size() + " Keywords gefunden"); //Besipiel für abrufen des Dokumentennamen
+      System.out.println("Das erste Keyword in dieser PDF heißt: " + PDFDocs.get(i).getKeywords().get(1).getTerm()); //Beispiel für abrufen der Keywords
+    }
+    
 
   }
 

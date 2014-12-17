@@ -22,21 +22,22 @@ public class searchAlgorithm {
 	
 	
 	
-	public ArrayList<Keywords> kognitivSuchen(suchobjekt[] ergebnis, String searchword){
+	public ArrayList<tags> kognitivSuchen(suchobjekt[] ergebnis, String searchword){
 		
 		boolean flag  = true;
 		int anzTags = 0;
 		int numbcontsearchword = 0;		//Anzahl der im Text entahltenen Suchw�rter
 		int range = 5;
 		
-		ArrayList<Keywords> tagfrequency = new ArrayList<Keywords>();	//Datentyp f�r h�ufigste Suchw�rter
+		ArrayList<tags> tagfrequency = new ArrayList<tags>();	//Datentyp f�r h�ufigste Suchw�rter
 		ArrayList<taglist> tagnearby = new ArrayList<taglist>();	//Datentyp f�r Umgebungssuchw�rter
-		ArrayList<Keywords> retlist = new ArrayList<Keywords>();	//Datentyp f�r die R�ckgabe
+		ArrayList<tags> retlist = new ArrayList<tags>();	//Datentyp f�r die R�ckgabe
 		for( int i = 0; i < ergebnis.length; i++){
 			
 			text = ergebnis[i].getsearchtext();
 			text = text.replaceAll("[^a-zA-Z0-9 .�������@]", "");		//hier werden alle Zeichen aus dem Text gel�scht, welche weder Zahlen, Buchstaben, . oder Leerzeichen sind 
 			                                                            //Hinweis: "Regul�re Ausdr�cke"
+
 			String[] parts = text.split(" ");
 			
 			for(int j = 0; j < parts.length; j++){
@@ -72,7 +73,9 @@ public class searchAlgorithm {
 					
 					}
 					if(flag){						
-						tagfrequency.add(anzTags, new Keywords(parts[j], ergebnis[i].getlink()));
+
+						tagfrequency.add(anzTags, new tags(parts[j], ergebnis[i].getlink()));
+
 						anzTags++;
 				}
 			}
@@ -118,7 +121,9 @@ public class searchAlgorithm {
 
 
 
-  private ArrayList<Keywords> merge(ArrayList<Keywords> tagfrequency,
+
+  private ArrayList<tags> merge(ArrayList<tags> tagfrequency,
+
 			ArrayList<taglist> tagnearby, suchobjekt[] ergebnis,
 			String searchword) {
 		

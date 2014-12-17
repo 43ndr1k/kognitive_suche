@@ -12,7 +12,8 @@ public class tags{
 	private String tag;
 	private ArrayList<String> address= new ArrayList<String>(); 
 
-	public tags(String tag, String firstaddress){
+	tags(String tag, String firstaddress){
+
 		this.tag = tag;
 		address.add(firstaddress);
 		this.count = 1;
