@@ -2,13 +2,13 @@ package simpleAlgorithm;
 
 import java.util.ArrayList;
 
-public class Keywoords {
+public class SimAlgTags {
 
 	private int zaehler;
 	private String tag;
 	private ArrayList<String> links = new ArrayList<String>(); 
 
-	public Keywoords (String tag, String url){
+	public SimAlgTags (String tag, String url){
 		this.tag = tag;
 		links.add(url);
 		this.zaehler = 1;

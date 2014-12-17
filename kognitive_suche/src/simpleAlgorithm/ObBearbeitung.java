@@ -12,8 +12,8 @@ public class ObBearbeitung {
 	/*
 	 * Die Methode nimmt Resultate von Faroo und erstes Wort von URL
 	 */
-	public ArrayList<Keywoords> annahme (ArrayList<Result> results){
-		ArrayList<Keywoords> rueckgabe = new ArrayList<Keywoords>();
+	public ArrayList<SimAlgTags> annahme (ArrayList<Result> results){
+		ArrayList<SimAlgTags> rueckgabe = new ArrayList<SimAlgTags>();
 		
 		String[] tags;
 		String erstesWort;
@@ -22,7 +22,7 @@ public class ObBearbeitung {
 			Website = results.get(i).getUrl();
 			tags = results.get(i).getTitle().split(" ");
 			erstesWort = tags[0];
-			rueckgabe.add(i, new Keywoords(erstesWort, Website));			
+			rueckgabe.add(i, new SimAlgTags(erstesWort, Website));			
 		}
 		
 		

@@ -19,7 +19,7 @@ import pdfBoxAcces.PDFBoxAccesControler;
 import pdfBoxAcces.PDFDocument;
 
 import simpleAlgorithm.ObBearbeitung;
-import simpleAlgorithm.Keywoords;
+import simpleAlgorithm.SimAlgTags;
 
 
 /**
@@ -126,7 +126,7 @@ public class Controller {
 	    return PDFBoxAcces.getDocKeywords();
 	    }
 	
-	private ArrayList<Keywoords> startsimpleAlgorithmn(Object pObject){
+	private ArrayList<SimAlgTags> startsimpleAlgorithmn(Object pObject){
 	
 		ObBearbeitung suche = new ObBearbeitung();		
 		
