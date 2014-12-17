@@ -98,6 +98,8 @@ public class Main {
 
   }
 
+
+
   private static void farooTest() {
     /**
      * Demonstriert das Aufrufen der FAROO API und die Ausgabe auf der Konsole Der erste Parameter
@@ -153,7 +155,51 @@ public class Main {
       }
 
 
-      // testuebergabe von Suchergebnissen an simple Algorithm
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    System.out.println("Ende..");
+  }
+
+
+
+  private static void simpAlgTest() {
+    // testuebergabe von Suchergebnissen an simple Algorithm
+    ConfigFileManagement config = new ConfigFileManagement();
+
+    API api = new API(config.getKey());
+
+    try {
+      System.out.println("Suche..");
+      api.query("Hallo Welt?", "de");
+      // api.query("test", "de", true);
+      // api.query("hallo");
+      // api.query("foo war");
+      // api.query("&&");
+      // api.query("FoÃ¤Ã¶Ã¼");
+      // api.query("mama");
+      // api.query("Huibu");
+
+
+      APIResults apiResults = api.getResult();
+      ArrayList<Result> results = apiResults.getResultsList();
+
+      for (int i = 0; i < results.size(); i++) {
+        System.out.println("Autor:          " + results.get(i).getAuthor());
+        System.out.println("Domain:         " + results.get(i).getDomain());
+        System.out.println("FirstIndexed:   " + results.get(i).getFirstIndexed());
+        System.out.println("FirstPublished: " + results.get(i).getFirstPublished());
+        System.out.println("ImageUrl:       " + results.get(i).getImageUrl());
+        System.out.println("IsNews:         " + results.get(i).getIsNews());
+        System.out.println("Kwic:           " + results.get(i).getKwic());
+        System.out.println("Title:          " + results.get(i).getTitle());
+        System.out.println("Url:            " + results.get(i).getUrl());
+        System.out.println("Votes:          " + results.get(i).getVotes());
+        System.out.println();
+
+      }
+
 
       ObBearbeitung uebergabe = new ObBearbeitung();
       ArrayList<tags> keywords = new ArrayList<tags>();
@@ -165,13 +211,13 @@ public class Main {
         System.out.println(ausgabe);
         addresses = keywords.get(i).getaddress();
         System.out.println(addresses);
-
       }
-
     } catch (Exception e) {
       e.printStackTrace();
     }
-    System.out.println("Ende..");
+
+
+
   }
 
 }
