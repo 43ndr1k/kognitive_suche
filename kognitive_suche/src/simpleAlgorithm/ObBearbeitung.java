@@ -1,13 +1,33 @@
 package simpleAlgorithm;
 import java.util.ArrayList;
 
-import komplexeSuche.tags;
-import java.net.*;
-import java.io.*;
+//import java.net.*;
+//import java.io.*;
 // import Faroo.APIResults;
 import Faroo.Result;
 
 public class ObBearbeitung {
+		
+	
+	/*
+	 * Die Methode nimmt Resultate von Faroo und erstes Wort von URL
+	 */
+	public ArrayList<Keywoords> annahme (ArrayList<Result> results){
+		ArrayList<Keywoords> rueckgabe = new ArrayList<Keywoords>();
+		
+		String[] tags;
+		String erstesWort;
+		String Website;
+		for(int i = 0; i< results.size(); i++){
+			Website = results.get(i).getUrl();
+			tags = results.get(i).getTitle().split(" ");
+			erstesWort = tags[0];
+			rueckgabe.add(i, new Keywoords(erstesWort, Website));			
+		}
+		
+		
+		return rueckgabe;
+	}
 	
 /*	
 
@@ -29,22 +49,7 @@ public class ObBearbeitung {
 	
 	
 
-	public ArrayList<tags> annahme (ArrayList<Result> results){
-		ArrayList<tags> rueckgabe = new ArrayList<tags>();
-		
-		String[] tags;
-		String erstesWort;
-		String Website;
-		for(int i = 0; i< results.size(); i++){
-			Website = results.get(i).getUrl();
-			tags = results.get(i).getTitle().split(" ");
-			erstesWort = tags[0];
-			rueckgabe.add(i, new tags(erstesWort, Website));			
-		}
-		
-		
-		return rueckgabe;
-	}
+	
 	
 	
 	

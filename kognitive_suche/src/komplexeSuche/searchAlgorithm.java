@@ -12,8 +12,8 @@ public class searchAlgorithm {
 	
 	
 	/**
-	 * Algorithmus zur Erkennung von Schlüsselbegriffen
-	 * Komplexität n³ 
+	 * Algorithmus zur Erkennung von Schlï¿½sselbegriffen
+	 * Komplexitï¿½t nï¿½ 
 	 * 
 	 * @author Tobias Lenz
 	 */
@@ -22,21 +22,21 @@ public class searchAlgorithm {
 	
 	
 	
-	public ArrayList<tags> kognitivSuchen(suchobjekt[] ergebnis, String searchword){
+	public ArrayList<Keywords> kognitivSuchen(suchobjekt[] ergebnis, String searchword){
 		
 		boolean flag  = true;
 		int anzTags = 0;
-		int numbcontsearchword = 0;		//Anzahl der im Text entahltenen Suchwörter
+		int numbcontsearchword = 0;		//Anzahl der im Text entahltenen Suchwï¿½rter
 		int range = 5;
 		
-		ArrayList<tags> tagfrequency = new ArrayList<tags>();	//Datentyp für häufigste Suchwörter
-		ArrayList<taglist> tagnearby = new ArrayList<taglist>();	//Datentyp für Umgebungssuchwörter
-		ArrayList<tags> retlist = new ArrayList<tags>();	//Datentyp für die Rückgabe
+		ArrayList<Keywords> tagfrequency = new ArrayList<Keywords>();	//Datentyp fï¿½r hï¿½ufigste Suchwï¿½rter
+		ArrayList<taglist> tagnearby = new ArrayList<taglist>();	//Datentyp fï¿½r Umgebungssuchwï¿½rter
+		ArrayList<Keywords> retlist = new ArrayList<Keywords>();	//Datentyp fï¿½r die Rï¿½ckgabe
 		for( int i = 0; i < ergebnis.length; i++){
 			
 			text = ergebnis[i].getsearchtext();
-			text = text.replaceAll("[^a-zA-Z0-9 .äüöÄÖÜß@]", "");		//hier werden alle Zeichen aus dem Text gelöscht, welche weder Zahlen, Buchstaben, . oder Leerzeichen sind 
-			                                                            //Hinweis: "Reguläre Ausdrücke"
+			text = text.replaceAll("[^a-zA-Z0-9 .ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@]", "");		//hier werden alle Zeichen aus dem Text gelï¿½scht, welche weder Zahlen, Buchstaben, . oder Leerzeichen sind 
+			                                                            //Hinweis: "Regulï¿½re Ausdrï¿½cke"
 			String[] parts = text.split(" ");
 			
 			for(int j = 0; j < parts.length; j++){
@@ -72,7 +72,7 @@ public class searchAlgorithm {
 					
 					}
 					if(flag){						
-						tagfrequency.add(anzTags, new tags(parts[j], ergebnis[i].getlink()));
+						tagfrequency.add(anzTags, new Keywords(parts[j], ergebnis[i].getlink()));
 						anzTags++;
 				}
 			}
@@ -118,7 +118,7 @@ public class searchAlgorithm {
 
 
 
-  private ArrayList<tags> merge(ArrayList<tags> tagfrequency,
+  private ArrayList<Keywords> merge(ArrayList<Keywords> tagfrequency,
 			ArrayList<taglist> tagnearby, suchobjekt[] ergebnis,
 			String searchword) {
 		
