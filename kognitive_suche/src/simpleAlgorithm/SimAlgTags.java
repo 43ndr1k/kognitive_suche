@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class SimAlgTags {
 
+	/**
+	   * @author Vadzim Naumchyk & Sadik Ulusan	   
+	 **/
+	
 	private int zaehler;
 	private String tag;
 	private ArrayList<String> links = new ArrayList<String>(); 
