@@ -1,4 +1,4 @@
-wpackage GUI;
+package GUI;
 import java.awt.event.ActionListener;
 
 import javafx.application.Application;
@@ -23,16 +23,9 @@ import javafx.stage.Stage;
 
 /**
  * GUI Erstellung
- * 
-<<<<<<< HEAD
  * @author Sebastian Hï¿½gelmann
- * @version 0.2
- * Damit die JavaFX Application funktioniert, mï¿½sst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
-=======
- * @author Sebastian Hügelmann
  * @version 0.3
- * Damit die JavaFX Application funktioniert, müsst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
->>>>>>> 91ae5f748dd2dac01df37d3c852e723fb0bc4235
+ * Damit die JavaFX Application funktioniert, mï¿½sst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
  * Dann auf den Reiter: Librariers und dort Add External JARs...
  * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzufï¿½gen! Oder ï¿½hnliche 1.7.0_xx Versionen, aber nicht 1.8!
  */
@@ -125,20 +118,20 @@ public class GUI extends Application{
 				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es kï¿½nnen Tags per Hand gelï¿½scht wurden und mit Enter die Kategorie auswï¿½hlen");
 				textfield[i].setEditable(true); /*Vorerst Editable,um Tags per hand rauszufiltern.*/
 =======
-		System.out.println("Button Action ausgeführt");
+		System.out.println("Button Action ausgefï¿½hrt");
 		
-		/* Suchbegriffe aus der Suchleiste auslesen und an den Controller übergeben @Parameter
-		 * Rückgabe der Tags
+		/* Suchbegriffe aus der Suchleiste auslesen und an den Controller ï¿½bergeben @Parameter
+		 * Rï¿½ckgabe der Tags
 		 * Tags sind in String Array gespeichert?
 		 * Anzahl String Arrays = Anzahl Kategorie @Parameter anzKat
 		 */
 	
-		/*Hier wird die Kategorieanzahl übergeben*/
+		/*Hier wird die Kategorieanzahl ï¿½bergeben*/
 		/*int anzKat=4;*/
 		/*Test mit 4 Kategorien*/
 		for (int i = 0;i<2;i++){
 			for (int j = 0;j<2;j++){
-				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht werden und mit Enter die Kategorie auswählen");
+				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es kï¿½nnen Tags per Hand gelï¿½scht werden und mit Enter die Kategorie auswï¿½hlen");
 				//textfield[i] = new TextArea(""+tagarray[i]);
 				/*Vorerst Editable,um Tags per hand rauszufiltern.*/
 				textfield[i].setEditable(true);
@@ -159,9 +152,9 @@ public class GUI extends Application{
 					    			 * Kategorieanzahl ï¿½bergeben welche sich ergibt()
 					    			 * 
 =======
-					    			System.out.println("Enter wurde gedrückt!");
+					    			System.out.println("Enter wurde gedrï¿½ckt!");
 					    			/* Tags + Suchstring an Controller @Parameter
-					    			 * Rückgabe der Tags
+					    			 * Rï¿½ckgabe der Tags
 					    			 * Tags sind in String Array gespeichert?
 					    			 * Anzahl String Arrays = Anzahl Kategorie @Parameter anzKat
 >>>>>>> 91ae5f748dd2dac01df37d3c852e723fb0bc4235
