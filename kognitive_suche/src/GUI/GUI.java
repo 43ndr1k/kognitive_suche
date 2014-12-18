@@ -23,11 +23,12 @@ import javafx.stage.Stage;
 
 /**
  * GUI Erstellung
- * @author Sebastian H�gelmann
+ * 
+ * @author Sebastian Hügelmann
  * @version 0.3
- * Damit die JavaFX Application funktioniert, m�sst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
+ * Damit die JavaFX Application funktioniert, müsst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
  * Dann auf den Reiter: Librariers und dort Add External JARs...
- * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzuf�gen! Oder �hnliche 1.7.0_xx Versionen, aber nicht 1.8!
+ * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzufügen! Oder ähnliche 1.7.0_xx Versionen, aber nicht 1.8!
  */
 
 public class GUI extends Application{
@@ -63,7 +64,7 @@ public class GUI extends Application{
 		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
 		hbox1.setStyle("-fx-background-color: #EEEEEE;");		/*Bestimmt die Hintergrundfarbe*/
 		
-		TextField suchleiste = new TextField();					
+		TextField suchleiste = new TextField();					/*DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO*/				
 		suchleiste.setMaxWidth(200);
 		
 		Button sucheF = new Button("Suche in F");
@@ -79,16 +80,6 @@ public class GUI extends Application{
 		sucheP.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent sucheP) {
-				
-			}
-				System.out.println("Button wurde geklickt");
-				/* Suche starten
-				 * String an PDF Box - Textfield = "suchleiste"
-				 * Abgleich des Suchstrings mit PDF Stichw�rtern
-				 * R�ckgabe der Tags von der PDF Box
-				 * Syso der Tags in die n�chsten kommenden Felder
-				 * Aufruf des n�chsten Fensters
-				 */
 					//textfield();
 				
 			}
@@ -99,42 +90,24 @@ public class GUI extends Application{
 	
 	public void textfield(){
 		TextArea textfield[] = new TextArea[25];
-<<<<<<< HEAD
-		//GridPane pane2 = new GridPane();
-		System.out.println("Button Action ausgef�hrt");
-		/* Suche starten
-		 * String an Faroo - Textfield = "suchleiste"
-		 * Faroo R�ckgabe
-		 * primitiver Suchalgorithmus arbeitet
-		 * R�ckgabe der Tags
-		 * Ausgabe der Tags in die textfield[i]
-		 */
-	
-		//int anzKat=4; /*Hier wird die Kategorieanzahl �bergeben*/
-		//Test mit 4 Kategorien
-		for (int i = 0;i<2;i++){
-			for (int j = 0;j<2;j++){
-				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es k�nnen Tags per Hand gel�scht wurden und mit Enter die Kategorie ausw�hlen");
-				textfield[i].setEditable(true); /*Vorerst Editable,um Tags per hand rauszufiltern.*/
-=======
-		System.out.println("Button Action ausgef�hrt");
-		
-		/* Suchbegriffe aus der Suchleiste auslesen und an den Controller �bergeben @Parameter
-		 * R�ckgabe der Tags
+		System.out.println("Button Action ausgeführt");
+		//Aufruf Controller
+		//GUI.suchleiste.getText(); @Parameter
+		/* Suchbegriffe aus der Suchleiste auslesen und an den Controller übergeben @Parameter
+		 * Rückgabe der Tags
 		 * Tags sind in String Array gespeichert?
 		 * Anzahl String Arrays = Anzahl Kategorie @Parameter anzKat
 		 */
 	
-		/*Hier wird die Kategorieanzahl �bergeben*/
+		/*Hier wird die Kategorieanzahl übergeben*/
 		/*int anzKat=4;*/
 		/*Test mit 4 Kategorien*/
 		for (int i = 0;i<2;i++){
 			for (int j = 0;j<2;j++){
-				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es k�nnen Tags per Hand gel�scht werden und mit Enter die Kategorie ausw�hlen");
-				//textfield[i] = new TextArea(""+tagarray[i]);
+				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht werden und mit Enter die Kategorie auswählen");
+				//textfield[i] = new TextArea(""+tagarray[i]); !!!!! @Parameter TAGS
 				/*Vorerst Editable,um Tags per hand rauszufiltern.*/
 				textfield[i].setEditable(true);
->>>>>>> 91ae5f748dd2dac01df37d3c852e723fb0bc4235
 				textfield[i].setOnKeyPressed(new EventHandler<KeyEvent>() 
 						{
 					    	@Override
@@ -142,21 +115,15 @@ public class GUI extends Application{
 					    	{
 					    		if(keyEvent.getCode() == KeyCode.ENTER)
 					    		{
-<<<<<<< HEAD
-					    			System.out.println("Enter wurde gedr�ckt!");
-					    			/* Tags + Suchstring an Faroo()
-					    			 * Faroo NodeList R�ckgabe()
-					    			 * primitiver Suchalgorithmus auf NodeList()
-					    			 * Tags bereit machen f�r Textfields()
-					    			 * Kategorieanzahl �bergeben welche sich ergibt()
-					    			 * 
-=======
-					    			System.out.println("Enter wurde gedr�ckt!");
+					    			System.out.println("Enter wurde gedrückt!");
+					    			//Aufruf Controller
+					    			//GUI.suchleiste.getText(); @Parameter
+					    			//GUI.textfield[i].getText(); @Parameter
+					    			
 					    			/* Tags + Suchstring an Controller @Parameter
-					    			 * R�ckgabe der Tags
+					    			 * Rückgabe der Tags
 					    			 * Tags sind in String Array gespeichert?
 					    			 * Anzahl String Arrays = Anzahl Kategorie @Parameter anzKat
->>>>>>> 91ae5f748dd2dac01df37d3c852e723fb0bc4235
 					    			 */
 					    			/*Zum Test 1 Kategorie*/
 					    			anzkat = 1;
@@ -166,6 +133,7 @@ public class GUI extends Application{
 					    			}
 					    			else	{textfield();} /*Kategorien mit Tags erstellen*/
 					    			
+					    			
 					    		}
 					    	}
 						});
@@ -173,11 +141,6 @@ public class GUI extends Application{
 				System.out.println("Feld erstellt!");
 			}
 		}
-<<<<<<< HEAD
-		//Scene start1 = new Scene(pane2);
-		//System.out.println("Pane hinzugef�gt!");
-=======
->>>>>>> 91ae5f748dd2dac01df37d3c852e723fb0bc4235
 		pane2.setAlignment(Pos.CENTER);
 		pane1.setCenter(pane2);
 	}
@@ -186,9 +149,10 @@ public class GUI extends Application{
 		VBox vbox1 = new VBox();
 		Hyperlink link[] = new Hyperlink[25];
 		Label label[] = new Label[25];
-		int anzsucherg = 3;
+		int anzsucherg = 10;	/*Momentan immer 10 da nur 10 URLs von Faroo*/
 		for (int k=0; k<anzsucherg;k++){
-			link[k] = new Hyperlink("www.oracle.com");	/*getHyperlink from Nodelist*/
+			link[k] = new Hyperlink("www.oracle.com");	/*arraylist.get(URL); from Arraylist*/
+			/*arraylist.get(KWIC) von arraylist*/
 			label[k] = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
 			vbox1.getChildren().addAll(link[k],label[k]);
 			label[k].setMaxSize(300, 300);
