@@ -1,4 +1,4 @@
-
+package Visual;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import Faroo.API;
 
 public class Visual extends Application {
     @Override

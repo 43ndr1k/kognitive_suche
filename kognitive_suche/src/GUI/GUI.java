@@ -79,7 +79,8 @@ public class GUI extends Application{
 		sucheP.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent sucheP) {
-<<<<<<< HEAD
+				
+			}
 				System.out.println("Button wurde geklickt");
 				/* Suche starten
 				 * String an PDF Box - Textfield = "suchleiste"
@@ -88,9 +89,7 @@ public class GUI extends Application{
 				 * Syso der Tags in die n�chsten kommenden Felder
 				 * Aufruf des n�chsten Fensters
 				 */
-=======
 					//textfield();
->>>>>>> 91ae5f748dd2dac01df37d3c852e723fb0bc4235
 				
 			}
 			

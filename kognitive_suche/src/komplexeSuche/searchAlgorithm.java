@@ -11,8 +11,8 @@ public class searchAlgorithm {
 	
 	
 	/**
-	 * Algorithmus zur Erkennung von Schlüsselbegriffen
-	 * Komplexität n³ 
+	 * Algorithmus zur Erkennung von Schlï¿½sselbegriffen
+	 * Komplexitï¿½t nï¿½ 
 	 * 
 	 * @author Tobias Lenz
 	 */
@@ -25,17 +25,17 @@ public class searchAlgorithm {
 		
 		boolean flag  = true;
 		int anzTags = 0;
-		int numbcontsearchword = 0;		//Anzahl der im Text entahltenen Suchwörter
+		int numbcontsearchword = 0;		//Anzahl der im Text entahltenen Suchwï¿½rter
 		int range = 5;
 		
-		ArrayList<tags> tagfrequency = new ArrayList<tags>();	//Datentyp für häufigste Suchwörter
-		ArrayList<taglist> tagnearby = new ArrayList<taglist>();	//Datentyp für Umgebungssuchwörter
-		ArrayList<tags> retlist = new ArrayList<tags>();	//Datentyp für die Rückgabe
+		ArrayList<tags> tagfrequency = new ArrayList<tags>();	//Datentyp fï¿½r hï¿½ufigste Suchwï¿½rter
+		ArrayList<taglist> tagnearby = new ArrayList<taglist>();	//Datentyp fï¿½r Umgebungssuchwï¿½rter
+		ArrayList<tags> retlist = new ArrayList<tags>();	//Datentyp fï¿½r die Rï¿½ckgabe
 		for( int i = 0; i < ergebnis.length; i++){
 			
 			text = ergebnis[i].getsearchtext();
-			text = text.replaceAll("[^a-zA-Z0-9 .äüöÄÖÜß@]", "");		//hier werden alle Zeichen aus dem Text gelöscht, welche weder Zahlen, Buchstaben, . oder Leerzeichen sind 
-			                                                            //Hinweis: "Reguläre Ausdrücke"
+			text = text.replaceAll("[^a-zA-Z0-9 .ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½@]", "");		//hier werden alle Zeichen aus dem Text gelï¿½scht, welche weder Zahlen, Buchstaben, . oder Leerzeichen sind 
+			                                                            //Hinweis: "Regulï¿½re Ausdrï¿½cke"
 			String[] parts = text.split(" ");
 			
 			for(int j = 0; j < parts.length; j++){
@@ -115,7 +115,7 @@ public class searchAlgorithm {
 
 
 	/**
-	 * Zusammenführung der Tagsuche und der Metakeys
+	 * Zusammenfï¿½hrung der Tagsuche und der Metakeys
 	 * @author Steffen Schreiber
 	 */
 
@@ -125,11 +125,11 @@ public class searchAlgorithm {
 				String searchword) {
 		  
 		  ArrayList<String> returnlist = new ArrayList<String>();
-		  ArrayList<String> häufigeTags = new ArrayList<String>();
+		  ArrayList<String> haeufigeTags = new ArrayList<String>();
 		  ArrayList<String> naheTags = new ArrayList<String>();		  
 		  ArrayList<String> UrlKeys = new ArrayList<String>();
 		  
-	/**Vorführung mit festgelegten Metakeys
+	/**Vorfï¿½hrung mit festgelegten Metakeys
 	 * 
 	 */
 		  UrlKeys.add("URL");
@@ -137,23 +137,23 @@ public class searchAlgorithm {
 		  UrlKeys.add("Sammlung");
 		  UrlKeys.add("Weicker");
 		  UrlKeys.add("Dr.");
-		  UrlKeys.add("Ämter");		  
+		  UrlKeys.add("ï¿½mter");		  
 		  
 		  for (int i = 0; i < 10; i++){
-			  häufigeTags.add(tagfrequency.get(i).gettag());
+			  haeufigeTags.add(tagfrequency.get(i).gettag());
 		  }
 		  
 		  for (int i = 0; i < 6; i++){
 			  naheTags.add(tagnearby.get(i).gettag(i));
 		  }
 		  
-          for (int x = 0; x < häufigeTags.size(); x++)
+          for (int x = 0; x < haeufigeTags.size(); x++)
           {
               for (int y = 0; y < UrlKeys.size(); y++)
               {
-                  if (häufigeTags.get(x).equalsIgnoreCase(UrlKeys.get(y)))
+                  if (haeufigeTags.get(x).equalsIgnoreCase(UrlKeys.get(y)))
                   {
-                	  returnlist.add(häufigeTags.get(x));
+                	  returnlist.add(haeufigeTags.get(x));
  //               	  Set<String> set = new LinkedHashSet<String>(returnlist);
  //               	  returnlist = new ArrayList<String>(set);
  //                   System.out.println("Die gleichen Tags sind: " + returnlist);
@@ -172,13 +172,13 @@ public class searchAlgorithm {
               }
           }
           
-          for (int x = 0; x < häufigeTags.size(); x++)
+          for (int x = 0; x < haeufigeTags.size(); x++)
           {
               for (int y = 0; y < naheTags.size(); y++)
               {
-                  if (häufigeTags.get(x).equalsIgnoreCase(naheTags.get(y)))
+                  if (haeufigeTags.get(x).equalsIgnoreCase(naheTags.get(y)))
                   {
-                	  returnlist.add(häufigeTags.get(x));
+                	  returnlist.add(haeufigeTags.get(x));
                   }
               }
           }
@@ -188,7 +188,7 @@ public class searchAlgorithm {
     	  int n = 0;
     	  
     	  while (returnlist.size()<6){
-    		  returnlist.add(häufigeTags.get(n));
+    		  returnlist.add(haeufigeTags.get(n));
         	  Set<String> set2 = new LinkedHashSet<String>(returnlist);
         	  returnlist = new ArrayList<String>(set2); 
         	  n++;
