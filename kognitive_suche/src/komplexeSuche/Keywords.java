@@ -2,7 +2,7 @@ package komplexeSuche;
 
 import java.util.ArrayList;
 
-public class tags{
+public class Keywords{
   
   /**
    * @author Tobias Lenz
@@ -12,8 +12,7 @@ public class tags{
 	private String tag;
 	private ArrayList<String> address= new ArrayList<String>(); 
 
-	tags(String tag, String firstaddress){
-
+	public Keywords(String tag, String firstaddress){
 		this.tag = tag;
 		address.add(firstaddress);
 		this.count = 1;

@@ -1,10 +1,9 @@
 package komplexeSuche;
 
 
-
-
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.*;
 
 public class searchAlgorithm {
 
@@ -115,17 +114,96 @@ public class searchAlgorithm {
 
 
 
+	/**
+	 * Zusammenführung der Tagsuche und der Metakeys
+	 * @author Steffen Schreiber
+	 */
 
 
-
-  private ArrayList<tags> merge(ArrayList<tags> tagfrequency,
-			ArrayList<taglist> tagnearby, suchobjekt[] ergebnis,
-			String searchword) {
-		
+	  private ArrayList<tags> merge(ArrayList<tags> tagfrequency,
+				ArrayList<taglist> tagnearby, suchobjekt[] ergebnis,
+				String searchword) {
+		  
+		  ArrayList<String> returnlist = new ArrayList<String>();
+		  ArrayList<String> häufigeTags = new ArrayList<String>();
+		  ArrayList<String> naheTags = new ArrayList<String>();		  
+		  ArrayList<String> UrlKeys = new ArrayList<String>();
+		  
+	/**Vorführung mit festgelegten Metakeys
+	 * 
+	 */
+		  UrlKeys.add("URL");
+		  UrlKeys.add("Karsten");
+		  UrlKeys.add("Sammlung");
+		  UrlKeys.add("Weicker");
+		  UrlKeys.add("Dr.");
+		  UrlKeys.add("Ämter");		  
+		  
+		  for (int i = 0; i < 10; i++){
+			  häufigeTags.add(tagfrequency.get(i).gettag());
+		  }
+		  
+		  for (int i = 0; i < 6; i++){
+			  naheTags.add(tagnearby.get(i).gettag(i));
+		  }
+		  
+          for (int x = 0; x < häufigeTags.size(); x++)
+          {
+              for (int y = 0; y < UrlKeys.size(); y++)
+              {
+                  if (häufigeTags.get(x).equalsIgnoreCase(UrlKeys.get(y)))
+                  {
+                	  returnlist.add(häufigeTags.get(x));
+ //               	  Set<String> set = new LinkedHashSet<String>(returnlist);
+ //               	  returnlist = new ArrayList<String>(set);
+ //                   System.out.println("Die gleichen Tags sind: " + returnlist);
+                  }
+              }
+          }
+          
+          for (int x = 0; x < naheTags.size(); x++)
+          {
+              for (int y = 0; y < UrlKeys.size(); y++)
+              {
+                  if (naheTags.get(x).equalsIgnoreCase(UrlKeys.get(y)))
+                  {
+                	  returnlist.add(naheTags.get(x));
+                  }
+              }
+          }
+          
+          for (int x = 0; x < häufigeTags.size(); x++)
+          {
+              for (int y = 0; y < naheTags.size(); y++)
+              {
+                  if (häufigeTags.get(x).equalsIgnoreCase(naheTags.get(y)))
+                  {
+                	  returnlist.add(häufigeTags.get(x));
+                  }
+              }
+          }
+    	  Set<String> set = new LinkedHashSet<String>(returnlist);
+    	  returnlist = new ArrayList<String>(set);
+    	  
+    	  int n = 0;
+    	  
+    	  while (returnlist.size()<6){
+    		  returnlist.add(häufigeTags.get(n));
+        	  Set<String> set2 = new LinkedHashSet<String>(returnlist);
+        	  returnlist = new ArrayList<String>(set2); 
+        	  n++;
+    	  }
+    	  
+    	System.out.println(returnlist);
+    	
 		return null;
-	}
-
-
+		}
+	  
+	  
+	  
+		/**
+		 * @author Tobias Lenz
+		 */
 
 	private boolean doescontain(String searchword, String string) {
 		String[] parts = searchword.split(" ");
