@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  * GUI Erstellung
  * 
  * @author Sebastian Hügelmann
- * @version 0.2
+ * @version 0.3
  * Damit die JavaFX Application funktioniert, müsst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
  * Dann auf den Reiter: Librariers und dort Add External JARs...
  * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzufügen! Oder ähnliche 1.7.0_xx Versionen, aber nicht 1.8!
@@ -43,26 +43,13 @@ public class GUI extends Application{
 	
 	@Override
 	public void start(Stage stage) throws Exception {
-		
-		
-		
-		//BorderPane pane1 = new BorderPane();
-		//Pane pane1 = new Pane();
-		//pane1.getChildren().addAll(sucheF,sucheP);
-		
-		
+
 		HBox hbox1 = new HBox();
+		
 		pane1.setCenter(hbox1);
-		
-		
-		//hbox1.setLayoutX(512);
-		//hbox1.setLayoutY(394);
+
 		hbox1.setAlignment(Pos.CENTER);
 		
-		//pane1.getChildren().addAll();
-		
-		
-		//Scene start1 = new Scene(pane1);
 		Scene start1 = new Scene(pane1);
 		
 		stage.setTitle("Kognitive Suche");
@@ -73,13 +60,11 @@ public class GUI extends Application{
 		stage.setResizable(false);
 		stage.show();
 		
-		hbox1.setPadding(new Insets(15,30,15,30));
-		hbox1.setSpacing(20);
-		//hbox.setLayoutX(512);
-		//hbox.setLayoutY(394);
-		hbox1.setStyle("-fx-background-color: #EEEEEE;");
+		hbox1.setPadding(new Insets(15,30,15,30));				/*Bestimmt den Abstand vom Rand nach Innen*/
+		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
+		hbox1.setStyle("-fx-background-color: #EEEEEE;");		/*Bestimmt die Hintergrundfarbe*/
 		
-		TextField suchleiste = new TextField();
+		TextField suchleiste = new TextField();					
 		suchleiste.setMaxWidth(200);
 		
 		Button sucheF = new Button("Suche in F");
@@ -87,7 +72,7 @@ public class GUI extends Application{
 		sucheF.setOnAction(new EventHandler<ActionEvent>(){
 				@Override
 				public void handle(ActionEvent sucheF) {
-					textfield();
+					textfield();								/*Ruft die Methode zur Generierung Textfelder auf*/
 				}
 			});
 		
@@ -95,14 +80,7 @@ public class GUI extends Application{
 		sucheP.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent sucheP) {
-				System.out.println("Button wurde geklickt");
-				/* Suche starten
-				 * String an PDF Box - Textfield = "suchleiste"
-				 * Abgleich des Suchstrings mit PDF Stichwörtern
-				 * Rückgabe der Tags von der PDF Box
-				 * Syso der Tags in die nächsten kommenden Felder
-				 * Aufruf des nächsten Fensters
-				 */
+					//textfield();
 				
 			}
 			
@@ -112,22 +90,23 @@ public class GUI extends Application{
 	
 	public void textfield(){
 		TextArea textfield[] = new TextArea[25];
-		//GridPane pane2 = new GridPane();
 		System.out.println("Button Action ausgeführt");
-		/* Suche starten
-		 * String an Faroo - Textfield = "suchleiste"
-		 * Faroo Rückgabe
-		 * primitiver Suchalgorithmus arbeitet
+		
+		/* Suchbegriffe aus der Suchleiste auslesen und an den Controller übergeben @Parameter
 		 * Rückgabe der Tags
-		 * Ausgabe der Tags in die textfield[i]
+		 * Tags sind in String Array gespeichert?
+		 * Anzahl String Arrays = Anzahl Kategorie @Parameter anzKat
 		 */
 	
-		//int anzKat=4; /*Hier wird die Kategorieanzahl übergeben*/
-		//Test mit 4 Kategorien
+		/*Hier wird die Kategorieanzahl übergeben*/
+		/*int anzKat=4;*/
+		/*Test mit 4 Kategorien*/
 		for (int i = 0;i<2;i++){
 			for (int j = 0;j<2;j++){
-				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht wurden und mit Enter die Kategorie auswählen");
-				textfield[i].setEditable(true); /*Vorerst Editable,um Tags per hand rauszufiltern.*/
+				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht werden und mit Enter die Kategorie auswählen");
+				//textfield[i] = new TextArea(""+tagarray[i]);
+				/*Vorerst Editable,um Tags per hand rauszufiltern.*/
+				textfield[i].setEditable(true);
 				textfield[i].setOnKeyPressed(new EventHandler<KeyEvent>() 
 						{
 					    	@Override
@@ -136,13 +115,12 @@ public class GUI extends Application{
 					    		if(keyEvent.getCode() == KeyCode.ENTER)
 					    		{
 					    			System.out.println("Enter wurde gedrückt!");
-					    			/* Tags + Suchstring an Faroo()
-					    			 * Faroo NodeList Rückgabe()
-					    			 * primitiver Suchalgorithmus auf NodeList()
-					    			 * Tags bereit machen für Textfields()
-					    			 * Kategorieanzahl übergeben welche sich ergibt()
-					    			 * 
+					    			/* Tags + Suchstring an Controller @Parameter
+					    			 * Rückgabe der Tags
+					    			 * Tags sind in String Array gespeichert?
+					    			 * Anzahl String Arrays = Anzahl Kategorie @Parameter anzKat
 					    			 */
+					    			/*Zum Test 1 Kategorie*/
 					    			anzkat = 1;
 					    			
 					    			if (anzkat < 2){
@@ -157,8 +135,6 @@ public class GUI extends Application{
 				System.out.println("Feld erstellt!");
 			}
 		}
-		//Scene start1 = new Scene(pane2);
-		//System.out.println("Pane hinzugefügt!");
 		pane2.setAlignment(Pos.CENTER);
 		pane1.setCenter(pane2);
 	}
@@ -175,11 +151,16 @@ public class GUI extends Application{
 			label[k].setMaxSize(300, 300);
 			label[k].setWrapText(true);
 			label[k].setStyle("-fx-label-padding: 0 0 20 0;");	/*top right bottom left*/
+			
+			/*link[k].setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent o) {
+	                    getHostServices().showDocument(link[k].getText());
+	                }
+			});*/
 		}
 		vbox1.setMaxSize(1000, 700);
-		//vbox1.setSpacing(20);
-		BorderPane pane3 = new BorderPane();
-		//pane3.getChildren().add(vbox1);
+		/*vbox1.setSpacing(20);*/
 		pane1.getChildren().clear();
 		pane1.setCenter(vbox1);
 	}
