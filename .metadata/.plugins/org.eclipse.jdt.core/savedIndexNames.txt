@@ -1,0 +1,5 @@
+INDEX VERSION 1.127+C:\Git\kognitive_suche\.metadata\.plugins\org.eclipse.jdt.core
+2906843085.index
+634182476.index
+1403173454.index
+1657330681.index

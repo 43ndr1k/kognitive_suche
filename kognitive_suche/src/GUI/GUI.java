@@ -1,4 +1,4 @@
-package GUI;
+wpackage GUI;
 import java.awt.event.ActionListener;
 
 import javafx.application.Application;
@@ -24,11 +24,11 @@ import javafx.stage.Stage;
 /**
  * GUI Erstellung
  * 
- * @author Sebastian Hügelmann
+ * @author Sebastian Hï¿½gelmann
  * @version 0.2
- * Damit die JavaFX Application funktioniert, müsst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
+ * Damit die JavaFX Application funktioniert, mï¿½sst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
  * Dann auf den Reiter: Librariers und dort Add External JARs...
- * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzufügen! Oder ähnliche 1.7.0_xx Versionen, aber nicht 1.8!
+ * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzufï¿½gen! Oder ï¿½hnliche 1.7.0_xx Versionen, aber nicht 1.8!
  */
 
 public class GUI extends Application{
@@ -98,10 +98,10 @@ public class GUI extends Application{
 				System.out.println("Button wurde geklickt");
 				/* Suche starten
 				 * String an PDF Box - Textfield = "suchleiste"
-				 * Abgleich des Suchstrings mit PDF Stichwörtern
-				 * Rückgabe der Tags von der PDF Box
-				 * Syso der Tags in die nächsten kommenden Felder
-				 * Aufruf des nächsten Fensters
+				 * Abgleich des Suchstrings mit PDF Stichwï¿½rtern
+				 * Rï¿½ckgabe der Tags von der PDF Box
+				 * Syso der Tags in die nï¿½chsten kommenden Felder
+				 * Aufruf des nï¿½chsten Fensters
 				 */
 				
 			}
@@ -113,20 +113,20 @@ public class GUI extends Application{
 	public void textfield(){
 		TextArea textfield[] = new TextArea[25];
 		//GridPane pane2 = new GridPane();
-		System.out.println("Button Action ausgeführt");
+		System.out.println("Button Action ausgefï¿½hrt");
 		/* Suche starten
 		 * String an Faroo - Textfield = "suchleiste"
-		 * Faroo Rückgabe
+		 * Faroo Rï¿½ckgabe
 		 * primitiver Suchalgorithmus arbeitet
-		 * Rückgabe der Tags
+		 * Rï¿½ckgabe der Tags
 		 * Ausgabe der Tags in die textfield[i]
 		 */
 	
-		//int anzKat=4; /*Hier wird die Kategorieanzahl übergeben*/
+		//int anzKat=4; /*Hier wird die Kategorieanzahl ï¿½bergeben*/
 		//Test mit 4 Kategorien
 		for (int i = 0;i<2;i++){
 			for (int j = 0;j<2;j++){
-				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht wurden und mit Enter die Kategorie auswählen");
+				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es kï¿½nnen Tags per Hand gelï¿½scht wurden und mit Enter die Kategorie auswï¿½hlen");
 				textfield[i].setEditable(true); /*Vorerst Editable,um Tags per hand rauszufiltern.*/
 				textfield[i].setOnKeyPressed(new EventHandler<KeyEvent>() 
 						{
@@ -135,12 +135,12 @@ public class GUI extends Application{
 					    	{
 					    		if(keyEvent.getCode() == KeyCode.ENTER)
 					    		{
-					    			System.out.println("Enter wurde gedrückt!");
+					    			System.out.println("Enter wurde gedrï¿½ckt!");
 					    			/* Tags + Suchstring an Faroo()
-					    			 * Faroo NodeList Rückgabe()
+					    			 * Faroo NodeList Rï¿½ckgabe()
 					    			 * primitiver Suchalgorithmus auf NodeList()
-					    			 * Tags bereit machen für Textfields()
-					    			 * Kategorieanzahl übergeben welche sich ergibt()
+					    			 * Tags bereit machen fï¿½r Textfields()
+					    			 * Kategorieanzahl ï¿½bergeben welche sich ergibt()
 					    			 * 
 					    			 */
 					    			anzkat = 1;
@@ -158,7 +158,7 @@ public class GUI extends Application{
 			}
 		}
 		//Scene start1 = new Scene(pane2);
-		//System.out.println("Pane hinzugefügt!");
+		//System.out.println("Pane hinzugefï¿½gt!");
 		pane2.setAlignment(Pos.CENTER);
 		pane1.setCenter(pane2);
 	}
