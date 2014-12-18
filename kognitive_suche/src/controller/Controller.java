@@ -20,10 +20,8 @@ import Faroo.Result;
 import Faroo.API;
 import Faroo.ConfigFileManagement;
 import Faroo.APIResults;
-
 import pdfBoxAcces.PDFBoxAccesControler;
 import pdfBoxAcces.PDFDocument;
-
 import simpleAlgorithm.ObBearbeitung;
 import simpleAlgorithm.SimAlgTags;
 
@@ -63,11 +61,17 @@ public class Controller {
 	private ArrayList<Float> Weight1 = null;
 	private ArrayList<Float> Weight2 = null;
 	private ArrayList<Float> Weight3 = null;
+	//Prim. SuchAlg
+	String ausgabe = null;
+	
 	
 	/* CONSTRUCTOR */
 	public Controller(String Suchstring, String Config){//Nen Test ob wir Netz haben w�re vlt. noch n�tzlich
 		this.Suchstring = Suchstring;
 		this.Config = Config;	
+	}
+	public Controller(String Config){//Nen Test ob wir Netz haben w�re vlt. noch n�tzlich
+		this.Config = Config;
 	}
 	/* METHODS */
 	public void startSearchF(String Suchtag){
@@ -75,9 +79,19 @@ public class Controller {
 			ConfigFileManagement config = new ConfigFileManagement();
 			API api = new API(config.getKey());	
 			try {
-				api.query(Suchtag);
+				api.query(Suchtag, Config);
 				APIResults apiResults = api.getResult();
 				ArrayList<Result> results = apiResults.getResultsList();
+				Title = new ArrayList<String>();
+				Kwic = new ArrayList<String>();
+				Author = new ArrayList<String>();
+				Votes = new ArrayList<String>();
+				IsNews = new ArrayList<String>();
+				URL = new ArrayList<String>();
+				Domain = new ArrayList<String>();
+				ImageUrl= new ArrayList<String>();
+				FirstIndexed = new ArrayList<String>();
+				FirstPublished = new ArrayList<String>();
 				
 				for(int i = 0; i < results.size(); i++) {
 					Author.add(results.get(i).getAuthor());
@@ -91,9 +105,23 @@ public class Controller {
 					URL.add(results.get(i).getUrl());
 					Votes.add(results.get(i).getVotes());
 				}
+				ObBearbeitung uebergabe = new ObBearbeitung();
+			    ArrayList<SimAlgTags> treffer = new ArrayList<SimAlgTags>();
+			    treffer = uebergabe.annahme(results);
+			    ArrayList<String> addresses;
+			    for (int i = 0; i < treffer.size(); i++) {
+			      ausgabe = treffer.get(i).gettag();
+			      System.out.println(ausgabe);
+			      addresses = treffer.get(i).getlinks();
+			      System.out.println(addresses);
+
+			    }
+				
 			} catch (Exception e) {
 			e.printStackTrace();
 			}
+			
+		    
 	}
 	public void startSearchP(){	//Listen vorher Löschen
 				// PDFbox bekommt keine Eingabe von Controller ? - läuft also extern, was f�r Daten kommen zurück
@@ -104,7 +132,16 @@ public class Controller {
 				// als auch eine ArrayList<PDFKeyword>. Diese ArrayList enthält alle Keywords + dessen weight. (String getTerm(), float getWeight())
 				// Gleiches Format wie bei Hendrik formatieren oder andersrum ist ja bis jetzt alles String
 	    		// Runs the PDFBox tool. CARE: It takes up to 30 seconds until PDFBox is ready.
-	    		queryPdfBox();
+		DocName = new ArrayList<String>();
+		Keywords1 = new ArrayList<String>();
+		Keywords2 = new ArrayList<String>();
+		Keywords3 = new ArrayList<String>();
+		Weight1 = new ArrayList<Float>();
+		Weight2 = new ArrayList<Float>();
+		Weight3 = new ArrayList<Float>();
+		
+		
+				queryPdfBox();
 	    		ArrayList<PDFDocument> PDFDocs = new ArrayList<PDFDocument>();
 	            PDFDocs = Controller.queryPdfBox();
 	            for(int i = 0; i < PDFDocs.size(); i++)
@@ -118,6 +155,18 @@ public class Controller {
 	            	Weight3.add(PDFDocs.get(i).getKeywords().get(0).getWeight());
 	            	
 	            }
+	            /*
+	            ObBearbeitung uebergabe = new ObBearbeitung();
+	            ArrayList<SimAlgTags> treffer = new ArrayList<SimAlgTags>();
+	            treffer = uebergabe.annahme(results);
+	            String ausgabe;
+	            ArrayList<String> addresses;
+	            for (int i = 0; i < treffer.size(); i++) {
+	              ausgabe = treffer.get(i).gettag();
+	              System.out.println(ausgabe);
+	              addresses = treffer.get(i).getlinks();
+	              System.out.println(addresses);
+	              */
 	    		
 	}
 	/*
@@ -190,8 +239,10 @@ public class Controller {
 		return Weight2;
 	}
 	public ArrayList<Float> getWeight3(){
-
 		return Weight3;
+	}
+	public String getTags(){
+		return ausgabe;
 	}
 
 	

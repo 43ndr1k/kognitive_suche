@@ -1,6 +1,8 @@
 package GUI;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
+import controller.Controller;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -32,7 +34,8 @@ import javafx.stage.Stage;
  */
 
 public class GUI extends Application{
-	
+	private Controller c = new Controller("de");//Hier kannst du Config (1String) Eingeben gerade zb die Sprache
+	public ArrayList<String> tags = new ArrayList<String>();
 	private BorderPane pane1 = new BorderPane();
 	private int anzkat = 4;
 	private GridPane pane2 = new GridPane();
@@ -72,6 +75,8 @@ public class GUI extends Application{
 		sucheF.setOnAction(new EventHandler<ActionEvent>(){
 				@Override
 				public void handle(ActionEvent sucheF) {
+					c.startSearchF(suchleiste.getText());
+					tags = c.getKwic();
 					textfield();								/*Ruft die Methode zur Generierung Textfelder auf*/
 				}
 			});
@@ -91,6 +96,8 @@ public class GUI extends Application{
 	public void textfield(){
 		TextArea textfield[] = new TextArea[25];
 		System.out.println("Button Action ausgeführt");
+		
+		
 		//Aufruf Controller
 		//GUI.suchleiste.getText(); @Parameter
 		/* Suchbegriffe aus der Suchleiste auslesen und an den Controller übergeben @Parameter
@@ -104,8 +111,8 @@ public class GUI extends Application{
 		/*Test mit 4 Kategorien*/
 		for (int i = 0;i<2;i++){
 			for (int j = 0;j<2;j++){
-				textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht werden und mit Enter die Kategorie auswählen");
-				//textfield[i] = new TextArea(""+tagarray[i]); !!!!! @Parameter TAGS
+				//textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht werden und mit Enter die Kategorie auswählen");
+				textfield[i] = new TextArea(""+tags.get(i)); // DU MUESSTEST NOCH PRUEFEN OB DAS ARRAYLIST WAS ENTHAELT
 				/*Vorerst Editable,um Tags per hand rauszufiltern.*/
 				textfield[i].setEditable(true);
 				textfield[i].setOnKeyPressed(new EventHandler<KeyEvent>() 

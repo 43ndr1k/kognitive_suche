@@ -11,17 +11,20 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
+import controller.Controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import Faroo.API;
 
-public class Visual extends Application {
+public class Visual  {//extends Application {
+	ArrayList<String> urls = new ArrayList<String>(); // Erstmal nur einen Tag überall Schmidt 18.12
+    String tags = null;
+    /*
     @Override
     public void start(Stage primaryStage) throws Exception {
         VBox vbox = new VBox();
-
+        
         primaryStage.setTitle("KOgnitive Suche");
         primaryStage.setScene(new Scene(vbox));
         primaryStage.centerOnScreen();
@@ -32,15 +35,10 @@ public class Visual extends Application {
         String tagsStr;
         HBox hbox;
         Hyperlink link;
-
-        API api = new API("");
-        api.query("Superman");
-        ArrayList<HashMap<String, String>> urls = api.getResult();
-        ArrayList<ArrayList<String>> tags = new ArrayList<ArrayList<String>>(); //tag.getTag
-
-        HashMap<String, String> url;
-        ArrayList<String> tag;
-
+        //API api = new API(""); Auskommentiert wegen unnoetig - Schmidt 18.12
+        //api.query("Superman");
+        //ArrayList<HashMap<String, String>> urls = api.getResult();
+        //ArrayList<ArrayList<String>> tags = new ArrayList<ArrayList<String>>(); //tag.getTag
  /*
 
         tag = new ArrayList<String>();//tag.getTag
@@ -64,7 +62,7 @@ public class Visual extends Application {
 
         /**
          * Check
-         */
+         
 
         if(urls.size() != tags.size())
             throw new Exception("URLs.size() isn't Tags.size()");
@@ -95,8 +93,11 @@ public class Visual extends Application {
             vbox.getChildren().add(new Separator());
         }
     }
-
-    public static void main(String[] args) {
-        launch(args);
+    */
+    public Visual(ArrayList<String> urls, String tags){
+    	this.urls = urls;
+    	this.tags = tags;
     }
+    
+
 }
