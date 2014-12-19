@@ -36,6 +36,8 @@ import javafx.stage.Stage;
 public class GUI extends Application{
 	private Controller c = new Controller("de");//Hier kannst du Config (1String) Eingeben gerade zb die Sprache
 	public ArrayList<String> tags = new ArrayList<String>();
+	public ArrayList<String> url = new ArrayList<String>();
+	public ArrayList<String> kwic = new ArrayList<String>();
 	private BorderPane pane1 = new BorderPane();
 	private int anzkat = 10;
 	private GridPane pane2 = new GridPane();
@@ -78,7 +80,9 @@ public class GUI extends Application{
 			    		if(keyEvent.getCode() == KeyCode.ENTER)
 			    		{
 			    			c.startSearchF(suchleiste.getText());
-							tags = c.getKwic();
+							kwic = c.getKwic();
+							url = c.getURL();
+							tags = c.getTags();
 							textfield();
 			    		}
 			    	}
@@ -90,7 +94,9 @@ public class GUI extends Application{
 				@Override
 				public void handle(ActionEvent sucheF) {
 					c.startSearchF(suchleiste.getText());
-					tags = c.getKwic();
+					kwic = c.getKwic();
+					url = c.getURL();
+					tags = c.getTags();
 					textfield();								/*Ruft die Methode zur Generierung Textfelder auf*/
 				}
 			});
@@ -178,9 +184,11 @@ public class GUI extends Application{
 		Label label[] = new Label[25];
 		int anzsucherg = 10;	/*Momentan immer 10 da nur 10 URLs von Faroo*/
 		for (int k=0; k<anzsucherg;k++){
-			link[k] = new Hyperlink("www.oracle.com");	/*arraylist.get(URL); from Arraylist*/
+			//link[k] = new Hyperlink("www.oracle.com");	/*arraylist.get(URL); from Arraylist*/
+			link[k] = new Hyperlink(url.get(k));
 			/*arraylist.get(KWIC) von arraylist*/
-			label[k] = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
+			//label[k] = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
+			label[k] = new Label(kwic.get(k));
 			vbox1.getChildren().addAll(link[k],label[k]);
 			label[k].setMaxSize(300, 300);
 			label[k].setWrapText(true);
