@@ -1,4 +1,4 @@
-﻿package main;
+package main;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,14 +26,14 @@ public class Main {
   /*********************************************************************************************
    * *******************************************************************************************
    * 
-   * Wichtig!!! Die Main Klasse Bevor das Projekt ausgefÃ¼hrt werden kann muss eine
+   * Wichtig!!! Die Main Klasse Bevor das Projekt ausgefuehrt werden kann muss eine
    * config.properties file angelegt werden. Dies wird automatisch erzeugt! Falls dies der Fall ist
    * wird der Key in der Konsole abgefragt! Mit dem Inhalt:
    * 
    * 
    * key = 2CJIbhzsHU4nlSqBVZ2OP3fimb4_
    * 
-   * Die Abfrage fÃ¼r den Key wird in der Console erledigt!
+   * Die Abfrage fuer den Key wird in der Console erledigt!
    * 
    * 
    * 
@@ -49,6 +49,7 @@ public class Main {
   public static void main(String[] args) {
 
 
+    /**
     farooTest(); // Aufrufen um Faroo zu testen
 
     pdfBoxTest(); //Aufrufen um PDFBox zu Testen
@@ -73,12 +74,14 @@ public class Main {
 
     simpleAlgorithmTest(); // Aufrufen, um den primitiven Algorithmus zu testen
 
-
+  **/
   }
 
 
   private static void simpleAlgorithmTest() {
-    // TODO Auto-generated method stub
+
+  /**
+
     System.out.println("\n AUSGABE SIMPLE ALGORITHM//////////////////////////////////////////////");
     
     ConfigFileManagement config = new ConfigFileManagement();
@@ -109,14 +112,14 @@ public class Main {
     }
     System.out.println("Ende..");
 
-    
+    **/
 
   }
 
 
 
   private static void pdfBoxTest() {
-    // TODO Auto-generated method stub
+
     /**
      * Demonstriert den Zugriff auf die PDFBox. Das Programm wird gestartet (das dauert ca. 15
      * Sekunden) und kann dann vom Nutzer wie gewohnt genutzt werden. Nach dem schließen der PDF Box
@@ -128,6 +131,7 @@ public class Main {
      * diese Ordner vor dem nächsten commit wieder gelöscht werden!
      */
 
+    /**
     System.out.println("\n AUSGABE pdfBox//////////////////////////////////////////////");
     
     ArrayList<PDFDocument> PDFDocs = new ArrayList<PDFDocument>();
@@ -145,30 +149,30 @@ public class Main {
       System.out.println("In " + PDFDocs.get(i).getDocname() + " wurden " + PDFDocs.get(i).getKeywords().size() + " Keywords gefunden"); //Besipiel für abrufen des Dokumentennamen
       System.out.println("Das erste Keyword in dieser PDF heißt: " + PDFDocs.get(i).getKeywords().get(1).getTerm()); //Beispiel für abrufen der Keywords
     }
-    
+    **/
 
   }
 
   private static void farooTest() {
     /**
      * Demonstriert das Aufrufen der FAROO API und die Ausgabe auf der Konsole Der erste Parameter
-     * ist der Faroo API key Mit der Methode query wird die Suchanfrage eingeleitet. Dort Ã¼bergibt
-     * man das Suchwort. Dies ist die einfachste Methode, des weiteren ist es mÃ¶glich in der
-     * Methode query weitere Parameter zu Ã¼bergeben. (Noch nicht implementiert)
+     * ist der Faroo API key Mit der Methode query wird die Suchanfrage eingeleitet. Dort uebergibt
+     * man das Suchwort. Dies ist die einfachste Methode, des weiteren ist es moeglich in der
+     * Methode query weitere Parameter zu uebergeben. (Noch nicht implementiert)
      * 
      * Mit der Methode api.getCompleteResults werden alle Ergebnisse die die Suchanfrage liefert
-     * zurÃ¼ckgegeben und in eine ArrayList gespeichert. Ã¼ber result.get kann man dann auf die
+     * zurueckgegeben und in eine ArrayList gespeichert. ueber result.get kann man dann auf die
      * Einzelden Tags zugreifen und sich diese Ausgeben lassen.
      * 
-     * Die Anweisungen mÃ¼ssen in einem try catch Block stehen da die Methode eine Exeption liefert,
-     * wenn es Probleme gibt seitens des Verbindungsaufbaus oder Ã¤hnliches.
+     * Die Anweisungen muessen in einem try catch Block stehen da die Methode eine Exeption liefert,
+     * wenn es Probleme gibt seitens des Verbindungsaufbaus oder aenhnliches.
      * 
      * 
      * Falls die Methode "query" mit einer bestimmten kombination an Parametern nicht existiert,
      * kann man sie leich implementieren.
      * 
      */
-
+/**
     System.out.println("\n AUSGABE FAROO//////////////////////////////////////////////");
     ConfigFileManagement config = new ConfigFileManagement();
 
@@ -180,8 +184,8 @@ public class Main {
       // api.query("test", "de", true);
       // api.query("hallo");
       // api.query("foo war");
-      // api.query("&&");
-      // api.query("FoÃ¤Ã¶Ã¼");
+      // api.query("kkk");
+      // api.query("k");
       // api.query("mama");
       // api.query("Huibu");
 
@@ -209,6 +213,7 @@ public class Main {
       e.printStackTrace();
     }
     System.out.println("Ende..");
+ **/
   }
 
 }
