@@ -104,8 +104,12 @@ public class GUI extends Application{
 		Button sucheP = new Button("Suche in P");
 		sucheP.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
-			public void handle(ActionEvent sucheP) {
-					//textfield();
+			public void handle(ActionEvent sucheP) { // Bei PDFbox wird das TXT feld nicht benötigt - bis jetzt
+					c.startSearchP();
+					kwic = c.getKeywords2();
+					url = c.getDocName();
+					tags = c.getKeywords1(); // Ohne Sortierung soviel ich weiß 
+					textfield();
 				
 			}
 			
