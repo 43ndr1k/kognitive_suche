@@ -37,7 +37,7 @@ public class GUI extends Application{
 	private Controller c = new Controller("de");//Hier kannst du Config (1String) Eingeben gerade zb die Sprache
 	public ArrayList<String> tags = new ArrayList<String>();
 	private BorderPane pane1 = new BorderPane();
-	private int anzkat = 4;
+	private int anzkat = 10;
 	private GridPane pane2 = new GridPane();
 	
 	public static void main(String[] args){
@@ -67,8 +67,22 @@ public class GUI extends Application{
 		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
 		hbox1.setStyle("-fx-background-color: #EEEEEE;");		/*Bestimmt die Hintergrundfarbe*/
 		
-		TextField suchleiste = new TextField();					/*DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO*/				
+		final TextField suchleiste = new TextField();					/*DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO*/				
 		suchleiste.setMaxWidth(200);
+		
+		suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>()
+				{
+			    	@Override
+			    	public void handle(KeyEvent keyEvent) 
+			    	{
+			    		if(keyEvent.getCode() == KeyCode.ENTER)
+			    		{
+			    			c.startSearchF(suchleiste.getText());
+							tags = c.getKwic();
+							textfield();
+			    		}
+			    	}
+				});
 		
 		Button sucheF = new Button("Suche in F");
 		
@@ -109,13 +123,15 @@ public class GUI extends Application{
 		/*Hier wird die Kategorieanzahl übergeben*/
 		/*int anzKat=4;*/
 		/*Test mit 4 Kategorien*/
+		int feld=0;
 		for (int i = 0;i<2;i++){
-			for (int j = 0;j<2;j++){
+			for (int j = 0;j<5;j++){
 				//textfield[i] = new TextArea("Ich bin das Textfeld in der Spalte "+i+" Zeile "+j+" !\n"+"Es können Tags per Hand gelöscht werden und mit Enter die Kategorie auswählen");
-				textfield[i] = new TextArea(""+tags.get(i)); // DU MUESSTEST NOCH PRUEFEN OB DAS ARRAYLIST WAS ENTHAELT
+				textfield[feld] = new TextArea(""+tags.get(feld)); // DU MUESSTEST NOCH PRUEFEN OB DAS ARRAYLIST WAS ENTHAELT
 				/*Vorerst Editable,um Tags per hand rauszufiltern.*/
-				textfield[i].setEditable(true);
-				textfield[i].setOnKeyPressed(new EventHandler<KeyEvent>() 
+				textfield[feld].setEditable(true);
+				textfield[feld].setWrapText(true);
+				textfield[feld].setOnKeyPressed(new EventHandler<KeyEvent>()
 						{
 					    	@Override
 					    	public void handle(KeyEvent keyEvent) 
@@ -144,11 +160,15 @@ public class GUI extends Application{
 					    		}
 					    	}
 						});
-				pane2.add(textfield[i], i, j);
+				pane2.add(textfield[feld], i, j);
 				System.out.println("Feld erstellt!");
+				feld++;
 			}
 		}
 		pane2.setAlignment(Pos.CENTER);
+		pane2.setPadding(new Insets(20, 30, 20, 30));
+		pane2.setHgap(10);
+		pane2.setVgap(10);
 		pane1.setCenter(pane2);
 	}
 	
