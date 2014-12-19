@@ -62,7 +62,7 @@ public class Controller {
 	private ArrayList<Float> Weight2 = null;
 	private ArrayList<Float> Weight3 = null;
 	//Prim. SuchAlg
-	String ausgabe = null;
+	ArrayList<String> ausgabe = null;
 	
 	
 	/* CONSTRUCTOR */
@@ -92,6 +92,7 @@ public class Controller {
 				ImageUrl= new ArrayList<String>();
 				FirstIndexed = new ArrayList<String>();
 				FirstPublished = new ArrayList<String>();
+				ausgabe = new ArrayList<String>();
 				
 				for(int i = 0; i < results.size(); i++) {
 					Author.add(results.get(i).getAuthor());
@@ -110,7 +111,7 @@ public class Controller {
 			    treffer = uebergabe.annahme(results);
 			    ArrayList<String> addresses;
 			    for (int i = 0; i < treffer.size(); i++) {
-			      ausgabe = treffer.get(i).gettag();
+			      ausgabe.add(treffer.get(i).gettag());
 			      System.out.println(ausgabe);
 			      addresses = treffer.get(i).getlinks();
 			      System.out.println(addresses);
@@ -175,98 +176,74 @@ public class Controller {
 	}*/
 	//------------------------------------------------
 	public ArrayList<String> getAuthor(){
-
 		return Author;
 	}
 	public ArrayList<String> getDomain(){
-
 		return Domain;
 	}
 	public ArrayList<String> getFirstIndexed(){
-
 		return FirstIndexed;
 	}
 	public ArrayList<String> getFirstPublished(){
-
 		return FirstPublished;
 	}
 	public ArrayList<String> getImageUrl(){
-
 		return ImageUrl;
 	}
 	public ArrayList<String> getIsNews(){
-
 		return IsNews;
 	}
 	public ArrayList<String> getKwic(){
-
 		return Kwic;
 	}
 	public ArrayList<String> getTitle(){
-
 		return Title;
 	}
 	public ArrayList<String> getURL(){
-
 		return URL;
 	}
 	public ArrayList<String> getVotes(){
-
 		return Votes;
 	}
 	public ArrayList<String> getDocName(){
-
 		return DocName;
 	}
 	public ArrayList<String> getKeywords1(){
-
 		return Keywords1;
 	}
 	public ArrayList<String> getKeywords2(){
-
 		return Keywords2;
 	}
 	public ArrayList<String> getKeywords3(){
-
 		return Keywords3;
 	}
 	public ArrayList<Float> getWeight1(){
-
 		return Weight1;
 	}
 	public ArrayList<Float> getWeight2(){
-
 		return Weight2;
 	}
 	public ArrayList<Float> getWeight3(){
 		return Weight3;
 	}
-	public String getTags(){
+	public ArrayList<String> getTags(){
 		return ausgabe;
 	}
-
-	
-	
 	private Object evaluateGUI(Object pObject){
 		return null;
 	}
-	
-	private Object queryFaroo(Object pObject){
-		return null;
-	}
-	
 	public static ArrayList<PDFDocument> queryPdfBox(){
 	    PDFBoxAccesControler PDFBoxAcces = new PDFBoxAccesControler(pdfbox_path); //Runs the PDFBox tool. CARE: It takes up to 30 seconds until PDFBox is ready.
 	    return PDFBoxAcces.getDocKeywords();
 	    }
-	
+	//Jetzt
 	private ArrayList<SimAlgTags> startsimpleAlgorithmn(Object pObject){
 	
 		ObBearbeitung suche = new ObBearbeitung();		
 		
 		return suche.annahme(null);
 	}
-	
+	//Später
 	private ArrayList<tags> startComplexAlgorithmn(Object pObject){
 	  suchobjekt[] ergebnis =new suchobjekt[2];
       ergebnis[0] = new suchobjekt("https://portal.imn.htwk-leipzig.de/fakultaet/weicker","Karsten Weicker, Prof. Dr. rer. nat. ï¿½ Fakultï¿½t Informatik","Prof. Dr. rer. nat. Karsten Weicker Karsten Weicker, Prof. Dr. rer. nat. Leitungen und ï¿½mter Studienfachberater (Informatik) Studienkommission Informatik (Vorsitzender) Studiendekan (Informatik) Fakultï¿½tsrat (Mitglied ) Aufgabenbereiche Lehrgebiet: Praktische Informatik Kontaktinformationen Sprechzeit: nach Vereinbarung Z410  Gustav-Freytag-Str. 42A 04277 Leipzig karsten.weicker [at] htwk-leipzig.de  +49 (0) 341 3076-6395 Lebenslauf1990-1997 Studium der Informatik mit Nebenfach Mathematik, Universitï¿½t Stuttgart 1995-1997    Studium der Computer Science, University of Massachusetts in Amherst Gutachter fï¿½r folgende Zeitschriften: IEEE Transactions on Evolutionary Computation, Evolutionary Computation Journal, ACM Computing Surveys, Information Processing Letters, Softcomputing Journal, Genetic Programming and Evolvable Machines");
