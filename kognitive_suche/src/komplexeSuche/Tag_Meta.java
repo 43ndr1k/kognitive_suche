@@ -70,7 +70,7 @@ public class Tag_Meta extends Thread {
 	ArrayList<String[]> UrlKeys(String[] urls){
 		
 		
-		ArrayList<String[]> rückgabe=new ArrayList<String[]>();
+		ArrayList<String[]> rueckgabe=new ArrayList<String[]>();
 		
 		
 		for(int i =0;i<url.length();i++){
@@ -82,7 +82,7 @@ public class Tag_Meta extends Thread {
 		//liste.add(getMetaKeys("http://www.easy-coding.de/index.php/Thread/10300-HTML-auslesen-und-nach-spezifischen-Tags-suchen/"));
 		//liste.add(getMetaKeys("https://www.youtube.com/?gl=DE&hl=de"));
 		
-		return rückgabe;
+		return rueckgabe;
 	}
 
 }
