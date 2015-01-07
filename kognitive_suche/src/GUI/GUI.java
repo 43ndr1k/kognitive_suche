@@ -34,7 +34,7 @@ import javafx.stage.Stage;
  */
 
 public class GUI extends Application{
-	private Controller c = new Controller("de");//Hier kannst du Config (1String) Eingeben gerade zb die Sprache
+	private Controller mController = new Controller("de");//Hier kannst du Config (1String) Eingeben gerade zb die Sprache
 	public ArrayList<String> tags = new ArrayList<String>();
 	public ArrayList<String> url = new ArrayList<String>();
 	public ArrayList<String> kwic = new ArrayList<String>();
@@ -79,10 +79,10 @@ public class GUI extends Application{
 			    	{
 			    		if(keyEvent.getCode() == KeyCode.ENTER)
 			    		{
-			    			c.startSearchF(suchleiste.getText());
-							kwic = c.getKwic();
-							url = c.getURL();
-							tags = c.getTags();
+			    			mController.startSearchF(suchleiste.getText());
+							kwic = mController.getKwic();
+							url = mController.getURL();
+							tags = mController.getTags();
 							textfield();
 			    		}
 			    	}
@@ -93,10 +93,10 @@ public class GUI extends Application{
 		sucheF.setOnAction(new EventHandler<ActionEvent>(){
 				@Override
 				public void handle(ActionEvent sucheF) {
-					c.startSearchF(suchleiste.getText());
-					kwic = c.getKwic();
-					url = c.getURL();
-					tags = c.getTags();
+					mController.startSearchF(suchleiste.getText());
+					kwic = mController.getKwic();
+					url = mController.getURL();
+					tags = mController.getTags();
 					textfield();								/*Ruft die Methode zur Generierung Textfelder auf*/
 				}
 			});
@@ -104,11 +104,11 @@ public class GUI extends Application{
 		Button sucheP = new Button("Suche in P");
 		sucheP.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
-			public void handle(ActionEvent sucheP) { // Bei PDFbox wird das TXT feld nicht benötigt - bis jetzt
-					c.startSearchP();
-					kwic = c.getKeywords2();
-					url = c.getDocName();
-					tags = c.getKeywords1(); // Ohne Sortierung soviel ich weiß 
+			public void handle(ActionEvent sucheP) { // Bei PDFbox wird das TXT feld nicht benï¿½tigt - bis jetzt
+				mController.startSearchP();
+					kwic = mController.getKeywords2();
+					url = mController.getDocName();
+					tags = mController.getKeywords1(); // Ohne Sortierung soviel ich weiï¿½ 
 					textfield();
 				
 			}
