@@ -9,5 +9,7 @@ public class GitTest{
 		System.out.println("Christian");
 		System.out.println("Fabian");
         System.out.println("Ivan");
+        System.out.println("Tobias");
+		System.out.println("Vadzim");
 	}
 }
