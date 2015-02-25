@@ -11,14 +11,14 @@ import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import controller.Controller;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import Faroo.API;
+
 
 public class Visual  {//extends Application {
-	ArrayList<String> urls = new ArrayList<String>(); // Erstmal nur einen Tag überall Schmidt 18.12
+	ArrayList<String> urls = new ArrayList<String>(); // Erstmal nur einen Tag ï¿½berall Schmidt 18.12
     String tags = null;
     /*
     @Override
