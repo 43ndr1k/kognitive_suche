@@ -10,5 +10,7 @@
     <orderEntry type="library" name="pdfbox" level="project" />
     <orderEntry type="library" name="index-0.0.0-20140605.014212-1" level="project" />
     <orderEntry type="library" name=".mylyn" level="project" />
+    <orderEntry type="library" name="gson-2.3.1" level="project" />
+    <orderEntry type="library" name="junit-4.7" level="project" />
   </component>
 </module>

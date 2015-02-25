@@ -1,18 +1,18 @@
-package kognitive_suche.src.controller;
+package kognitive_suche.src.de.leipzig.htwk.controller;
 
-import de.leipzig.htwk.faroo.api.APIExecption;
-import de.leipzig.htwk.faroo.api.Api;
-import de.leipzig.htwk.faroo.api.ConfigFileManagement;
-import de.leipzig.htwk.faroo.api.Results;
-import de.leipzig.htwk.komplexeSuche.CreateJsonDoc;
-import de.leipzig.htwk.komplexeSuche.Kommunikation;
+import kognitive_suche.src.de.leipzig.htwk.faroo.api.APIExecption;
+import kognitive_suche.src.de.leipzig.htwk.faroo.api.Api;
+import kognitive_suche.src.de.leipzig.htwk.faroo.api.ConfigFileManagement;
+import kognitive_suche.src.de.leipzig.htwk.faroo.api.Results;
+import kognitive_suche.src.de.leipzig.htwk.komplexeSuche.CreateJsonDoc;
+import kognitive_suche.src.de.leipzig.htwk.komplexeSuche.Kommunikation;
 
 /**
  * Created by hendrik.
  */
 
 /**
- * Der Controller dient zur Vermittlung. Er wickelt die Kommunikation zwischen den einzelenen Klassen ab.
+ * Der Controller dient zur Vermittlung. Er wickelt die Kommsunikation zwischen den einzelenen Klassen ab.
  */
 public class Controller {
 
