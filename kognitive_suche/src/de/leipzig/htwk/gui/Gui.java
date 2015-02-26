@@ -1,6 +1,6 @@
 package kognitive_suche.src.de.leipzig.htwk.gui;
 
-import de.leipzig.htwk.controller.Controller;
+import kognitive_suche.src.de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -247,13 +247,13 @@ public class Gui extends Application {
 
     /**
      * Ruft den Controller auf, damit die Suchanfrage bearbeitet wird.
-     * @param what
+     * @param what - Was wird gesucht
      * @param language
-     * @param q
-     * @param start
+     * @param q - Suchwort
+     * @param start - Ab welchen Ergebniss aufgeben werden sollen.
      * @return Results
      */
-    private de.leipzig.htwk.controller.Controller Controller = new Controller();
+    private kognitive_suche.src.de.leipzig.htwk.controller.Controller Controller = new Controller();
     private void searching(String what, String language, String q, int start){
         Controller.setParameter(language,what,start);
         Controller.queryFaroo(q);

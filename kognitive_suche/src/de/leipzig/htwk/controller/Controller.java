@@ -4,8 +4,8 @@ import kognitive_suche.src.de.leipzig.htwk.faroo.api.APIExecption;
 import kognitive_suche.src.de.leipzig.htwk.faroo.api.Api;
 import kognitive_suche.src.de.leipzig.htwk.faroo.api.ConfigFileManagement;
 import kognitive_suche.src.de.leipzig.htwk.faroo.api.Results;
-import kognitive_suche.src.de.leipzig.htwk.komplexeSuche.CreateJsonDoc;
-import kognitive_suche.src.de.leipzig.htwk.komplexeSuche.Kommunikation;
+import kognitive_suche.src.de.leipzig.htwk.createJson.CreateJsonDoc;
+import kognitive_suche.src.komplexeSuche.Kommunikation;
 
 /**
  * Created by hendrik.
