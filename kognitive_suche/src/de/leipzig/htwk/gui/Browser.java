@@ -43,7 +43,7 @@ class Browser extends Region {
 
     public void load(){
         try {
-            webEngine.load("file:///" + s + "/src/de/leipzig/htwk/gui/Index.html");
+            webEngine.load("file:///" + s + "/kognitive_suche/src/de/leipzig/htwk/gui/Index.html");
             //webEngine.loadContent(genHtml());
         }catch (Exception e){
 
