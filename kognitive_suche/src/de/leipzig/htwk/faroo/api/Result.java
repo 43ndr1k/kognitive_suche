@@ -8,7 +8,7 @@ public class Result {
 
     String title = "", kwic = "", author = "", votes = "", isNews = "";
     String url = null, domain = null, imageUrl = null;
-    Boolean isEmpty = false;
+
     String firstIndexed = "", firstPublished = "";
 
     /**
@@ -82,8 +82,6 @@ public class Result {
         this.title = "Keine Ergebnisse";
     }
 
-    public void setIsEmpty(){
-        this.isEmpty=true;
-    }
+
 }
 
