@@ -1,4 +1,4 @@
-package komplexeSuche;
+package kognitive_suche.src.komplexeSuche;
 
 public class suchobjekt {
 

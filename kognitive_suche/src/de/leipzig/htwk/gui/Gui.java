@@ -1,5 +1,7 @@
 package kognitive_suche.src.de.leipzig.htwk.gui;
 
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import kognitive_suche.src.de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -216,6 +218,20 @@ public class Gui extends Application {
                 lCountResults.setText("Results: " + 10);
                 searching(bWhatSearch[0],bLanguage[0], textFieldSearch.getText(), start[0]);
                 browser.load();
+            }
+        });
+
+        bSearch.setOnKeyPressed(new EventHandler<KeyEvent>()
+        {
+            @Override
+            public void handle(KeyEvent keyEvent)
+            {
+                if(keyEvent.getCode() == KeyCode.ENTER)
+                {
+                    lCountResults.setText("Results: " + 10);
+                    searching(bWhatSearch[0],bLanguage[0], textFieldSearch.getText(), start[0]);
+                    browser.load();
+                }
             }
         });
         Separator sepTop = new Separator();

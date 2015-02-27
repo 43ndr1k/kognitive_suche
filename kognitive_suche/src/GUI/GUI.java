@@ -1,8 +1,9 @@
-package GUI;
+package kognitive_suche.src.GUI;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ArrayList;
 
-import controller.Controller;
+import kognitive_suche.src.de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,10 +23,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import kognitive_suche.src.de.leipzig.htwk.faroo.api.Results;
+import kognitive_suche.src.simpleAlgorithm.SimAlgTags;
 
 /**
  * GUI Erstellung
- * 
+ *
  * @author Sebastian Hügelmann
  * @version 0.3
  * Damit die JavaFX Application funktioniert, müsst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
@@ -34,29 +37,32 @@ import javafx.stage.Stage;
  */
 
 public class GUI extends Application{
-	private Controller mController = new Controller("de");//Hier kannst du Config (1String) Eingeben gerade zb die Sprache
+	private Controller mController = new Controller();
 	public ArrayList<String> tags = new ArrayList<String>();
 	public ArrayList<String> url = new ArrayList<String>();
 	public ArrayList<String> kwic = new ArrayList<String>();
 	private BorderPane pane1 = new BorderPane();
 	private int anzkat = 10;
 	private GridPane pane2 = new GridPane();
-	
+	final TextField suchleiste = new TextField();					/*DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO*/
+
 	public static void main(String[] args){
 		launch(args);
 	}
-	
+
 	@Override
 	public void start(Stage stage) throws Exception {
 
+		mController.setParameter("de","web",1);
+
 		HBox hbox1 = new HBox();
-		
+
 		pane1.setCenter(hbox1);
 
 		hbox1.setAlignment(Pos.CENTER);
-		
+
 		Scene start1 = new Scene(pane1);
-		
+
 		stage.setTitle("Kognitive Suche");
 		stage.centerOnScreen();
 		stage.setWidth(1024);
@@ -64,64 +70,75 @@ public class GUI extends Application{
 		stage.setScene(start1);
 		stage.setResizable(false);
 		stage.show();
-		
+
 		hbox1.setPadding(new Insets(15,30,15,30));				/*Bestimmt den Abstand vom Rand nach Innen*/
 		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
 		hbox1.setStyle("-fx-background-color: #EEEEEE;");		/*Bestimmt die Hintergrundfarbe*/
-		
-		final TextField suchleiste = new TextField();					/*DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO*/				
+
+
 		suchleiste.setMaxWidth(200);
-		
+
+
+
 		suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>()
+		{
+			@Override
+			public void handle(KeyEvent keyEvent)
+			{
+				if(keyEvent.getCode() == KeyCode.ENTER)
 				{
-			    	@Override
-			    	public void handle(KeyEvent keyEvent) 
-			    	{
-			    		if(keyEvent.getCode() == KeyCode.ENTER)
-			    		{
-			    			mController.startSearchF(suchleiste.getText());
-							kwic = mController.getKwic();
-							url = mController.getURL();
-							tags = mController.getTags();
-							textfield();
-			    		}
-			    	}
-				});
-		
-		Button sucheF = new Button("Suche in F");
-		
-		sucheF.setOnAction(new EventHandler<ActionEvent>(){
-				@Override
-				public void handle(ActionEvent sucheF) {
-					mController.startSearchF(suchleiste.getText());
-					kwic = mController.getKwic();
-					url = mController.getURL();
-					tags = mController.getTags();
-					textfield();								/*Ruft die Methode zur Generierung Textfelder auf*/
+					Daten();
+					textfield();
 				}
-			});
-		
+			}
+		});
+
+		Button sucheF = new Button("Suche in F");
+
+		sucheF.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent sucheF) {
+				Daten();
+				textfield();								/*Ruft die Methode zur Generierung Textfelder auf*/
+			}
+		});
+
 		Button sucheP = new Button("Suche in P");
 		sucheP.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent sucheP) { // Bei PDFbox wird das TXT feld nicht ben�tigt - bis jetzt
-				mController.startSearchP();
-					kwic = mController.getKeywords2();
-					url = mController.getDocName();
-					tags = mController.getKeywords1(); // Ohne Sortierung soviel ich wei� 
-					textfield();
-				
+				//mController.startSearchP();
+				//kwic = mController.getKeywords2();
+				//url = mController.getDocName();
+				//tags = mController.getKeywords1(); // Ohne Sortierung soviel ich wei�
+				textfield();
+
 			}
-			
+
 		});
 		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
 	}
-	
+
+	private void Daten(){
+		mController.queryFaroo(suchleiste.getText());
+		Results r = mController.GetResultList();
+		for(int i = 0; i < r.getResults().size(); i++) {
+			kwic.add(r.getResults().get(i).getKwic());
+			//title.add(r.getResults().get(i).getTitle());
+			url.add(r.getResults().get(i).getUrl());
+		}
+
+		ArrayList<SimAlgTags> treffer = mController.GetTags();
+		for (int i = 0; i < treffer.size(); i++) {
+			tags.add(treffer.get(i).gettag());
+		}
+	}
+
 	public void textfield(){
 		TextArea textfield[] = new TextArea[25];
 		System.out.println("Button Action ausgeführt");
-		
-		
+
+
 		//Aufruf Controller
 		//GUI.suchleiste.getText(); @Parameter
 		/* Suchbegriffe aus der Suchleiste auslesen und an den Controller übergeben @Parameter
@@ -142,16 +159,16 @@ public class GUI extends Application{
 				textfield[feld].setEditable(true);
 				textfield[feld].setWrapText(true);
 				textfield[feld].setOnKeyPressed(new EventHandler<KeyEvent>()
+				{
+					@Override
+					public void handle(KeyEvent keyEvent)
+					{
+						if(keyEvent.getCode() == KeyCode.ENTER)
 						{
-					    	@Override
-					    	public void handle(KeyEvent keyEvent) 
-					    	{
-					    		if(keyEvent.getCode() == KeyCode.ENTER)
-					    		{
-					    			System.out.println("Enter wurde gedrückt!");
-					    			//Aufruf Controller
-					    			//GUI.suchleiste.getText(); @Parameter
-					    			//GUI.textfield[i].getText(); @Parameter
+							System.out.println("Enter wurde gedrückt!");
+							//Aufruf Controller
+							//GUI.suchleiste.getText(); @Parameter
+							//GUI.textfield[i].getText(); @Parameter
 					    			
 					    			/* Tags + Suchstring an Controller @Parameter
 					    			 * Rückgabe der Tags
@@ -159,17 +176,17 @@ public class GUI extends Application{
 					    			 * Anzahl String Arrays = Anzahl Kategorie @Parameter anzKat
 					    			 */
 					    			/*Zum Test 1 Kategorie*/
-					    			anzkat = 1;
-					    			
-					    			if (anzkat < 2){
-					    				ergebnisausgabe(); /*Ausgabe der Webseiten*/
-					    			}
-					    			else	{textfield();} /*Kategorien mit Tags erstellen*/
-					    			
-					    			
-					    		}
-					    	}
-						});
+							anzkat = 1;
+
+							if (anzkat < 2){
+								ergebnisausgabe(); /*Ausgabe der Webseiten*/
+							}
+							else	{textfield();} /*Kategorien mit Tags erstellen*/
+
+
+						}
+					}
+				});
 				pane2.add(textfield[feld], i, j);
 				System.out.println("Feld erstellt!");
 				feld++;
@@ -181,7 +198,7 @@ public class GUI extends Application{
 		pane2.setVgap(10);
 		pane1.setCenter(pane2);
 	}
-	
+
 	public void ergebnisausgabe(){
 		VBox vbox1 = new VBox();
 		Hyperlink link[] = new Hyperlink[25];
@@ -210,6 +227,6 @@ public class GUI extends Application{
 		pane1.getChildren().clear();
 		pane1.setCenter(vbox1);
 	}
-	
-	
+
+
 }

@@ -1,10 +1,10 @@
-package simpleAlgorithm;
+package kognitive_suche.src.simpleAlgorithm;
 import java.util.ArrayList;
 
 //import java.net.*;
 //import java.io.*;
-// import Faroo.APIResults;
-import Faroo.Result;
+
+import kognitive_suche.src.de.leipzig.htwk.faroo.api.Results;
 
 public class ObBearbeitung {
 		
@@ -14,15 +14,15 @@ public class ObBearbeitung {
 	/*
 	 * Die Methode nimmt Resultate von Faroo und erstes Wort von URL
 	 */
-	public ArrayList<SimAlgTags> annahme (ArrayList<Result> results){
+	public ArrayList<SimAlgTags> annahme (Results results){
 		ArrayList<SimAlgTags> rueckgabe = new ArrayList<SimAlgTags>();
 		
 		String[] tags;
 		String erstesWort;
 		String Website;
-		for(int i = 0; i< results.size(); i++){
-			Website = results.get(i).getUrl();
-			tags = results.get(i).getTitle().split(" ");
+		for(int i = 0; i< results.getResults().size(); i++){
+			Website = results.getResults().get(i).getUrl();
+			tags = results.getResults().get(i).getTitle().split(" ");
 			erstesWort = tags[0];
 			rueckgabe.add(i, new SimAlgTags(erstesWort, Website));			
 		}

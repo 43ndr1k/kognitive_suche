@@ -1,4 +1,4 @@
-package komplexeSuche;
+package kognitive_suche.src.komplexeSuche;
 
 import java.util.ArrayList;
 
