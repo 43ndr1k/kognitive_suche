@@ -72,7 +72,6 @@ public class ApiTest {
     public void testQuery_with_start_query_language_src_keinErgebnis() throws Exception {
         Api api = new Api(key, url);
         Assert.assertTrue("Liste ist gefüllt", (api.query(1, "hfzdgsers", "de", "web").getResults().size() == 1));
-
     }
 
     @Test

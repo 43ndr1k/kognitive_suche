@@ -33,9 +33,8 @@ public class Controller {
 
     /**
      * Parameter für die Faroo API
-     * @param l - Language
-     * @param _src - Welche Informationen möchte man haben
-     * @param s - Startwert ab welchem Suchergebnis man Ergebnisse haben möchte.
+     * @param _src Welche Informationen möchte man haben
+     * @param s Startwert ab welchem Suchergebnis man Ergebnisse haben möchte.
      */
     public void setParameter(String l, String _src, int s){
         this.language = l;
@@ -71,7 +70,7 @@ public class Controller {
 
     /**
      * Stellt die Results Liste zur Verfügung.
-     * @return r - Results Liste
+     * @return r Results Liste
      */
     public Results getResultList(){
         return this.r;
@@ -93,7 +92,7 @@ public class Controller {
     }
     /**
      * Aufruf der berechnung der Komplexen Suche.
-     * @param List - Results Liste
+     * @param List Results Liste
      */
     private void createDocVisual(Results List, String query){
         CreateJsonDoc c = new CreateJsonDoc(query, List);

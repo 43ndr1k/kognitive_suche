@@ -19,7 +19,7 @@ public class CreateJsonDoc {
      * Erstellung der Json Datei. Die Datei liegt auf der
      * Festplatte -> Daten.json.
      * Die Erstellung des Vertex Objektes ist die Reihenfolge der Baumstruktur, nur das sie von Innen nach Außen abläuft.
-     * @param k - Resultsliste
+     * @param k Resultsliste
      */
     public CreateJsonDoc(String query, Results k){
         this.k = k;

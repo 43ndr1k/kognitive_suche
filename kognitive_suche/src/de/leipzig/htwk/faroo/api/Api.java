@@ -46,7 +46,7 @@ public class Api {
     /**
      * Hier wird zu Faroo die Verbindung aufgebaut.
      * @param urlParameter
-     * @return - Results Liste
+     * @return Results Liste
      * @throws APIExecption
      */
     private Results queryJson(String urlParameter) throws APIExecption{
@@ -96,7 +96,7 @@ public class Api {
      * Hier werden die Daten empfangen. Es
      * wird eine JSON Struktur empfangen.
      * @param pHttpURLConnection
-     * @return - Liste mit JSON Objekten
+     * @return Liste mit JSON Objekten
      */
     private String readResult(HttpURLConnection pHttpURLConnection) {
 
@@ -124,7 +124,7 @@ public class Api {
 
     /**
      * Diese Methode codiert die query nach URL-Envording Richtlien
-     * @param u - query
+     * @param u query
      * @return u
      */
     private String encoding(String u) {
@@ -143,7 +143,7 @@ public class Api {
     /**
      * Anfrage an die Faroo API stellen, url wird zusammen gestzt
      * @param query - Suchwort
-     * @return - Results Liste
+     * @return Results Liste
      * @throws APIExecption
      */
     public Results query(String query) throws APIExecption {
@@ -156,9 +156,9 @@ public class Api {
 
     /**
      * Anfrage an die Faroo API stellen, url wird zusammen gestzt
-     * @param query - Suchwort
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @return - Results Liste
+     * @param query Suchwort
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @return Results Liste
      * @throws Exception
      */
     public Results query(String query, String language) throws APIExecption {
@@ -173,7 +173,7 @@ public class Api {
 	 * @param query
 	 * @param length
 	 * @throws Exception
-     * @return - Results Liste
+     * @return Results Liste
 	 */
     public Results query(String query, int length) throws APIExecption {
 
@@ -190,11 +190,11 @@ public class Api {
     /**
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start - Bei welchem Suchergebnis soll die Suche anfangen
-     * @param length - Anzahl an Ergebnisse (max. 10 - default 10)
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfangen
+     * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, int start, int length) throws APIExecption {
 
@@ -210,12 +210,12 @@ public class Api {
     /**
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start - Bei welchem Suchergebnis soll die Suche anfangen
-     * @param length - Anzahl an Ergebnisse (max. 10 - default 10)
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfangen
+     * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, int start, int length, String language)
             throws APIExecption {
@@ -234,11 +234,11 @@ public class Api {
      *
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start- Bei welchem Suchergebnis soll die Suche anfangen
-     * @param length - Anzahl an Ergebnisse (max. 10 - default 10)
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @param src -
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfangen
+     * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @param src
      *            Source web Web Search (default) Sorted by relevancy Contains
      *            all kinds of results news News Search Sorted by publishing
      *            date Contains only news articles from newspapers, magazines
@@ -254,8 +254,8 @@ public class Api {
      *            searches with parameter i=true, the suggesti- ons are already
      *            included in the search result.
      *
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, int start, int length, String language,
                       String src) throws APIExecption {
@@ -274,11 +274,11 @@ public class Api {
      *
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start - Bei welchem Suchergebnis soll die Suche anfangen
-     * @param length - Anzahl an Ergebnisse (max. 10 - default 10)
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @param src -
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfangen
+     * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @param src
      *            Source web Web Search (default) Sorted by relevancy Contains
      *            all kinds of results news News Search Sorted by publishing
      *            date Contains only news articles from newspapers, magazines
@@ -294,13 +294,13 @@ public class Api {
      *            searches with parameter i=true, the suggesti- ons are already
      *            included in the search result.
      *
-     * @param kwic -
+     * @param kwic
      *            Keyword in context false snippet is selected from the begin-
      *            ning of the article. true (default) snippet is selected from
      *            the article parts con- taining the keywords.
      *
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
 
     public Results query(String query, int start, int length, String language,
@@ -320,11 +320,11 @@ public class Api {
      *
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start - Bei welchem Suchergebnis soll die Suche anfangen
-     * @param length - Anzahl an Ergebnisse (max. 10 - default 10)
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @param src -
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfangen
+     * @param length Anzahl an Ergebnisse (max. 10 - default 10)
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @param src
      *            Source web Web Search (default) Sorted by relevancy Contains
      *            all kinds of results news News Search Sorted by publishing
      *            date Contains only news articles from newspapers, magazines
@@ -340,17 +340,17 @@ public class Api {
      *            searches with parameter i=true, the suggesti- ons are already
      *            included in the search result.
      *
-     * @param kwic -
+     * @param kwic
      *            Keyword in context false snippet is selected from the begin-
      *            ning of the article. true (default) snippet is selected from
      *            the article parts con- taining the keywords.
-     * @param i -
+     * @param i
      *            Instant search false (default) searches for query q true
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
      *
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, int start, int length, String language,
                       String src, String kwic, boolean i) throws APIExecption {
@@ -369,10 +369,10 @@ public class Api {
      *
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start - Bei welchem Suchergebnis soll die Suche anfange
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @param src -
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfange
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @param src
      *            Source web Web Search (default) Sorted by relevancy Contains
      *            all kinds of results news News Search Sorted by publishing
      *            date Contains only news articles from newspapers, magazines
@@ -388,17 +388,17 @@ public class Api {
      *            searches with parameter i=true, the suggesti- ons are already
      *            included in the search result.
      *
-     * @param kwic -
+     * @param kwic
      *            Keyword in context false snippet is selected from the begin-
      *            ning of the article. true (default) snippet is selected from
      *            the article parts con- taining the keywords.
-     * @param i -
+     * @param i
      *            Instant search false (default) searches for query q true
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
      *
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, int start, String language, String src,
                       String kwic, boolean i) throws APIExecption {
@@ -417,10 +417,10 @@ public class Api {
      *
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start - Bei welchem Suchergebnis soll die Suche anfange
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @param src -
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfange
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @param src
      *            Source web Web Search (default) Sorted by relevancy Contains
      *            all kinds of results news News Search Sorted by publishing
      *            date Contains only news articles from newspapers, magazines
@@ -437,8 +437,8 @@ public class Api {
      *            included in the search result.
      *
 
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(int start, String query,  String language, String src) throws APIExecption {
 
@@ -455,9 +455,9 @@ public class Api {
      *
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @param src -
+     * @param query Suchwort
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @param src
      *            Source web Web Search (default) Sorted by relevancy Contains
      *            all kinds of results news News Search Sorted by publishing
      *            date Contains only news articles from newspapers, magazines
@@ -473,17 +473,17 @@ public class Api {
      *            searches with parameter i=true, the suggesti- ons are already
      *            included in the search result.
      *
-     * @param kwic -
+     * @param kwic
      *            Keyword in context false snippet is selected from the begin-
      *            ning of the article. true (default) snippet is selected from
      *            the article parts con- taining the keywords.
-     * @param i -
+     * @param i
      *            Instant search false (default) searches for query q true
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
      *
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, String language, String src, String kwic,
                       boolean i) throws APIExecption {
@@ -498,9 +498,9 @@ public class Api {
      *
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param start - Bei welchem Suchergebnis soll die Suche anfangen
-     * @param src -
+     * @param query Suchwort
+     * @param start Bei welchem Suchergebnis soll die Suche anfangen
+     * @param src
      *            Source web Web Search (default) Sorted by relevancy Contains
      *            all kinds of results news News Search Sorted by publishing
      *            date Contains only news articles from newspapers, magazines
@@ -516,13 +516,13 @@ public class Api {
      *            searches with parameter i=true, the suggesti- ons are already
      *            included in the search result.
      *
-     * @param kwic -
+     * @param kwic
      *            Keyword in context false snippet is selected from the begin-
      *            ning of the article. true (default) snippet is selected from
      *            the article parts con- taining the keywords.
      *
-     * @throws Exception - Wert zu klein
-     * @return - Results Liste
+     * @throws Exception Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, int start, String src, String kwic)
             throws APIExecption {
@@ -541,14 +541,14 @@ public class Api {
     /**
      * Anfrage an die Faroo API stellen url wird zusammen gestzt
      *
-     * @param query - Suchwort
-     * @param language - Englisch = en, Deutsch = ge, Chinesisch = zh
-     * @param i -
+     * @param query Suchwort
+     * @param language Englisch = en, Deutsch = ge, Chinesisch = zh
+     * @param i
      *            Instant search false (default) searches for query q true
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
-     * @throws Exception -  Wert zu klein
-     * @return - Results Liste
+     * @throws Exception  Wert zu klein
+     * @return Results Liste
      */
     public Results query(String query, String language, boolean i)
             throws APIExecption {
