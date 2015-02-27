@@ -1,9 +1,9 @@
-package kognitive_suche.src.de.leipzig.htwk.createJson;
+package de.leipzig.htwk.createJson;
 /**
  * Created by hendrik.
  */
 import com.google.gson.Gson;
-import kognitive_suche.src.komplexeSuche.Kommunikation;
+import de.leipzig.htwk.faroo.api.Results;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,7 +13,7 @@ public class CreateJsonDoc {
 
     FileWriter writer;
     File file;
-    Kommunikation k = null;
+    Results k = null;
     /**
      * Annahme der Resultsliste und Erstellung der Vertex Objekte. Diese dienen im anschluss für die
      * Erstellung der Json Datei. Die Datei liegt auf der
@@ -21,15 +21,15 @@ public class CreateJsonDoc {
      * Die Erstellung des Vertex Objektes ist die Reihenfolge der Baumstruktur, nur das sie von Innen nach Außen abläuft.
      * @param k - Resultsliste
      */
-    public CreateJsonDoc(Kommunikation k){
+    public CreateJsonDoc(String query, Results k){
         this.k = k;
         Gson gson = new Gson();
-        Vertex obj = new Vertex(k.getQuery());
-        for(int i = 0; i < k.getObjectList().getResults().size();i++){
-            Vertex url = new Vertex(k.getObjectList().getResults().get(i).getUrl());
-            Vertex domain = new Vertex(k.getObjectList().getResults().get(i).getDomain());
+        Vertex obj = new Vertex(query);
+        for(int i = 0; i < k.getResults().size();i++){
+            Vertex url = new Vertex(k.getResults().get(i).getUrl());
+            Vertex domain = new Vertex(k.getResults().get(i).getDomain());
             domain.addVertex(url);
-            Vertex title = new Vertex(k.getObjectList().getResults().get(i).getTitle());
+            Vertex title = new Vertex(k.getResults().get(i).getTitle());
             title.addVertex(domain);
             obj.addVertex(title);
         }

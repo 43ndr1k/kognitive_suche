@@ -1,4 +1,4 @@
-package kognitive_suche.src.de.leipzig.htwk.gui;
+package de.leipzig.htwk.gui;
 
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;

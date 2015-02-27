@@ -1,7 +1,7 @@
-package kognitive_suche.src.de.leipzig.htwk.faroo.api;
+package de.leipzig.htwk.faroo.api;
 
 /**
- * Created by hendrik on 09.12.14.
+ * Created by hendrik.
  */
 public class APIExecption extends Exception {
 

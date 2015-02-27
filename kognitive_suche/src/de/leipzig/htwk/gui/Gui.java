@@ -1,8 +1,8 @@
-package kognitive_suche.src.de.leipzig.htwk.gui;
+package de.leipzig.htwk.gui;
 
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import kognitive_suche.src.de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -221,7 +221,7 @@ public class Gui extends Application {
             }
         });
 
-        bSearch.setOnKeyPressed(new EventHandler<KeyEvent>()
+        textFieldSearch.setOnKeyPressed(new EventHandler<KeyEvent>()
         {
             @Override
             public void handle(KeyEvent keyEvent)
@@ -269,7 +269,7 @@ public class Gui extends Application {
      * @param start - Ab welchen Ergebniss aufgeben werden sollen.
      * @return Results
      */
-    private kognitive_suche.src.de.leipzig.htwk.controller.Controller Controller = new Controller();
+    private Controller Controller = new Controller();
     private void searching(String what, String language, String q, int start){
         Controller.setParameter(language,what,start);
         Controller.queryFaroo(q);

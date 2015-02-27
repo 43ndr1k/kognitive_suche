@@ -1,4 +1,4 @@
-package kognitive_suche.src.simpleAlgorithm;
+package simpleAlgorithm;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,10 @@
-package kognitive_suche.src.simpleAlgorithm;
+package simpleAlgorithm;
 import java.util.ArrayList;
 
 //import java.net.*;
 //import java.io.*;
 
-import kognitive_suche.src.de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.faroo.api.Results;
 
 public class ObBearbeitung {
 		

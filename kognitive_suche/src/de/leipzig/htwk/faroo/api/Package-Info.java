@@ -7,4 +7,4 @@
  * Als Eingabe werden zum einen die Parameter, Rückgabewerte und das Suchwort benötigt.
  * Die Rückgabe wird eine NodeList sein.
  */
-package kognitive_suche.src.de.leipzig.htwk.faroo.api;
+package de.leipzig.htwk.faroo.api;

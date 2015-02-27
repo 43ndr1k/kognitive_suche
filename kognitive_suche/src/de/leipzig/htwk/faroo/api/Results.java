@@ -1,4 +1,4 @@
-package kognitive_suche.src.de.leipzig.htwk.faroo.api;
+package de.leipzig.htwk.faroo.api;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package kognitive_suche.src.komplexeSuche;
+package komplexeSuche;
 import java.util.ArrayList;
 
 //@author Franz Schwarzer

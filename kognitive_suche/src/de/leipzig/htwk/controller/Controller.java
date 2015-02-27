@@ -1,12 +1,11 @@
-package kognitive_suche.src.de.leipzig.htwk.controller;
+package de.leipzig.htwk.controller;
 
-import kognitive_suche.src.de.leipzig.htwk.faroo.api.APIExecption;
-import kognitive_suche.src.de.leipzig.htwk.faroo.api.Api;
-import kognitive_suche.src.de.leipzig.htwk.faroo.api.ConfigFileManagement;
-import kognitive_suche.src.de.leipzig.htwk.faroo.api.Results;
-import kognitive_suche.src.de.leipzig.htwk.createJson.CreateJsonDoc;
-import kognitive_suche.src.komplexeSuche.Kommunikation;
-import kognitive_suche.src.simpleAlgorithm.*;
+import de.leipzig.htwk.faroo.api.APIExecption;
+import de.leipzig.htwk.faroo.api.Api;
+import de.leipzig.htwk.faroo.api.ConfigFileManagement;
+import de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.createJson.CreateJsonDoc;
+import simpleAlgorithm.*;
 
 import java.util.ArrayList;
 /**
@@ -22,7 +21,7 @@ public class Controller {
     private int start = 1;
     private String key,url;
     private Results r;
-
+    private String query;
     /**
      * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die  Faroo API URL.
      */
@@ -51,21 +50,22 @@ public class Controller {
      */
     public void queryFaroo(String pQuery) {
         Api api = new Api(key, url);
+        setQuery(pQuery);
         try {
             Results r = api.query(this.start,pQuery,this.language,src);
-            KomplexeSuche(r, pQuery);
-            SetResultList(r);
+            setResultList(r);
+            createDocVisual(r, pQuery);
+
         } catch (APIExecption apiExecption) {
             apiExecption.printStackTrace();
         }
-
     }
 
     /**
      * Setzt die Results Liste temporär für den simple Algorithmus.
      * @param r - Results Liste
      */
-    private void SetResultList(Results r){
+    private void setResultList(Results r){
         this.r = r;
     }
 
@@ -73,20 +73,36 @@ public class Controller {
      * Stellt die Results Liste zur Verfügung.
      * @return r - Results Liste
      */
-    public Results GetResultList(){
+    public Results getResultList(){
         return this.r;
     }
 
     /**
+     * Setzt das Suchwort
+     * @param q
+     */
+    private void setQuery(String q){
+        this.query = q;
+    }
+    /**
+     * Gibt das Suchwort zurück.
+     * @return query
+     */
+    public String getQuery(){
+        return this.query;
+    }
+    /**
      * Aufruf der berechnung der Komplexen Suche.
      * @param List - Results Liste
      */
-    private void KomplexeSuche(Results List, String query){
-        Kommunikation ks = new Kommunikation(List, query);
-        CreateJsonDoc c = new CreateJsonDoc(ks);
-
+    private void createDocVisual(Results List, String query){
+        CreateJsonDoc c = new CreateJsonDoc(query, List);
     }
 
+    /**
+     * Führt den Simple Such Algorithmus aus
+     * @return Tag Liste
+     */
     public ArrayList<SimAlgTags> GetTags(){
          ObBearbeitung uebergabe = new ObBearbeitung();
         return uebergabe.annahme(this.r);

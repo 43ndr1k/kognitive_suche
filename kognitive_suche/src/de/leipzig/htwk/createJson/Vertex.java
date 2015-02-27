@@ -1,4 +1,4 @@
-package kognitive_suche.src.de.leipzig.htwk.createJson;
+package de.leipzig.htwk.createJson;
 
 import java.util.ArrayList;
 import java.util.List;

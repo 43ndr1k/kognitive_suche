@@ -1,9 +1,8 @@
-package kognitive_suche.src.GUI;
-import java.awt.event.ActionListener;
-import java.net.URL;
+package GUI;
+
 import java.util.ArrayList;
 
-import kognitive_suche.src.de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -23,8 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import kognitive_suche.src.de.leipzig.htwk.faroo.api.Results;
-import kognitive_suche.src.simpleAlgorithm.SimAlgTags;
+import de.leipzig.htwk.faroo.api.Results;
+import simpleAlgorithm.SimAlgTags;
 
 /**
  * GUI Erstellung
@@ -121,7 +120,7 @@ public class GUI extends Application{
 
 	private void Daten(){
 		mController.queryFaroo(suchleiste.getText());
-		Results r = mController.GetResultList();
+		Results r = mController.getResultList();
 		for(int i = 0; i < r.getResults().size(); i++) {
 			kwic.add(r.getResults().get(i).getKwic());
 			//title.add(r.getResults().get(i).getTitle());
