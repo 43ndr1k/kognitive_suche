@@ -33,8 +33,8 @@ public class Api {
 
     /**
      * Entgegen nehmen von der Faroo URL und dessen Key.
-     * @param key
-     * @param url
+     * @param key API key
+     * @param url API URL
      */
     public Api(String key, String url) {
         this._key = key;
@@ -45,7 +45,7 @@ public class Api {
 
     /**
      * Hier wird zu Faroo die Verbindung aufgebaut.
-     * @param urlParameter
+     * @param urlParameter API URL
      * @return Results Liste
      * @throws APIExecption
      */
@@ -87,15 +87,13 @@ public class Api {
         }catch (Exception e) {
 			e.printStackTrace();
 		}
-
-
         return null;
     }
 
     /**
      * Hier werden die Daten empfangen. Es
      * wird eine JSON Struktur empfangen.
-     * @param pHttpURLConnection
+     * @param pHttpURLConnection Verbindungsaufbau zur API
      * @return Liste mit JSON Objekten
      */
     private String readResult(HttpURLConnection pHttpURLConnection) {
@@ -125,7 +123,7 @@ public class Api {
     /**
      * Diese Methode codiert die query nach URL-Envording Richtlien
      * @param u query
-     * @return u
+     * @return u Bearbeitete query
      */
     private String encoding(String u) {
 
@@ -170,8 +168,8 @@ public class Api {
     /**
 	 * Anfrage an die Faroo API stellen url wird zusammen gestzt
 	 *
-	 * @param query
-	 * @param length
+	 * @param query Suchwort
+	 * @param length Wie viele Suchergbnisse
 	 * @throws Exception
      * @return Results Liste
 	 */
