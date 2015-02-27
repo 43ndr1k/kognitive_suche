@@ -78,7 +78,7 @@ public class Controller {
 
     /**
      * Setzt das Suchwort
-     * @param q
+     * @param q query
      */
     private void setQuery(String q){
         this.query = q;
