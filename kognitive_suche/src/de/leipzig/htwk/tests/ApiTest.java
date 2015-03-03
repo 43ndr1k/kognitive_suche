@@ -9,6 +9,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.fail;
 
+/**
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * Testklasse für die Api.
+ */
+
 public class ApiTest {
 
         private String key = "2CJIbhzsHU4nlSqBVZ2OP3fimb4_";

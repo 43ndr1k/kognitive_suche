@@ -28,7 +28,11 @@ import java.nio.file.Paths;
 
 
 /**
- * Created by hendrik.
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * GUI. Suchmaske und Darstellung der Suchergebnisse in einem Baumdiagramm oder Mindmap.
  */
 public class Gui extends Application {
 

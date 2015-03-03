@@ -3,7 +3,11 @@ package de.leipzig.htwk.faroo.api;
 import java.util.ArrayList;
 
 /**
- * Created by Hendrik
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * Bereitstellung der Suchergebnisse.
  */
 public class Results {
     private ArrayList<Result> results;

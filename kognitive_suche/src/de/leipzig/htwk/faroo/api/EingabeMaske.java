@@ -16,7 +16,11 @@ import javafx.stage.Stage;
 
 
 /**
- * Created by Hendrik.
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * Ist die Eingabemaske für die Konfiguationsdatei. Eingabe: Key und URL.
  */
 public class EingabeMaske extends Stage {
 

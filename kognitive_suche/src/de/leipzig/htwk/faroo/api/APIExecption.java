@@ -1,7 +1,11 @@
 package de.leipzig.htwk.faroo.api;
 
 /**
- * Created by hendrik.
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * Sellt verschidene Exeption für die Api bereit.
  */
 public class APIExecption extends Exception {
 

@@ -30,6 +30,9 @@ import simpleAlgorithm.SimAlgTags;
  *
  * @author Sebastian Hügelmann
  * @version 0.3
+ */
+
+/**
  * Damit die JavaFX Application funktioniert, müsst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
  * Dann auf den Reiter: Librariers und dort Add External JARs...
  * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzufügen! Oder ähnliche 1.7.0_xx Versionen, aber nicht 1.8!

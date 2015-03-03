@@ -1,6 +1,10 @@
 package de.leipzig.htwk.createJson;
 /**
- * Created by hendrik.
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * CreateJsonDoc generiert eine Json Datei, die die Datenstruktur für die Visualisierung bereit stellt.
  */
 import com.google.gson.Gson;
 import de.leipzig.htwk.faroo.api.Results;

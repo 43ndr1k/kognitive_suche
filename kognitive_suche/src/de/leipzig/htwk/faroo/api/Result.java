@@ -1,7 +1,21 @@
 package de.leipzig.htwk.faroo.api;
 
 /**
- * Created by hendrik.
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * Hier wird ein Objekt der Suchergebnisse generiert mir den entsprechenden getter Methoden. Parameter sind folgende:
+ *   * @param title
+     * @param kwic
+     * @param author
+     * @param votes
+     * @param isNews
+     * @param url
+     * @param domain
+     * @param imageUrl
+     * @param firstIndexed
+     * @param firstPublished
  */
 public class Result {
 

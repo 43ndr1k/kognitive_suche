@@ -6,7 +6,11 @@ import java.io.*;
 import java.util.Properties;
 
 /**
- * Created by hendrik.
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ * List und schreibt in eine Konfigurationsdatei. Die Fatei beinhaltet den Api key und dessen URL.
  */
 public class ConfigFileManagement {
 

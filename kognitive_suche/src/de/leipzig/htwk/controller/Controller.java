@@ -9,7 +9,7 @@ import simpleAlgorithm.*;
 
 import java.util.ArrayList;
 /**
- * Created by hendrik.
+ * @Autor Hendrik Sawade.
  */
 
 /**

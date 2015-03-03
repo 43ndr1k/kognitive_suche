@@ -1,8 +1,5 @@
 package de.leipzig.htwk.faroo.api;
 
-/**
- * Created by hendrik.
- */
 
 import com.google.gson.Gson;
 
@@ -13,11 +10,20 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * @Autor Hendrik Sawade.
+ */
+
+/**
+ *
+ * Die Klasse Api stellt die query Methoden bereit und kommuniziert mit der Faroo Suchmaschine über eine API
+ * Schnittstelle.
+ */
 public class Api {
 
     /* maybe out sourced in constant interface */
     //private static final String URL_PART_1 = "http://www.faroo.com/api?q=";
-    //private static final String URL_PART_3 = "&start=1&length=10&l=en&src=web&i=false&f=json&key=";
+    //prtttte static final String URL_PART_3 = "&start=1&length=10&l=en&src=web&i=false&f=json&key=";
     //private static final String URL_PART_4 = "2CJIbhzsHU4nlSqBVZ2OP3fimb4_";
 
     /**

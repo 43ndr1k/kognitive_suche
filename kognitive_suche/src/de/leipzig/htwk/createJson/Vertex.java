@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by hendrik.
- */
+ * @Autor Hendrik Sawade.
+ /*
 
 /**
  * Datenstrukturobjekt, aus dieser Struktur wird das Json File generiert.
