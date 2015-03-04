@@ -28,16 +28,16 @@ public class CreateJsonDoc {
     public CreateJsonDoc(String query, Results k){
         this.k = k;
         Gson gson = new Gson();
-        Vertex obj = new Vertex(query);
+        Vertex v = new Vertex(query);
         for(int i = 0; i < k.getResults().size();i++){
             Vertex url = new Vertex(k.getResults().get(i).getUrl());
             Vertex domain = new Vertex(k.getResults().get(i).getDomain());
             domain.addVertex(url);
             Vertex title = new Vertex(k.getResults().get(i).getTitle());
             title.addVertex(domain);
-            obj.addVertex(title);
+            v.addVertex(title);
         }
-        String json = gson.toJson(obj);
+        String json = gson.toJson(v);
         try {
         // File anlegen
             writer = new FileWriter("src/de/leipzig/htwk/gui/Daten.json");
