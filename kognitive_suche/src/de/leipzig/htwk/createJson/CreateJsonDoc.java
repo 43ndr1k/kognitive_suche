@@ -40,7 +40,7 @@ public class CreateJsonDoc {
         String json = gson.toJson(obj);
         try {
         // File anlegen
-            writer = new FileWriter("kognitive_suche/src/de/leipzig/htwk/gui/Daten.json");
+            writer = new FileWriter("src/de/leipzig/htwk/gui/Daten.json");
             writer.write(json);
             writer.flush();
             // Schließt den Stream

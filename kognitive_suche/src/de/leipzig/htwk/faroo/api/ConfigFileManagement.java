@@ -29,7 +29,7 @@ public class ConfigFileManagement {
         BufferedInputStream stream = null;
         try {
 
-            File file = new File("../kognitive_suche/kognitive_suche/config.properties");
+            File file = new File("config.properties");
             if (!file.exists()) {
                 em.run();
                 em.showAndWait();
@@ -40,7 +40,7 @@ public class ConfigFileManagement {
                     Platform.exit();
                 }
             }
-            stream = new BufferedInputStream(new FileInputStream("../kognitive_suche/kognitive_suche/config.properties"));
+            stream = new BufferedInputStream(new FileInputStream("config.properties"));
             properties.load(stream);
             stream.close();
         } catch (FileNotFoundException e2) {
@@ -97,7 +97,7 @@ public class ConfigFileManagement {
         }
 
         try {
-            fw = new FileWriter("../kognitive_suche/kognitive_suche/config.properties");
+            fw = new FileWriter("config.properties");
 
             fw.write("# Dies ist der Faroo API Key\n");
             fw.write("key = " + key + "\n");
