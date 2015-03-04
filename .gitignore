@@ -1,4 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
+### Dynamic files from kognitive suche
+kognitive_suche/src/de/leipzig/htwk/gui/Daten.json
+
 ### Windows template
 # Windows image file caches
 Thumbs.db
@@ -130,3 +133,6 @@ local.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+*.idea
+out/
