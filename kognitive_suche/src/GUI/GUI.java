@@ -128,7 +128,7 @@ public class GUI extends Application{
         vbox1.getChildren().addAll(homebutton(),hbox1);
 	}
 
-	public void Daten(){
+	private void Daten(){
 		mController.queryFaroo(suchleiste.getText());
 		Results r = mController.getResultList();
 		for(int i = 0; i < r.getResults().size(); i++) {
