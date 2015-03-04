@@ -14,8 +14,11 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -58,10 +61,17 @@ public class GUI extends Application{
 		mController.setParameter("de","web",1);
 
 		HBox hbox1 = new HBox();
-
-		pane1.setCenter(hbox1);
+		VBox vbox1 = new VBox();
+		pane1.setStyle("-fx-background-color: #FFF;");
+		pane1.setCenter(vbox1);
 
 		hbox1.setAlignment(Pos.CENTER);
+		hbox1.setPadding(new Insets(15,30,15,30));				/*Bestimmt den Abstand vom Rand nach Innen*/
+		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
+		hbox1.setStyle("-fx-background-color: #FFF;");		/*Bestimmt die Hintergrundfarbe*/
+		vbox1.setStyle("-fx-background-color: #FFF;");
+		vbox1.setAlignment(Pos.CENTER);
+		vbox1.setSpacing(50);
 
 		Scene start1 = new Scene(pane1);
 
@@ -72,10 +82,6 @@ public class GUI extends Application{
 		stage.setScene(start1);
 		stage.setResizable(false);
 		stage.show();
-
-		hbox1.setPadding(new Insets(15,30,15,30));				/*Bestimmt den Abstand vom Rand nach Innen*/
-		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
-		hbox1.setStyle("-fx-background-color: #EEEEEE;");		/*Bestimmt die Hintergrundfarbe*/
 
 
 		suchleiste.setMaxWidth(200);
@@ -119,9 +125,10 @@ public class GUI extends Application{
 
 		});
 		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
+        vbox1.getChildren().addAll(homebutton(),hbox1);
 	}
 
-	private void Daten(){
+	public void Daten(){
 		mController.queryFaroo(suchleiste.getText());
 		Results r = mController.getResultList();
 		for(int i = 0; i < r.getResults().size(); i++) {
@@ -199,6 +206,7 @@ public class GUI extends Application{
 		pane2.setHgap(10);
 		pane2.setVgap(10);
 		pane1.setCenter(pane2);
+		pane1.setTop(homebutton());
 	}
 
 	public void ergebnisausgabe(){
@@ -228,6 +236,27 @@ public class GUI extends Application{
 		/*vbox1.setSpacing(20);*/
 		pane1.getChildren().clear();
 		pane1.setCenter(vbox1);
+	}
+	
+	public HBox homebutton(){
+		HBox hboxHOME = new HBox();
+		final ImageView imv = new ImageView();
+        final Image image2 = new Image("http://www.imn.htwk-leipzig.de/~shuegelm/image.jpg");
+        imv.setImage(image2);
+        imv.setCursor(Cursor.HAND);
+        
+        imv.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Tile pressed");
+            }
+       });
+        
+        hboxHOME.getChildren().add(imv);
+        hboxHOME.setAlignment(Pos.CENTER);
+        hboxHOME.setPadding(new Insets(15,15,15,15));
+		return hboxHOME;
 	}
 
 
