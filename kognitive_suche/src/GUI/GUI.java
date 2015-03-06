@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
