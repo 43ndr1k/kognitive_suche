@@ -61,11 +61,15 @@ public class GUI extends Application{
 		mController.setParameter("de","web",1);
 
 		HBox hbox1 = new HBox();
+		HBox hbox2 = new HBox();//schliessen box
 		VBox vbox1 = new VBox();
 		pane1.setStyle("-fx-background-color: #FFF;");
 		pane1.setCenter(vbox1);
+		pane1.setBottom(hbox2);//schliessen
 
 		hbox1.setAlignment(Pos.CENTER);
+		hbox2.setAlignment(Pos.BOTTOM_RIGHT);//Rechte ecke postionsbestimmung closebox
+		
 		hbox1.setPadding(new Insets(15,30,15,30));				/*Bestimmt den Abstand vom Rand nach Innen*/
 		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
 		hbox1.setStyle("-fx-background-color: #FFF;");		/*Bestimmt die Hintergrundfarbe*/
@@ -124,8 +128,22 @@ public class GUI extends Application{
 			}
 
 		});
+		
+		Button close = new Button("Schliessen");//button zum schliessen
+		
+		close.setOnAction(new EventHandler<ActionEvent>(){
+			
+			public void handle(ActionEvent event) {
+		        Platform.exit();
+				
+			}
+			
+		});
+		
+		
 		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
         vbox1.getChildren().addAll(homebutton(),hbox1);
+        hbox2.getChildren().addAll(close);
 	}
 
 	private void Daten(){
