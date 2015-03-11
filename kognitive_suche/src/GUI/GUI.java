@@ -36,20 +36,17 @@ import simpleAlgorithm.SimAlgTags;
  * @version 0.3
  */
 
-/**
- * Damit die JavaFX Application funktioniert, müsst ihr rechtsklick auf GUI.java/Build Path/Configure Build Path...
- * Dann auf den Reiter: Librariers und dort Add External JARs...
- * Und dann in eurem C:\Program Files\Java\jdk1.7.0_51\jre\lib\jfxrt.jar hinzufügen! Oder ähnliche 1.7.0_xx Versionen, aber nicht 1.8!
- */
-
 public class GUI extends Application{
 	private Controller mController = new Controller();
 	public ArrayList<String> tags = new ArrayList<String>();
 	public ArrayList<String> url = new ArrayList<String>();
 	public ArrayList<String> kwic = new ArrayList<String>();
 	private BorderPane pane1 = new BorderPane();
-	private int anzkat = 10;
+	Scene start = new Scene(pane1);
 	private GridPane pane2 = new GridPane();
+	private Stage stage = new Stage();
+	//private Scene start1 = new Scene(pane1);
+	private int anzkat = 10;
 	final TextField suchleiste = new TextField();					/*DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO*/
 
 	public static void main(String[] args){
@@ -57,97 +54,23 @@ public class GUI extends Application{
 	}
 
 	@Override
-	public void start(Stage stage) throws Exception {
+	public void start(Stage stage2) throws Exception {
 
 		mController.setParameter("de","web",1);
 
-		HBox hbox1 = new HBox();
-		HBox hbox2 = new HBox();//schliessen box
-		VBox vbox1 = new VBox();
-		pane1.setStyle("-fx-background-color: #FFF;");
-		pane1.setCenter(vbox1);
-		pane1.setBottom(hbox2);//schliessen
-
-		hbox1.setAlignment(Pos.CENTER);
-		hbox2.setAlignment(Pos.BOTTOM_RIGHT);//Rechte ecke postionsbestimmung closebox
-		
-		hbox1.setPadding(new Insets(15,30,15,30));				/*Bestimmt den Abstand vom Rand nach Innen*/
-		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
-		hbox1.setStyle("-fx-background-color: #FFF;");		/*Bestimmt die Hintergrundfarbe*/
-		vbox1.setStyle("-fx-background-color: #FFF;");
-		vbox1.setAlignment(Pos.CENTER);
-		vbox1.setSpacing(50);
-
-		Scene start1 = new Scene(pane1);
-
-		stage.setTitle("Kognitive Suche");
+		//Scene start1 = new Scene(pane1());
+		//Scene start1 = new Scene(pane1());
+		//start1.setRoot(pane1());
+        
+        /*Anzeige der Stage*/
+        stage.setTitle("Kognitive Suche");
 		stage.centerOnScreen();
 		stage.setWidth(1024);
 		stage.setHeight(768);
-		stage.setScene(start1);
-		stage.setResizable(false);
+		stage.setScene(start());
+		stage.setResizable(true);
 		stage.show();
-
-
-		suchleiste.setMaxWidth(200);
-
-
-
-		suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>()
-		{
-			@Override
-			public void handle(KeyEvent keyEvent)
-			{
-				if(keyEvent.getCode() == KeyCode.ENTER)
-				{
-					Daten();
-					textfield();
-				}
-			}
-		});
-
-		Button sucheF = new Button("Suche in F");
-
-		sucheF.setOnAction(new EventHandler<ActionEvent>(){
-			@Override
-			public void handle(ActionEvent sucheF) {
-				//Daten();
-				//textfield();	/*Ruft die Methode zur Generierung Textfelder auf*/
-			  
-			    Scene visual = visualize.VisControler.startVisualize();
-			    stage.setScene(visual);
-			}
-		});
-
-		Button sucheP = new Button("Suche in P");
-		sucheP.setOnAction(new EventHandler<ActionEvent>(){
-			@Override
-			public void handle(ActionEvent sucheP) { // Bei PDFbox wird das TXT feld nicht ben�tigt - bis jetzt
-				//mController.startSearchP();
-				//kwic = mController.getKeywords2();
-				//url = mController.getDocName();
-				//tags = mController.getKeywords1(); // Ohne Sortierung soviel ich wei�
-				textfield();
-
-			}
-
-		});
-		
-		Button close = new Button("Schliessen");//button zum schliessen
-		
-		close.setOnAction(new EventHandler<ActionEvent>(){
-			
-			public void handle(ActionEvent event) {
-		        Platform.exit();
-				
-			}
-			
-		});
-		
-		
-		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
-        vbox1.getChildren().addAll(homebutton(),hbox1);
-        hbox2.getChildren().addAll(close);
+        
 	}
 
 	private void Daten(){
@@ -257,6 +180,7 @@ public class GUI extends Application{
 		vbox1.setMaxSize(1000, 700);
 		/*vbox1.setSpacing(20);*/
 		pane1.getChildren().clear();
+		pane1.setTop(homebutton());
 		pane1.setCenter(vbox1);
 	}
 	
@@ -272,6 +196,8 @@ public class GUI extends Application{
             @Override
             public void handle(MouseEvent event) {
                 System.out.println("Tile pressed");
+                //start.setRoot(pane1);
+                //stage.setScene(start());
             }
        });
         
@@ -281,5 +207,86 @@ public class GUI extends Application{
 		return hboxHOME;
 	}
 
+	public Scene start(){
+		
+		HBox hbox1 = new HBox();//horizontale Box für Suchleiste und Buttons
+		HBox hbox2 = new HBox();//schliessen box
+		VBox vbox1 = new VBox();//vertikale Box für Logo, hbox2
+		pane1.setStyle("-fx-background-color: #FFF;");
+		pane1.setCenter(vbox1);
+		pane1.setBottom(hbox2);//schliessen
+
+		hbox1.setAlignment(Pos.CENTER);
+		hbox2.setAlignment(Pos.BOTTOM_RIGHT);//Rechte ecke postionsbestimmung closebox
+		
+		hbox1.setPadding(new Insets(15,30,15,30));				/*Bestimmt den Abstand vom Rand nach Innen*/
+		hbox1.setSpacing(20);									/*Bestimmt den Abstand der Elemente voneinander*/
+		hbox1.setStyle("-fx-background-color: #FFF;");		/*Bestimmt die Hintergrundfarbe*/
+		vbox1.setStyle("-fx-background-color: #FFF;");
+		vbox1.setAlignment(Pos.CENTER);
+		vbox1.setSpacing(50);
+		suchleiste.setMaxWidth(200);
+
+
+
+		suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>()
+		{
+			@Override
+			public void handle(KeyEvent keyEvent)
+			{
+				if(keyEvent.getCode() == KeyCode.ENTER)
+				{
+					//Daten();
+					//textfield();
+					Scene visual = visualize.VisControler.startVisualize();
+				    stage.setScene(visual);
+				}
+			}
+		});
+
+		Button sucheF = new Button("Suche in F");
+
+		sucheF.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent sucheF) {
+				//Daten();
+				//textfield();	/*Ruft die Methode zur Generierung Textfelder auf*/
+			  
+			    Scene visual = visualize.VisControler.startVisualize();
+			    stage.setScene(visual);
+			}
+		});
+
+		Button sucheP = new Button("Suche in P");
+		sucheP.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent sucheP) { // Bei PDFbox wird das TXT feld nicht ben�tigt - bis jetzt
+				//mController.startSearchP();
+				//kwic = mController.getKeywords2();
+				//url = mController.getDocName();
+				//tags = mController.getKeywords1(); // Ohne Sortierung soviel ich wei�
+				textfield();
+
+			}
+
+		});
+		
+		Button close = new Button("Schliessen");//button zum schliessen
+		
+		close.setOnAction(new EventHandler<ActionEvent>(){
+			
+			public void handle(ActionEvent event) {
+		        Platform.exit();
+				
+			}
+			
+		});
+		
+		
+		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
+        vbox1.getChildren().addAll(homebutton(),hbox1);
+        hbox2.getChildren().addAll(close);
+		return start;
+	}
 
 }
