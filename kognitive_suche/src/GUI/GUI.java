@@ -112,7 +112,10 @@ public class GUI extends Application{
 			@Override
 			public void handle(ActionEvent sucheF) {
 				Daten();
-				textfield();								/*Ruft die Methode zur Generierung Textfelder auf*/
+				textfield();	/*Ruft die Methode zur Generierung Textfelder auf*/
+			  
+			    //Scene visual = visualize.VisControler.startVisualize();
+			    //stage.setScene(visual);
 			}
 		});
 
