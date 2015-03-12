@@ -3,16 +3,21 @@ package visualize;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+
+/**
+ * @author Fabian Freihube
+ */
 public class Pattern {
 	
-	private static final double wWidth = 1024;
-	private static final double wHeight = 768;
-	private static final double padSize = 100;
+	private int paneWidth;
+	private int paneHeight;
+	private static final double padSize = 102;
 	private static final double padOffset = 3;
 	
 	private static final Color lightGreen = Color.web("#9FDA9F");
@@ -24,16 +29,16 @@ public class Pattern {
 	
 	private int activePads;
 	
-	private static Scene scene;
+	private static Pane visPane;
 	
-	public Pattern (int activePads)  {
+	public Pattern (int activePads, int paneHeight, int paneWidth)  {
 		// TODO Auto-generated method stub
 	        this.activePads = activePads;
-	  
-			Group root = new Group();
-		    scene = new Scene(root, wWidth, wHeight);
+	        this.paneHeight = paneHeight;
+	        this.paneWidth = paneWidth;
 		    
-		    Group g = new Group();
+		    visPane = new Pane();
+		    visPane.setPrefSize(paneHeight,paneWidth);
 		    
 		    double oneHexHeight = getHexHeight();
 		    double oneHexWidth = getHexWidth();
@@ -46,17 +51,16 @@ public class Pattern {
 		    System.out.println("Rows:" + rows + " Columns:" + columns + " ActivePads:" + activePads);
 		    
 		    Boolean[][] padMap = createPadMap(rows, columns);
-		    g = printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, g);
+		    visPane = printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
 		    
-			scene.setRoot(g);
 		}
 
 	private int getColumns(double oneHexWidth, double columnCorrection) {
-		return (int) (Math.round((((wWidth/(oneHexWidth-columnCorrection+padOffset))+0.5)+0.5)*1)/1.0);
+		return (int) (Math.round((((paneWidth/(oneHexWidth-columnCorrection+padOffset))+0.5)+0.5)*1)/1.0);
 	}
 
 	private int getRows(double oneHexHeight) {
-		return (int) (Math.round((((wHeight/(oneHexHeight+padOffset))+0.5)+0.5)*1)/1.0);
+		return (int) (Math.round((((paneHeight/(oneHexHeight+padOffset))+0.5)+0.5)*1)/1.0);
 	}
 
 	private double getColumnCorrection(double oneHexHeight) {
@@ -71,7 +75,7 @@ public class Pattern {
 		return 2*((0.5*padSize)/Math.tan(Math.toRadians(30)));
 	}
 
-	private Group printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorection, double oneHexHeight, int rows, int columns, Group g) {
+	private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorection, double oneHexHeight, int rows, int columns, Pane visPane) {
 		
 			for(int y = 0; y < rows; y++)
 			{
@@ -80,23 +84,23 @@ public class Pattern {
 					if((x % 2) == 0)
 					{
 						if(padMap[x][y] == true)
-							g = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, g, x, (y+0.5));
+							visPane = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x+0.3), (y+0.25));
 						else 
-							g = addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, g, x, (y+0.5));
+							visPane = addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x+0.3), (y+0.25));
 					} else {
 						if(padMap[x][y] == true)
-							g = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, g, x, y);
+							visPane = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x+0.3), (y-0.25));
 						else 
-							g = addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, g, x, y);
+							visPane = addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x+0.3), (y-0.25));
 					}
 				}
 			}
 		    
-		return g;
+		return visPane;
 	}
 
-	private Group addGreyPad(double oneHexWidth, double columnCorection,
-			double oneHexHeight, int rows, int columns, Group g, double x, double y) {
+	private Pane addGreyPad(double oneHexWidth, double columnCorection,
+			double oneHexHeight, int rows, int columns, Pane visPane, double x, double y) {
 		Pad pad;
 		
 		pad = new Pad (padSize, 
@@ -104,11 +108,11 @@ public class Pattern {
 				(oneHexHeight+padOffset)*(y),
 				lightGrey); 
 		
-		return setPad(pad, g, false);
+		return setPad(pad, visPane, false);
 	}
 
-	private Group addColorPad(double oneHexWidth, double columnCorection, 
-			double oneHexHeight, int rows, int columns, Group g, double x, double y) {
+	private Pane addColorPad(double oneHexWidth, double columnCorection, 
+			double oneHexHeight, int rows, int columns, Pane visPane, double x, double y) {
 		Pad pad = null;
 		int random =  (int) (Math.random() * 5);
 		
@@ -144,7 +148,7 @@ public class Pattern {
     		
     	}		
 		
-		return setPad(pad, g, true);
+		return setPad(pad, visPane, true);
 	}
 
 	private Boolean[][] createPadMap(int rows, int columns) {
@@ -177,7 +181,7 @@ public class Pattern {
 		return padMap;
 	}
 
-	private Group setPad(Pad pad, Group g, boolean expandable) {
+	private Pane setPad(Pad pad, Pane g, boolean expandable) {
 		
 		
 		g.getChildren().add(pad.getShape());
@@ -196,8 +200,8 @@ public class Pattern {
 		return g;
 	}
 
-  public Scene getScene() {
-    return scene;
+  public Pane getPane() {
+    return visPane;
     // TODO Auto-generated method stub  
   }
 

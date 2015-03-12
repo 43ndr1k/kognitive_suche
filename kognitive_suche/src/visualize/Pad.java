@@ -10,6 +10,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
+/**
+ * @author Fabian Freihube
+ */
 public class Pad extends Group{
 	 Polygon shape = new Polygon();
 	 Polygon expandedShape = new Polygon();

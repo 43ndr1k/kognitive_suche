@@ -25,9 +25,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import de.leipzig.htwk.faroo.api.Results;
 import simpleAlgorithm.SimAlgTags;
+import visualize.VisControler;
 
 /**
  * GUI Erstellung
@@ -37,6 +39,9 @@ import simpleAlgorithm.SimAlgTags;
  */
 
 public class GUI extends Application{
+	private static final int windowHeight = 768;
+	private static final int windowWidth = 1024;
+	
 	private Controller mController = new Controller();
 	public ArrayList<String> tags = new ArrayList<String>();
 	public ArrayList<String> url = new ArrayList<String>();
@@ -65,8 +70,8 @@ public class GUI extends Application{
         /*Anzeige der Stage*/
         stage.setTitle("Kognitive Suche");
 		stage.centerOnScreen();
-		stage.setWidth(1024);
-		stage.setHeight(768);
+		stage.setWidth(windowWidth);
+		stage.setHeight(windowHeight);
 		stage.setScene(start());
 		stage.setResizable(true);
 		stage.show();
@@ -197,7 +202,7 @@ public class GUI extends Application{
             public void handle(MouseEvent event) {
                 System.out.println("Tile pressed");
                 //start.setRoot(pane1);
-                //stage.setScene(start());
+                stage.setScene(start());
             }
        });
         
@@ -227,7 +232,16 @@ public class GUI extends Application{
 		vbox1.setSpacing(50);
 		suchleiste.setMaxWidth(200);
 
-
+		Button close = new Button("Schliessen");//button zum schliessen
+		
+		close.setOnAction(new EventHandler<ActionEvent>(){
+			
+			public void handle(ActionEvent event) {
+		        Platform.exit();
+				
+			}
+			
+		});
 
 		suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>()
 		{
@@ -238,10 +252,10 @@ public class GUI extends Application{
 				{
 					//Daten();
 					//textfield();
-					Scene visual = visualize.VisControler.startVisualize();
-				    stage.setScene(visual);
+					startVisual();
 				}
 			}
+			
 		});
 
 		Button sucheF = new Button("Suche in F");
@@ -251,9 +265,7 @@ public class GUI extends Application{
 			public void handle(ActionEvent sucheF) {
 				//Daten();
 				//textfield();	/*Ruft die Methode zur Generierung Textfelder auf*/
-			  
-			    Scene visual = visualize.VisControler.startVisualize();
-			    stage.setScene(visual);
+				startVisual();
 			}
 		});
 
@@ -271,22 +283,32 @@ public class GUI extends Application{
 
 		});
 		
-		Button close = new Button("Schliessen");//button zum schliessen
-		
-		close.setOnAction(new EventHandler<ActionEvent>(){
-			
-			public void handle(ActionEvent event) {
-		        Platform.exit();
-				
-			}
-			
-		});
-		
-		
 		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
-        vbox1.getChildren().addAll(homebutton(),hbox1);
+        vbox1.getChildren().addAll(homebutton(), hbox1);
         hbox2.getChildren().addAll(close);
 		return start;
+	}
+	
+	/**
+	 * @author Fabian Freihube
+	 */
+	private void startVisual() {
+		BorderPane visPane = new BorderPane();
+		BorderPane homebuttonPane = new BorderPane();
+		Scene visual = new Scene(visPane);
+		
+		homebuttonPane.setCenter(homebutton());
+		homebuttonPane.setStyle("-fx-background-color: #FFF;");
+		homebuttonPane.setPrefHeight(windowHeight*0.15);
+		
+		VisControler visualControler = new VisControler ();
+		visualControler.setPaneHeight((int) (windowHeight*0.85));
+		visualControler.setPaneWidth(windowWidth);
+		
+		visPane.setCenter(visualControler.startVisualize());
+		visPane.setTop(homebuttonPane);
+		
+		stage.setScene(visual);
 	}
 
 }
