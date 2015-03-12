@@ -67,7 +67,7 @@ public class GUI extends Application{
 		stage.centerOnScreen();
 		stage.setWidth(1024);
 		stage.setHeight(768);
-		stage.setScene(start());
+		stage.setScene(homescreen());
 		stage.setResizable(true);
 		stage.show();
         
@@ -197,7 +197,8 @@ public class GUI extends Application{
             public void handle(MouseEvent event) {
                 System.out.println("Tile pressed");
                 //start.setRoot(pane1);
-                //stage.setScene(start());
+                
+                stage.setScene(homescreen());
             }
        });
         
@@ -207,7 +208,7 @@ public class GUI extends Application{
 		return hboxHOME;
 	}
 
-	public Scene start(){
+	public Scene homescreen(){
 		
 		HBox hbox1 = new HBox();//horizontale Box für Suchleiste und Buttons
 		HBox hbox2 = new HBox();//schliessen box
@@ -226,6 +227,7 @@ public class GUI extends Application{
 		vbox1.setAlignment(Pos.CENTER);
 		vbox1.setSpacing(50);
 		suchleiste.setMaxWidth(200);
+		suchleiste.clear();
 
 
 
