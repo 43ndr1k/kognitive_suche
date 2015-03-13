@@ -2,14 +2,14 @@ package GUI;
 
 import java.util.ArrayList;
 
-import de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.*;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -23,13 +23,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import de.leipzig.htwk.faroo.api.Results;
 import simpleAlgorithm.SimAlgTags;
 import visualize.VisControler;
+import de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.faroo.api.Results;
 
 /**
  * GUI Erstellung
@@ -308,6 +307,7 @@ public class GUI extends Application{
 		VisControler visualControler = new VisControler ();
 		visualControler.setPaneHeight((int) (stage.getHeight()*0.85));
 		visualControler.setPaneWidth((int) stage.getWidth());
+		visualControler.setErgebnisse(null);
 		
 		visPane.setCenter(visualControler.startVisualize());
 		visPane.setTop(homebuttonPane);

@@ -31,11 +31,15 @@ public class Pattern {
 	
 	private static Pane visPane;
 	
-	public Pattern (int activePads, int paneHeight, int paneWidth)  {
+	private Object ergebnisse;
+	
+	public Pattern (int activePads, int paneHeight, int paneWidth, Object ergebnisse)  {
 		// TODO Auto-generated method stub
 	        this.activePads = activePads;
 	        this.paneHeight = paneHeight;
 	        this.paneWidth = paneWidth;
+	        
+	        this.ergebnisse = ergebnisse;
 		    
 		    visPane = new Pane();
 		    visPane.setPrefSize(paneHeight,paneWidth);
@@ -54,6 +58,7 @@ public class Pattern {
 		    visPane = printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
 		    
 		}
+
 
 	private int getColumns(double oneHexWidth, double columnCorrection) {
 		return (int) (Math.round((((paneWidth/(oneHexWidth-columnCorrection+padOffset))+0.5)+0.5)*1)/1.0);
@@ -76,6 +81,7 @@ public class Pattern {
 	}
 
 	private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorection, double oneHexHeight, int rows, int columns, Pane visPane) {
+		int padIndex = 0;
 		
 			for(int y = 0; y < rows; y++)
 			{
@@ -83,13 +89,17 @@ public class Pattern {
 				{
 					if((x % 2) == 0)
 					{
-						if(padMap[x][y] == true)
-							visPane = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x-0.5), (y-0.25));
+						if(padMap[x][y] == true) {
+							visPane = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x-0.5), (y-0.25), padIndex);
+							padIndex++;
+						}
 						else 
 							visPane = addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x-0.5), (y-0.25));
 					} else {
-						if(padMap[x][y] == true)
-							visPane = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x-0.5), (y-0.75));
+						if(padMap[x][y] == true) {
+							visPane = addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x-0.5), (y-0.75), padIndex);
+							padIndex++;
+						}
 						else 
 							visPane = addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane, (x-0.5), (y-0.75));
 					}
@@ -123,17 +133,15 @@ public class Pattern {
 	}
 
 	private Pane addColorPad(double oneHexWidth, double columnCorection, 
-			double oneHexHeight, int rows, int columns, Pane visPane, double x, double y) {
+			double oneHexHeight, int rows, int columns, Pane visPane, double x, double y, int padIndex) {
 		Pad pad = null;
 		StackPane padPane = new StackPane();
 		StackPane exPadPane = new StackPane();
 		Pane linkPane = genLinkPane();
-		Label smallTopicLabel = new Label("Beispiel Knoten");
-		Label largeTopicLabel = new Label("Beispiel Knoten");
 		
-		smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-		largeTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
-
+		Label smallTopicLabel = genSmallTopicLabel(padIndex);
+		Label largeTopicLabel = genLargeTopicLabel(padIndex);
+		
 		double xPos = (oneHexWidth-columnCorection+padOffset)*(x);
 		double yPos = (oneHexHeight+padOffset)*(y);
 		
@@ -193,6 +201,7 @@ public class Pattern {
 		
 		pad.getLightShape().setOnMouseEntered(event -> {
 			exPadPane.setVisible(true);
+			//linkPane.toFront(); //Notwendig für toggle-Funktion
 			exPadPane.toFront();
 		});
     
@@ -203,11 +212,55 @@ public class Pattern {
 		return visPane;
 	}
 
+
+	private Label genSmallTopicLabel(int padIndex) {
+		Label TopicLabel = new Label("Beispiel Knoten " + padIndex);
+		TopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+		return TopicLabel;
+	}
+
+
+	private Label genLargeTopicLabel(int padIndex) {
+		Label TopicLabel = new Label("Beispiel Knoten " + padIndex);
+		TopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+		return TopicLabel;
+	}
+
 	private Pane genLinkPane() {
 		Pane linkPane = new Pane();
-		Label tagLabel1 = new Label("Tag1");
 		
-		//linkPane.getChildren().add(topicLabel);
+		//Tag aus dem Platzhalterobjekt ergebnisse (wird nicht angezeigt weil ergebnisse nur platzhalter)
+		Label tagLabel1 = new Label((String) ergebnisse);
+		tagLabel1.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+		linkPane.getChildren().add(tagLabel1);
+		
+		Label tagLabel2 = new Label("Beispiel Tag 1");
+		tagLabel2.setLayoutX(100);
+		tagLabel2.setLayoutY(100);
+		tagLabel2.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+		linkPane.getChildren().add(tagLabel2);
+		
+		Label tagLabel3 = new Label("Beispiel Tag 2");
+		tagLabel3.setLayoutX(200);
+		tagLabel3.setLayoutY(300);
+		tagLabel3.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+		linkPane.getChildren().add(tagLabel3);
+		
+		
+		//Code um Tags toggle-fähig zu machen. Funktioniert aber noch nicht wie er es soll.
+		/*tagLabel2.setOnMouseClicked(event -> {
+			if(tagLabel2.getTextFill() == Color.BLACK)
+				tagLabel2.setTextFill(Color.GREY);
+			else
+				tagLabel2.setTextFill(Color.BLACK);
+		});
+		
+		tagLabel3.setOnMouseClicked(event -> {
+			if(tagLabel3.getTextFill() == Color.BLACK)
+				tagLabel3.setTextFill(Color.GREY);
+			else
+				tagLabel3.setTextFill(Color.BLACK);
+		});*/
 		
 		return linkPane;
 	}
@@ -246,6 +299,5 @@ public class Pattern {
     return visPane;
     // TODO Auto-generated method stub  
   }
-
 
 }
