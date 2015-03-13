@@ -306,8 +306,8 @@ public class GUI extends Application{
 		homebuttonPane.setPrefHeight(windowHeight*0.15);
 		
 		VisControler visualControler = new VisControler ();
-		visualControler.setPaneHeight((int) (windowHeight*0.85));
-		visualControler.setPaneWidth(windowWidth);
+		visualControler.setPaneHeight((int) (stage.getHeight()*0.85));
+		visualControler.setPaneWidth((int) stage.getWidth());
 		
 		visPane.setCenter(visualControler.startVisualize());
 		visPane.setTop(homebuttonPane);
