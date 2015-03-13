@@ -8,6 +8,8 @@ import javafx.scene.layout.Pane;
  */
 public class VisControler {
 	
+	// Tobi am start
+	
 	private static int paneWidth;
 	private static int paneHeight;
 	
