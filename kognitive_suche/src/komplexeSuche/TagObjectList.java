@@ -1,4 +1,5 @@
-package komplexeSuche;
+package src.komplexeSuche;
+
 
 import java.util.ArrayList;
 
@@ -30,5 +31,13 @@ public class TagObjectList {
 
 	public int getsize() {
 		return tagObjects.size();
+	}
+	public TagObject getTagByTagName(String name){
+		for(int i = 0; i < tagObjects.size(); i++){
+			if(name.equals(tagObjects.get(i).gettag())){
+				return tagObjects.get(i);
+			}
+		}
+		return null;
 	}
 }

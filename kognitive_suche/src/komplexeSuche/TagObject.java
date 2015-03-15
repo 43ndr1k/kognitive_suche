@@ -1,4 +1,5 @@
-package komplexeSuche;
+package src.komplexeSuche;
+
 
 import java.util.ArrayList;
 
@@ -26,6 +27,9 @@ public class TagObject {
 	
 	public String geturl(int number){
 		return url.get(number);
+	}
+	public int getNumOfURLs(){
+		return url.size();
 	}
 	
 }

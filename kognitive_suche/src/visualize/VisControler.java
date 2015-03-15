@@ -1,7 +1,8 @@
-package visualize;
+package src.visualize;
+
 
 import javafx.scene.layout.Pane;
-
+import komplexeSuche.TagObjectList;
 
 /**
  * @author Fabian Freihube
@@ -12,10 +13,9 @@ public class VisControler {
 	
 	private static int paneWidth;
 	private static int paneHeight;
+	private TagObjectList tags;
 	
-	private static int activePads = 5;
-	
-	Object ergebnisse = null;
+	private static int activePads;
 
 	public int getPaneWidth() {
 		return paneWidth;
@@ -39,24 +39,10 @@ public class VisControler {
 
 
 
-	public int getActivePads() {
-		return activePads;
-	}
 
 
-
-	public void setActivePads(int activePads) {
-		VisControler.activePads = activePads;
-	}
-
-
-
-	public Pane startVisualize ()  {
-		  Pattern pattern = new Pattern(activePads, paneHeight, paneWidth, ergebnisse);
+	public Pane startVisualize (TagObjectList tags)  {
+		  Pattern pattern = new Pattern(paneHeight, paneWidth, tags);
 		  return pattern.getPane();
 	  }
-
-	public void setErgebnisse(Object ergebnisse) {
-		this.ergebnisse = ergebnisse;
-	}
 }

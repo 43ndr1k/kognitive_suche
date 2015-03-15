@@ -1,10 +1,16 @@
-package visualize;
+package src.visualize;
 
+
+import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
+import komplexeSuche.TagObjectList;
 
 /**
  * @author Fabian Freihube
