@@ -1,4 +1,4 @@
-package src.GUI;
+package GUI;
 
 
 import java.util.ArrayList;
@@ -303,7 +303,7 @@ public class GUI extends Application{
 	private void startVisual() {
 
 		/*
-		 * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt werden.
+		 * das Objekt Tag, welches aus der Klasse visualtest ï¿½bernommen wird dient zu Testzwecken und kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt werden.
 		 * */
 		 
 		visualtest tmp = new visualtest();

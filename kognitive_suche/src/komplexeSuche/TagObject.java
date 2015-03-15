@@ -1,4 +1,4 @@
-package src.komplexeSuche;
+package komplexeSuche;
 
 
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ public class TagObject {
   
   /** 
    * @author Tobias Lenz
-   * Objekt zur Weitergabe von Tags mit den dazugehörigen URLS
+   * Objekt zur Weitergabe von Tags mit den dazugehï¿½rigen URLS
    */
 
 	private ArrayList<String> url = new ArrayList <String>();

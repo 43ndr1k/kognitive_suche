@@ -1,4 +1,4 @@
-package src.visualize;
+package visualize;
 
 
 import javafx.scene.layout.Pane;

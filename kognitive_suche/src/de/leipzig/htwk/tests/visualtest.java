@@ -1,4 +1,4 @@
-package src.de.leipzig.htwk.tests;
+package de.leipzig.htwk.tests;
 
 
 import komplexeSuche.TagObject;
