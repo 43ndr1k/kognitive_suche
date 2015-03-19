@@ -67,6 +67,8 @@ public class GUI extends Application{
 
 	@Override
 	public void start(Stage stage2) throws Exception {
+		
+		
 
 		mController.setParameter("de","web",1);
 
@@ -308,6 +310,7 @@ public class GUI extends Application{
                btnlanguage[0].setStyle("-fx-background-color: #00B2EE;");
                btnlanguage[1].setStyle("-fx-background: #FFFFFF;");
                SelectedLanguage[0] = "de";
+               mController.setParameter("de","web",1);
 
            }
        });
@@ -355,9 +358,10 @@ public class GUI extends Application{
                btnsrc[1].setStyle("-fx-background: #FFFFFF;");
                btnsrc[0].setStyle("-fx-background: #FFFFFF;");
                Selectedsrc[0] = "topics";
+               
            }
        });
-   	
+  
    	//--------------------------------------------------
         vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]);
 		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]);
@@ -365,7 +369,7 @@ public class GUI extends Application{
         hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
         vbox1.getChildren().addAll(homebutton(), hbox1, schrift, hbox3);
         hbox2.getChildren().addAll(close);
-        
+        mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1);
 		return start;
 	}
 	
