@@ -168,6 +168,7 @@ public class GUI extends Application{
 
 	
 	public HBox homebutton(){
+		
 		HBox hboxHOME = new HBox();
 		final ImageView imv = new ImageView();
         final Image image2 = new Image("http://www.imn.htwk-leipzig.de/~shuegelm/image.jpg");
