@@ -192,7 +192,7 @@ public class GUI extends Application{
 	}
 
 	public Scene homescreen(){
-		
+		pane1.getChildren().clear();
 		HBox hbox1 = new HBox();//horizontale Box für Suchleiste und Buttons
 		HBox hbox2 = new HBox();//schliessen box
 		VBox vbox1 = new VBox();//vertikale Box für Logo, hbox2
