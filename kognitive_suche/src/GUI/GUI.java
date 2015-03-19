@@ -293,6 +293,7 @@ public class GUI extends Application{
 		VisControler visualControler = new VisControler ();
 		visualControler.setPane(visPane);
 		visualControler.setQuery(suchleiste.getText());
+		//iv
 		visualControler.setPaneHeight((int) (stage.getHeight()*0.85));
 		visualControler.setPaneWidth((int) stage.getWidth());
 		

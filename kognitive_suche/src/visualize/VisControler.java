@@ -52,7 +52,7 @@ public class VisControler {
 		  return pattern.getPane();
 	  }
 	
-	
+	//iv
 	public static void setPane(Pane pane){
 		VisControler.pane = pane;
 	}
