@@ -147,7 +147,7 @@ public class GUI extends Application{
 							anzkat = 1;
 
 							if (anzkat < 2){
-								ergebnisausgabe(); /*Ausgabe der Webseiten*/
+								//ergebnisausgabe(); /*Ausgabe der Webseiten*/
 							}
 							else	{textfield();} /*Kategorien mit Tags erstellen*/
 
@@ -168,37 +168,10 @@ public class GUI extends Application{
 		pane1.setTop(homebutton());
 	}
 
-	public void ergebnisausgabe(){
-		VBox vbox1 = new VBox();
-		Hyperlink link[] = new Hyperlink[25];
-		Label label[] = new Label[25];
-		int anzsucherg = 10;	/*Momentan immer 10 da nur 10 URLs von Faroo*/
-		for (int k=0; k<anzsucherg;k++){
-			//link[k] = new Hyperlink("www.oracle.com");	/*arraylist.get(URL); from Arraylist*/
-			link[k] = new Hyperlink(url.get(k));
-			/*arraylist.get(KWIC) von arraylist*/
-			//label[k] = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
-			label[k] = new Label(kwic.get(k));
-			vbox1.getChildren().addAll(link[k],label[k]);
-			label[k].setMaxSize(300, 300);
-			label[k].setWrapText(true);
-			label[k].setStyle("-fx-label-padding: 0 0 20 0;");	/*top right bottom left*/
-			
-			/*link[k].setOnAction(new EventHandler<ActionEvent>() {
-	                @Override
-	                public void handle(ActionEvent o) {
-	                    getHostServices().showDocument(link[k].getText());
-	                }
-			});*/
-		}
-		vbox1.setMaxSize(1000, 700);
-		/*vbox1.setSpacing(20);*/
-		pane1.getChildren().clear();
-		pane1.setTop(homebutton());
-		pane1.setCenter(vbox1);
-	}
+
 	
 	public HBox homebutton(){
+		
 		HBox hboxHOME = new HBox();
 		final ImageView imv = new ImageView();
         final Image image2 = new Image("http://www.imn.htwk-leipzig.de/~shuegelm/image.jpg");
@@ -418,13 +391,20 @@ public class GUI extends Application{
 		homebuttonPane.setPrefHeight(windowHeight*0.15);
 		
 		VisControler visualControler = new VisControler ();
+		visualControler.setPane(visPane);
+		visualControler.setQuery(suchleiste.getText());
+		//iv
 		visualControler.setPaneHeight((int) (stage.getHeight()*0.85));
 		visualControler.setPaneWidth((int) stage.getWidth());
 		
 		visPane.setCenter(visualControler.startVisualize(tags));
 		visPane.setTop(homebuttonPane);
 		
+	
+		
 		stage.setScene(visual);
+		
+		
 	}
 
 }
