@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
@@ -14,6 +16,8 @@ import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
@@ -31,6 +35,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.control.ComboBox;
 import komplexeSuche.TagObject;
 import komplexeSuche.TagObjectList;
 import de.leipzig.htwk.faroo.api.Results;
@@ -256,7 +261,7 @@ public class GUI extends Application{
 			{
 				if(keyEvent.getCode() == KeyCode.ENTER)
 				{
-					//Daten();
+					Daten();
 					//textfield();
 					startVisual();
 				}
@@ -269,7 +274,7 @@ public class GUI extends Application{
 		sucheF.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent sucheF) {
-				//Daten();
+				Daten();
 				//textfield();	/*Ruft die Methode zur Generierung Textfelder auf*/
 				startVisual();
 			}
@@ -289,11 +294,24 @@ public class GUI extends Application{
 
 		});
 		
-
-		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
-        vbox1.getChildren().addAll(homebutton(), hbox1);
-        //hbox2.getChildren().addAll(close); /*aus Zweckgründen unnötig bleibt aber vorerst für notfaelle*/
-
+		/**
+		 * @author Sadik Ulusan
+		 */
+		//Auswahl der Sprache mit einer Combobox
+		/*final ObservableList<String> languages = FXCollections.observableArrayList(
+	            "deutsch",
+	            "englisch",
+	            "chinesisch"
+	        );
+	    final ComboBox language = new ComboBox();
+	    
+	     hbox1.getChildren().addAll(suchleiste,sucheF,sucheP, language);
+        
+        language.setItems(languages);
+        
+	  */
+	    
+		
 		
         /**
     	 * @author Christian Schmidt
@@ -369,7 +387,7 @@ public class GUI extends Application{
            }
        });
   
-
+   	//--------------------------------------------------
         vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]); // Vertikalbox für Buttons Deutsch und Englisch
 		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]); // Vertikalbox für WEB NEWS und TITLE
 		hbox3.getChildren().addAll(vbox2,vbox3); // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox zusammengefürt
@@ -377,8 +395,7 @@ public class GUI extends Application{
         vbox1.getChildren().addAll(homebutton(), hbox1, schrift, hbox3);
         hbox2.getChildren().addAll(close);
         mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1); //Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
-
-		return start;
+        return start;
 	}
 	
 	/**
@@ -405,7 +422,7 @@ public class GUI extends Application{
 		VisControler visualControler = new VisControler ();
 		visualControler.setPane(visPane);
 		visualControler.setQuery(suchleiste.getText());
-		
+		//iv
 		visualControler.setPaneHeight((int) (stage.getHeight()*0.85));
 		visualControler.setPaneWidth((int) stage.getWidth());
 		

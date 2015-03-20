@@ -1,11 +1,14 @@
 package de.leipzig.htwk.list;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import simpleAlgorithm.SimAlgTags;
 import visualize.VisControler;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.faroo.api.Results;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -18,14 +21,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-
-
-/**
- * 
- * @author Ivan Ivanikov
- *
- */
-
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 public class Listenausgabe {
 	private int width;
@@ -36,12 +35,6 @@ public class Listenausgabe {
 	public ArrayList<String> kwic = new ArrayList<String>();
 	public ArrayList<String> title = new ArrayList<String>();
 
-	
-	/**
-	 * 
-	 *  Testfall: Es wird geprüft ob diese Klasse überhaupt erreicht wurde.
-	 *  Gibt ein Alert falls erfolgreich
-	 */
 	/*public Pane test() {
 		Pane pane= new Pane();
 		
@@ -64,12 +57,6 @@ public class Listenausgabe {
 		this.height = height;
 	}
 	
-	
-	/**
-	 * 
-	 * Aus dem Controller geholte Resultdaten
-	 * Sobald Tags implementiert wurden bitte nachtragen
-	 */
 	public Listenausgabe(String query){
 		mController.queryFaroo(query);
 		Results r = mController.getResultList();
@@ -85,13 +72,9 @@ public class Listenausgabe {
 		}
 	
 	}
-			/**
-			 * Schchtatlung der FX elmente um ein funktionierendes Scrollpane zu realisieren
-			 * Ergebnisse mit raendern um eine bessere trennung vollziehen zu können und dennoch keine Platzverschwendung zu haben
-			 * Bei Ausführung wird das Wabenpane ge-"cleard" und mit der Listenstruktur übermalt 
-			 * -> dies spart das Zeichnen eine weiteren Szene
-			 */
+
 	public ScrollPane ergebnisausgabe(){
+		//HBox hbox;
 		VBox vbox1 = new VBox();
 		VBox vbox2;
 		BorderPane pane = new BorderPane();
@@ -102,7 +85,10 @@ public class Listenausgabe {
 		//Label label2[] = new Label[25];
 		int anzsucherg = 10;	/*Momentan immer 10 da nur 10 URLs von Faroo*/
 		for (int k=0; k<anzsucherg;k++){
+			//link[k] = new Hyperlink("www.oracle.com");	/*arraylist.get(URL); from Arraylist*/
 			link[k] = new Hyperlink(url.get(k));
+			/*arraylist.get(KWIC) von arraylist*/
+			//label[k] = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
 			label1[k] = new Label(kwic.get(k));
 			label[k] = new Label(title.get(k));
 			vbox2 = new VBox();
@@ -117,13 +103,20 @@ public class Listenausgabe {
 			//label1[k].setMaxSize(300, 600);
 			label1[k].setWrapText(true);
 			label1[k].setStyle("-fx-label-padding: 0 0 0 0;");
+			/*top right bottom left*/
 			
+			/*link[k].setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent o) {
+	                    getHostServices().showDocument(link[k].getText());
+	                }
+			});*/
 		}
 		//vbox1.setMaxSize(1000, 1000);
 		vbox1.setStyle("-fx-border-width: 2;");
 		vbox1.setStyle("-fx-border-color: black;");
 		/*vbox1.setSpacing(20);*/
-		pane.getChildren().clear(); /* säubert das das pane um dann listenstruktur zu zeichnen*/
+		pane.getChildren().clear();
 		pane.setCenter(vbox1);
 		rol.setPrefSize((double)width,(double)height);
 		rol.setContent(pane);
@@ -131,7 +124,61 @@ public class Listenausgabe {
 		//pane.setStyle(-);
 		//rol.setFitToHeight(true);
 		//rol.setFitToWidth(true);
+		
+		
+		
+		/**
+		 * @author Sadik Ulusan
+		 */
+		//Wenn die Hyperlinks angeklickt werden erkennt es das Program. Links werden ausgeführt und durch den
+		//Standardbrowser des Nutzers gestartet. PDF sind ebenso ausführbar.
+		/*public void ergebnisausgabe(){
+	        
+	        VBox vbox1 = new VBox();
+	        Hyperlink link[] = new Hyperlink[25];
+	        Label label[] = new Label[25];
+	        int anzsucherg = 3;
+	        
+	        final WebView browser = new WebView();
+	        final WebEngine webEngine = browser.getEngine();
+	        
+	        for (int k=0; k<anzsucherg;k++){
+	            final String url = "http://www.oracle.com";
+	            //final String url = "H:/Dokumente/Eigene Bilder/NeueWegeMD.pdf";
+	            //final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
+	            Hyperlink h = new Hyperlink(url);    /*getHyperlink from Nodelist
+	            h.setOnAction(new EventHandler<ActionEvent>() {
+	                @Override
+	                public void handle(ActionEvent e) {
+	                    System.out.println("Hyperlink geklickt!");
+	                    //webEngine.load(url);
+	                    
+	                    //Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " +
+	                    //        "javascript:location.href=' " + url + " ' " );
+	                    try {
+	                        Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " + url ); 
+	                    } catch (IOException e1) {
+	                        e1.printStackTrace();
+	                    }
+	                    
+	                    
+	                    
+	                    
+	                            
+	                }
+	            });
+	            link[k] = h;
+	            label[k] = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
+	            vbox1.getChildren().addAll(link[k],label[k]);
+	            label[k].setMaxSize(300, 300);
+	            label[k].setWrapText(true);
+	            label[k].setStyle("-fx-label-padding: 0 0 20 0;");    /*top right bottom left
+	        }*/
+		
 		return rol;
+		
+		
+		
 	}
 	
 	
