@@ -52,7 +52,10 @@ public class VisControler {
 		  return pattern.getPane();
 	  }
 	
-	//iv
+	/**
+	 * 
+	 * @author Ivan Ivanikov
+	 */
 	public static void setPane(Pane pane){
 		VisControler.pane = pane;
 	}

@@ -266,7 +266,7 @@ public class GUI extends Application{
 		
 		hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
         vbox1.getChildren().addAll(homebutton(), hbox1);
-        hbox2.getChildren().addAll(close);
+        //hbox2.getChildren().addAll(close); /*aus Zweckgründen unnötig bleibt aber vorerst für notfaelle*/
 		return start;
 	}
 	
@@ -294,7 +294,7 @@ public class GUI extends Application{
 		VisControler visualControler = new VisControler ();
 		visualControler.setPane(visPane);
 		visualControler.setQuery(suchleiste.getText());
-		//iv
+		
 		visualControler.setPaneHeight((int) (stage.getHeight()*0.85));
 		visualControler.setPaneWidth((int) stage.getWidth());
 		

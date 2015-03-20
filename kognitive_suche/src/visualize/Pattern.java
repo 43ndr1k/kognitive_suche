@@ -75,7 +75,9 @@ public class Pattern {
 					Listenausgabe ausgabe = new Listenausgabe(query);
 					ausgabe.setWidth(paneWidth);
 					ausgabe.setHeight( paneHeight);
-					//iv
+					/**
+					 * Listenausgabe an Patterngui weitergegeben
+					 */
 					visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
 				}
 

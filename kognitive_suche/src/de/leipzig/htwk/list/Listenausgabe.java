@@ -19,6 +19,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
+
+/**
+ * 
+ * @author Ivan Ivanikov
+ *
+ */
+
+
 public class Listenausgabe {
 	private int width;
 	private int height;
@@ -28,6 +36,12 @@ public class Listenausgabe {
 	public ArrayList<String> kwic = new ArrayList<String>();
 	public ArrayList<String> title = new ArrayList<String>();
 
+	
+	/**
+	 * 
+	 *  Testfall: Es wird geprüft ob diese Klasse überhaupt erreicht wurde.
+	 *  Gibt ein Alert falls erfolgreich
+	 */
 	/*public Pane test() {
 		Pane pane= new Pane();
 		
@@ -50,6 +64,12 @@ public class Listenausgabe {
 		this.height = height;
 	}
 	
+	
+	/**
+	 * 
+	 * Aus dem Controller geholte Resultdaten
+	 * Sobald Tags implementiert wurden bitte nachtragen
+	 */
 	public Listenausgabe(String query){
 		mController.queryFaroo(query);
 		Results r = mController.getResultList();
@@ -65,9 +85,13 @@ public class Listenausgabe {
 		}
 	
 	}
-
+			/**
+			 * Schchtatlung der FX elmente um ein funktionierendes Scrollpane zu realisieren
+			 * Ergebnisse mit raendern um eine bessere trennung vollziehen zu können und dennoch keine Platzverschwendung zu haben
+			 * Bei Ausführung wird das Wabenpane ge-"cleard" und mit der Listenstruktur übermalt 
+			 * -> dies spart das Zeichnen eine weiteren Szene
+			 */
 	public ScrollPane ergebnisausgabe(){
-		//HBox hbox;
 		VBox vbox1 = new VBox();
 		VBox vbox2;
 		BorderPane pane = new BorderPane();
@@ -78,10 +102,7 @@ public class Listenausgabe {
 		//Label label2[] = new Label[25];
 		int anzsucherg = 10;	/*Momentan immer 10 da nur 10 URLs von Faroo*/
 		for (int k=0; k<anzsucherg;k++){
-			//link[k] = new Hyperlink("www.oracle.com");	/*arraylist.get(URL); from Arraylist*/
 			link[k] = new Hyperlink(url.get(k));
-			/*arraylist.get(KWIC) von arraylist*/
-			//label[k] = new Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
 			label1[k] = new Label(kwic.get(k));
 			label[k] = new Label(title.get(k));
 			vbox2 = new VBox();
@@ -96,20 +117,13 @@ public class Listenausgabe {
 			//label1[k].setMaxSize(300, 600);
 			label1[k].setWrapText(true);
 			label1[k].setStyle("-fx-label-padding: 0 0 0 0;");
-			/*top right bottom left*/
 			
-			/*link[k].setOnAction(new EventHandler<ActionEvent>() {
-	                @Override
-	                public void handle(ActionEvent o) {
-	                    getHostServices().showDocument(link[k].getText());
-	                }
-			});*/
 		}
 		//vbox1.setMaxSize(1000, 1000);
 		vbox1.setStyle("-fx-border-width: 2;");
 		vbox1.setStyle("-fx-border-color: black;");
 		/*vbox1.setSpacing(20);*/
-		pane.getChildren().clear();
+		pane.getChildren().clear(); /* säubert das das pane um dann listenstruktur zu zeichnen*/
 		pane.setCenter(vbox1);
 		rol.setPrefSize((double)width,(double)height);
 		rol.setContent(pane);
