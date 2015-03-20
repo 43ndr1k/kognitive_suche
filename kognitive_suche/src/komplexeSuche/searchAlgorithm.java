@@ -81,7 +81,8 @@ public class searchAlgorithm {
 		retlist = merge(tagfrequency, tagnearby, ergebnis, searchword);
 		for(int i = 0; i< 5;i++){
 		  int n = tagfrequency.size()-1-i;
-		  System.out.println(tagfrequency.get(n).gettag());
+		  //System.out.println(tagfrequency.get(n).gettag());
+		  //System.out.println(tagnearby.get(i).gettag(i));
 		}
 		  
 		return retlist;
@@ -96,11 +97,20 @@ public class searchAlgorithm {
 
 
 	private boolean badWord(String string) {
-	  
-	  String wordList[] ={"der", "die", "das","und","des","da","wo","von","den"};
-	  
+	  /** @author Steffen Schreiber
+	   */
+	  String wordList[] ={"der","die","das","dem","den","ein","eines","eine","einem","einen","des","da","wo","von","den","und","dieser","jener","kein","deren",
+			  			  "dessen","oder","auch","wir","ihr","er","sie","Sie","es","euch","keiner","jeder","uns","ihnen","Ihnen","denen","dabei","während","für",
+			  			  "von","mit","nicht","ist","dass","wie","wer","wann","warum","weshalb","im","auf","durch","unter","sehr","selbst","schon","hier","bis",
+			  			  "habe","ihre","seine","seiner","muss","alle","wieder","meine","Zeit","gegen","vom","ganz","einzelnen","einzeln","ohne","können","sei",
+			  			  "zur","hatte","man","aber","zum","soll","worden","Jahr","eins","zwei","drei","vier","fünf","sechs","sieben","acht","neun","null",
+			  			  "zwischen","immer","Jahren","sagte","sagt","wurde","so","solange","vor","über","In","in","hat","am","sich","als","werden","wollen",
+			  			  "müssen","würden","neu","rund","groß","klein","alt","jung","möglich","deutlich","weit","viel","fest","weich","flüssig","gut","lang",
+			  			  "knapp","künftig","schwer","genau","sicher","ihrer","ihrem","mich","mir","ihm","unser","ich","du","häufig","wenig","wenige","einzelner",
+			  			  "lassen","gehen","laufen","rennen","fliegen","heißen","warm","kalt","wärmer","kälter","heiß","gilt","gelten","stehen","schwimmen",};
 	 
-	  
+	  /** @author Tobias Lenz
+	   */
 	  
 	  for(int i = 0; i < wordList.length; i++){
 	    if(string.equals(wordList[i])){
@@ -139,7 +149,7 @@ public class searchAlgorithm {
 		  UrlKeys.add("Dr.");
 		  UrlKeys.add("�mter");		  
 		  
-		  for (int i = 0; i < 10; i++){
+		  for (int i = 0; i < 15; i++){
 			  haeufigeTags.add(tagfrequency.get(i).gettag());
 		  }
 		  
@@ -185,7 +195,7 @@ public class searchAlgorithm {
     	  Set<String> set = new LinkedHashSet<String>(returnlist);
     	  returnlist = new ArrayList<String>(set);
     	  
-    	  int n = 0;
+    	  int n = 6;
     	  
     	  while (returnlist.size()<6){
     		  returnlist.add(haeufigeTags.get(n));
@@ -216,5 +226,6 @@ public class searchAlgorithm {
 	}
 	
 }
+
 
 

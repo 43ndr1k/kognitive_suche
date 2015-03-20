@@ -1,5 +1,6 @@
 package visualize;
 
+
 import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -9,6 +10,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import komplexeSuche.TagObjectList;
 
 /**
  * @author Fabian Freihube

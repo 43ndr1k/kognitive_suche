@@ -35,6 +35,7 @@ public class Controller {
      * Parameter für die Faroo API
      * @param _src Welche Informationen möchte man haben
      * @param s Startwert ab welchem Suchergebnis man Ergebnisse haben möchte.
+     * @param l Welche Sprache
      */
     public void setParameter(String l, String _src, int s){
         this.language = l;

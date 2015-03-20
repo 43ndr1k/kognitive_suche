@@ -1,5 +1,6 @@
 package komplexeSuche;
 
+
 import java.util.ArrayList;
 
 public class TagObjectList {
@@ -7,7 +8,7 @@ public class TagObjectList {
  * @author Tobias Lenz
  * 
  * 
- * Objekt zur Uebergabe von Taginformatinen enthält eine ArrayList von TagObjects
+ * Objekt zur Uebergabe von Taginformatinen enthï¿½lt eine ArrayList von TagObjects
  * Bei der Initialisierung soll das entsprechende Suchwort uebergeben werden
  * 
  */
@@ -30,5 +31,13 @@ public class TagObjectList {
 
 	public int getsize() {
 		return tagObjects.size();
+	}
+	public TagObject getTagByTagName(String name){
+		for(int i = 0; i < tagObjects.size(); i++){
+			if(name.equals(tagObjects.get(i).gettag())){
+				return tagObjects.get(i);
+			}
+		}
+		return null;
 	}
 }

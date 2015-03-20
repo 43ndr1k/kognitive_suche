@@ -1,17 +1,25 @@
 package visualize;
 
-import javafx.scene.layout.Pane;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import komplexeSuche.TagObjectList;
 
 /**
  * @author Fabian Freihube
  */
 public class VisControler {
 	
+	// Tobi am start
+	
 	private static int paneWidth;
 	private static int paneHeight;
+	private TagObjectList tags;
 	
-	private static int activePads = 5;
+	private static int activePads;
+	private static Pane pane;
+	private static String query;
 
 	public int getPaneWidth() {
 		return paneWidth;
@@ -19,6 +27,7 @@ public class VisControler {
 
 	public void setPaneWidth(int paneWidth) {
 		VisControler.paneWidth = paneWidth;
+		
 	}
 
 
@@ -35,20 +44,20 @@ public class VisControler {
 
 
 
-	public int getActivePads() {
-		return activePads;
-	}
 
 
-
-	public void setActivePads(int activePads) {
-		VisControler.activePads = activePads;
-	}
-
-
-
-	public Pane startVisualize ()  {
-		  Pattern pattern = new Pattern(activePads, paneHeight, paneWidth);
+	public Pane startVisualize (TagObjectList tags)  {
+		  Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags);
+		  
 		  return pattern.getPane();
 	  }
+	
+	//iv
+	public static void setPane(Pane pane){
+		VisControler.pane = pane;
+	}
+	
+	public static void setQuery(String query){
+		VisControler.query = query;
+	}
 }
