@@ -59,12 +59,13 @@ public class GUI extends Application{
 	private Stage stage = new Stage();
 	//private Scene start1 = new Scene(pane1);
 	private int anzkat = 10;
+	
 	final TextField suchleiste = new TextField();					/*DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO*/
 
 	public static void main(String[] args){
 		launch(args);
 	}
-
+	
 	@Override
 	public void start(Stage stage2) throws Exception {
 		
@@ -90,6 +91,7 @@ public class GUI extends Application{
 	}
 
 	private void Daten(){
+		
 		mController.queryFaroo(suchleiste.getText());
 		Results r = mController.getResultList();
 		for(int i = 0; i < r.getResults().size(); i++) {
@@ -291,7 +293,7 @@ public class GUI extends Application{
         /**
     	 * @author Christian Schmidt
     	 */
-      //------------------------------------------------------------------------------------
+      //Label für die Suchoptionen
 
 		Label label = new Label("Farroo Suchoptionen");
         label.setFont(Font.font("Arial", 14));
@@ -299,7 +301,7 @@ public class GUI extends Application{
         schrift.setAlignment(Pos.CENTER);
         schrift.setPadding(new Insets(-15,15,15,15));
         schrift.setSpacing(10);
-		
+      //Buttons für die Suchoptionen
        final Button[] btnlanguage = new Button[2];
        btnlanguage[0] = new Button("de");
        btnlanguage[0].setText("German");
@@ -363,13 +365,13 @@ public class GUI extends Application{
        });
   
    	//--------------------------------------------------
-        vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]);
-		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]);
-		hbox3.getChildren().addAll(vbox2,vbox3);
+        vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]); // Vertikalbox für Buttons Deutsch und Englisch
+		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]); // Vertikalbox für WEB NEWS und TITLE
+		hbox3.getChildren().addAll(vbox2,vbox3); // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox zusammengefürt
         hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
         vbox1.getChildren().addAll(homebutton(), hbox1, schrift, hbox3);
         hbox2.getChildren().addAll(close);
-        mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1);
+        mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1); //Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
 		return start;
 	}
 	
