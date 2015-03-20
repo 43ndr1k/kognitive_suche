@@ -2,6 +2,8 @@ package komplexeSuche;
 
 import java.util.ArrayList;
 
+//@author Franz Schwarzer
+
 public class UrlObjekt {
 
 	private ArrayList <String> tags=new ArrayList <String>();
