@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 import komplexeSuche.TagObjectList;
 
 /**
+ * Controller der Visualisierung
+ * 
  * @author Fabian Freihube
  */
 public class VisControler {
@@ -46,16 +48,24 @@ public class VisControler {
 
 
 
+	/**
+	 * Aufruf der Visualisierung
+	 * 
+	 * @param tags Tag Objekt
+	 * @return Pane mit positionierten Objekten
+	 */
 	public Pane startVisualize (TagObjectList tags)  {
 		  Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags);
 		  
 		  return pattern.getPane();
 	  }
 	
+
 	/**
 	 * 
 	 * @author Ivan Ivanikov
 	 */
+
 	public static void setPane(Pane pane){
 		VisControler.pane = pane;
 	}

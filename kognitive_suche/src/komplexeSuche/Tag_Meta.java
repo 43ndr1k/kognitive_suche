@@ -26,7 +26,7 @@ public class Tag_Meta extends Thread {
 		this.keys=getMetaKeys();
 		Statics.keys=this.keys;
 		Statics.urlkeys[urlNumber]=keys;
-		
+		Statics.url[urlNumber]=url;
 		System.out.println(Statics.urlkeys[urlNumber][0]); 
 	}
 	
@@ -47,9 +47,9 @@ public class Tag_Meta extends Thread {
 			 } catch (IOException e) {
 			 e.printStackTrace();
 			 }
-		//System.out.println(sb.toString());
 		
 	// Suche nach Meta Key
+		Statics.pageText[urlNumber]=sb.toString();
 		int index = sb.toString().indexOf( "<meta name=\"keywords\" content=");
 		String sub=sb.toString().substring(index);
 		index=sub.indexOf("/>");
@@ -77,11 +77,7 @@ public class Tag_Meta extends Thread {
 			
 			
 		}
-		
 
-		//liste.add(getMetaKeys("http://www.easy-coding.de/index.php/Thread/10300-HTML-auslesen-und-nach-spezifischen-Tags-suchen/"));
-		//liste.add(getMetaKeys("https://www.youtube.com/?gl=DE&hl=de"));
-		
 		return rueckgabe;
 	}
 
