@@ -26,7 +26,7 @@ public class Tag_Meta extends Thread {
 		this.keys=getMetaKeys();
 		Statics.keys=this.keys;
 		Statics.urlkeys[urlNumber]=keys;
-		
+		Statics.url[urlNumber]=url;
 		System.out.println(Statics.urlkeys[urlNumber][0]); 
 	}
 	
@@ -50,6 +50,7 @@ public class Tag_Meta extends Thread {
 		//System.out.println(sb.toString());
 		
 	// Suche nach Meta Key
+		Statics.pageText[urlNumber]=sb.toString();
 		int index = sb.toString().indexOf( "<meta name=\"keywords\" content=");
 		String sub=sb.toString().substring(index);
 		index=sub.indexOf("/>");
