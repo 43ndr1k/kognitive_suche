@@ -5,22 +5,21 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
 import komplexeSuche.TagObjectList;
 
 /**
+ * Generierung des Feldes von Hexagons
+ * 
  * @author Fabian Freihube
  */
 public class Pattern {
 
-	private int paneWidth;
+	private int paneWidth; 
 	private int paneHeight;
 	private static final double padSize = 102;
 	private static final double padOffset = 3;
@@ -43,6 +42,14 @@ public class Pattern {
 
 	private static TagObjectList tags;
 
+	/**
+	 * Generiert das Feld von Hexagons
+	 * 
+	 * @param paneHeight Höhe des Feldes
+	 * @param paneWidth Breite des Feldes
+	 * @param query
+	 * @param tags
+	 */
 	public Pattern ( int paneHeight, int paneWidth, String query, TagObjectList tags)  {
 		// TODO Auto-generated method stub
 	        this.paneHeight = paneHeight;
@@ -87,28 +94,64 @@ public class Pattern {
 			
 		}
 
+	/**
+	 * Berechnet die Anzahl der Spalten in Abhängikeit von der Größe der Hexagons und des Feldes.
+	 * 
+	 * @param oneHexWidth Breite eines Hexagons
+	 * @param columnCorrection Versatz zwischen den Hexagons in der Breite
+	 * @return Anazahl der Spaten
+	 */
 	private int getColumns(double oneHexWidth, double columnCorrection) {
 		return (int) (Math
 				.round((((paneWidth / (oneHexWidth - columnCorrection + padOffset)) + 0.5) + 0.5) * 1) / 1.0);
 	}
 
+	/**
+	 * Berechnet die Anzahl der Reihen in Abhängikeit von der Größe der Hexagons und des Feldes.
+	 * 
+	 * @param oneHexHeight Höhe eines Hexagons
+	 * @return Anazahl der Reihen
+	 */
 	private int getRows(double oneHexHeight) {
 		return (int) (Math
 				.round((((paneHeight / (oneHexHeight + padOffset)) + 0.5) + 0.5) * 1) / 1.0);
 	}
 
+	/**
+	 * @param oneHexHeight Höhe eines Hexagons
+	 * @return Versatz zwischen den Hexagons in der Breite
+	 */
 	private double getColumnCorrection(double oneHexHeight) {
 		return Math.tan(Math.toRadians(30)) * 0.5 * oneHexHeight;
 	}
 
+	/**
+	 * @return Breite eines Hexagons
+	 */
 	private double getHexWidth() {
 		return 2 * padSize;
 	}
 
+	/**
+	 * @return Höhe eines Hexagons
+	 */
 	private double getHexHeight() {
 		return 2 * ((0.5 * padSize) / Math.tan(Math.toRadians(30)));
 	}
 
+	/**
+	 * Positionieren der Hexagons
+	 * 
+	 * @param padMap Array das anzeigt, ob dieses Feld aktiv ist.
+	 * @param oneHexWidth Breite eines Hexagons
+	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
+	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param rows Anazahl der Reihen
+	 * @param columns Anazahl der Spalten
+	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
+	 * @param tags Tag Obejkt
+	 * @return visPane mit positionierten Elementen
+	 */
 	private Pane printPattern(Boolean[][] padMap, double oneHexWidth,
 			double columnCorection, double oneHexHeight, int rows, int columns,
 			Pane visPane, TagObjectList tags) {
@@ -147,6 +190,19 @@ public class Pattern {
 		return visPane;
 	}
 
+	/**
+	 * Fügt ein neues inaktives Hexagon hinzu.
+	 * 
+	 * @param oneHexWidth Breite eines Hexagons
+	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
+	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param rows Anazahl der Reihen
+	 * @param columns Anazahl der Spalten
+	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
+	 * @param x X-Position des Hexagons
+	 * @param y Y-Position des Hexagons
+	 * @return visPane mit neuem aktiven Hexagon
+	 */
 	private Pane addGreyPad(double oneHexWidth, double columnCorection,
 			double oneHexHeight, int rows, int columns, Pane visPane, double x,
 			double y) {
@@ -169,6 +225,20 @@ public class Pattern {
 		return visPane;
 	}
 
+	/**
+	 * Fügt ein neues aktives Hexagon hinzu.
+	 * 
+	 * @param oneHexWidth Breite eines Hexagons
+	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
+	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param rows Anazahl der Reihen
+	 * @param columns Anazahl der Spalten
+	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
+	 * @param x X-Position des Hexagons
+	 * @param y Y-Position des Hexagons
+	 * @param labelText Text in der Mitte
+	 * @return visPane mit neuem aktiven Hexagon
+	 */
 	private Pane addColorPad(double oneHexWidth, double columnCorection,
 			double oneHexHeight, int rows, int columns, Pane visPane, double x,
 			double y, String labelText) {
@@ -232,6 +302,14 @@ public class Pattern {
 		return linkPane;
 	}
 
+	/**
+	 * Generiert aus der Anzahl der aktiven Pads und den Reihen und Spalten ein 
+	 * Array das anzeigt welche Felder aktiv sind.
+	 * 
+	 * @param rows Anzahl der Reihen
+	 * @param columns Anzahl der Spalten
+	 * @return padMap
+	 */
 	private Boolean[][] createPadMap(int rows, int columns) {
 		// TODO Auto-generated method stub
 		Boolean[][] padMap = new Boolean[columns][rows];

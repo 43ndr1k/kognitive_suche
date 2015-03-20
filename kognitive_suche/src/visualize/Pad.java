@@ -1,30 +1,51 @@
 package visualize;
 
 
-import javafx.geometry.VPos;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Polygon;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import komplexeSuche.TagObjectList;
 
 /**
+ * Hexagon Objekt.
+ * 
  * @author Fabian Freihube
  */
 public class Pad extends Group{
+	 /**
+	 *  Kleines Hexagon
+	 */
 	 Polygon shape = new Polygon();
+	 /**
+	 * Groﬂes Hexagon
+	 */
 	 Polygon expandedShape = new Polygon();
+	 /**
+	 * Umrandung des kleinen Hexagons
+	 */
 	 Polygon lightShape = new Polygon();
+	 /**
+	 * Umrandung des groﬂen Hexagons
+	 */
 	 Polygon expandedLightShape = new Polygon(); 
+	 /**
+	 * Rahmen des groﬂen Hexagons
+	 */
 	 Polygon lightFrame = new Polygon(); 
 	 
 	 private static final Image blackNormalImage = new Image("file:static/icons/normal_schwarz.png");
 	 private static final Image ligtFrameImage = new Image("file:static/icons/lightFrame.png");
 	 
+	/**
+	 * Deklaration der verschiedenen Shapes.
+	 * 
+	 * @author Fabian Freihube
+	 * @param size L‰nge von Mittelpunkt des Hexagons bis in die Spitzen
+	 * @param locationX Postition entlang der X-Achse
+	 * @param locationY Postition entlang der Y-Achse
+	 * @param fillColor F¸llfarbe
+	 */
 	public Pad(double size, double locationX, double locationY, Color fillColor) {
 		this.shape = setHexagon(size, locationX, locationY);
 		this.lightShape = setHexagon(size+1, locationX, locationY);
@@ -38,6 +59,15 @@ public class Pad extends Group{
 
 	}
 
+	/** 
+	 * Erstellt ein neues Hexagon.
+	 * 
+	 * @author Fabian Freihube
+	 * @param size L‰nge von Mittelpunkt des Hexagons bis in die Spitzen
+	 * @param locationX Postition entlang der X-Achse
+	 * @param locationY Postition entlang der Y-Achse
+	 * @return Polygon
+	 */
 	private Polygon setHexagon(double size, double locationX, double locationY) {
 		
 		Polygon newHexagon = new Polygon();
