@@ -1,6 +1,7 @@
 package komplexeSuche;
 import java.util.ArrayList;
 
+import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.faroo.api.Results;
 
 //@author Franz Schwarzer
@@ -10,7 +11,7 @@ public class allMeta {
 Tag_Meta[] meta=new Tag_Meta[9];
 ArrayList<String[]> keys;
 
-allMeta(Results results){
+UrlObjektList allMeta(Results results, String searchword){
 	
 	for(int i=0;i<results.getResults().size();i++){
 		meta[i]=new Tag_Meta(results.getResults().get(i).getUrl(),i);
@@ -22,13 +23,16 @@ allMeta(Results results){
 		
 	}
 	
-	//System.out.println(Statics.keys[0]);
-	
-/*	for(int i=0;i<9;i++){
-		keys.add(meta[i].keys);
-	}*/
-	
-
+	UrlObjektList list =new UrlObjektList(searchword);
+	for(int i=0;i<results.getResults().size();i++){
+		UrlObjekt urlObjekt =new UrlObjekt(Statics.url[i]);
+		for(int z=0;z<Statics.urlkeys[i].length;z++){
+			urlObjekt.addTag(Statics.urlkeys[i][z]);
+		}
+		list.addUrlObject(urlObjekt);
+		
+	}
+	return list;
 }
 
 public boolean ready(){

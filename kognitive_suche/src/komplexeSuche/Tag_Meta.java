@@ -47,7 +47,6 @@ public class Tag_Meta extends Thread {
 			 } catch (IOException e) {
 			 e.printStackTrace();
 			 }
-		//System.out.println(sb.toString());
 		
 	// Suche nach Meta Key
 		Statics.pageText[urlNumber]=sb.toString();
@@ -78,11 +77,7 @@ public class Tag_Meta extends Thread {
 			
 			
 		}
-		
 
-		//liste.add(getMetaKeys("http://www.easy-coding.de/index.php/Thread/10300-HTML-auslesen-und-nach-spezifischen-Tags-suchen/"));
-		//liste.add(getMetaKeys("https://www.youtube.com/?gl=DE&hl=de"));
-		
 		return rueckgabe;
 	}
 
