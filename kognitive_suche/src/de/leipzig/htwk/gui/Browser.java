@@ -41,14 +41,13 @@ class Browser extends Region {
 
     }
 
-    public void load(){
+    public void load() {
         try {
             webEngine.load("file:///" + s + "/src/de/leipzig/htwk/gui/Index.html");
             //webEngine.loadContent(genHtml());
-        }catch (Exception e){
+        }catch (Exception e) {
 
         }
-
     }
 
 

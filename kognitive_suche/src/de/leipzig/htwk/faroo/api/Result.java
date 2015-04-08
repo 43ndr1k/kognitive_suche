@@ -7,15 +7,15 @@ package de.leipzig.htwk.faroo.api;
 /**
  * Hier wird ein Objekt der Suchergebnisse generiert mir den entsprechenden getter Methoden. Parameter sind folgende:
  *   * @param title
-     * @param kwic
-     * @param author
-     * @param votes
-     * @param isNews
-     * @param url
-     * @param domain
-     * @param imageUrl
-     * @param firstIndexed
-     * @param firstPublished
+ * @param kwic
+ * @param author
+ * @param votes
+ * @param isNews
+ * @param url
+ * @param domain
+ * @param imageUrl
+ * @param firstIndexed
+ * @param firstPublished
  */
 public class Result {
 
@@ -27,14 +27,14 @@ public class Result {
 
     /**
      * Hier wird ein Objekt der Suchergebnisse generiert mir den entsprechenden getter Methoden.
-     * @param title
-     * @param kwic
-     * @param author
-     * @param votes
-     * @param isNews
-     * @param url
-     * @param domain
-     * @param imageUrl
+     * @param title Titel der Seite
+     * @param kwic Erster Satz der Seite
+     * @param author Der Autor
+     * @param votes Bewertungen
+     * @param isNews Ob es news sins
+     * @param url komplette url
+     * @param domain domain Name
+     * @param imageUrl Bild url
      * @param firstIndexed
      * @param firstPublished
      */

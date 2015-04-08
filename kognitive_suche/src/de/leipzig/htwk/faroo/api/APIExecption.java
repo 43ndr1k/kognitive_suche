@@ -12,7 +12,7 @@ public class APIExecption extends Exception {
     /**
      * Exception Methode für Fehlerabfänge für den Faroo Server.
      *
-     * @param code
+     * @param code Fehlercode
      */
     public APIExecption(int code) {
         super("Server antwortete mit CODE: " + code);
@@ -24,7 +24,13 @@ public class APIExecption extends Exception {
     public APIExecption() {
         super("Result Liste ist leer");
     }
-    public APIExecption(String a) {
-        super(a);
+
+    /**
+     * Nimmt den Fehlercode an und sendet ihnan super weiter.
+     * @param wort
+     */
+
+    public APIExecption(String wort) {
+        super(wort);
     }
 }

@@ -1,30 +1,16 @@
 package de.leipzig.htwk.list;
 
-import java.io.IOException;
-import java.util.ArrayList;
-
-import simpleAlgorithm.SimAlgTags;
-import visualize.VisController;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.faroo.api.Results;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import simpleAlgorithm.SimAlgTags;
+
+import java.util.ArrayList;
 
 public class Listenausgabe {
 	private int width;
@@ -66,7 +52,7 @@ public class Listenausgabe {
 			url.add(r.getResults().get(i).getUrl());
 		}
 
-		ArrayList<SimAlgTags> treffer = mController.GetTags();
+		ArrayList<SimAlgTags> treffer = mController.getTags();
 		for (int i = 0; i < treffer.size(); i++) {
 			tags.add(treffer.get(i).gettag());
 		}

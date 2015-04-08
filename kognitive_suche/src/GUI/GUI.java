@@ -1,25 +1,19 @@
 package GUI;
 
 
-import java.util.ArrayList;
-
 import de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.tests.visualtest;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.*;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,18 +24,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.control.ComboBox;
-import komplexeSuche.TagObject;
 import komplexeSuche.TagObjectList;
-import de.leipzig.htwk.faroo.api.Results;
-import de.leipzig.htwk.tests.visualtest;
 import simpleAlgorithm.SimAlgTags;
 import visualize.VisController;
+
+import java.util.ArrayList;
 
 /**
  * GUI Erstellung
@@ -105,7 +95,7 @@ public class GUI extends Application{
 			url.add(r.getResults().get(i).getUrl());
 		}
 
-		ArrayList<SimAlgTags> treffer = mController.GetTags();
+		ArrayList<SimAlgTags> treffer = mController.getTags();
 		for (int i = 0; i < treffer.size(); i++) {
 			tags.add(treffer.get(i).gettag());
 		}
