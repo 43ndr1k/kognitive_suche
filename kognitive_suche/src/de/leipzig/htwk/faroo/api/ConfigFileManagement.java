@@ -35,16 +35,13 @@ public class ConfigFileManagement {
                 em.showAndWait();
                 if (!em.getkey().trim().isEmpty()) {
                     erstelleConfigFile();
-                }
-                else {
+                } else {
                     Platform.exit();
                 }
             }
             stream = new BufferedInputStream(new FileInputStream("config.properties"));
             properties.load(stream);
             stream.close();
-        } catch (FileNotFoundException e2) {
-            e2.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

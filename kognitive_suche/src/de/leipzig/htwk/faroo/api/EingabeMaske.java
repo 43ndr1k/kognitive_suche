@@ -33,17 +33,17 @@ public class EingabeMaske extends Stage {
         super();
         setTitle("Konfigurationsmaske");
     }
-    public void run(){
+    public void run() {
 
         /**
          * Top Pane
          */
         Label toplabel = new Label("Eingabe der Konfigurationsdaten");
         toplabel.setFont(Font.font("Cambria", 28));
-        HBox TopBox = new HBox(toplabel);
-        TopBox.setAlignment(Pos.TOP_LEFT);
-        TopBox.setPadding(new Insets(15,15,15,15));
-        TopBox.setSpacing(10);
+        HBox topBox = new HBox(toplabel);
+        topBox.setAlignment(Pos.TOP_LEFT);
+        topBox.setPadding(new Insets(15, 15, 15, 15));
+        topBox.setSpacing(10);
 
         /**
          * Center Pane
@@ -90,7 +90,7 @@ public class EingabeMaske extends Stage {
          * config stage
          */
         BorderPane pane = new BorderPane();
-        pane.setTop(TopBox);
+        pane.setTop(topBox);
         pane.setCenter(centerBox);
         pane.setBottom(BotomBox);
         Scene scene = new Scene(pane, 450, 300);
@@ -101,7 +101,7 @@ public class EingabeMaske extends Stage {
      * Gibt den API key zurück.
      * @return key
      */
-    public String getkey(){
+    public String getkey() {
         return this.key;
     }
 
@@ -109,7 +109,7 @@ public class EingabeMaske extends Stage {
      * Gibt die URL zurück.
      * @return url
      */
-    public String geturl(){
+    public String geturl() {
         return this.url;
     }
 

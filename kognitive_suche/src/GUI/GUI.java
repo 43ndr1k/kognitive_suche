@@ -6,20 +6,13 @@ import java.util.ArrayList;
 import de.leipzig.htwk.controller.Controller;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
 import javafx.scene.control.Label;
-import javafx.scene.control.Separator;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -30,13 +23,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.control.ComboBox;
-import komplexeSuche.TagObject;
 import komplexeSuche.TagObjectList;
 import de.leipzig.htwk.faroo.api.Results;
 import de.leipzig.htwk.tests.visualtest;
@@ -105,7 +94,7 @@ public class GUI extends Application{
 			url.add(r.getResults().get(i).getUrl());
 		}
 
-		ArrayList<SimAlgTags> treffer = mController.GetTags();
+		ArrayList<SimAlgTags> treffer = mController.getTags();
 		for (int i = 0; i < treffer.size(); i++) {
 			tags.add(treffer.get(i).gettag());
 		}
@@ -316,7 +305,7 @@ public class GUI extends Application{
         /**
     	 * @author Christian Schmidt
     	 */
-      //Label für die Suchoptionen
+      //Label fï¿½r die Suchoptionen
 
 		Label label = new Label("Farroo Suchoptionen");
         label.setFont(Font.font("Arial", 14));
@@ -324,7 +313,7 @@ public class GUI extends Application{
         schrift.setAlignment(Pos.CENTER);
         schrift.setPadding(new Insets(-15,15,15,15));
         schrift.setSpacing(10);
-      //Buttons für die Suchoptionen
+      //Buttons fï¿½r die Suchoptionen
        final Button[] btnlanguage = new Button[2];
        btnlanguage[0] = new Button("de");
        btnlanguage[0].setText("German");
@@ -388,13 +377,13 @@ public class GUI extends Application{
        });
   
    	//--------------------------------------------------
-        vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]); // Vertikalbox für Buttons Deutsch und Englisch
-		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]); // Vertikalbox für WEB NEWS und TITLE
-		hbox3.getChildren().addAll(vbox2,vbox3); // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox zusammengefürt
+        vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]); // Vertikalbox fï¿½r Buttons Deutsch und Englisch
+		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]); // Vertikalbox fï¿½r WEB NEWS und TITLE
+		hbox3.getChildren().addAll(vbox2,vbox3); // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox zusammengefï¿½rt
         hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
         vbox1.getChildren().addAll(homebutton(), hbox1, schrift, hbox3);
         hbox2.getChildren().addAll(close);
-        mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1); //Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
+        mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1); //Parameterï¿½bergabe an den Controller - scheint hier aber nicht zu gehen
         return start;
 	}
 	

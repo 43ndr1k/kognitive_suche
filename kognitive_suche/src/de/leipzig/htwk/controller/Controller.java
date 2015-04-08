@@ -17,15 +17,18 @@ import java.util.ArrayList;
  */
 public class Controller {
 
+    /**
+     * Die Parameter für die weitergabe der einzelden Informationen.
+     */
     private String language, src;
     private int start = 1;
     private String key,url;
-    private Results r;
+    private Results results;
     private String query;
     /**
      * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die  Faroo API URL.
      */
-    public Controller(){
+    public Controller() {
         ConfigFileManagement config = new ConfigFileManagement();
         this.key = config.getKey();
         this.url = config.geturl();
@@ -37,7 +40,7 @@ public class Controller {
      * @param s Startwert ab welchem Suchergebnis man Ergebnisse haben möchte.
      * @param l Welche Sprache
      */
-    public void setParameter(String l, String _src, int s){
+    public void setParameter(String l, String _src, int s) {
         this.language = l;
         this.src = _src;
         this.start = s;
@@ -45,16 +48,16 @@ public class Controller {
 
     /**
      * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
-     * @param pQuery
-     * @return Results
+     * @param pQuery Suchwort
+     * @return Results Liste mit den Ergebnisse.
      */
     public void queryFaroo(String pQuery) {
         Api api = new Api(key, url);
         setQuery(pQuery);
         try {
-            Results r = api.query(this.start,pQuery,this.language,src);
-            setResultList(r);
-            createDocVisual(r, pQuery);
+            Results results = api.query(this.start,pQuery,this.language,src);
+            setResultList(results);
+            createDocVisual(results, pQuery);
 
         } catch (APIExecption apiExecption) {
             apiExecption.printStackTrace();
@@ -63,49 +66,50 @@ public class Controller {
 
     /**
      * Setzt die Results Liste temporär für den simple Algorithmus.
-     * @param r - Results Liste
+     * @param results - Results Liste
      */
-    private void setResultList(Results r){
-        this.r = r;
+    private void setResultList(Results results) {
+        this.results = results;
     }
 
     /**
      * Stellt die Results Liste zur Verfügung.
-     * @return r Results Liste
+     * @return results Results Liste
      */
-    public Results getResultList(){
-        return this.r;
+    public Results getResultList() {
+        return this.results;
     }
 
     /**
      * Setzt das Suchwort
-     * @param q query
+     * @param query query
      */
-    private void setQuery(String q){
-        this.query = q;
+    private void setQuery(String query) {
+        this.query = query;
     }
     /**
      * Gibt das Suchwort zurück.
      * @return query
      */
-    public String getQuery(){
+    public String getQuery() {
         return this.query;
     }
     /**
      * Aufruf der berechnung der Komplexen Suche.
-     * @param List Results Liste
+     * @param list Results Liste
+     * @param query Suchwort
      */
-    private void createDocVisual(Results List, String query){
-        CreateJsonDoc c = new CreateJsonDoc(query, List);
+    private void createDocVisual(Results list, String query) {
+        CreateJsonDoc c = new CreateJsonDoc(query, list);
     }
 
     /**
      * Führt den Simple Such Algorithmus aus
      * @return Tag Liste
      */
-    public ArrayList<SimAlgTags> GetTags(){
-         ObBearbeitung uebergabe = new ObBearbeitung();
-        return uebergabe.annahme(this.r);
+    public ArrayList<SimAlgTags> getTags() {
+        ObBearbeitung uebergabe = new ObBearbeitung();
+        return uebergabe.annahme(this.results);
 
     }
 }

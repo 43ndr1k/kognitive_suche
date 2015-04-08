@@ -15,31 +15,34 @@ import java.io.IOException;
 
 public class CreateJsonDoc {
 
+    /**
+     * Notwendige Parameter für die Erzeugung des Dokuments.
+     */
     FileWriter writer;
     File file;
-    Results k = null;
+    Results results = null;
     /**
      * Annahme der Resultsliste und Erstellung der Vertex Objekte. Diese dienen im anschluss für die
      * Erstellung der Json Datei. Die Datei liegt auf der
      * Festplatte -> Daten.json.
      * Die Erstellung des Vertex Objektes ist die Reihenfolge der Baumstruktur, nur das sie von Innen nach Außen abläuft.
-     * @param k Resultsliste
+     * @param results Resultsliste
      */
-    public CreateJsonDoc(String query, Results k){
-        this.k = k;
+    public CreateJsonDoc(String query, Results results) {
+        this.results = results;
         Gson gson = new Gson();
         Vertex v = new Vertex(query);
-        for(int i = 0; i < k.getResults().size();i++){
-            Vertex url = new Vertex(k.getResults().get(i).getUrl());
-            Vertex domain = new Vertex(k.getResults().get(i).getDomain());
+        for(int i = 0; i < results.getResults().size(); i++) {
+            Vertex url = new Vertex(results.getResults().get(i).getUrl());
+            Vertex domain = new Vertex(results.getResults().get(i).getDomain());
             domain.addVertex(url);
-            Vertex title = new Vertex(k.getResults().get(i).getTitle());
+            Vertex title = new Vertex(results.getResults().get(i).getTitle());
             title.addVertex(domain);
             v.addVertex(title);
         }
         String json = gson.toJson(v);
         try {
-        // File anlegen
+            // File anlegen
             writer = new FileWriter("src/de/leipzig/htwk/gui/Daten.json");
             writer.write(json);
             writer.flush();

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @Autor Hendrik Sawade.
- /*
+/*
 
 /**
  * Datenstrukturobjekt, aus dieser Struktur wird das Json File generiert.
@@ -21,15 +21,15 @@ public class Vertex {
         this.name = name;
     }
 
-    public void addVertex(Vertex v) {
-        children.add(v);
+    public void addVertex(Vertex vertex) {
+        children.add(vertex);
     }
 
-    public List<Vertex> getChildern(){
+    public List<Vertex> getChildern() {
         return children;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 

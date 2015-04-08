@@ -7,7 +7,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -29,11 +28,11 @@ public class Api {
     /**
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
      */
-    private static String[] replacements = { "%", "%25", " ", "%20", "!",
-            "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
-            "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
-            "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
-            "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
+    private static String[] REPLACEMENTS = { "%", "%25", " ", "%20", "!",
+        "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
+        "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
+        "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
+        "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
 
     private String _key,_url;
 
@@ -55,25 +54,20 @@ public class Api {
      * @return Results Liste
      * @throws APIExecption
      */
-    private Results queryJson(String urlParameter) throws APIExecption{
-
+    private Results queryJson(String urlParameter) throws APIExecption {
         HttpURLConnection con = null;
         try {
 
-            URL url = new URL(_url + urlParameter + "&key="+ _key);
+            URL url = new URL(_url + urlParameter + "&key=" + _key);
             con = (HttpURLConnection) url.openConnection();
 
             if (con.getResponseCode() >= 400) {
                 throw new APIExecption(con.getResponseCode());
             }
 
-        }
-        catch (MalformedURLException murle) {
-            murle.printStackTrace();
-            }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
-            }
+        }
 
 
         try {
@@ -91,8 +85,8 @@ public class Api {
             }
 
         }catch (Exception e) {
-			e.printStackTrace();
-		}
+            e.printStackTrace();
+        }
         return null;
     }
 
@@ -111,7 +105,7 @@ public class Api {
             int responseCode = pHttpURLConnection.getResponseCode();
             System.out.println("Result: " + responseCode);
             BufferedReader in = new BufferedReader(
-                    new InputStreamReader(pHttpURLConnection.getInputStream()));
+                new InputStreamReader(pHttpURLConnection.getInputStream()));
             String inputLine;
 
             while ((inputLine = in.readLine()) != null) {
@@ -133,8 +127,8 @@ public class Api {
      */
     private String encoding(String u) {
 
-        for (int i = 0; i < replacements.length - 1; i = i + 2) {
-            u = u.replaceAll(replacements[i], replacements[i + 1]);
+        for (int i = 0; i < REPLACEMENTS.length - 1; i = i + 2) {
+            u = u.replaceAll(REPLACEMENTS[i], REPLACEMENTS[i + 1]);
         }
 
         return u;
@@ -172,13 +166,13 @@ public class Api {
     }
 
     /**
-	 * Anfrage an die Faroo API stellen url wird zusammen gestzt
-	 *
-	 * @param query Suchwort
-	 * @param length Wie viele Suchergbnisse
-	 * @throws Exception
+     * Anfrage an die Faroo API stellen url wird zusammen gestzt
+     *
+     * @param query Suchwort
+     * @param length Wie viele Suchergbnisse
+     * @throws Exception
      * @return Results Liste
-	 */
+     */
     public Results query(String query, int length) throws APIExecption {
 
         if (length < 1) {
@@ -188,7 +182,7 @@ public class Api {
         query = encoding(query);
         String url = "&length=" + length + "&q=" + query;
 
-       return queryJson(url);
+        return queryJson(url);
     }
 
     /**
@@ -222,7 +216,7 @@ public class Api {
      * @return Results Liste
      */
     public Results query(String query, int start, int length, String language)
-            throws APIExecption {
+        throws APIExecption {
 
         if (start < 1 || length < 1) {
 
@@ -230,7 +224,7 @@ public class Api {
         }
         query = encoding(query);
         String url = "&start=" + start + "&length=" + length + "&l=" + language
-                + "&q=" + query;
+            + "&q=" + query;
         return queryJson(url);
     }
 
@@ -258,11 +252,11 @@ public class Api {
      *            searches with parameter i=true, the suggesti- ons are already
      *            included in the search result.
      *
-     * @throws Exception Wert zu klein
+     * @throws APIExecption Wert kleiner 1.
      * @return Results Liste
      */
     public Results query(String query, int start, int length, String language,
-                      String src) throws APIExecption {
+                         String src) throws APIExecption {
 
         if (start < 1 || length < 1) {
 
@@ -270,7 +264,7 @@ public class Api {
         }
         query = encoding(query);
         String url = "&start=" + start + "&length=" + length + "&l=" + language
-                + "&src=" + src + "&q=" + query;
+            + "&src=" + src + "&q=" + query;
         return queryJson(url);
     }
 
@@ -303,12 +297,12 @@ public class Api {
      *            ning of the article. true (default) snippet is selected from
      *            the article parts con- taining the keywords.
      *
-     * @throws Exception Wert zu klein
+     * @throws APIExecption Wert kleiner 1.
      * @return Results Liste
      */
 
     public Results query(String query, int start, int length, String language,
-                      String src, String kwic) throws APIExecption {
+                         String src, String kwic) throws APIExecption {
 
         if (start < 1 || length < 1) {
 
@@ -316,7 +310,7 @@ public class Api {
         }
         query = encoding(query);
         String url = "&start=" + start + "&length=" + length + "&l=" + language
-                + "&src=" + src + "&kwic=" + kwic + "&q=" + query;
+            + "&src=" + src + "&kwic=" + kwic + "&q=" + query;
         return queryJson(url);
     }
 
@@ -353,11 +347,11 @@ public class Api {
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
      *
-     * @throws Exception Wert zu klein
+     * @throws APIExecption Wert zu klein
      * @return Results Liste
      */
     public Results query(String query, int start, int length, String language,
-                      String src, String kwic, boolean i) throws APIExecption {
+                         String src, String kwic, boolean i) throws APIExecption {
 
         if (start < 1 || length < 1) {
 
@@ -365,7 +359,7 @@ public class Api {
         }
         query = encoding(query);
         String url = "&start=" + start + "&length=" + length + "&l=" + language
-                + "&src=" + src + "&kwic=" + kwic + "&i=" + i + "&q=" + query;
+            + "&src=" + src + "&kwic=" + kwic + "&i=" + i + "&q=" + query;
         return queryJson(url);
     }
 
@@ -401,11 +395,11 @@ public class Api {
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
      *
-     * @throws Exception Wert zu klein
+     * @throws APIExecption Wert zu klein
      * @return Results Liste
      */
     public Results query(String query, int start, String language, String src,
-                      String kwic, boolean i) throws APIExecption {
+                         String kwic, boolean i) throws APIExecption {
 
         if (start < 1) {
 
@@ -413,7 +407,7 @@ public class Api {
         }
         query = encoding(query);
         String url = "&start=" + start + "&l=" + language + "&src=" + src
-                + "&kwic=" + kwic + "&i=" + i + "&q=" + query;
+            + "&kwic=" + kwic + "&i=" + i + "&q=" + query;
         return queryJson(url);
     }
 
@@ -441,7 +435,7 @@ public class Api {
      *            included in the search result.
      *
 
-     * @throws Exception Wert zu klein
+     * @throws APIExecption Wert zu klein
      * @return Results Liste
      */
     public Results query(int start, String query,  String language, String src) throws APIExecption {
@@ -486,15 +480,15 @@ public class Api {
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
      *
-     * @throws Exception Wert zu klein
+     * @throws APIExecption Wert zu klein
      * @return Results Liste
      */
     public Results query(String query, String language, String src, String kwic,
-                      boolean i) throws APIExecption {
+                         boolean i) throws APIExecption {
 
         query = encoding(query);
         String url = "&l=" + language + "&src=" + src + "&kwic=" + kwic + "&i="
-                + i + "&q=" + query;
+            + i + "&q=" + query;
         return queryJson(url);
     }
 
@@ -525,11 +519,11 @@ public class Api {
      *            ning of the article. true (default) snippet is selected from
      *            the article parts con- taining the keywords.
      *
-     * @throws Exception Wert zu klein
+     * @throws APIExecption Wert zu klein
      * @return Results Liste
      */
     public Results query(String query, int start, String src, String kwic)
-            throws APIExecption {
+        throws APIExecption {
 
         if (start < 1) {
 
@@ -537,7 +531,7 @@ public class Api {
         }
         query = encoding(query);
         String url = "&start=" + start + "&src=" + src + "&kwic=" + kwic
-                + "&q=" + query;
+            + "&q=" + query;
         return queryJson(url);
     }
 
@@ -551,11 +545,11 @@ public class Api {
      *            Instant search false (default) searches for query q true
      *            searches for best suggestion if query q is substring or
      *            misspelled. Slower search!
-     * @throws Exception  Wert zu klein
+     * @throws APIExecption  Wert zu klein
      * @return Results Liste
      */
     public Results query(String query, String language, boolean i)
-            throws APIExecption {
+        throws APIExecption {
 
         query = encoding(query);
         String url = "&l=" + language + "&i=" + i + "&q=" + query;
