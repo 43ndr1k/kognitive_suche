@@ -41,7 +41,7 @@ import komplexeSuche.TagObjectList;
 import de.leipzig.htwk.faroo.api.Results;
 import de.leipzig.htwk.tests.visualtest;
 import simpleAlgorithm.SimAlgTags;
-import visualize.VisControler;
+import visualize.VisController;
 
 /**
  * GUI Erstellung
@@ -316,7 +316,7 @@ public class GUI extends Application{
         /**
     	 * @author Christian Schmidt
     	 */
-      //Label für die Suchoptionen
+      //Label fï¿½r die Suchoptionen
 
 		Label label = new Label("Farroo Suchoptionen");
         label.setFont(Font.font("Arial", 14));
@@ -324,7 +324,7 @@ public class GUI extends Application{
         schrift.setAlignment(Pos.CENTER);
         schrift.setPadding(new Insets(-15,15,15,15));
         schrift.setSpacing(10);
-      //Buttons für die Suchoptionen
+      //Buttons fï¿½r die Suchoptionen
        final Button[] btnlanguage = new Button[2];
        btnlanguage[0] = new Button("de");
        btnlanguage[0].setText("German");
@@ -388,13 +388,13 @@ public class GUI extends Application{
        });
   
    	//--------------------------------------------------
-        vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]); // Vertikalbox für Buttons Deutsch und Englisch
-		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]); // Vertikalbox für WEB NEWS und TITLE
-		hbox3.getChildren().addAll(vbox2,vbox3); // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox zusammengefürt
+        vbox2.getChildren().addAll(btnlanguage[0],btnlanguage[1]); // Vertikalbox fï¿½r Buttons Deutsch und Englisch
+		vbox3.getChildren().addAll(btnsrc[0],btnsrc[1],btnsrc[2]); // Vertikalbox fï¿½r WEB NEWS und TITLE
+		hbox3.getChildren().addAll(vbox2,vbox3); // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox zusammengefï¿½rt
         hbox1.getChildren().addAll(suchleiste,sucheF,sucheP);
         vbox1.getChildren().addAll(homebutton(), hbox1, schrift, hbox3);
         hbox2.getChildren().addAll(close);
-        mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1); //Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
+        mController.setParameter(SelectedLanguage[0],Selectedsrc[0],1); //Parameterï¿½bergabe an den Controller - scheint hier aber nicht zu gehen
         return start;
 	}
 	
@@ -419,7 +419,7 @@ public class GUI extends Application{
 		homebuttonPane.setStyle("-fx-background-color: #FFF;");
 		homebuttonPane.setPrefHeight(windowHeight*0.15);
 		
-		VisControler visualControler = new VisControler ();
+		VisController visualControler = new VisController ();
 		visualControler.setPane(visPane);
 		visualControler.setQuery(suchleiste.getText());
 		//iv

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import simpleAlgorithm.SimAlgTags;
-import visualize.VisControler;
+import visualize.VisController;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.faroo.api.Results;
 import javafx.event.ActionEvent;
@@ -130,8 +130,8 @@ public class Listenausgabe {
 		/**
 		 * @author Sadik Ulusan
 		 */
-		//Wenn die Hyperlinks angeklickt werden erkennt es das Program. Links werden ausgeführt und durch den
-		//Standardbrowser des Nutzers gestartet. PDF sind ebenso ausführbar.
+		//Wenn die Hyperlinks angeklickt werden erkennt es das Program. Links werden ausgefï¿½hrt und durch den
+		//Standardbrowser des Nutzers gestartet. PDF sind ebenso ausfï¿½hrbar.
 		/*public void ergebnisausgabe(){
 	        
 	        VBox vbox1 = new VBox();

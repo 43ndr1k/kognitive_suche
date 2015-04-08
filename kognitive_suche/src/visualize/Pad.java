@@ -18,7 +18,7 @@ public class Pad extends Group{
 	 */
 	 Polygon shape = new Polygon();
 	 /**
-	 * Großes Hexagon
+	 * Groï¿½es Hexagon
 	 */
 	 Polygon expandedShape = new Polygon();
 	 /**
@@ -26,25 +26,25 @@ public class Pad extends Group{
 	 */
 	 Polygon lightShape = new Polygon();
 	 /**
-	 * Umrandung des großen Hexagons
+	 * Umrandung des groï¿½en Hexagons
 	 */
 	 Polygon expandedLightShape = new Polygon(); 
 	 /**
-	 * Rahmen des großen Hexagons
+	 * Rahmen des groï¿½en Hexagons
 	 */
 	 Polygon lightFrame = new Polygon(); 
 	 
-	 private static final Image blackNormalImage = new Image("file:static/icons/normal_schwarz.png");
-	 private static final Image ligtFrameImage = new Image("file:static/icons/lightFrame.png");
+	 private static final Image PAD_NORMALIMAGE = new Image("file:static/icons/normal_schwarz.png");
+	 private static final Image PAD_LIGHTFRAME = new Image("file:static/icons/lightFrame.png");
 	 
 	/**
 	 * Deklaration der verschiedenen Shapes.
 	 * 
 	 * @author Fabian Freihube
-	 * @param size Länge von Mittelpunkt des Hexagons bis in die Spitzen
+	 * @param size Lï¿½nge von Mittelpunkt des Hexagons bis in die Spitzen
 	 * @param locationX Postition entlang der X-Achse
 	 * @param locationY Postition entlang der Y-Achse
-	 * @param fillColor Füllfarbe
+	 * @param fillColor Fï¿½llfarbe
 	 */
 	public Pad(double size, double locationX, double locationY, Color fillColor) {
 		this.shape = setHexagon(size, locationX, locationY);
@@ -54,8 +54,8 @@ public class Pad extends Group{
 		
 		this.shape.setFill(fillColor);
 		this.expandedShape.setFill(fillColor);
-		this.lightShape.setFill(new ImagePattern(blackNormalImage, 0, 0, 1, 1, true));
-		this.expandedLightShape.setFill(new ImagePattern(ligtFrameImage, 0, 0, 1, 1, true));
+		this.lightShape.setFill(new ImagePattern(PAD_NORMALIMAGE, 0, 0, 1, 1, true));
+		this.expandedLightShape.setFill(new ImagePattern(PAD_LIGHTFRAME, 0, 0, 1, 1, true));
 
 	}
 
@@ -63,7 +63,7 @@ public class Pad extends Group{
 	 * Erstellt ein neues Hexagon.
 	 * 
 	 * @author Fabian Freihube
-	 * @param size Länge von Mittelpunkt des Hexagons bis in die Spitzen
+	 * @param size Lï¿½nge von Mittelpunkt des Hexagons bis in die Spitzen
 	 * @param locationX Postition entlang der X-Achse
 	 * @param locationY Postition entlang der Y-Achse
 	 * @return Polygon
