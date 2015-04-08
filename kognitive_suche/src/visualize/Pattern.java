@@ -21,18 +21,18 @@ public class Pattern {
 
 	private int paneWidth; 
 	private int paneHeight;
-	private static final double padSize = 102;
-	private static final double padOffset = 3;
+	private static final double PAD_SIZE = 102;
+	private static final double PAD_OFFSET = 3;
 
 	private static final Color COLOR_LIGHTGREEN = Color.web("#9FDA9F");
 	private static final Color COLOR_ORANGE = Color.web("#FFC63E");
-	private static final Color lightBlue = Color.web("#5bc9ff");
-	private static final Color lightRed = Color.web("#ff9595");
-	private static final Color lightPurple = Color.web("#c395ff");
-	private static final Color lightGrey = Color.web("#e5e5e5");
+	private static final Color COLOR_LIGHTBLUE = Color.web("#5bc9ff");
+	private static final Color COLOR_RED = Color.web("#ff9595");
+	private static final Color COLOR_LIGHTPURPLE = Color.web("#c395ff");
+	private static final Color COLOR_LIGHTGREY = Color.web("#e5e5e5");
 
-	private Color[] colors = { COLOR_LIGHTGREEN, COLOR_ORANGE, lightBlue, lightRed,
-			lightPurple, lightGrey };
+	private Color[] colors = { COLOR_LIGHTGREEN, COLOR_ORANGE, COLOR_LIGHTBLUE, COLOR_RED,
+			COLOR_LIGHTPURPLE, COLOR_LIGHTGREY };
 
 	private int activePads;
 
@@ -105,7 +105,7 @@ public class Pattern {
 	 */
 	private int getColumns(double oneHexWidth, double columnCorrection) {
 		return (int) (Math
-				.round((((paneWidth / (oneHexWidth - columnCorrection + padOffset)) + 0.5) + 0.5) * 1) / 1.0);
+				.round((((paneWidth / (oneHexWidth - columnCorrection + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class Pattern {
 	 */
 	private int getRows(double oneHexHeight) {
 		return (int) (Math
-				.round((((paneHeight / (oneHexHeight + padOffset)) + 0.5) + 0.5) * 1) / 1.0);
+				.round((((paneHeight / (oneHexHeight + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
 	}
 
 	/**
@@ -131,14 +131,14 @@ public class Pattern {
 	 * @return Breite eines Hexagons
 	 */
 	private double getHexWidth() {
-		return 2 * padSize;
+		return 2 * PAD_SIZE;
 	}
 
 	/**
 	 * @return H�he eines Hexagons
 	 */
 	private double getHexHeight() {
-		return 2 * ((0.5 * padSize) / Math.tan(Math.toRadians(30)));
+		return 2 * ((0.5 * PAD_SIZE) / Math.tan(Math.toRadians(30)));
 	}
 
 	/**
@@ -211,14 +211,14 @@ public class Pattern {
 		Pad pad;
 		StackPane padPane = new StackPane();
 
-		double xPos = (oneHexWidth - columnCorection + padOffset) * (x);
-		double yPos = (oneHexHeight + padOffset) * (y);
+		double xPos = (oneHexWidth - columnCorection + PAD_OFFSET) * (x);
+		double yPos = (oneHexHeight + PAD_OFFSET) * (y);
 
 		padPane.setLayoutX(xPos);
 		padPane.setLayoutY(yPos);
 
-		pad = new Pad(padSize, (oneHexWidth - columnCorection + padOffset)
-				* (x), (oneHexHeight + padOffset) * (y), lightGrey);
+		pad = new Pad(PAD_SIZE, (oneHexWidth - columnCorection + PAD_OFFSET)
+				* (x), (oneHexHeight + PAD_OFFSET) * (y), COLOR_LIGHTGREY);
 
 		padPane.getChildren().add(pad.getShape());
 		padPane.getChildren().add(pad.getLightShape());
@@ -255,19 +255,19 @@ public class Pattern {
 		smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 		largeTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 
-		double xPos = (oneHexWidth - columnCorection + padOffset) * (x);
-		double yPos = (oneHexHeight + padOffset) * (y);
+		double xPos = (oneHexWidth - columnCorection + PAD_OFFSET) * (x);
+		double yPos = (oneHexHeight + PAD_OFFSET) * (y);
 
 		int random = (int) (Math.random() * 5);
 
-		pad = new Pad(padSize, 0, 0, colors[random]);
+		pad = new Pad(PAD_SIZE, 0, 0, colors[random]);
 		padPane.setLayoutX(xPos);
 		padPane.setLayoutY(yPos);
 
-		exPadPane.setLayoutX(xPos - (padSize * 2.2 - padSize));
+		exPadPane.setLayoutX(xPos - (PAD_SIZE * 2.2 - PAD_SIZE));
 		exPadPane
 				.setLayoutY(yPos
-						- (0.5 * (oneHexHeight + padOffset) * 2.2 - 0.5 * (oneHexHeight + padOffset)));
+						- (0.5 * (oneHexHeight + PAD_OFFSET) * 2.2 - 0.5 * (oneHexHeight + PAD_OFFSET)));
 
 		padPane.getChildren().add(pad.getShape());
 		padPane.getChildren().add(pad.getLightShape());

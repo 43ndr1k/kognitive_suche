@@ -85,18 +85,38 @@ public class Pad extends Group{
 		return newHexagon;
 	}
 
+	/**
+	 * Gibt das kleine Hexagon zurück.
+	 * 
+	 * @return kleines Hexagon
+	 */
 	public Polygon getShape() {
 		return shape;
 	}	
 	
+	   /**
+     * Gibt das große Hexagon zurück.
+     * 
+     * @return großes Hexagon
+     */
 	public Polygon getExShape() {
 		return expandedShape;
 	}	
 	
+    /**
+   * Gibt die Umrandung des kleinen Hexagons zurück.
+   * 
+   * @return Umrandung des kleinen Hexagons
+   */
 	public Polygon getLightShape() {
 		return lightShape;
 	}
 
+    /**
+   * Gibt die Umrandung des großen Hexagons zurück.
+   * 
+   * @return Umrandung des großen Hexagons
+   */
 	public Polygon getExLightShape() {
 		return expandedLightShape;
 	}

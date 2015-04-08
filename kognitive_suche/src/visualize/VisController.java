@@ -29,24 +29,15 @@ public class VisController {
 
 	public void setPaneWidth(int paneWidth) {
 		VisController.paneWidth = paneWidth;
-		
 	}
-
-
 
 	public int getPaneHeight() {
 		return paneHeight;
 	}
 
-
-
 	public void setPaneHeight(int paneHeight) {
 		VisController.paneHeight = paneHeight;
 	}
-
-
-
-
 
 	/**
 	 * Aufruf der Visualisierung
