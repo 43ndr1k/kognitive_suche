@@ -1,18 +1,16 @@
 package de.leipzig.htwk.list;
 
-import java.util.ArrayList;
-
-import simpleAlgorithm.SimAlgTags;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.faroo.api.Results;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import simpleAlgorithm.SimAlgTags;
+
+import java.util.ArrayList;
 
 public class Listenausgabe {
 	private int width;

@@ -24,14 +24,14 @@ public class Pattern {
 	private static final double padSize = 102;
 	private static final double padOffset = 3;
 
-	private static final Color lightGreen = Color.web("#9FDA9F");
-	private static final Color orange = Color.web("#FFC63E");
+	private static final Color COLOR_LIGHTGREEN = Color.web("#9FDA9F");
+	private static final Color COLOR_ORANGE = Color.web("#FFC63E");
 	private static final Color lightBlue = Color.web("#5bc9ff");
 	private static final Color lightRed = Color.web("#ff9595");
 	private static final Color lightPurple = Color.web("#c395ff");
 	private static final Color lightGrey = Color.web("#e5e5e5");
 
-	private Color[] colors = { lightGreen, orange, lightBlue, lightRed,
+	private Color[] colors = { COLOR_LIGHTGREEN, COLOR_ORANGE, lightBlue, lightRed,
 			lightPurple, lightGrey };
 
 	private int activePads;
@@ -45,7 +45,7 @@ public class Pattern {
 	/**
 	 * Generiert das Feld von Hexagons
 	 * 
-	 * @param paneHeight Höhe des Feldes
+	 * @param paneHeight Hï¿½he des Feldes
 	 * @param paneWidth Breite des Feldes
 	 * @param query
 	 * @param tags
@@ -97,7 +97,7 @@ public class Pattern {
 		}
 
 	/**
-	 * Berechnet die Anzahl der Spalten in Abhängikeit von der Größe der Hexagons und des Feldes.
+	 * Berechnet die Anzahl der Spalten in Abhï¿½ngikeit von der Grï¿½ï¿½e der Hexagons und des Feldes.
 	 * 
 	 * @param oneHexWidth Breite eines Hexagons
 	 * @param columnCorrection Versatz zwischen den Hexagons in der Breite
@@ -109,9 +109,9 @@ public class Pattern {
 	}
 
 	/**
-	 * Berechnet die Anzahl der Reihen in Abhängikeit von der Größe der Hexagons und des Feldes.
+	 * Berechnet die Anzahl der Reihen in Abhï¿½ngikeit von der Grï¿½ï¿½e der Hexagons und des Feldes.
 	 * 
-	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param oneHexHeight Hï¿½he eines Hexagons
 	 * @return Anazahl der Reihen
 	 */
 	private int getRows(double oneHexHeight) {
@@ -120,7 +120,7 @@ public class Pattern {
 	}
 
 	/**
-	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param oneHexHeight Hï¿½he eines Hexagons
 	 * @return Versatz zwischen den Hexagons in der Breite
 	 */
 	private double getColumnCorrection(double oneHexHeight) {
@@ -135,7 +135,7 @@ public class Pattern {
 	}
 
 	/**
-	 * @return Höhe eines Hexagons
+	 * @return Hï¿½he eines Hexagons
 	 */
 	private double getHexHeight() {
 		return 2 * ((0.5 * padSize) / Math.tan(Math.toRadians(30)));
@@ -147,7 +147,7 @@ public class Pattern {
 	 * @param padMap Array das anzeigt, ob dieses Feld aktiv ist.
 	 * @param oneHexWidth Breite eines Hexagons
 	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
-	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param oneHexHeight Hï¿½he eines Hexagons
 	 * @param rows Anazahl der Reihen
 	 * @param columns Anazahl der Spalten
 	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
@@ -193,11 +193,11 @@ public class Pattern {
 	}
 
 	/**
-	 * Fügt ein neues inaktives Hexagon hinzu.
+	 * Fï¿½gt ein neues inaktives Hexagon hinzu.
 	 * 
 	 * @param oneHexWidth Breite eines Hexagons
 	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
-	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param oneHexHeight Hï¿½he eines Hexagons
 	 * @param rows Anazahl der Reihen
 	 * @param columns Anazahl der Spalten
 	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
@@ -228,11 +228,11 @@ public class Pattern {
 	}
 
 	/**
-	 * Fügt ein neues aktives Hexagon hinzu.
+	 * Fï¿½gt ein neues aktives Hexagon hinzu.
 	 * 
 	 * @param oneHexWidth Breite eines Hexagons
 	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
-	 * @param oneHexHeight Höhe eines Hexagons
+	 * @param oneHexHeight Hï¿½he eines Hexagons
 	 * @param rows Anazahl der Reihen
 	 * @param columns Anazahl der Spalten
 	 * @param visPane Hauptpane auf der die Elemente positioniert werden.

@@ -3,7 +3,7 @@ package de.leipzig.htwk.tests;
 
 import komplexeSuche.TagObject;
 import komplexeSuche.TagObjectList;
-import visualize.VisControler;
+import visualize.VisController;
 
 public class visualtest {
 	private static TagObjectList tags = new TagObjectList("Sigma");

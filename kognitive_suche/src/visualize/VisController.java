@@ -1,9 +1,7 @@
 package visualize;
 
 
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
 import komplexeSuche.TagObjectList;
 
 /**
@@ -11,7 +9,7 @@ import komplexeSuche.TagObjectList;
  * 
  * @author Fabian Freihube
  */
-public class VisControler {
+public class VisController {
 	
 	// Tobi am start
 	
@@ -28,7 +26,7 @@ public class VisControler {
 	}
 
 	public void setPaneWidth(int paneWidth) {
-		VisControler.paneWidth = paneWidth;
+		VisController.paneWidth = paneWidth;
 		
 	}
 
@@ -41,7 +39,7 @@ public class VisControler {
 
 
 	public void setPaneHeight(int paneHeight) {
-		VisControler.paneHeight = paneHeight;
+		VisController.paneHeight = paneHeight;
 	}
 
 
@@ -67,10 +65,10 @@ public class VisControler {
 	 */
 
 	public static void setPane(Pane pane){
-		VisControler.pane = pane;
+		VisController.pane = pane;
 	}
 	
 	public static void setQuery(String query){
-		VisControler.query = query;
+		VisController.query = query;
 	}
 }

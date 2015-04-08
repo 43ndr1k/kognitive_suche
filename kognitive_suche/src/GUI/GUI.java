@@ -1,16 +1,17 @@
 package GUI;
 
 
-import java.util.ArrayList;
-
 import de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.tests.visualtest;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.*;
+import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -27,10 +28,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import komplexeSuche.TagObjectList;
-import de.leipzig.htwk.faroo.api.Results;
-import de.leipzig.htwk.tests.visualtest;
 import simpleAlgorithm.SimAlgTags;
-import visualize.VisControler;
+import visualize.VisController;
+
+import java.util.ArrayList;
 
 /**
  * GUI Erstellung
@@ -408,7 +409,7 @@ public class GUI extends Application{
 		homebuttonPane.setStyle("-fx-background-color: #FFF;");
 		homebuttonPane.setPrefHeight(windowHeight*0.15);
 		
-		VisControler visualControler = new VisControler ();
+		VisController visualControler = new VisController ();
 		visualControler.setPane(visPane);
 		visualControler.setQuery(suchleiste.getText());
 		//iv
