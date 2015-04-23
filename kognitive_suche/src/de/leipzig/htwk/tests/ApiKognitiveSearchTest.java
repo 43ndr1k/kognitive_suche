@@ -1,8 +1,8 @@
 package de.leipzig.htwk.tests;
 
 
-import kognitviealgorithm.ApiCognitiveSearch;
-import kognitviealgorithm.ReturnTagList;
+import kognitver.algorithmus.ApiCognitiveSearch;
+import kognitver.algorithmus.ReturnTagList;
 import komplexe.suche.TagObjectList;
 
 public class ApiKognitiveSearchTest {
