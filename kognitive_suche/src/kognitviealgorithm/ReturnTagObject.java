@@ -26,7 +26,7 @@ public class ReturnTagObject {
   }
 
   public void addBlocNumber(int blocNumber) {
-    if(checkBlocNumber(blocNumber)){
+    if (checkBlocNumber(blocNumber)) {
       return;
     }
     bloc_Numbers.add(blocNumber);

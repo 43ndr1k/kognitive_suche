@@ -10,56 +10,56 @@ import komplexeSuche.TagObjectList;
  * @author Fabian Freihube
  */
 public class VisController {
-	
-	// Tobi am start
-	
-	private static int paneWidth;
-	private static int paneHeight;
-	private TagObjectList tags;
-	
-	private static int activePads;
-	private static Pane pane;
-	private static String query;
 
-	public int getPaneWidth() {
-		return paneWidth;
-	}
+  // Tobi am start
 
-	public void setPaneWidth(int paneWidth) {
-		VisController.paneWidth = paneWidth;
-	}
+  private static int paneWidth;
+  private static int paneHeight;
+  private TagObjectList tags;
 
-	public int getPaneHeight() {
-		return paneHeight;
-	}
+  private static int activePads;
+  private static Pane pane;
+  private static String query;
 
-	public void setPaneHeight(int paneHeight) {
-		VisController.paneHeight = paneHeight;
-	}
+  public int getPaneWidth() {
+    return paneWidth;
+  }
 
-	/**
-	 * Aufruf der Visualisierung
-	 * 
-	 * @param tags Tag Objekt
-	 * @return Pane mit positionierten Objekten
-	 */
-	public Pane startVisualize (TagObjectList tags)  {
-		  Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags);
-		  
-		  return pattern.getPane();
-	  }
-	
+  public void setPaneWidth(int paneWidth) {
+    VisController.paneWidth = paneWidth;
+  }
 
-	/**
-	 * 
-	 * @author Ivan Ivanikov
-	 */
+  public int getPaneHeight() {
+    return paneHeight;
+  }
 
-	public static void setPane(Pane pane){
-		VisController.pane = pane;
-	}
-	
-	public static void setQuery(String query){
-		VisController.query = query;
-	}
+  public void setPaneHeight(int paneHeight) {
+    VisController.paneHeight = paneHeight;
+  }
+
+  /**
+   * Aufruf der Visualisierung
+   * 
+   * @param tags Tag Objekt
+   * @return Pane mit positionierten Objekten
+   */
+  public Pane startVisualize(TagObjectList tags) {
+    Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags);
+
+    return pattern.getPane();
+  }
+
+
+  /**
+   * 
+   * @author Ivan Ivanikov
+   */
+
+  public static void setPane(Pane pane) {
+    VisController.pane = pane;
+  }
+
+  public static void setQuery(String query) {
+    VisController.query = query;
+  }
 }

@@ -6,8 +6,8 @@ import java.util.ArrayList;
  * 
  * @author Tobias Lenz
  * 
- *         Klasse, um verschiedene Tag-Informationen zu übergeben bzw. einzufügen.
- *         Es genügt die Funktion addInfo mit verschiedenen Parametern aufzurufen.
+ *         Klasse, um verschiedene Tag-Informationen zu übergeben bzw. einzufügen. Es genügt die
+ *         Funktion addInfo mit verschiedenen Parametern aufzurufen.
  *
  */
 
@@ -33,13 +33,15 @@ public class AddTagInfos {
         list.addTagObject(info.gettag(i), info.gettextBlocNumber());
     }
   }
-/**
- * Diese Funktion wird zur Unterscheidung von verschiedenen ArrayListen, welche TagInformationen enthalten benötigt.
- * Es wird ein Objekt angenommen und die Art des Objekts überprüft.
- * Danach wird die passende Funktion aufgerufen.
- * Die try-catch-Blöcke dienen zur Fehlervermeidung, damit ein Objekt nicht falsch interpretiert wird.
- * @param info
- */
+
+  /**
+   * Diese Funktion wird zur Unterscheidung von verschiedenen ArrayListen, welche TagInformationen
+   * enthalten benötigt. Es wird ein Objekt angenommen und die Art des Objekts überprüft. Danach
+   * wird die passende Funktion aufgerufen. Die try-catch-Blöcke dienen zur Fehlervermeidung, damit
+   * ein Objekt nicht falsch interpretiert wird.
+   * 
+   * @param info
+   */
   public void addInfo(Object info) {
     if (info != null) {
       try {

@@ -2,40 +2,40 @@ package komplexeSuche;
 
 import java.util.ArrayList;
 
-//@author Franz Schwarzer
+// @author Franz Schwarzer
 
 public class UrlObjektList {
-	
-	private String searchword;
-	private ArrayList<UrlObjekt> urlObjects = new ArrayList<UrlObjekt>();
-	
-	public UrlObjektList(String searchword){
-		this.setSearchword(searchword);
-	}
 
-	public String getSearchword() {
-		return searchword;
-	}
+  private String searchword;
+  private ArrayList<UrlObjekt> urlObjects = new ArrayList<UrlObjekt>();
 
-	public void setSearchword(String searchword) {
-		this.searchword = searchword;
-	}
+  public UrlObjektList(String searchword) {
+    this.setSearchword(searchword);
+  }
 
-	public ArrayList<UrlObjekt> getUrlObjects() {
-		return urlObjects;
-	}
+  public String getSearchword() {
+    return searchword;
+  }
 
-	public void setUrlObjects(ArrayList<UrlObjekt> urlObjects) {
-		this.urlObjects = urlObjects;
-	}
+  public void setSearchword(String searchword) {
+    this.searchword = searchword;
+  }
 
-	public void addUrlObject(UrlObjekt url){
-		urlObjects.add(url);
-	}
-	
-	public int getSize(){
-		return urlObjects.size();
-	}
-		
-	
+  public ArrayList<UrlObjekt> getUrlObjects() {
+    return urlObjects;
+  }
+
+  public void setUrlObjects(ArrayList<UrlObjekt> urlObjects) {
+    this.urlObjects = urlObjects;
+  }
+
+  public void addUrlObject(UrlObjekt url) {
+    urlObjects.add(url);
+  }
+
+  public int getSize() {
+    return urlObjects.size();
+  }
+
+
 }

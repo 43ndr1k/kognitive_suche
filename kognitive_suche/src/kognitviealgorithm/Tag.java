@@ -32,7 +32,8 @@ public class Tag {
   public String gettag(int number) {
     return tags.get(number);
   }
-  public int getsize(){
+
+  public int getsize() {
     return tags.size();
   }
 

@@ -23,23 +23,25 @@ public class ReturnTagList {
   String getsearchword() {
     return searchword;
   }
-/**
- * 
- * @param keyword
- * @param textBlocNumber
- */
+
+  /**
+   * 
+   * @param keyword
+   * @param textBlocNumber
+   */
   public void addTagObject(String keyword, int textBlocNumber) {
     if (getTagByTagName(keyword) == null) {
       tagObjects.add(new ReturnTagObject(keyword));
     }
     getTagByTagName(keyword).addBlocNumber(textBlocNumber);
   }
-/**
- * 
- * @param keyword
- * @param textBlocNumber
- * @param priority
- */
+
+  /**
+   * 
+   * @param keyword
+   * @param textBlocNumber
+   * @param priority
+   */
   public void addTagObject(String keyword, int textBlocNumber, double priority) {
     if (getTagByTagName(keyword) == null) {
       tagObjects.add(new ReturnTagObject(keyword));
@@ -47,12 +49,13 @@ public class ReturnTagList {
     getTagByTagName(keyword).addBlocNumber(textBlocNumber);
     getTagByTagName(keyword).addPriority(priority);
   }
-/**
- * 
- * @param keyword
- * @param textBlocNumber
- * @param priority
- */
+
+  /**
+   * 
+   * @param keyword
+   * @param textBlocNumber
+   * @param priority
+   */
   public void addTagObject(String keyword, ArrayList<Integer> textBlocNumber, double priority) {
     if (getTagByTagName(keyword) == null) {
       tagObjects.add(new ReturnTagObject(keyword));
@@ -70,11 +73,12 @@ public class ReturnTagList {
   public int getsize() {
     return tagObjects.size();
   }
-/**
- * 
- * @param name
- * @return
- */
+
+  /**
+   * 
+   * @param name
+   * @return
+   */
   public ReturnTagObject getTagByTagName(String name) {
     for (int i = 0; i < tagObjects.size(); i++) {
       if (name.equals(tagObjects.get(i).gettag())) {

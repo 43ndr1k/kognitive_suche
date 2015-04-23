@@ -19,348 +19,343 @@ import komplexeSuche.TagObjectList;
  */
 public class Pattern {
 
-	private int paneWidth; 
-	private int paneHeight;
-	private static final double PAD_SIZE = 102;
-	private static final double PAD_OFFSET = 3;
+  private int paneWidth;
+  private int paneHeight;
+  private static final double PAD_SIZE = 102;
+  private static final double PAD_OFFSET = 3;
 
-	private static final Color COLOR_LIGHTGREEN = Color.web("#9FDA9F");
-	private static final Color COLOR_ORANGE = Color.web("#FFC63E");
-	private static final Color COLOR_LIGHTBLUE = Color.web("#5bc9ff");
-	private static final Color COLOR_RED = Color.web("#ff9595");
-	private static final Color COLOR_LIGHTPURPLE = Color.web("#c395ff");
-	private static final Color COLOR_LIGHTGREY = Color.web("#e5e5e5");
+  private static final Color COLOR_LIGHTGREEN = Color.web("#9FDA9F");
+  private static final Color COLOR_ORANGE = Color.web("#FFC63E");
+  private static final Color COLOR_LIGHTBLUE = Color.web("#5bc9ff");
+  private static final Color COLOR_RED = Color.web("#ff9595");
+  private static final Color COLOR_LIGHTPURPLE = Color.web("#c395ff");
+  private static final Color COLOR_LIGHTGREY = Color.web("#e5e5e5");
 
-	private Color[] colors = { COLOR_LIGHTGREEN, COLOR_ORANGE, COLOR_LIGHTBLUE, COLOR_RED,
-			COLOR_LIGHTPURPLE, COLOR_LIGHTGREY };
+  private Color[] colors = {COLOR_LIGHTGREEN, COLOR_ORANGE, COLOR_LIGHTBLUE, COLOR_RED,
+      COLOR_LIGHTPURPLE, COLOR_LIGHTGREY};
 
-	private int activePads;
+  private int activePads;
 
-	private static int maxTags = 9;
+  private static int maxTags = 9;
 
-	private static Pane visPane;
+  private static Pane visPane;
 
-	private static TagObjectList tags;
+  private static TagObjectList tags;
 
-	/**
-	 * Generiert das Feld von Hexagons
-	 * 
-	 * @param paneHeight H�he des Feldes
-	 * @param paneWidth Breite des Feldes
-	 * @param query
-	 * @param tags
-	 */
-	public Pattern ( int paneHeight, int paneWidth, String query, TagObjectList tags)  {
-		// TODO Auto-generated method stub
-	        this.paneHeight = paneHeight;
-	        this.paneWidth = paneWidth;
-	        this.tags = tags;
-			this.activePads = tags.getsize();
-		    
-		    visPane = new Pane();
-		    visPane.setPrefSize(paneHeight,paneWidth);
-		    
-		    double oneHexHeight = getHexHeight();
-		    double oneHexWidth = getHexWidth();
-		    double columnCorrection = getColumnCorrection(oneHexHeight);
-		    
-		    //Berechnung der Zeilen und Spaltenanzahl in Abh�ngigkeit von Fenstergr��e und PadSize
-		    int rows = getRows(oneHexHeight);
-		    int columns = getColumns(oneHexWidth, columnCorrection);
-		    
-		    System.out.println("Rows:" + rows + " Columns:" + columns + " ActivePads:" + activePads);
-		    
-		    Boolean[][] padMap = createPadMap(rows, columns);
-		    visPane = printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane, tags);
-		    //iv
-			Button list = new Button("Liste");//liste Button
-			
-			list.setOnAction(new EventHandler<ActionEvent>(){
-				@Override
-				public void handle(ActionEvent list) { 
-				visPane.getChildren().clear();
-					Listenausgabe ausgabe = new Listenausgabe(query);
-					ausgabe.setWidth(paneWidth);
-					ausgabe.setHeight( paneHeight);
-					/**
-					 * Listenausgabe an Patterngui weitergegeben
-					 */
-					visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
-				}
+  /**
+   * Generiert das Feld von Hexagons
+   * 
+   * @param paneHeight H�he des Feldes
+   * @param paneWidth Breite des Feldes
+   * @param query
+   * @param tags
+   */
+  public Pattern(int paneHeight, int paneWidth, String query, TagObjectList tags) {
+    // TODO Auto-generated method stub
+    this.paneHeight = paneHeight;
+    this.paneWidth = paneWidth;
+    this.tags = tags;
+    this.activePads = tags.getsize();
 
-			});
-			
-			
-			visPane.getChildren().addAll(list);
-			
-			
-		}
+    visPane = new Pane();
+    visPane.setPrefSize(paneHeight, paneWidth);
 
-	/**
-	 * Berechnet die Anzahl der Spalten in Abh�ngikeit von der Gr��e der Hexagons und des Feldes.
-	 * 
-	 * @param oneHexWidth Breite eines Hexagons
-	 * @param columnCorrection Versatz zwischen den Hexagons in der Breite
-	 * @return Anazahl der Spaten
-	 */
-	private int getColumns(double oneHexWidth, double columnCorrection) {
-		return (int) (Math
-				.round((((paneWidth / (oneHexWidth - columnCorrection + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
-	}
+    double oneHexHeight = getHexHeight();
+    double oneHexWidth = getHexWidth();
+    double columnCorrection = getColumnCorrection(oneHexHeight);
 
-	/**
-	 * Berechnet die Anzahl der Reihen in Abh�ngikeit von der Gr��e der Hexagons und des Feldes.
-	 * 
-	 * @param oneHexHeight H�he eines Hexagons
-	 * @return Anazahl der Reihen
-	 */
-	private int getRows(double oneHexHeight) {
-		return (int) (Math
-				.round((((paneHeight / (oneHexHeight + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
-	}
+    // Berechnung der Zeilen und Spaltenanzahl in Abh�ngigkeit von Fenstergr��e und PadSize
+    int rows = getRows(oneHexHeight);
+    int columns = getColumns(oneHexWidth, columnCorrection);
 
-	/**
-	 * @param oneHexHeight H�he eines Hexagons
-	 * @return Versatz zwischen den Hexagons in der Breite
-	 */
-	private double getColumnCorrection(double oneHexHeight) {
-		return Math.tan(Math.toRadians(30)) * 0.5 * oneHexHeight;
-	}
+    System.out.println("Rows:" + rows + " Columns:" + columns + " ActivePads:" + activePads);
 
-	/**
-	 * @return Breite eines Hexagons
-	 */
-	private double getHexWidth() {
-		return 2 * PAD_SIZE;
-	}
+    Boolean[][] padMap = createPadMap(rows, columns);
+    visPane =
+        printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+            tags);
+    // iv
+    Button list = new Button("Liste");// liste Button
 
-	/**
-	 * @return H�he eines Hexagons
-	 */
-	private double getHexHeight() {
-		return 2 * ((0.5 * PAD_SIZE) / Math.tan(Math.toRadians(30)));
-	}
+    list.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent list) {
+        visPane.getChildren().clear();
+        Listenausgabe ausgabe = new Listenausgabe(query);
+        ausgabe.setWidth(paneWidth);
+        ausgabe.setHeight(paneHeight);
+        /**
+         * Listenausgabe an Patterngui weitergegeben
+         */
+        visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
+      }
 
-	/**
-	 * Positionieren der Hexagons
-	 * 
-	 * @param padMap Array das anzeigt, ob dieses Feld aktiv ist.
-	 * @param oneHexWidth Breite eines Hexagons
-	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
-	 * @param oneHexHeight H�he eines Hexagons
-	 * @param rows Anazahl der Reihen
-	 * @param columns Anazahl der Spalten
-	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
-	 * @param tags Tag Obejkt
-	 * @return visPane mit positionierten Elementen
-	 */
-	private Pane printPattern(Boolean[][] padMap, double oneHexWidth,
-			double columnCorection, double oneHexHeight, int rows, int columns,
-			Pane visPane, TagObjectList tags) {
-		int numOfTags = tags.getsize();
+    });
 
-		for (int y = 0; y < rows; y++) {
-			for (int x = 0; x < columns; x++) {
-				if ((x % 2) == 0) {
-					if (padMap[x][y] == true) {
-						visPane = addColorPad(oneHexWidth, columnCorection,
-								oneHexHeight, rows, columns, visPane,
-								(x - 0.5), (y - 0.25),
-								tags.getTagObject(tags.getsize() - numOfTags)
-										.gettag());
-						numOfTags--;
-					} else
-						visPane = addGreyPad(oneHexWidth, columnCorection,
-								oneHexHeight, rows, columns, visPane,
-								(x - 0.5), (y - 0.25));
-				} else {
-					if (padMap[x][y] == true) {
-						visPane = addColorPad(oneHexWidth, columnCorection,
-								oneHexHeight, rows, columns, visPane,
-								(x - 0.5), (y - 0.75),
-								tags.getTagObject(tags.getsize() - numOfTags)
-										.gettag());
-						numOfTags--;
-					} else
-						visPane = addGreyPad(oneHexWidth, columnCorection,
-								oneHexHeight, rows, columns, visPane,
-								(x - 0.5), (y - 0.75));
-				}
-			}
-		}
 
-		return visPane;
-	}
+    visPane.getChildren().addAll(list);
 
-	/**
-	 * F�gt ein neues inaktives Hexagon hinzu.
-	 * 
-	 * @param oneHexWidth Breite eines Hexagons
-	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
-	 * @param oneHexHeight H�he eines Hexagons
-	 * @param rows Anazahl der Reihen
-	 * @param columns Anazahl der Spalten
-	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
-	 * @param x X-Position des Hexagons
-	 * @param y Y-Position des Hexagons
-	 * @return visPane mit neuem aktiven Hexagon
-	 */
-	private Pane addGreyPad(double oneHexWidth, double columnCorection,
-			double oneHexHeight, int rows, int columns, Pane visPane, double x,
-			double y) {
-		Pad pad;
-		StackPane padPane = new StackPane();
 
-		double xPos = (oneHexWidth - columnCorection + PAD_OFFSET) * (x);
-		double yPos = (oneHexHeight + PAD_OFFSET) * (y);
+  }
 
-		padPane.setLayoutX(xPos);
-		padPane.setLayoutY(yPos);
+  /**
+   * Berechnet die Anzahl der Spalten in Abh�ngikeit von der Gr��e der Hexagons und des
+   * Feldes.
+   * 
+   * @param oneHexWidth Breite eines Hexagons
+   * @param columnCorrection Versatz zwischen den Hexagons in der Breite
+   * @return Anazahl der Spaten
+   */
+  private int getColumns(double oneHexWidth, double columnCorrection) {
+    return (int) (Math
+        .round((((paneWidth / (oneHexWidth - columnCorrection + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
+  }
 
-		pad = new Pad(PAD_SIZE, (oneHexWidth - columnCorection + PAD_OFFSET)
-				* (x), (oneHexHeight + PAD_OFFSET) * (y), COLOR_LIGHTGREY);
+  /**
+   * Berechnet die Anzahl der Reihen in Abh�ngikeit von der Gr��e der Hexagons und des Feldes.
+   * 
+   * @param oneHexHeight H�he eines Hexagons
+   * @return Anazahl der Reihen
+   */
+  private int getRows(double oneHexHeight) {
+    return (int) (Math.round((((paneHeight / (oneHexHeight + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
+  }
 
-		padPane.getChildren().add(pad.getShape());
-		padPane.getChildren().add(pad.getLightShape());
-		visPane.getChildren().add(padPane);
+  /**
+   * @param oneHexHeight H�he eines Hexagons
+   * @return Versatz zwischen den Hexagons in der Breite
+   */
+  private double getColumnCorrection(double oneHexHeight) {
+    return Math.tan(Math.toRadians(30)) * 0.5 * oneHexHeight;
+  }
 
-		return visPane;
-	}
+  /**
+   * @return Breite eines Hexagons
+   */
+  private double getHexWidth() {
+    return 2 * PAD_SIZE;
+  }
 
-	/**
-	 * F�gt ein neues aktives Hexagon hinzu.
-	 * 
-	 * @param oneHexWidth Breite eines Hexagons
-	 * @param columnCorection Versatz zwischen den Hexagons in der Breite
-	 * @param oneHexHeight H�he eines Hexagons
-	 * @param rows Anazahl der Reihen
-	 * @param columns Anazahl der Spalten
-	 * @param visPane Hauptpane auf der die Elemente positioniert werden.
-	 * @param x X-Position des Hexagons
-	 * @param y Y-Position des Hexagons
-	 * @param labelText Text in der Mitte
-	 * @return visPane mit neuem aktiven Hexagon
-	 */
-	private Pane addColorPad(double oneHexWidth, double columnCorection,
-			double oneHexHeight, int rows, int columns, Pane visPane, double x,
-			double y, String labelText) {
-		Pad pad = null;
-		StackPane padPane = new StackPane();
-		StackPane exPadPane = new StackPane();
-		Pane linkPane = genLinkPane();
+  /**
+   * @return H�he eines Hexagons
+   */
+  private double getHexHeight() {
+    return 2 * ((0.5 * PAD_SIZE) / Math.tan(Math.toRadians(30)));
+  }
 
-		Label smallTopicLabel = new Label(labelText);
-		Label largeTopicLabel = new Label(labelText);
+  /**
+   * Positionieren der Hexagons
+   * 
+   * @param padMap Array das anzeigt, ob dieses Feld aktiv ist.
+   * @param oneHexWidth Breite eines Hexagons
+   * @param columnCorection Versatz zwischen den Hexagons in der Breite
+   * @param oneHexHeight H�he eines Hexagons
+   * @param rows Anazahl der Reihen
+   * @param columns Anazahl der Spalten
+   * @param visPane Hauptpane auf der die Elemente positioniert werden.
+   * @param tags Tag Obejkt
+   * @return visPane mit positionierten Elementen
+   */
+  private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorection,
+      double oneHexHeight, int rows, int columns, Pane visPane, TagObjectList tags) {
+    int numOfTags = tags.getsize();
 
-		smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-		largeTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+    for (int y = 0; y < rows; y++) {
+      for (int x = 0; x < columns; x++) {
+        if ((x % 2) == 0) {
+          if (padMap[x][y] == true) {
+            visPane =
+                addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane,
+                    (x - 0.5), (y - 0.25), tags.getTagObject(tags.getsize() - numOfTags).gettag());
+            numOfTags--;
+          } else
+            visPane =
+                addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane,
+                    (x - 0.5), (y - 0.25));
+        } else {
+          if (padMap[x][y] == true) {
+            visPane =
+                addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane,
+                    (x - 0.5), (y - 0.75), tags.getTagObject(tags.getsize() - numOfTags).gettag());
+            numOfTags--;
+          } else
+            visPane =
+                addGreyPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane,
+                    (x - 0.5), (y - 0.75));
+        }
+      }
+    }
 
-		double xPos = (oneHexWidth - columnCorection + PAD_OFFSET) * (x);
-		double yPos = (oneHexHeight + PAD_OFFSET) * (y);
+    return visPane;
+  }
 
-		int random = (int) (Math.random() * 5);
+  /**
+   * F�gt ein neues inaktives Hexagon hinzu.
+   * 
+   * @param oneHexWidth Breite eines Hexagons
+   * @param columnCorection Versatz zwischen den Hexagons in der Breite
+   * @param oneHexHeight H�he eines Hexagons
+   * @param rows Anazahl der Reihen
+   * @param columns Anazahl der Spalten
+   * @param visPane Hauptpane auf der die Elemente positioniert werden.
+   * @param x X-Position des Hexagons
+   * @param y Y-Position des Hexagons
+   * @return visPane mit neuem aktiven Hexagon
+   */
+  private Pane addGreyPad(double oneHexWidth, double columnCorection, double oneHexHeight,
+      int rows, int columns, Pane visPane, double x, double y) {
+    Pad pad;
+    StackPane padPane = new StackPane();
 
-		pad = new Pad(PAD_SIZE, 0, 0, colors[random]);
-		padPane.setLayoutX(xPos);
-		padPane.setLayoutY(yPos);
+    double xPos = (oneHexWidth - columnCorection + PAD_OFFSET) * (x);
+    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
 
-		exPadPane.setLayoutX(xPos - (PAD_SIZE * 2.2 - PAD_SIZE));
-		exPadPane
-				.setLayoutY(yPos
-						- (0.5 * (oneHexHeight + PAD_OFFSET) * 2.2 - 0.5 * (oneHexHeight + PAD_OFFSET)));
+    padPane.setLayoutX(xPos);
+    padPane.setLayoutY(yPos);
 
-		padPane.getChildren().add(pad.getShape());
-		padPane.getChildren().add(pad.getLightShape());
-		padPane.getChildren().add(smallTopicLabel);
-		exPadPane.getChildren().add(pad.getExShape());
-		exPadPane.getChildren().add(pad.getExLightShape());
-		exPadPane.getChildren().add(linkPane);
-		exPadPane.getChildren().add(largeTopicLabel);
-		exPadPane.setVisible(false);
+    pad =
+        new Pad(PAD_SIZE, (oneHexWidth - columnCorection + PAD_OFFSET) * (x),
+            (oneHexHeight + PAD_OFFSET) * (y), COLOR_LIGHTGREY);
 
-		pad.getExLightShape().toFront();
+    padPane.getChildren().add(pad.getShape());
+    padPane.getChildren().add(pad.getLightShape());
+    visPane.getChildren().add(padPane);
 
-		visPane.getChildren().add(padPane);
-		visPane.getChildren().add(exPadPane);
+    return visPane;
+  }
 
-		pad.getLightShape().setOnMouseEntered(event -> {
-			exPadPane.setVisible(true);
-			exPadPane.toFront();
-		});
+  /**
+   * F�gt ein neues aktives Hexagon hinzu.
+   * 
+   * @param oneHexWidth Breite eines Hexagons
+   * @param columnCorection Versatz zwischen den Hexagons in der Breite
+   * @param oneHexHeight H�he eines Hexagons
+   * @param rows Anazahl der Reihen
+   * @param columns Anazahl der Spalten
+   * @param visPane Hauptpane auf der die Elemente positioniert werden.
+   * @param x X-Position des Hexagons
+   * @param y Y-Position des Hexagons
+   * @param labelText Text in der Mitte
+   * @return visPane mit neuem aktiven Hexagon
+   */
+  private Pane addColorPad(double oneHexWidth, double columnCorection, double oneHexHeight,
+      int rows, int columns, Pane visPane, double x, double y, String labelText) {
+    Pad pad = null;
+    StackPane padPane = new StackPane();
+    StackPane exPadPane = new StackPane();
+    Pane linkPane = genLinkPane();
 
-		pad.getExLightShape().setOnMouseExited(event -> {
-			exPadPane.setVisible(false);
-		});
+    Label smallTopicLabel = new Label(labelText);
+    Label largeTopicLabel = new Label(labelText);
 
-		return visPane;
-	}
+    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+    largeTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
 
-	private Pane genLinkPane() {
-		Pane linkPane = new Pane();
-		Label tagLabel1 = new Label("Tag1");
+    double xPos = (oneHexWidth - columnCorection + PAD_OFFSET) * (x);
+    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
 
-		// linkPane.getChildren().add(topicLabel);
+    int random = (int) (Math.random() * 5);
 
-		return linkPane;
-	}
+    pad = new Pad(PAD_SIZE, 0, 0, colors[random]);
+    padPane.setLayoutX(xPos);
+    padPane.setLayoutY(yPos);
 
-	/**
-	 * Generiert aus der Anzahl der aktiven Pads und den Reihen und Spalten ein 
-	 * Array das anzeigt welche Felder aktiv sind.
-	 * 
-	 * @param rows Anzahl der Reihen
-	 * @param columns Anzahl der Spalten
-	 * @return padMap
-	 */
-	private Boolean[][] createPadMap(int rows, int columns) {
-		// TODO Auto-generated method stub
-		Boolean[][] padMap = new Boolean[columns][rows];
+    exPadPane.setLayoutX(xPos - (PAD_SIZE * 2.2 - PAD_SIZE));
+    exPadPane.setLayoutY(yPos
+        - (0.5 * (oneHexHeight + PAD_OFFSET) * 2.2 - 0.5 * (oneHexHeight + PAD_OFFSET)));
 
-		int insertRow = rows / 2;
-		int insertColumn = columns / 2;
+    padPane.getChildren().add(pad.getShape());
+    padPane.getChildren().add(pad.getLightShape());
+    padPane.getChildren().add(smallTopicLabel);
+    exPadPane.getChildren().add(pad.getExShape());
+    exPadPane.getChildren().add(pad.getExLightShape());
+    exPadPane.getChildren().add(linkPane);
+    exPadPane.getChildren().add(largeTopicLabel);
+    exPadPane.setVisible(false);
 
-		for (int x = 0; x < columns; x++)
-			for (int y = 0; y < rows; y++)
-				padMap[x][y] = false;
+    pad.getExLightShape().toFront();
 
-		for (int i = 0; i < activePads + 1; i++) {
-			switch (i) {
-			case 1:
-				padMap[insertColumn - 1][insertRow] = true;
-				break;
-			case 2:
-				padMap[insertColumn][insertRow] = true;
-				break;
-			case 3:
-				padMap[insertColumn - 2][insertRow] = true;
-				break;
-			case 4:
-				padMap[insertColumn][insertRow - 1] = true;
-				break;
-			case 5:
-				padMap[insertColumn - 2][insertRow - 1] = true;
-				break;
-			case 6:
-				padMap[insertColumn - 1][insertRow + 1] = true;
-				break;
-			case 7:
-				padMap[insertColumn - 1][insertRow - 1] = true;
-				break;
-			case 8:
-				padMap[insertColumn - 3][insertRow] = true;
-				break;
-			case 9:
-				padMap[insertColumn + 1][insertRow] = true;
-				break;
-			}
-		}
+    visPane.getChildren().add(padPane);
+    visPane.getChildren().add(exPadPane);
 
-		return padMap;
-	}
+    pad.getLightShape().setOnMouseEntered(event -> {
+      exPadPane.setVisible(true);
+      exPadPane.toFront();
+    });
 
-	public Pane getPane() {
-		return visPane;
-		// TODO Auto-generated method stub
-	}
+    pad.getExLightShape().setOnMouseExited(event -> {
+      exPadPane.setVisible(false);
+    });
+
+    return visPane;
+  }
+
+  private Pane genLinkPane() {
+    Pane linkPane = new Pane();
+    Label tagLabel1 = new Label("Tag1");
+
+    // linkPane.getChildren().add(topicLabel);
+
+    return linkPane;
+  }
+
+  /**
+   * Generiert aus der Anzahl der aktiven Pads und den Reihen und Spalten ein Array das anzeigt
+   * welche Felder aktiv sind.
+   * 
+   * @param rows Anzahl der Reihen
+   * @param columns Anzahl der Spalten
+   * @return padMap
+   */
+  private Boolean[][] createPadMap(int rows, int columns) {
+    // TODO Auto-generated method stub
+    Boolean[][] padMap = new Boolean[columns][rows];
+
+    int insertRow = rows / 2;
+    int insertColumn = columns / 2;
+
+    for (int x = 0; x < columns; x++)
+      for (int y = 0; y < rows; y++)
+        padMap[x][y] = false;
+
+    for (int i = 0; i < activePads + 1; i++) {
+      switch (i) {
+        case 1:
+          padMap[insertColumn - 1][insertRow] = true;
+          break;
+        case 2:
+          padMap[insertColumn][insertRow] = true;
+          break;
+        case 3:
+          padMap[insertColumn - 2][insertRow] = true;
+          break;
+        case 4:
+          padMap[insertColumn][insertRow - 1] = true;
+          break;
+        case 5:
+          padMap[insertColumn - 2][insertRow - 1] = true;
+          break;
+        case 6:
+          padMap[insertColumn - 1][insertRow + 1] = true;
+          break;
+        case 7:
+          padMap[insertColumn - 1][insertRow - 1] = true;
+          break;
+        case 8:
+          padMap[insertColumn - 3][insertRow] = true;
+          break;
+        case 9:
+          padMap[insertColumn + 1][insertRow] = true;
+          break;
+      }
+    }
+
+    return padMap;
+  }
+
+  public Pane getPane() {
+    return visPane;
+    // TODO Auto-generated method stub
+  }
 
 }

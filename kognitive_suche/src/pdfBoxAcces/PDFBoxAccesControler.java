@@ -26,7 +26,7 @@ public class PDFBoxAccesControler {
     PDFBox PDFBox = new PDFBox(pdfbox_path);
 
     this.PDFDoc = PDFBox.getKeywords();
-  
+
 
   }
 

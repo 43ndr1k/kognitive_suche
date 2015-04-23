@@ -28,7 +28,7 @@ public class Keywords {
   }
 
   public void setcount() {
-    count+=1;
+    count += 1;
   }
 
   public void addaddress(int textBlocNumber) {

@@ -1,7 +1,7 @@
 package pdfBoxAcces;
 
 public class PDFKeyword implements IPDFKeyword {
-  
+
   /**
    * Keyword Object
    *
@@ -9,15 +9,14 @@ public class PDFKeyword implements IPDFKeyword {
    * 
    * @param term: the keyword itself.
    * @param weight: float between 0.0 and 1.0. Higher weight represents more important keyword.
-   *    
+   * 
    * @author Fabian Freihube
    */
-  
+
   String term;
   float weight;
-  
-  public PDFKeyword(String term, float weight)
-  {
+
+  public PDFKeyword(String term, float weight) {
     this.term = term;
     this.weight = weight;
   }
@@ -37,7 +36,7 @@ public class PDFKeyword implements IPDFKeyword {
   @Override
   public void setWeight(float weight) {
     // TODO Auto-generated method stub
-    
+
   }
 
   @Override
