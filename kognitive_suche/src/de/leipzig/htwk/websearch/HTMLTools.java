@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 public class HTMLTools {
 
-	public static String filterHTML(String htmlCode) {
+	public String filterHTML(String htmlCode) {
 
 		htmlCode = htmlCode.replaceAll("\\<.*?\\>", ""); // filtert HTML-Tags
 		return htmlCode.replaceAll("\\s", " "); // filtert Leerzeichen
 
 	}
 
-	public static String getHTMLSourceCode(String url) {
+	public String getHTMLSourceCode(String url) {
 
 		StringBuilder sb = new StringBuilder();
 

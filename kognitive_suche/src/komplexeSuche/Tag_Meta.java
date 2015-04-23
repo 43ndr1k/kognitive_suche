@@ -6,6 +6,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import de.leipzig.htwk.websearch.HTMLTools;
+
 
 public class Tag_Meta extends Thread {
 
@@ -34,24 +36,13 @@ public class Tag_Meta extends Thread {
 
 
   String[] getMetaKeys() {
-    StringBuilder sb = new StringBuilder();
-
-    try {
-      Scanner scanner = new Scanner(new URL(url).openStream());
-      while (scanner.hasNextLine()) {
-        sb.append(scanner.nextLine() + "\n");
-      }
-      scanner.close();
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+	 HTMLTools html=new HTMLTools();
+	 String sc= html.getHTMLSourceCode(url);
 
     // Suche nach Meta Key
-    Statics.pageText[urlNumber] = sb.toString();
-    int index = sb.toString().indexOf("<meta name=\"keywords\" content=");
-    String sub = sb.toString().substring(index);
+    Statics.pageText[urlNumber] = sc;
+    int index = sc.indexOf("<meta name=\"keywords\" content=");
+    String sub = sc.substring(index);
     index = sub.indexOf("/>");
     sub = sub.substring(0, index);
 
