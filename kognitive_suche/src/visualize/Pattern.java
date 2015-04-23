@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import komplexeSuche.TagObjectList;
+import komplexe.suche.TagObjectList;
 
 /**
  * Generierung des Feldes von Hexagons

@@ -2,7 +2,7 @@ package visualize;
 
 
 import javafx.scene.layout.Pane;
-import komplexeSuche.TagObjectList;
+import komplexe.suche.TagObjectList;
 
 /**
  * Controller der Visualisierung

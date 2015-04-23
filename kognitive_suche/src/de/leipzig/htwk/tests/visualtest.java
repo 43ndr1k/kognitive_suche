@@ -1,8 +1,8 @@
 package de.leipzig.htwk.tests;
 
 
-import komplexeSuche.TagObject;
-import komplexeSuche.TagObjectList;
+import komplexe.suche.TagObject;
+import komplexe.suche.TagObjectList;
 import visualize.VisController;
 
 public class visualtest {

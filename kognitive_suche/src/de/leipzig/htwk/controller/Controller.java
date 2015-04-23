@@ -5,7 +5,7 @@ import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
 import de.leipzig.htwk.faroo.api.Results;
 import de.leipzig.htwk.createJson.CreateJsonDoc;
-import simpleAlgorithm.*;
+import simple.algorithm.*;
 
 import java.util.ArrayList;
 /**

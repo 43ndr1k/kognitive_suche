@@ -3,7 +3,7 @@ package de.leipzig.htwk.tests;
 
 import kognitviealgorithm.ApiCognitiveSearch;
 import kognitviealgorithm.ReturnTagList;
-import komplexeSuche.TagObjectList;
+import komplexe.suche.TagObjectList;
 
 public class ApiKognitiveSearchTest {
 

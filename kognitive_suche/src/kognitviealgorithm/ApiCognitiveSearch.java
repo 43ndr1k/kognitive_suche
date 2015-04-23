@@ -2,7 +2,7 @@ package kognitviealgorithm;
 
 import java.util.ArrayList;
 
-import komplexeSuche.TagObjectList;
+import komplexe.suche.TagObjectList;
 
 public class ApiCognitiveSearch {
   /**

@@ -8,7 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import simpleAlgorithm.SimAlgTags;
+import simple.algorithm.SimAlgTags;
 
 import java.util.ArrayList;
 
