@@ -1,6 +1,5 @@
 package kognitver.algorithmus;
 
-import komplexe.suche.TagObjectList;
 import snowballstemmer.GermanStemmer;
 
 public class EditTags {

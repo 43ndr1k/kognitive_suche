@@ -1,25 +1,23 @@
 package kognitver.algorithmus;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class WordCount {
 
   private String text;
-  private ArrayList<Keywords> tagFrequency = new ArrayList<Keywords>(); // Datentyp für häufigste
-                                                                        // Suchwörter
+  private ReturnTagList tagFrequency = new ReturnTagList();// Datentyp für häufigste
+  // Suchwörter
   private ArrayList<Tag> tagNearby = new ArrayList<Tag>(); // Datentyp für Umgebungssuchwörter
 
   public void addText(String[] searchText, String searchWord) {
 
 
-    boolean flag = true;
     int numTags = 0;
     int numbContSearchWord = 0; // Anzahl der im Text enthaltenen Suchwörter
     int numbOfWords = 0;
     final int RANGE = 5;
 
-    for (int i = 0; i < searchText.length; i++) {
+    for (int i = 0; i < searchText.length; i++) { // Alle Textblöcke werden nacheinander durchsucht
 
       text = searchText[i];
       text = text.replaceAll("[^a-zA-Z0-9 .äöüÄÖÜß?!@]", ""); // hier werden alle Zeichen aus
@@ -29,56 +27,43 @@ public class WordCount {
                                                               // "Reguläre Ausdrücke"
       String[] parts = text.split(" ");
 
-      for (int j = 0; j < parts.length; j++) {
-        if (doescontain(searchWord, parts[j])) {findTagNearby(parts, j,i, searchWord,RANGE, numbContSearchWord);
-        numbContSearchWord++;}
-        flag = true;
-
-        for (int k = 0; k < tagFrequency.size(); k++) {
-
-          if (parts[j].equals(tagFrequency.get(k).gettag()) && !parts[j].equals("")
-              && !badWord(parts[j]) && !doescontain(searchWord, parts[j])) {
-            flag = false;
-            tagFrequency.get(k).addaddress(i);
-            tagFrequency.get(k).setcount();
-            break;
-          }
-
+      for (int j = 0; j < parts.length; j++) { // Der Textblock wird durchsucht
+        if (doescontain(searchWord, parts[j])) { // Falls Das Suchwort vorkommt, wird findTagNearby
+                                                 // aufgerufen
+          findTagNearby(parts, j, i, searchWord, RANGE, numbContSearchWord);
+          numbContSearchWord++;
         }
-        if (flag) {
-          tagFrequency.add(numTags, new Keywords(parts[j], i));
+        if (!parts[j].equals(" ") && !badWord(parts[j]) && !doescontain(searchWord, parts[j])) { // Wörter
+                                                                                                 // werden
+                                                                                                 // gezählt
+                                                                                                 // und
+                                                                                                 // als
+                                                                                                 // Tag
+                                                                                                 // hinzugefügt
+          tagFrequency.addTagObject(parts[j], i);
+          tagFrequency.getTagByTagName(parts[j]).addPriority(1);
           numTags++;
         }
       }
     }
-    Collections.sort(tagFrequency, new SortKeywords()); // Die Suchbegriffe werden nach Häufigkeit
-                                                        // sortiert
-    for (int i = 0; i < 5; i++) { // Testausgabe
-      int n = tagFrequency.size() - 1 - i;
-      System.out.println(tagFrequency.get(n).gettag());
-      // System.out.println(tagNearby.get(i).gettag(i));
-    }
 
   }
 
-
-  private void findTagNearby(String[] parts, int j, int i, String searchWord, int RANGE, int numbContSearchWord) {
+  private void findTagNearby(String[] parts, int j, int i, String searchWord, int RANGE,
+      int numbContSearchWord) {
     {
       tagNearby.add(numbContSearchWord, new Tag(i, parts[j]));
-      int num = 0;
       for (int l = 1; l < RANGE; l++) {
         if (j - l >= 0 && !badWord(parts[j - l])) {
-          tagNearby.get(numbContSearchWord).addtag(num, parts[j - l]);
-          num++;
+          tagNearby.get(numbContSearchWord).addtag(parts[j - l]);
         }
 
         if (j + l < parts.length && !badWord(parts[j + l])/* && parts[j+l] != "[^.!?]" */) {
-          tagNearby.get(numbContSearchWord).addtag(num, parts[j + l]);
-          num++;
+          tagNearby.get(numbContSearchWord).addtag(parts[j + l]);
         }
       }
-       }
-    
+    }
+
   }
 
 
@@ -126,6 +111,7 @@ public class WordCount {
      */
 
     for (int i = 0; i < wordList.length; i++) {
+      word.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
       if (word.equalsIgnoreCase(wordList[i])) {
         return true;
       }
@@ -134,11 +120,11 @@ public class WordCount {
     return false;
   }
 
-  public ArrayList<Keywords> gettagFrequency() {
-    return tagFrequency;
-  }
-
   public ArrayList<Tag> gettagNearby() {
     return tagNearby;
+  }
+
+  public ReturnTagList getTagFrequency() {
+    return tagFrequency;
   }
 }

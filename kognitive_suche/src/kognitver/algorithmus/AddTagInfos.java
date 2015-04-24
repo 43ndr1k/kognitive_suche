@@ -12,75 +12,81 @@ import java.util.ArrayList;
  */
 
 public class AddTagInfos {
-  private ArrayList<Tag> tmpTag;
-  private ArrayList <Keywords> tmpKey;
   private ReturnTagList list;
 
   public AddTagInfos(String searchWord) {
     list = new ReturnTagList(searchWord);
   }
 
-  public ReturnTagList getList() {
-    return list;
-  }
-
-  public void addInfo(Keywords info) {
-    list.addTagObject(info.gettag(), info.gettextBlocNumber(), info.getcount());
-  }
-
   public void addInfo(Tag info) {
     if (info != null) {
       for (int i = 0; i < info.getsize(); i++)
-        list.addTagObject(info.gettag(i), info.gettextBlocNumber());
+        list.addTagObject(info.gettag(i), info.getTextBlocNumber());
     }
   }
 
-  /**
-   * Diese Funktion wird zur Unterscheidung von verschiedenen ArrayListen, welche Tag-Informationen
-   * enthalten benötigt. Es wird ein Objekt angenommen und die Art des Objekts überprüft. Danach
-   * wird die passende Funktion aufgerufen. Die try-catch-Blöcke dienen zur Fehlervermeidung, damit
-   * ein Objekt nicht falsch interpretiert wird.
-   * 
-   * @param info
-   */
-  public void addInfo(Object info) {
+  public void addInfo(Tag info, String function, double[] values) {
     if (info != null) {
-      try {
-        if (((ArrayList<Keywords>) info).get(0).getClass().getName() == tmpKey.getClass().getName()) {
-          addKeywordsInfo((ArrayList<Keywords>) info);
-          System.out.println("Hier");
-          return;
-        }
-      } catch (Exception e) {
-      }
-      try {
+      for (int i = 0; i < info.getsize(); i++)
+        list.addTagObject(info.gettag(i), info.getTextBlocNumber(),
+            getFunctionPriority(function, values, i));
+    }
+  }
 
-        if (((ArrayList<Tag>) info).get(0).getClass().getName() == tmpTag.getClass().getName()) {
-          addTagArrayInfo((ArrayList<Tag>) info);
-          System.out.println("Hier auch");
-          return;
-        }
 
-      } catch (Exception e) {
+  public void addInfo(ArrayList<Tag> info) {
 
+    if (info != null) {
+
+      for (int i = 0; i < info.size(); i++) {
+        addInfo(info.get(i));
       }
     }
   }
 
-  public void addKeywordsInfo(ArrayList<Keywords> info) {
-    for (int i = 0; i < info.size(); i++) {
-      list.addTagObject(info.get(i).gettag(), info.get(i).gettextBlocNumber(), info.get(i)
-          .getcount());
+  public void addInfo(ReturnTagList info) {
+    for (int i = 0; i < info.getsize(); i++) {
+      addInfo(info.getTagObject(i));
     }
   }
 
-  private void addTagArrayInfo(ArrayList<Tag> info) {
+  public void addInfo(ReturnTagObject info) {
+    list.addTagObject(info.gettag(), info.getBlocNumbers(), info.getPriority());
+  }
+
+  public void addInfo(ArrayList<Tag> info, String function, double[] values) {
     for (int i = 0; i < info.size(); i++) {
-      addInfo(info.get(i));
+      addInfo(info.get(i), function, values);
     }
   }
 
-  private ReturnTagList getReturnTagList() {
+  private double getFunctionPriority(String function, double[] values, int i) {
+    double retValue;
+    switch (function) {
+      case "mx+n":
+        retValue = i * values[0] + values[1];
+        if (retValue > 0) {
+          return retValue;
+        }
+      case "ax²+bx+c":
+        retValue = i * i * values[0] + i * values[1] + values[2];
+        if (retValue > 0) {
+          return retValue;
+        }
+      case "e^x":
+        retValue = Math.exp(i);
+        if (retValue > 0) {
+          return retValue;
+        }
+
+    }
+    return 0;
+
+
+
+  }
+
+  public ReturnTagList getReturnTagList() {
     return list;
   }
 

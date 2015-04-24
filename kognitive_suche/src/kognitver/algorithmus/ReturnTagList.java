@@ -2,6 +2,8 @@ package kognitver.algorithmus;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 
 public class ReturnTagList {
   /**
@@ -19,6 +21,8 @@ public class ReturnTagList {
   public ReturnTagList(String searchword) {
     this.searchword = searchword;
   }
+
+  public ReturnTagList() {}
 
   String getsearchword() {
     return searchword;
@@ -76,12 +80,13 @@ public class ReturnTagList {
 
   /**
    * 
-   * @param name
+   * @param tag
    * @return
    */
-  public ReturnTagObject getTagByTagName(String name) {
+  public ReturnTagObject getTagByTagName(String tag) {
+    tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
     for (int i = 0; i < tagObjects.size(); i++) {
-      if (name.equals(tagObjects.get(i).gettag())) {
+      if (tag.equalsIgnoreCase(tagObjects.get(i).gettag())) {
         return tagObjects.get(i);
       }
     }
@@ -90,15 +95,25 @@ public class ReturnTagList {
 
   public void renameTag(String oldTag, String newTag) {
     ReturnTagObject tmp = getTagByTagName(oldTag);
-      if(tmp != null){
-        addTagObject(newTag, tmp.getBlocNumbers(),tmp.getPriority());
-        deleteTag(oldTag);
-      }
-     
+    if (tmp != null) {
+      addTagObject(newTag, tmp.getBlocNumbers(), tmp.getPriority());
+      deleteTag(oldTag);
+    }
+
   }
 
   void deleteTag(String tag) {
-    tagObjects.remove(getTagByTagName(tag)); //geht das?
+    tagObjects.remove(getTagByTagName(tag));
   }
 
+  public ArrayList<ReturnTagObject> getTags() {
+    sortTags();
+    return tagObjects;
+  }
+/**
+ * hier werden die Tags nach Priorität geordnet
+ */
+  public void sortTags() {
+    Collections.sort(tagObjects, new ReturnTagListSort());
+  }
 }

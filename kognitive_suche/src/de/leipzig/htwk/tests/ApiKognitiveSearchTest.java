@@ -12,7 +12,13 @@ public class ApiKognitiveSearchTest {
     ReturnTagList testlist = new ReturnTagList(null);
     
     ApiCognitiveSearch test = new ApiCognitiveSearch();
-    test.ApiCognitiveSearch(getTest(), "Sigma Symbol Buchstabe griechischen");
+    test.ApiCognitiveSearch(getTest(), "Sigma");
+    
+    String s = "sein.";
+    
+    //s = s.replaceAll("[.,!?]", " ");
+    s = s.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
+    System.out.println(s);
     
   }
 

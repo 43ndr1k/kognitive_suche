@@ -8,7 +8,7 @@ public class ReturnTagObject {
   /**
    * @author Tobias Lenz Objekt zur Weitergabe von Tags mit den dazugehörigen URLS
    * 
-   * @param tag - Name des Tags
+   * @param tagName - Name des Tags
    * @param priority - Wertigkeit des Tags
    * @param bloc_number - Liste von Textblöcken, in denen der Tag vorhanden ist.
    */
@@ -18,6 +18,7 @@ public class ReturnTagObject {
   private double priority = 0;
 
   public ReturnTagObject(String tag) {
+    tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
     this.tag = tag;
   }
 
@@ -60,7 +61,7 @@ public class ReturnTagObject {
     this.priority += priority;
   }
 
-  public double getPriority() {
+  public Double getPriority() {
     return priority;
   }
 }

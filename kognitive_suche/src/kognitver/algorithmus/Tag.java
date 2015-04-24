@@ -17,7 +17,7 @@ public class Tag {
     this.searchWord = searchword;
   }
 
-  public int gettextBlocNumber() {
+  public int getTextBlocNumber() {
     return textBlocNumber;
   }
 
@@ -25,8 +25,8 @@ public class Tag {
     return searchWord;
   }
 
-  public void addtag(int number, String tag) {
-    tags.add(number, tag);
+  public void addtag(String tag) {
+    tags.add(tag);
   }
 
   public String gettag(int number) {
