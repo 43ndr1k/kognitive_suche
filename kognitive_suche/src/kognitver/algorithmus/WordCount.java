@@ -17,38 +17,21 @@ public class WordCount {
     int numTags = 0;
     int numbContSearchWord = 0; // Anzahl der im Text enthaltenen Suchwörter
     int numbOfWords = 0;
-    int RANGE = 5;
-
-
+    final int RANGE = 5;
 
     for (int i = 0; i < searchText.length; i++) {
 
       text = searchText[i];
       text = text.replaceAll("[^a-zA-Z0-9 .äöüÄÖÜß?!@]", ""); // hier werden alle Zeichen aus
-                                                                     // dem
-      // Text gelöscht, welche weder Zahlen,
-      // Buchstaben, . oder Leerzeichen sind
-      // Hinweis: "Reguläre Ausdrücke"
+                                                              // dem Text gelöscht, welche weder
+                                                              // Zahlen, Buchstaben, . oder
+                                                              // Leerzeichen sind Hinweis:
+                                                              // "Reguläre Ausdrücke"
       String[] parts = text.split(" ");
 
       for (int j = 0; j < parts.length; j++) {
-        if (doescontain(searchWord, parts[j])) {
-          tagNearby.add(numbContSearchWord, new Tag(i, parts[j]));
-          int num = 0;
-          for (int l = 1; l < RANGE; l++) {
-            if (j - l >= 0 && !badWord(parts[j - l])) {
-              tagNearby.get(numbContSearchWord).addtag(num, parts[j - l]);
-              num++;
-            }
-
-            if (j + l < parts.length && !badWord(parts[j + l])/* && parts[j+l] != "[^.!?]" */) {
-              tagNearby.get(numbContSearchWord).addtag(num, parts[j + l]);
-              num++;
-            }
-          }
-          numbContSearchWord++;
-
-        }
+        if (doescontain(searchWord, parts[j])) {findTagNearby(parts, j,i, searchWord,RANGE, numbContSearchWord);
+        numbContSearchWord++;}
         flag = true;
 
         for (int k = 0; k < tagFrequency.size(); k++) {
@@ -76,6 +59,26 @@ public class WordCount {
       // System.out.println(tagNearby.get(i).gettag(i));
     }
 
+  }
+
+
+  private void findTagNearby(String[] parts, int j, int i, String searchWord, int RANGE, int numbContSearchWord) {
+    {
+      tagNearby.add(numbContSearchWord, new Tag(i, parts[j]));
+      int num = 0;
+      for (int l = 1; l < RANGE; l++) {
+        if (j - l >= 0 && !badWord(parts[j - l])) {
+          tagNearby.get(numbContSearchWord).addtag(num, parts[j - l]);
+          num++;
+        }
+
+        if (j + l < parts.length && !badWord(parts[j + l])/* && parts[j+l] != "[^.!?]" */) {
+          tagNearby.get(numbContSearchWord).addtag(num, parts[j + l]);
+          num++;
+        }
+      }
+       }
+    
   }
 
 
@@ -110,10 +113,10 @@ public class WordCount {
             "Jahr", "eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun",
             "null", "zwischen", "immer", "Jahren", "sagte", "sagt", "wurde", "so", "solange",
             "vor", "über", "In", "in", "hat", "am", "sich", "als", "werden", "wollen", "müssen",
-            "würden", "neu", "rund", "groß", "klein", "alt", "jung", "möglich", "deutlich",
-            "weit", "viel", "fest", "weich", "flüssig", "gut", "lang", "knapp", "künftig",
-            "schwer", "genau", "sicher", "ihrer", "ihrem", "mich", "mir", "ihm", "unser", "ich",
-            "du", "häufig", "wenig", "wenige", "einzelner", "lassen", "gehen", "laufen", "rennen",
+            "würden", "neu", "rund", "groß", "klein", "alt", "jung", "möglich", "deutlich", "weit",
+            "viel", "fest", "weich", "flüssig", "gut", "lang", "knapp", "künftig", "schwer",
+            "genau", "sicher", "ihrer", "ihrem", "mich", "mir", "ihm", "unser", "ich", "du",
+            "häufig", "wenig", "wenige", "einzelner", "lassen", "gehen", "laufen", "rennen",
             "fliegen", "heißen", "warm", "kalt", "wärmer", "kälter", "heiß", "gilt", "gelten",
             "stehen", "schwimmen",};
 

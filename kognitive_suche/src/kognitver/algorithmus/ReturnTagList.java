@@ -88,4 +88,17 @@ public class ReturnTagList {
     return null;
   }
 
+  public void renameTag(String oldTag, String newTag) {
+    ReturnTagObject tmp = getTagByTagName(oldTag);
+      if(tmp != null){
+        addTagObject(newTag, tmp.getBlocNumbers(),tmp.getPriority());
+        deleteTag(oldTag);
+      }
+     
+  }
+
+  void deleteTag(String tag) {
+    tagObjects.remove(getTagByTagName(tag)); //geht das?
+  }
+
 }

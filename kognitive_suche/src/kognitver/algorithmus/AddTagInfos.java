@@ -12,7 +12,8 @@ import java.util.ArrayList;
  */
 
 public class AddTagInfos {
-
+  private ArrayList<Tag> tmpTag;
+  private ArrayList <Keywords> tmpKey;
   private ReturnTagList list;
 
   public AddTagInfos(String searchWord) {
@@ -35,7 +36,7 @@ public class AddTagInfos {
   }
 
   /**
-   * Diese Funktion wird zur Unterscheidung von verschiedenen ArrayListen, welche TagInformationen
+   * Diese Funktion wird zur Unterscheidung von verschiedenen ArrayListen, welche Tag-Informationen
    * enthalten benötigt. Es wird ein Objekt angenommen und die Art des Objekts überprüft. Danach
    * wird die passende Funktion aufgerufen. Die try-catch-Blöcke dienen zur Fehlervermeidung, damit
    * ein Objekt nicht falsch interpretiert wird.
@@ -45,16 +46,18 @@ public class AddTagInfos {
   public void addInfo(Object info) {
     if (info != null) {
       try {
-        if (((ArrayList<Keywords>) info).get(0).getClass().getName() == "kognitviealgorithm.Keywords") {
+        if (((ArrayList<Keywords>) info).get(0).getClass().getName() == tmpKey.getClass().getName()) {
           addKeywordsInfo((ArrayList<Keywords>) info);
+          System.out.println("Hier");
           return;
         }
       } catch (Exception e) {
       }
       try {
 
-        if (((ArrayList<Tag>) info).get(0).getClass().getName() == "kognitviealgorithm.Tag") {
+        if (((ArrayList<Tag>) info).get(0).getClass().getName() == tmpTag.getClass().getName()) {
           addTagArrayInfo((ArrayList<Tag>) info);
+          System.out.println("Hier auch");
           return;
         }
 
