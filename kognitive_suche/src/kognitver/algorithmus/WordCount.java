@@ -1,5 +1,8 @@
 package kognitver.algorithmus;
 
+import general.functions.TxtReader;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class WordCount {
@@ -20,11 +23,12 @@ public class WordCount {
     for (int i = 0; i < searchText.length; i++) { // Alle Textblöcke werden nacheinander durchsucht
 
       text = searchText[i];
-      text = text.replaceAll("[^a-zA-Z0-9 .äöüÄÖÜß?!@]", ""); // hier werden alle Zeichen aus
-                                                              // dem Text gelöscht, welche weder
-                                                              // Zahlen, Buchstaben, . oder
-                                                              // Leerzeichen sind Hinweis:
-                                                              // "Reguläre Ausdrücke"
+      text = text.replaceAll(" +", " "); // mehrere Leerzeichen werden durch ein einzelnes ersetzt
+      text = text.replaceAll("[^\\w .äöüÄÖÜß?!@]", ""); // hier werden alle Zeichen aus
+                                                        // dem Text gelöscht, welche weder
+                                                        // Zahlen, Buchstaben, . oder
+                                                        // Leerzeichen sind Hinweis:
+                                                        // "Reguläre Ausdrücke"
       String[] parts = text.split(" ");
 
       for (int j = 0; j < parts.length; j++) { // Der Textblock wird durchsucht
@@ -32,17 +36,18 @@ public class WordCount {
                                                  // aufgerufen
           findTagNearby(parts, j, i, searchWord, RANGE, numbContSearchWord);
           numbContSearchWord++;
-        }
-        if (!parts[j].equals(" ") && !badWord(parts[j]) && !doescontain(searchWord, parts[j])) { // Wörter
-                                                                                                 // werden
-                                                                                                 // gezählt
-                                                                                                 // und
-                                                                                                 // als
-                                                                                                 // Tag
-                                                                                                 // hinzugefügt
-          tagFrequency.addTagObject(parts[j], i);
-          tagFrequency.getTagByTagName(parts[j]).addPriority(1);
-          numTags++;
+        } else {
+          if (!parts[j].equals(" ") && !badWord(parts[j])) { // Wörter
+                                                             // werden
+                                                             // gezählt
+                                                             // und
+                                                             // als
+                                                             // Tag
+                                                             // hinzugefügt
+            tagFrequency.addTagObject(parts[j], i);
+            tagFrequency.getTagByTagName(parts[j]).addPriority(1);
+            numTags++;
+          }
         }
       }
     }
@@ -109,7 +114,14 @@ public class WordCount {
      * @author Tobias Lenz
      *
      */
-
+    TxtReader tr = new TxtReader();
+    String tmp = "";;
+    try {
+      tmp = tr.readFile("stoplist_de.txt");
+    } catch (IOException e) {
+      System.out.println("Stoplist datei nicht gefunden");
+    }
+    wordList = tmp.split(" ");
     for (int i = 0; i < wordList.length; i++) {
       word.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
       if (word.equalsIgnoreCase(wordList[i])) {

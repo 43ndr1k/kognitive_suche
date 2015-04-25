@@ -31,16 +31,21 @@ public class ApiCognitiveSearch {
     merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
     merge.addInfo(count.getTagFrequency());
 
-   
+
 
     list = merge.getReturnTagList();
-    list.sortTags();
+
+    EditTags edit = new EditTags(list);
+    System.out.println(list.getsize());
+    edit.stem();
+    list = edit.getTags();
+    
+    list.sortTagsByPriority();
     for (int i = 0; i < list.getsize(); i++) {
       System.out.println(list.getTagObject(i).gettag() + " Priority: "
           + list.getTagObject(i).getPriority());
     }
-    EditTags edit = new EditTags(list);
-
+    System.out.println(edit.getTags().getsize());
     return merge.getReturnTagList();
 
   }

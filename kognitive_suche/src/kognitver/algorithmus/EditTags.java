@@ -9,6 +9,10 @@ public class EditTags {
     this.tags = returnTagList;
   }
 
+  public ReturnTagList getTags() {
+    return tags;
+  }
+
   public void stem() {
     // create a new instance of PorterStemmer
     GermanStemmer stemmer = new GermanStemmer();
@@ -22,7 +26,6 @@ public class EditTags {
       if (stemmer.stem()) {
         tags.renameTag(tags.getTagObject(i).gettag(), stemmer.getCurrent());
         // If stemming is successful obtain the stem of the given word
-        System.out.println(stemmer.getCurrent());
       }
     }
   }

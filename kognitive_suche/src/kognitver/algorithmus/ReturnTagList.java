@@ -107,13 +107,13 @@ public class ReturnTagList {
   }
 
   public ArrayList<ReturnTagObject> getTags() {
-    sortTags();
+    sortTagsByPriority();
     return tagObjects;
   }
 /**
  * hier werden die Tags nach Priorität geordnet
  */
-  public void sortTags() {
+  public void sortTagsByPriority() {
     Collections.sort(tagObjects, new ReturnTagListSort());
   }
 }

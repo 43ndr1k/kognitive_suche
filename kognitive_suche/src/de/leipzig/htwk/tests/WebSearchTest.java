@@ -1,5 +1,7 @@
 package de.leipzig.htwk.tests;
 
+import java.util.ArrayList;
+
 import de.leipzig.htwk.websearch.HTMLTools;
 
 public class WebSearchTest {
@@ -9,6 +11,11 @@ public class WebSearchTest {
     String code = test.getHTMLSourceCode("http://openbook.rheinwerk-verlag.de/javainsel/javainsel_05_003.html");
     //System.out.println(code);
     String filtered = test.filterHTML(code);
-    System.out.println(filtered);
+
+    
+  filtered = "bllaaa     bla blaaa     blaa       t";
+    
+    filtered = filtered.replaceAll(" +", " ");
+   System.out.println(filtered);
   }
 }
