@@ -4,10 +4,14 @@ import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
 import de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.tests.VisualTest;
 import de.leipzig.htwk.createJson.CreateJsonDoc;
+import gui.GUI;
 import simple.algorithm.*;
 
 import java.util.ArrayList;
+
+import komplexe.suche.TagObjectList;
 /**
  * @Autor Hendrik Sawade.
  */
@@ -25,6 +29,8 @@ public class Controller {
     private String key,url;
     private Results results;
     private String query;
+    private TagObjectList tags;
+    private GUI gui;
     /**
      * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die  Faroo API URL.
      */
@@ -112,5 +118,30 @@ public class Controller {
         return uebergabe.annahme(this.results);
 
     }
+    
+//    public TagObjectList getTagsVisualtest() {
+//    	VisualTest visual = new VisualTest();
+//    	TagObjectList tags = visual.getTags();
+//    	return tags;
+//    }
+//    
+//    public TagObjectList setTag(TagObjectList Tags){
+//    	this.tags = Tags;
+//    	return tags;
+//    }
+    
+    public void initVisual(){
+    	
+    	//tags = getTagsVisualtest();
+    	VisualTest tmp = new VisualTest();
+        TagObjectList tags = tmp.getTags();
+        
+        gui.startVisual(tags);
+        
+    }
+
+	public void setGUI(GUI gui) {
+		this.gui = gui;
+	}
 }
 
