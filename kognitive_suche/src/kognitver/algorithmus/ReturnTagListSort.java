@@ -5,7 +5,7 @@ import java.util.Comparator;
 /**
  * 
  * @author Tobias Lenz
- *
+ *Hilfsklasse, um die Klasse ReturnTagList vergleichbar zu machen. Dadurch kann sie sortiert werden.
  */
 public class ReturnTagListSort implements Comparator<ReturnTagObject> {
   @Override

@@ -24,7 +24,7 @@ public class ReturnTagList {
 
   public ReturnTagList() {}
 
-  String getsearchword() {
+  public static String getSearchword() {
     return searchword;
   }
 
@@ -115,5 +115,11 @@ public class ReturnTagList {
  */
   public void sortTagsByPriority() {
     Collections.sort(tagObjects, new ReturnTagListSort());
+  }
+  public void testOutput(int num){
+    if(num > tagObjects.size()) num = tagObjects.size();
+    for(int i = 0; i < num; i++){
+      System.out.println(tagObjects.get(i).gettag()+" Priority: "+tagObjects.get(i).getPriority());
+    }
   }
 }

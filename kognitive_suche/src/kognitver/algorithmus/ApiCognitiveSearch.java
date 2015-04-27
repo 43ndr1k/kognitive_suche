@@ -24,10 +24,10 @@ public class ApiCognitiveSearch {
   public ReturnTagList ApiCognitiveSearch(String[] searchText, String searchWord) {
 
     WordCount count = new WordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
-    count.addText(searchText, searchWord);
+    count.analyseText(searchText, searchWord);
 
     AddTagInfos merge = new AddTagInfos(searchWord); // Zusammenführen von Tag-Infos der Analysen
-    double[] function = {-3, 0, 15};
+    double[] function = {-3, 0, 10};
     merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
     merge.addInfo(count.getTagFrequency());
 
@@ -36,18 +36,19 @@ public class ApiCognitiveSearch {
     list = merge.getReturnTagList();
 
     EditTags edit = new EditTags(list);
-    System.out.println(list.getsize());
+    System.out.println("Anzahl der Tags ohne stem-Algorithmus: " + list.getsize());
+    list.sortTagsByPriority();
+    list.testOutput(10); // Testausgabe der top 10 Tags
+    System.out
+        .println("--------------------------------------------------------------------------------------");
     edit.stem();
     list = edit.getTags();
-    
+
     list.sortTagsByPriority();
-    for (int i = 0; i < list.getsize(); i++) {
-      System.out.println(list.getTagObject(i).gettag() + " Priority: "
-          + list.getTagObject(i).getPriority());
-    }
-    System.out.println(edit.getTags().getsize());
+    list.testOutput(10); // Testausgabe der top 10 Tags
+
+    System.out.println("Anzahl der Tags mit stem-Algorithmus: " + edit.getTags().getsize());
     return merge.getReturnTagList();
 
   }
-
 }
