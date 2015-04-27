@@ -69,10 +69,9 @@ public class GUI extends Application {
   @Override
   public void start(Stage stage2) throws Exception {
 
-
-
+	mController.setGUI(this);
     mController.setParameter("de", "web", 1);
-
+    
     // Scene start1 = new Scene(pane1());
     // Scene start1 = new Scene(pane1());
     // start1.setRoot(pane1());
@@ -271,7 +270,11 @@ public class GUI extends Application {
         if (keyEvent.getCode() == KeyCode.ENTER) {
           getData();
           // textfield();
-          startVisual();
+          //startVisual();
+          
+          //Startet nun die Methode initVisual() aus dem Controller
+          mController.initVisual();
+          System.out.println("mController.initVisual() wurde aufgerufen");
         }
       }
 
@@ -284,7 +287,11 @@ public class GUI extends Application {
       public void handle(ActionEvent sucheF) {
         getData();
         // textfield(); /*Ruft die Methode zur Generierung Textfelder auf*/
-        startVisual();
+        //startVisual();
+        
+        //Startet nun die Methode initVisual() aus dem Controller
+        mController.initVisual();
+        System.out.println("mController.initVisual() wurde aufgerufen");
       }
     });
 
@@ -411,26 +418,26 @@ public class GUI extends Application {
   /**
    * @author Fabian Freihube
    */
-  private void startVisual() {
-
+  public void startVisual(TagObjectList Tags) {
     /*
      * das Objekt Tag, welches aus der Klasse visualtest �bernommen wird dient zu Testzwecken und
      * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
      * werden.
      */
+	System.out.println("startVisual Gestartet");
+    
+	//VisualTest tmp = new VisualTest();
 
-    VisualTest tmp = new VisualTest();
-
-    TagObjectList tags = tmp.getTags();
+    //TagObjectList tags = tmp.getTags();
+	TagObjectList tags = Tags;
 
     BorderPane visPane = new BorderPane();
     BorderPane homebuttonPane = new BorderPane();
-    Scene visual = new Scene(visPane);
 
     homebuttonPane.setCenter(goHomeButton());
     homebuttonPane.setStyle("-fx-background-color: #FFF;");
     homebuttonPane.setPrefHeight(windowHeight * 0.15);
-
+    
     VisController visualControler = new VisController();
     visualControler.setPane(visPane);
     visualControler.setQuery(suchleiste.getText());
@@ -440,10 +447,11 @@ public class GUI extends Application {
 
     visPane.setCenter(visualControler.startVisualize(tags));
     visPane.setTop(homebuttonPane);
+    System.out.println("startVisual fertig");
 
-
-
+    Scene visual = new Scene(visPane);
     stage.setScene(visual);
+    System.out.println("scene gesetzt");
 
 
   }
