@@ -37,7 +37,6 @@ import java.util.ArrayList;
  * GUI Erstellung
  *
  * @author Sebastian Hügelmann
- * @version 0.3
  */
 
 public class GUI extends Application {
@@ -64,7 +63,7 @@ public class GUI extends Application {
   /**
    * {@inheritDoc}
    * @exception Exception
-   * @param Stage
+   * @param stage Ist Grundfläche für alle Panes.
    */
   @Override
   public void start(Stage stage2) throws Exception {
@@ -91,6 +90,10 @@ public class GUI extends Application {
 
   /**
    * Methode holt Resultate vom Controller aufgrund des Suchbegriffs 
+   * @author Hendrik Sawade
+   * @param kwic Kurzbeschreibung
+   * @param url Url der jeweiligen Adresse
+   * @param tags Erstellten Tags vom simplen Algorithmus
    */
   private void getData() {
 
@@ -111,6 +114,10 @@ public class GUI extends Application {
   
   /**
    * Methode zeichnet ein Eingabefeld und macht es editierbar für den Benutzer
+   * @author Sebastian Hügelmann
+   * @param anzkat Dummy Integer zur Erstellung der Textfields
+   * @param pane1 Die Grundpane die auf der "stage" liegt. Ist eine BorderPane.
+   * @param pane2 GridPane auf der die Textfields erstellt werden. Wurde durch Visualisierung vispane ersetzt.
    */
   public void textfield() {
     TextArea textfield[] = new TextArea[25];
@@ -181,7 +188,9 @@ public class GUI extends Application {
   
   
 /**
- * _
+ * Methode zur Erstellung des Buttons mit Logo f�r die Rückkehr auf die Startseite.
+ * @author Sebastian Hügelmann
+ * @param stage Ist Grundfläche für alle Panes.
  * @return HBox
  */
   public HBox goHomeButton() {
@@ -211,7 +220,10 @@ public class GUI extends Application {
 
   
   /**
-   * Methode zeichnet die Anfangsszene
+   * Methode zeichnet die Startszene
+   * @author Sebastian Hügelmann
+   * @param pane1 Die Grundpane die auf der "stage" liegt. Ist eine BorderPane.
+   * @param suchleiste Ist das Textfield zur Eingabe des Suchbegriffes.
    * @return Scene
    */
   public Scene drawHomeScreen() {
@@ -311,6 +323,7 @@ public class GUI extends Application {
     });
 
     /**
+     * Soll sp�ter mal die Links aufrufen.
      * @author Sadik Ulusan
      */
     // Auswahl der Sprache mit einer Combobox
@@ -400,27 +413,29 @@ public class GUI extends Application {
     });
 
     // --------------------------------------------------
-    vbox2.getChildren().addAll(btnlanguage[0], btnlanguage[1]); // Vertikalbox f�r Buttons Deutsch
+    vbox2.getChildren().addAll(btnlanguage[0], btnlanguage[1]); // Vertikalbox für Buttons Deutsch
                                                                 // und Englisch
-    vbox3.getChildren().addAll(btnsrc[0], btnsrc[1], btnsrc[2]); // Vertikalbox f�r WEB NEWS und
+    vbox3.getChildren().addAll(btnsrc[0], btnsrc[1], btnsrc[2]); // Vertikalbox für WEB NEWS und
                                                                  // TITLE
     hbox3.getChildren().addAll(vbox2, vbox3); // Die beiden Vertikalboxen von Sprache und Suchart
-                                              // werden in einer Horizontalbox zusammengef�rt
+                                              // werden in einer Horizontalbox zusammengeführt
     hbox1.getChildren().addAll(suchleiste, sucheF, sucheP);
     vbox1.getChildren().addAll(goHomeButton(), hbox1, schrift, hbox3);
     hbox2.getChildren().addAll(close);
-    mController.setParameter(SelectedLanguage[0], Selectedsrc[0], 1); // Parameter�bergabe an den
+    mController.setParameter(SelectedLanguage[0], Selectedsrc[0], 1); // Parameterübergabe an den
                                                                       // Controller - scheint hier
                                                                       // aber nicht zu gehen
     return start;
   }
 
   /**
-   * @author Fabian Freihube
+   * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
+   * @author Fabian Freihube, Sebastian Hügelmann (small Part)
+   * @param stage Ist Grundfläche für alle Panes.
    */
   public void startVisual(TagObjectList Tags) {
     /*
-     * das Objekt Tag, welches aus der Klasse visualtest �bernommen wird dient zu Testzwecken und
+     * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
      * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
      * werden.
      */
@@ -452,8 +467,6 @@ public class GUI extends Application {
     Scene visual = new Scene(visPane);
     stage.setScene(visual);
     System.out.println("scene gesetzt");
-
-
   }
 
 }

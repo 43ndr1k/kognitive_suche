@@ -13,16 +13,16 @@ import java.util.ArrayList;
 
 import komplexe.suche.TagObjectList;
 /**
- * @Autor Hendrik Sawade.
+ * @author Hendrik Sawade
  */
 
 /**
- * Der Controller dient zur Vermittlung. Er wickelt die Kommsunikation zwischen den einzelenen Klassen ab.
+ * Der Controller dient zur Vermittlung. Er wickelt die Kommunikation zwischen den einzelenen Klassen ab.
  */
 public class Controller {
 
     /**
-     * Die Parameter für die weitergabe der einzelden Informationen.
+     * Die Parameter für die Weitergabe der einzelnen Informationen.
      */
     private String language, src;
     private int start = 1;
@@ -32,7 +32,7 @@ public class Controller {
     private TagObjectList tags;
     private GUI gui;
     /**
-     * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die  Faroo API URL.
+     * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
      */
     public Controller() {
         ConfigFileManagement config = new ConfigFileManagement();
@@ -130,6 +130,11 @@ public class Controller {
 //    	return tags;
 //    }
     
+    /**
+     * Methode für den Aufruf der startVisual() Methode in der Klasse GUI.
+     * @author Sebastian Hügelmann
+     * @param gui Nutzt momentanen Status der GUI.
+     */
     public void initVisual(){
     	
     	//tags = getTagsVisualtest();
@@ -139,7 +144,9 @@ public class Controller {
         gui.startVisual(tags);
         
     }
-
+    /**
+     * Methode Gui Setter
+     */
 	public void setGUI(GUI gui) {
 		this.gui = gui;
 	}
