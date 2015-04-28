@@ -13,9 +13,9 @@ public class WebSearchTest {
     String filtered = test.filterHTML(code);
 
     
-  filtered = "bllaaa     bla blaaa     blaa       t";
-    
-    filtered = filtered.replaceAll(" +", " ");
+  //filtered = "bllaaa     bla blaaa     blaa       t";
+  filtered=test.filterHTML(filtered) ;
+   
    System.out.println(filtered);
   }
 }
