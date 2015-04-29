@@ -1,8 +1,6 @@
-package visualize;
+﻿package visualize;
 
 
-
-import com.sun.xml.internal.fastinfoset.util.StringArray;
 
 import cognitive.search.ReturnTagList;
 import de.leipzig.htwk.list.Listenausgabe;
@@ -10,15 +8,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import komplexe.suche.TagObjectList;
-import gui.GUI;
-import java.awt.event.MouseAdapter;
+//import gui.GUI;
+//import java.awt.event.MouseAdapter;
+//import javafx.scene.input.MouseEvent;
 
 /**
  * Generierung des Feldes von Hexagons
