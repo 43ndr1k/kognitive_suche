@@ -1,5 +1,8 @@
 package cognitive.search;
 
+import general.functions.TxtReader;
+
+import java.io.IOException;
 import java.util.ArrayList;
 
 import snowballstemmer.GermanStemmer;
@@ -37,7 +40,7 @@ public class EditTags {
 
   String hallo = "hallo";
 
-  private static String Encoding(String hallo) {
+  public static String Encoding(String hallo) {
 
     char[] content = new char[hallo.length()];
     {
@@ -213,5 +216,22 @@ public class EditTags {
         // If stemming is successful obtain the stem of the given word
       }
     }
+  }
+
+  public void removeTagsFromWordList() {
+    String wordList[];
+    TxtReader tr = new TxtReader();
+    String tmp = "";
+    try {
+      tmp = tr.readFile("stoplist_de.txt");
+    } catch (IOException e) {
+      System.out.println("Stoplist datei nicht gefunden");
+    }
+    wordList = tmp.split("\n");
+
+    for (int i = 0; i < wordList.length; i++) {
+      tags.deleteTag(wordList[i]);
+    }
+
   }
 }

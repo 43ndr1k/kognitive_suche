@@ -37,6 +37,7 @@ public class Controller {
   private String query;
   private ReturnTagList tags;
   private GUI gui;
+  private String searchWord;
 
   /**
    * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
@@ -66,22 +67,21 @@ public class Controller {
    * @param pQuery Suchwort
    * @return Results Liste mit den Ergebnisse.
    */
-  public void queryFaroo(String pQuery) {
+  public void queryFaroo() {
     Api api = new Api(key, url);
-    setQuery(pQuery);
+    setQuery(searchWord);
     try {
       System.out.println("Suche gestartet");
-      Results results = api.query(this.start, pQuery, this.language, src);
+      Results results = api.query(this.start, searchWord, this.language, src);
       setResultList(results);
-      createDocVisual(results, pQuery);
-      beginWebSearch(pQuery);
+
 
     } catch (APIExecption apiExecption) {
       apiExecption.printStackTrace();
     }
   }
 
-  private void beginWebSearch(String searchWord) {
+  private void beginWebSearch() {
 
     String tmp;
     HTMLTools webSearch = new HTMLTools();
@@ -108,8 +108,8 @@ public class Controller {
   }
 
   private void initVisual(ReturnTagList list) {
-   gui.startVisual(list);
-    
+    gui.startVisual(list);
+
   }
 
   /**
@@ -148,15 +148,6 @@ public class Controller {
     return this.query;
   }
 
-  /**
-   * Aufruf der berechnung der Komplexen Suche.
-   * 
-   * @param list Results Liste
-   * @param query Suchwort
-   */
-  private void createDocVisual(Results list, String query) {
-    CreateJsonDoc c = new CreateJsonDoc(query, list);
-  }
 
   /**
    * Methode für den Aufruf der startVisual() Methode in der Klasse GUI.
@@ -169,7 +160,7 @@ public class Controller {
     gui.startVisual(tags);
 
   }
-  
+
 
   /**
    * Methode Gui Setter
@@ -181,5 +172,17 @@ public class Controller {
   public ArrayList<SimAlgTags> getTags() {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  /**
+   * In dieser Funktion werden die Funktionen für eine Suche über Faroo gestartet.
+   * 
+   * @param text - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
+   */
+  public void farooSearch(String searchWord) {
+    this.searchWord = searchWord;
+    queryFaroo();
+    beginWebSearch();
+
   }
 }

@@ -62,7 +62,7 @@ public class ReturnTagObject {
   }
 
   public Double getPriority() {
-     return Math.abs(priority);
+     return priority;
      
   }
 }

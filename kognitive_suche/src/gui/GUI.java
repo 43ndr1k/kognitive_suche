@@ -99,7 +99,7 @@ public class GUI extends Application {
    */
   private void getData() {
 
-    mController.queryFaroo(suchleiste.getText());
+    mController.farooSearch(suchleiste.getText());
     Results r = mController.getResultList();
     for (int i = 0; i < r.getResults().size(); i++) {
       kwic.add(r.getResults().get(i).getKwic());

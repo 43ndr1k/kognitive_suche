@@ -26,7 +26,7 @@ public class ApiCognitiveSearch {
     WordCount count = new WordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
     count.analyseText(searchText, searchWord);
 
-    AddTagInfos merge = new AddTagInfos(searchWord); // Zusammenführen von Tag-Infos der Analysen
+    AddTagInfos merge = new AddTagInfos(); // Zusammenführen von Tag-Infos der Analysen
     double[] function = {-3, 0, 10};
     merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
     merge.addInfo(count.getTagFrequency());
@@ -35,17 +35,32 @@ public class ApiCognitiveSearch {
 
     list = merge.getReturnTagList();
 
+
+
     EditTags edit = new EditTags(list);
-    System.out.println("Anzahl der Tags ohne stem-Algorithmus: " + list.getsize());
+    System.out.println("Anzahl der Tags ohne Algorithmus: " + list.getsize());
     list.sortTagsByPriority();
     list.testOutput(10); // Testausgabe der top 10 Tags
     System.out
         .println("--------------------------------------------------------------------------------------");
-    edit.stem();
+    edit.removeTagsFromWordList();
+    System.out.println("Anzahl Tags mit Entfernen der in der Wortlist enthaltenen Wörter: "
+        + list.getsize());
     list = edit.getTags();
-
+    list.testOutput(10);
+    System.out
+        .println("--------------------------------------------------------------------------------------");
+    edit.stem();
+    System.out.println("Ausgabe der Tags mit Anwendung der Porter-Stemmer-Algorithmus: "
+        + list.getsize());
+    list = edit.getTags();
     list.sortTagsByPriority();
     list.testOutput(10); // Testausgabe der top 10 Tags
+
+    // Hilfe für Steffen
+    // edit.Encoding(searchWord);
+    // list.testOutput(10);
+
 
     System.out.println("Anzahl der Tags mit stem-Algorithmus: " + edit.getTags().getsize());
     return list;

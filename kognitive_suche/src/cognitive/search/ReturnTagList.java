@@ -119,7 +119,7 @@ public class ReturnTagList {
   public void testOutput(int num){
     if(num > tagObjects.size()) num = tagObjects.size();
     for(int i = 0; i < num; i++){
-      System.out.println(tagObjects.get(i).gettag()+" Priority: "+tagObjects.get(i).getPriority());
+      System.out.println(tagObjects.get(i).gettag()+" Priority: "+Math.round(tagObjects.get(i).getPriority()));
     }
   }
 }

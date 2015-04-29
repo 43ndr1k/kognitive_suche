@@ -14,10 +14,6 @@ import java.util.ArrayList;
 public class AddTagInfos {
   private ReturnTagList list;
 
-  public AddTagInfos(String searchWord) {
-    list = new ReturnTagList(searchWord);
-  }
-
   public void addInfo(Tag info) {
     if (info != null) {
       for (int i = 0; i < info.getsize(); i++)
@@ -32,7 +28,6 @@ public class AddTagInfos {
             getFunctionPriority(function, values, i));
     }
   }
-
 
   public void addInfo(ArrayList<Tag> info) {
 
@@ -82,13 +77,9 @@ public class AddTagInfos {
     }
     return 0;
 
-
-
   }
 
   public ReturnTagList getReturnTagList() {
     return list;
   }
-
-
 }
