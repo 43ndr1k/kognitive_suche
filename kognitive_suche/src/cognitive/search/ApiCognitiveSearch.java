@@ -26,16 +26,12 @@ public class ApiCognitiveSearch {
     WordCount count = new WordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
     count.analyseText(searchText, searchWord);
 
-    AddTagInfos merge = new AddTagInfos(); // Zusammenführen von Tag-Infos der Analysen
+    AddTagInfos merge = new AddTagInfos(searchWord); // Zusammenführen von Tag-Infos der Analysen
     double[] function = {-3, 0, 10};
     merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
     merge.addInfo(count.getTagFrequency());
 
-
-
     list = merge.getReturnTagList();
-
-
 
     EditTags edit = new EditTags(list);
     System.out.println("Anzahl der Tags ohne Algorithmus: " + list.getsize());

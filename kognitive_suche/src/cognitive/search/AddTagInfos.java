@@ -14,6 +14,10 @@ import java.util.ArrayList;
 public class AddTagInfos {
   private ReturnTagList list;
 
+  public AddTagInfos(String searchWord) {
+    list = new ReturnTagList(searchWord);
+  }
+
   public void addInfo(Tag info) {
     if (info != null) {
       for (int i = 0; i < info.getsize(); i++)
