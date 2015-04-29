@@ -34,17 +34,14 @@ public class EditTags {
 		  ColognePhonetic.Encoding(pruefgleich.get(i));
 		  ColognePhonetic.CleaningDoubles(pruefgleich.get(i));
 		  ColognePhonetic.CleaningZeroes(pruefgleich.get(i));
-		  
-		  for (int n=0; n<tags.size(); n++){
+	  }
+	   for (int n=0; n<tags.size(); n++){
 			  for (int m=0; m<=tags.size(); m++){
 				  if (pruefgleich.get(n)==pruefgleich.get(m) && n!=m){
 					 //tags.renameTag(tags.get(n), tags.get(m));
 				  }
 			  }
 		  }
-
-	  }
-	  
 	  return tags;
   }
 
