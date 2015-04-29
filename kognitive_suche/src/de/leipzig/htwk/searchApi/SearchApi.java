@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchApi {
@@ -22,7 +23,7 @@ public class SearchApi {
         //?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=Harry%20Potter
 
 
-        unitDriver.get("https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=ente");
+        unitDriver.get("https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=ganz");
 /*
         Sendet die Suchanfrage und klickt auf den Suchbutton
         WebElement query = unitDriver.findElement(By.name("q"));
@@ -53,6 +54,7 @@ public class SearchApi {
             //System.out.println(tt.toString());
         }
 
+
         List<WebElement> test3 = unitDriver.findElements(By.className("url"));
 
         for (WebElement tt : test3) {
@@ -73,6 +75,9 @@ public class SearchApi {
 
         System.out.println("########################################################################################");
 
+        System.out.println(test2.size());
+        System.out.println(test3.size());
+        System.out.println(test4.size());
   /*      WebElement next = unitDriver.findElement(By.className("navbutton"));
         next.click();
         //Thread.sleep(5000);
@@ -88,6 +93,38 @@ public class SearchApi {
 */
     }
 
+    /**
+     * unitDriver lädt die Engerine für die Websuche.
+     */
+    private HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
+
+    /**
+     * URL der Suchmaschine.
+     */
+    private String url;
+
+    /**
+     * Setzt den Tag für den Search Button fest.
+     */
+    String searchButton;
+
+    /**
+     * largeList, urlList, snippetList dienen zur Temporären Speicherung der Suchergebnisse
+     * entsprechen der bedeutung.
+     */
+    List<WebElement> largeList = null;
+    List<WebElement> urlList = null;
+    List<WebElement> snippetList = null;
+
+    /**
+     * Klassen Parameter für large, url und snippet
+     */
+    String largeKasse, urlKlasse, snippetKlasse;
+
+    /**
+     * Wie viele Ergebnisse will man haben
+     */
+    int countResult;
     /**
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
      */
@@ -116,64 +153,159 @@ public class SearchApi {
      * @return Results Liste
      * @throws SearchApiExecption
      */
-    public SearchResults query(String query) throws SearchApiExecption {
+    public ArrayList<Result> query(String query) throws SearchApiExecption {
         query = encoding(query);
-        return Searching(getURL() + "&q=" + query);
+        return searching(getURL() + "&q=" + query);
     }
 
     /**
      *
      * @return url Beinhaltet die URL zu der Suchmaschine.
      */
-    public String getURL(){
-        String url = "https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1";
-        return url;
+    protected String getURL() {
+        return this.url;
     }
 
-    private SearchResults Searching(String url){
+    /**
+     * Setzt die URL für die jeweilige Suchmaschine.
+     * @param url Suchmaschinen URL.
+     */
+    protected void setURL(String url) {
+        this.url = url;
+    }
 
-        HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
+    /**
+     * Kappselt den Suchvorgang.
+     * @param url String zur Suchmaschine, einschließlich des Suchwortes
+     * @return
+     */
+    private ArrayList<Result> searching(String url) {
+
         unitDriver.get(url);
 
-        List<WebElement> test1 = unitDriver.findElements(By.id("links"));
+        ArrayList<Result> results = new ArrayList<Result>();
 
+        for (int i = 0; i < getCountResult();i++) {
 
-        for (WebElement tt : test1) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________################______________");
+            setLargeList(getList(getLargeKasse()));
+            setUrlList(getList(getUrlKlasse()));
+            setSnippetList(getList(getSnippetKlasse()));
+            ArrayList<Result> r = makeResultList();
 
+            for (int j = 0; i < r.size(); j++) {
+                results.add(r.get(j));
+            }
 
-        }
-
-        List<WebElement> test2 = unitDriver.findElements(By.className("large"));
-
-        for (WebElement tt : test2) {
-            System.out.println(tt.getText().toString());
-            System.out.println("??????????????????????");
-
-
-        }
-
-        List<WebElement> test3 = unitDriver.findElements(By.className("url"));
-
-        for (WebElement tt : test3) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
+            moreResults();
 
 
         }
 
-        List<WebElement> test4 = unitDriver.findElements(By.className("snippet"));
-
-        for (WebElement tt : test4) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
-
-
-        }
-        return null;
+        return results;
     }
 
+
+
+    /**
+     * Kümmert sich dadrum das es mehr Suchergebnisse gibt.
+     */
+    protected void moreResults() {
+        WebElement next = unitDriver.findElement(By.className(this.searchButton));
+        next.click();
+    }
+
+    /**
+     * Setzt den Tag Parameter des Such Buttons der jeweiligen Suchmaschine.
+     * @param searchButton Tag des Suchbuttons
+     */
+    protected void setSearchButton(String searchButton) { //"navbutton"
+        this.searchButton = searchButton;
+    }
+
+    /**
+     * Gibt eine Result Liste zurück,mit den Result Objekt.
+     * @return resultList Beinhaltet eine List mit Result Objekten.
+     */
+    private ArrayList<Result> makeResultList() {
+        ArrayList<Result> resultList = new ArrayList<Result>();
+
+        for (int i = 0; i < this.largeList.size();i++) {
+            resultList.add(new Result(
+                    this.largeList.get(i).getText(),
+                    this.snippetList.get(i).getText(),
+                    this.urlList.get(i).getText())
+            );
+        }
+        return resultList;
+    }
+
+    /**
+     * Sucht nach einer bestimmten Kklasse, die man übergibt. Die Klasse wo die Ergennisse drin stehen.
+     * @param className
+     * @return Liste mit den gefundenen Suchergebnissen der angegebenen Klasse.
+     */
+    private List<WebElement> getList(String className) { //"large"
+        List<WebElement> list = unitDriver.findElements(By.className(className));
+        return list;
+    }
+
+
+    protected List<WebElement> getLargeList() {
+        return largeList;
+    }
+
+    protected void setLargeList(List<WebElement> largeList) {
+        this.largeList = largeList;
+    }
+
+    protected List<WebElement> getUrlList() {
+        return urlList;
+    }
+
+    protected void setUrlList(List<WebElement> urlList) {
+        this.urlList = urlList;
+    }
+
+    protected List<WebElement> getSnippetList() {
+        return snippetList;
+    }
+
+    protected void setSnippetList(List<WebElement> snippetList) {
+        this.snippetList = snippetList;
+    }
+
+
+    public String getLargeKasse() {
+        return largeKasse;
+    }
+
+    public void setLargeKasse(String largeKasse) {
+        this.largeKasse = largeKasse;
+    }
+
+    public String getUrlKlasse() {
+        return urlKlasse;
+    }
+
+    public void setUrlKlasse(String urlKlasse) {
+        this.urlKlasse = urlKlasse;
+    }
+
+    public String getSnippetKlasse() {
+        return snippetKlasse;
+    }
+
+    public void setSnippetKlasse(String snippetKlasse) {
+        this.snippetKlasse = snippetKlasse;
+    }
+
+    public int getCountResult() {
+        return countResult;
+    }
+
+    public void setCountResult(int countResult) {
+        this.countResult = countResult;
+    }
 }
 
 

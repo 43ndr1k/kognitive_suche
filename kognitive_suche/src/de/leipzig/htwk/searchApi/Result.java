@@ -15,7 +15,7 @@ public class Result {
 
 
     String title = "", kwic = "";
-    String url = null;
+    String url = "";
 
 
     /**
