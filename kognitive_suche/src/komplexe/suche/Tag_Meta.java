@@ -11,7 +11,9 @@ import de.leipzig.htwk.websearch.HTMLTools;
 
 public class Tag_Meta extends Thread {
 
-  // @author Franz Schwarzer
+  /** @author Franz Schwarzer
+   * 
+   */
 
   String url;
   int urlNumber;

@@ -9,7 +9,9 @@ import java.util.Scanner;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-// @author Franz Schwarzer
+/** @author Franz Schwarzer
+ *
+ */
 
 public class HTMLTools {
 
