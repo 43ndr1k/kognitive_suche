@@ -277,14 +277,8 @@ public class GUI extends Application {
     suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-          getData();
-          // textfield();
-          //startVisual();
-          
-          //Startet nun die Methode initVisual() aus dem Controller
-          mController.initVisual();
-          System.out.println("mController.initVisual() wurde aufgerufen");
+        if (keyEvent.getCode() == KeyCode.ENTER) {   
+          startQuery();
         }
       }
 
@@ -295,13 +289,7 @@ public class GUI extends Application {
     sucheF.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent sucheF) {
-        getData();
-        // textfield(); /*Ruft die Methode zur Generierung Textfelder auf*/
-        //startVisual();
-        
-        //Startet nun die Methode initVisual() aus dem Controller
-       // mController.initVisual();
-        System.out.println("mController.initVisual() wurde aufgerufen");
+        startQuery();
       }
     });
 
@@ -339,7 +327,7 @@ public class GUI extends Application {
     /**
      * @author Christian Schmidt
      */
-    // Label f�r die Suchoptionen
+    // Label für die Suchoptionen
 
     Label label = new Label("Faroo Suchoptionen");
     label.setFont(Font.font("Arial", 14));
@@ -347,7 +335,7 @@ public class GUI extends Application {
     schrift.setAlignment(Pos.CENTER);
     schrift.setPadding(new Insets(-15, 15, 15, 15));
     schrift.setSpacing(10);
-    // Buttons f�r die Suchoptionen
+    // Buttons für die Suchoptionen
     final Button[] btnlanguage = new Button[2];
     btnlanguage[0] = new Button("de");
     btnlanguage[0].setText("German");
@@ -465,6 +453,13 @@ public class GUI extends Application {
     Scene visual = new Scene(visPane);
     stage.setScene(visual);
     System.out.println("scene gesetzt");
+  }
+  
+  private void startQuery() {
+    getData();
+    //Startet nun die Methode initVisual() aus dem Controller
+    System.out.println("mController.initVisual() wurde aufgerufen");
+    mController.initVisual();
   }
 
 }
