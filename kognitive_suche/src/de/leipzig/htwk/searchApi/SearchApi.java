@@ -34,7 +34,7 @@ public class SearchApi {
         System.out.println("Domain name is " + domainName);
 
         // List<WebElement> test = unitDriver.findElements(By.className("links_main links_deep"));
-        List<WebElement> test1 = unitDriver.findElements(By.id("links"));
+      /*  List<WebElement> test1 = unitDriver.findElements(By.id("links"));
         //System.out.println(test);
 
         for (WebElement tt : test1) {
@@ -42,13 +42,13 @@ public class SearchApi {
             System.out.println("_________________________________################______________");
 
             //System.out.println(tt.toString());
-        }
+        }*/
 
         List<WebElement> test2 = unitDriver.findElements(By.className("large"));
 
          for (WebElement tt : test2) {
             System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
+            System.out.println("??????????????????????????????");
 
             //System.out.println(tt.toString());
         }
@@ -88,7 +88,91 @@ public class SearchApi {
 */
     }
 
+    /**
+     * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
+     */
+    private static String[] REPLACEMENTS = { "%", "%25", " ", "%20", "!",
+            "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
+            "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
+            "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
+            "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
 
+    /**
+     * Diese Methode codiert die query nach URL-Envording Richtlien
+     * @param query query
+     * @return url Bearbeitete query String
+     */
+    private String encoding(String query) {
+
+        for (int i = 0; i < REPLACEMENTS.length - 1; i = i + 2) {
+            query = query.replaceAll(REPLACEMENTS[i], REPLACEMENTS[i + 1]);
+        }
+        return query;
+    }
+
+    /**
+     * Anfrage an die Suchmaschine stellen, url wird zusammen gesezt und codiert.
+     * @param query - Suchwort
+     * @return Results Liste
+     * @throws SearchApiExecption
+     */
+    public SearchResults query(String query) throws SearchApiExecption {
+        query = encoding(query);
+        return Searching(getURL() + "&q=" + query);
+    }
+
+    /**
+     *
+     * @return url Beinhaltet die URL zu der Suchmaschine.
+     */
+    public String getURL(){
+        String url = "https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1";
+        return url;
+    }
+
+    private SearchResults Searching(String url){
+
+        HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
+        unitDriver.get(url);
+
+        List<WebElement> test1 = unitDriver.findElements(By.id("links"));
+
+
+        for (WebElement tt : test1) {
+            System.out.println(tt.getText().toString());
+            System.out.println("_________________________________################______________");
+
+
+        }
+
+        List<WebElement> test2 = unitDriver.findElements(By.className("large"));
+
+        for (WebElement tt : test2) {
+            System.out.println(tt.getText().toString());
+            System.out.println("??????????????????????");
+
+
+        }
+
+        List<WebElement> test3 = unitDriver.findElements(By.className("url"));
+
+        for (WebElement tt : test3) {
+            System.out.println(tt.getText().toString());
+            System.out.println("_________________________________");
+
+
+        }
+
+        List<WebElement> test4 = unitDriver.findElements(By.className("snippet"));
+
+        for (WebElement tt : test4) {
+            System.out.println(tt.getText().toString());
+            System.out.println("_________________________________");
+
+
+        }
+        return null;
+    }
 
 }
 
