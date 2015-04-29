@@ -1,5 +1,6 @@
 package visualize;
 
+import cognitive.search.ReturnTagList;
 import de.leipzig.htwk.list.Listenausgabe;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -40,7 +41,7 @@ public class Pattern {
 
   private static Pane visPane;
 
-  private static TagObjectList tags;
+  private static ReturnTagList tags;
 
   /**
    * Generiert das Feld von Hexagons
@@ -48,14 +49,14 @@ public class Pattern {
    * @param paneHeight H�he des Feldes
    * @param paneWidth Breite des Feldes
    * @param query
-   * @param tags
+   * @param tags2
    */
-  public Pattern(int paneHeight, int paneWidth, String query, TagObjectList tags) {
+  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags2) {
     // TODO Auto-generated method stub
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
-    this.tags = tags;
-    this.activePads = tags.getsize();
+    this.tags = tags2;
+    this.activePads = tags2.getsize();
 
     visPane = new Pane();
     visPane.setPrefSize(paneHeight, paneWidth);
@@ -73,7 +74,7 @@ public class Pattern {
     Boolean[][] padMap = createPadMap(rows, columns);
     visPane =
         printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-            tags);
+            tags2);
     // iv
     Button list = new Button("Liste");// liste Button
 
@@ -153,12 +154,12 @@ public class Pattern {
    * @param rows Anazahl der Reihen
    * @param columns Anazahl der Spalten
    * @param visPane Hauptpane auf der die Elemente positioniert werden.
-   * @param tags Tag Obejkt
+   * @param tags2 Tag Obejkt
    * @return visPane mit positionierten Elementen
    */
   private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorection,
-      double oneHexHeight, int rows, int columns, Pane visPane, TagObjectList tags) {
-    int numOfTags = tags.getsize();
+      double oneHexHeight, int rows, int columns, Pane visPane, ReturnTagList tags2) {
+    int numOfTags = tags2.getsize();
 
     for (int y = 0; y < rows; y++) {
       for (int x = 0; x < columns; x++) {
@@ -166,7 +167,7 @@ public class Pattern {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.25), tags.getTagObject(tags.getsize() - numOfTags).gettag());
+                    (x - 0.5), (y - 0.25), tags2.getTagObject(tags2.getsize() - numOfTags).gettag());
             numOfTags--;
           } else
             visPane =
@@ -176,7 +177,7 @@ public class Pattern {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.75), tags.getTagObject(tags.getsize() - numOfTags).gettag());
+                    (x - 0.5), (y - 0.75), tags2.getTagObject(tags2.getsize() - numOfTags).gettag());
             numOfTags--;
           } else
             visPane =

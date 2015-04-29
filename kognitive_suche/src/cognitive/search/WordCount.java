@@ -1,4 +1,4 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
 import general.functions.TxtReader;
 

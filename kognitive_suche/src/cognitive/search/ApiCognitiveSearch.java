@@ -1,4 +1,4 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
 import java.util.ArrayList;
 
@@ -48,7 +48,7 @@ public class ApiCognitiveSearch {
     list.testOutput(10); // Testausgabe der top 10 Tags
 
     System.out.println("Anzahl der Tags mit stem-Algorithmus: " + edit.getTags().getsize());
-    return merge.getReturnTagList();
+    return list;
 
   }
 }

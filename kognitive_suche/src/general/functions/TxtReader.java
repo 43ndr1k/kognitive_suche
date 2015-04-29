@@ -3,7 +3,13 @@ package general.functions;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
+/**
+ * 
+ * @author Tobias Lenz
+ * 
+ * Klasse um einen String aus einer txt-Datei zu bekommen.
+ *
+ */
 public class TxtReader {
 
 

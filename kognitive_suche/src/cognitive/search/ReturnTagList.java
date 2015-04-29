@@ -1,4 +1,4 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
 
 import java.util.ArrayList;

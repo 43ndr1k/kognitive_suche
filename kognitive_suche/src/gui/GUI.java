@@ -33,6 +33,8 @@ import visualize.VisController;
 
 import java.util.ArrayList;
 
+import cognitive.search.ReturnTagList;
+
 /**
  * GUI Erstellung
  *
@@ -105,10 +107,6 @@ public class GUI extends Application {
       url.add(r.getResults().get(i).getUrl());
     }
 
-    ArrayList<SimAlgTags> treffer = mController.getTags();
-    for (int i = 0; i < treffer.size(); i++) {
-      tags.add(treffer.get(i).gettag());
-    }
   }
 
   
@@ -302,7 +300,7 @@ public class GUI extends Application {
         //startVisual();
         
         //Startet nun die Methode initVisual() aus dem Controller
-        mController.initVisual();
+       // mController.initVisual();
         System.out.println("mController.initVisual() wurde aufgerufen");
       }
     });
@@ -343,7 +341,7 @@ public class GUI extends Application {
      */
     // Label f�r die Suchoptionen
 
-    Label label = new Label("Farroo Suchoptionen");
+    Label label = new Label("Faroo Suchoptionen");
     label.setFont(Font.font("Arial", 14));
     HBox schrift = new HBox(label);
     schrift.setAlignment(Pos.CENTER);
@@ -433,7 +431,7 @@ public class GUI extends Application {
    * @author Fabian Freihube, Sebastian Hügelmann (small Part)
    * @param stage Ist Grundfläche für alle Panes.
    */
-  public void startVisual(TagObjectList Tags) {
+  public void startVisual(ReturnTagList list) {
     /*
      * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
      * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
@@ -444,7 +442,7 @@ public class GUI extends Application {
 	//VisualTest tmp = new VisualTest();
 
     //TagObjectList tags = tmp.getTags();
-	TagObjectList tags = Tags;
+	ReturnTagList tags = list;
 
     BorderPane visPane = new BorderPane();
     BorderPane homebuttonPane = new BorderPane();

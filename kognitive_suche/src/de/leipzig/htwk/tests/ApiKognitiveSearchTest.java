@@ -3,10 +3,10 @@ package de.leipzig.htwk.tests;
 
 import java.io.IOException;
 
+import cognitive.search.ApiCognitiveSearch;
+import cognitive.search.ReturnTagList;
 import de.leipzig.htwk.websearch.HTMLTools;
 import general.functions.TxtReader;
-import kognitver.algorithmus.ApiCognitiveSearch;
-import kognitver.algorithmus.ReturnTagList;
 
 public class ApiKognitiveSearchTest {
 
