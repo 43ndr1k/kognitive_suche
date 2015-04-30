@@ -29,8 +29,9 @@ public class ThreadRun {
 	WebSearchThread[] wst;
 
 	public ThreadRun(Results results, String searchword, int anzahlErgebnisse) {
-		
-		Static.pageText=new String[anzahlErgebnisse];
+
+		this.anzahlErgebnisse = anzahlErgebnisse;
+		Static.pageText = new String[anzahlErgebnisse];
 		wst = new WebSearchThread[anzahlErgebnisse];
 
 		for (int i = 0; i < results.getResults().size(); i++) {
@@ -42,7 +43,6 @@ public class ThreadRun {
 
 		while (ready() == false) {
 		}
-		
 
 	}
 
@@ -52,10 +52,11 @@ public class ThreadRun {
 		 */
 
 		for (int i = 0; i < anzahlErgebnisse; i++) {
-			if (wst[i].isAlive() == false) {
+			if (wst[i].isAlive() == true) {
 				return false;
 			}
 		}
+		System.out.println("fertig");
 		return true;
 
 	}
