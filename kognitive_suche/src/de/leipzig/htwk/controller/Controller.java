@@ -7,6 +7,8 @@ import de.leipzig.htwk.faroo.api.Result;
 import de.leipzig.htwk.faroo.api.Results;
 import de.leipzig.htwk.tests.VisualTest;
 import de.leipzig.htwk.websearch.HTMLTools;
+import de.leipzig.htwk.websearch.Static;
+import de.leipzig.htwk.websearch.ThreadRun;
 import de.leipzig.htwk.createJson.CreateJsonDoc;
 import gui.GUI;
 import simple.algorithm.*;
@@ -82,19 +84,22 @@ public class Controller {
   }
 
   private void beginWebSearch() {
-
+	  
+	/**
+	 * @author Franz Schwarzer
+	 */
     String tmp;
     HTMLTools webSearch = new HTMLTools();
-    ArrayList<Result> r = results.getResults();
-    int resultSize = r.size();
+    Results r = results;
+    int resultSize = r.getResults().size();
     String[] searchText = new String[resultSize];
-    for (int i = 0; i < r.size(); i++) {
-
-      tmp = webSearch.getHTMLSourceCode(r.get(i).getUrl());
-
-      searchText[i] = webSearch.filterHTML(tmp);
-    }
-    beginCognitiveSearch(searchText, searchWord);
+    
+    ThreadRun tr = new ThreadRun(r, searchWord,resultSize);
+    String clearPageText[]=new String[resultSize];
+    for(int i=0;i<resultSize;i++){
+    	clearPageText[i]=webSearch.filterHTML(Static.pageText[i]);
+	}
+    beginCognitiveSearch(clearPageText, searchWord);
 
   }
 

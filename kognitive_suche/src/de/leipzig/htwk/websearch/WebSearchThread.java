@@ -43,7 +43,8 @@ public class WebSearchThread extends Thread{
 		  
 		 HTMLTools html=new HTMLTools();
 		 String sc= html.getHTMLSourceCode(url);
-		 String[] mk=html.getMetaKeys(sc);
+		 Static.pageText[urlNumber]=sc;
+		 //String[] mk=html.getMetaKeys(sc);
 		 
 	     return null; 
 
