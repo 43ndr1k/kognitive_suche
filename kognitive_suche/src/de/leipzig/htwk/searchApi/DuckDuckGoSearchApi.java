@@ -3,17 +3,17 @@ package de.leipzig.htwk.searchApi;
 import java.util.ArrayList;
 
 /**
- * Created by hendrik on 29.04.15.
+ * @Autor Hendrik Sawade.
  */
-public class DuckDuckGo extends SearchApi {
+public class DuckDuckGoSearchApi extends SearchApi {
 
 
- //TODO umbenenen zu duck api
+
     ArrayList<Result> resultList;
 
-    public DuckDuckGo(String query, int anzResultCount) throws SearchApiExecption {
+    public DuckDuckGoSearchApi(String query, int anzResultCount) throws SearchApiExecption {
         setURL("https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1");
-        setSearchButton("navbutton");
+        setNextButton("navbutton");
         setCountResult(anzResultCount);
         setLargeKasse("large");
         setUrlKlasse("url");
@@ -27,5 +27,10 @@ public class DuckDuckGo extends SearchApi {
         return results;
     }
 
-
+    //TODO Zählt nicht richtig, berechnung anpassen.
+    @Override
+    public void setCountResult(int countResult) {
+        countResult = (int) Math.ceil(countResult / 30.0);
+        super.setCountResult(countResult);
+    }
 }

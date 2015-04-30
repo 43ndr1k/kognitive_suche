@@ -2,12 +2,16 @@ package de.leipzig.htwk.searchApi;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Autor Hendrik Sawade.
+ */
 public class SearchApi {
 
     /**
@@ -16,6 +20,10 @@ public class SearchApi {
     private HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
 
     /**
+     * Beinhaltet die alle Results als Result Objekte.
+     */
+    ArrayList<Result> resultList = new ArrayList<Result>();
+    /**
      * URL der Suchmaschine.
      */
     private String url;
@@ -23,7 +31,7 @@ public class SearchApi {
     /**
      * Setzt den Tag für den Search Button fest.
      */
-    String searchButton;
+    String nextButton;
 
     /**
      * largeList, urlList, snippetList dienen zur Temporären Speicherung der Suchergebnisse
@@ -96,65 +104,64 @@ public class SearchApi {
      * @param url String zur Suchmaschine, einschließlich des Suchwortes
      * @return
      */
-    private ArrayList<Result> searching(String url) {
 
-        unitDriver.get(url);
+    private ArrayList<Result> searching(String url) throws SearchApiExecption {
 
-        //TODO global setzten, for schleifen entfernen.
-        ArrayList<Result> results = new ArrayList<Result>();
-
-        for (int i = 0; i < getCountResult();i++) {
-
-            setLargeList(getList(getLargeKasse()));
-            setUrlList(getList(getUrlKlasse()));
-            setSnippetList(getList(getSnippetKlasse()));
-            ArrayList<Result> r = makeResultList();
-
-            for (int j = 0; j < r.size(); j++) {
-                results.add(r.get(j));
-            }
-
-            moreResults();
-
-
+        try {
+            unitDriver.get(url);
+        } catch (WebDriverException ioe) {
+            ioe.printStackTrace();
         }
 
-        return results;
+        try {
+            for (int i = 0; i < getCountResult(); i++) {
+                setLargeList(getList(getLargeKasse()));
+                setUrlList(getList(getUrlKlasse()));
+                setSnippetList(getList(getSnippetKlasse()));
+                makeResultList();
+                moreResults();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new SearchApiExecption("Beim erstellen der Ergebnis Liste ist ein Fehler aufgetreten");
+        }
+        return this.resultList;
     }
-
-
 
     /**
      * Kümmert sich dadrum das es mehr Suchergebnisse gibt.
      */
-    protected void moreResults() {
-        WebElement next = unitDriver.findElement(By.className(this.searchButton));
-        next.click();
+    protected void moreResults() throws SearchApiExecption {
+        try {
+            WebElement next = unitDriver.findElement(By.className(this.nextButton));
+            next.click();
+        } catch (WebDriverException e) {
+            e.printStackTrace();
+            throw new SearchApiExecption("Fehler bei klicken des next Buttons");
+        }
     }
 
     /**
      * Setzt den Tag Parameter des Such Buttons der jeweiligen Suchmaschine.
-     * @param searchButton Tag des Suchbuttons
+     * @param nextButton Tag des Suchbuttons
      */
-    protected void setSearchButton(String searchButton) {
-        this.searchButton = searchButton;
+    protected void setNextButton(String nextButton) {
+        this.nextButton = nextButton;
     }
 
     /**
      * Gibt eine Result Liste zurück,mit den Result Objekt.
      * @return resultList Beinhaltet eine List mit Result Objekten.
      */
-    private ArrayList<Result> makeResultList() {
-        ArrayList<Result> resultList = new ArrayList<Result>();
-
+    private void makeResultList() {
         for (int i = 0; i < this.largeList.size();i++) {
-            resultList.add(new Result(
+            this.resultList.add(new Result(
                     this.largeList.get(i).getText(),
                     this.snippetList.get(i).getText(),
                     this.urlList.get(i).getText())
             );
         }
-        return resultList;
+
     }
 
     /**
@@ -162,8 +169,16 @@ public class SearchApi {
      * @param className
      * @return Liste mit den gefundenen Suchergebnissen der angegebenen Klasse.
      */
-    private List<WebElement> getList(String className) { //"large"
-        List<WebElement> list = unitDriver.findElements(By.className(className));
+    private List<WebElement> getList(String className) throws SearchApiExecption {
+        List<WebElement> list = null;
+        try {
+
+            list = unitDriver.findElements(By.className(className));
+
+        } catch (WebDriverException e) {
+            e.printStackTrace();
+            throw new SearchApiExecption("Bei dem suchen von Ergebnissen, in den Tags, ist ein Fehler aufgetreten.");
+        }
         return list;
     }
 
@@ -191,7 +206,6 @@ public class SearchApi {
     protected void setSnippetList(List<WebElement> snippetList) {
         this.snippetList = snippetList;
     }
-
 
     public String getLargeKasse() {
         return largeKasse;
@@ -222,7 +236,6 @@ public class SearchApi {
     }
 
     public void setCountResult(int countResult) {
-        countResult = Math.round((countResult / 30));
         this.countResult = countResult;
     }
 }

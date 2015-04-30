@@ -19,13 +19,6 @@ public class SearchApiExecption extends Exception {
     }
 
     /**
-     * Eine Exeption die sagt, dass die result Liste leer ist.
-     */
-    public SearchApiExecption() {
-        super("Result Liste ist leer");
-    }
-
-    /**
      * Nimmt den Fehlercode an und sendet ihnan super weiter.
      * @param wort
      */
