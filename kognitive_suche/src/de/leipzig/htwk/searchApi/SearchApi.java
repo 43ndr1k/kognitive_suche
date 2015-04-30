@@ -9,89 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchApi {
-    public static void main(String[] args) throws InterruptedException {
-        // Create a new instance of the html unit driver
-        // Notice that the remainder of the code relies on the interface,
-
-
-
-        // Declaring and initialising the HtmlUnitWebDriver
-        HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
-
-        //unitDriver.setJavascriptEnabled(true);
-
-        //?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=Harry%20Potter
-
-
-        unitDriver.get("https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=ganz");
-/*
-        Sendet die Suchanfrage und klickt auf den Suchbutton
-        WebElement query = unitDriver.findElement(By.name("q"));
-        query.sendKeys("ente");
-        query.submit();*/
-
-
-        String domainName = unitDriver.getTitle();
-        System.out.println("Domain name is " + domainName);
-
-        // List<WebElement> test = unitDriver.findElements(By.className("links_main links_deep"));
-      /*  List<WebElement> test1 = unitDriver.findElements(By.id("links"));
-        //System.out.println(test);
-
-        for (WebElement tt : test1) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________################______________");
-
-            //System.out.println(tt.toString());
-        }*/
-
-        List<WebElement> test2 = unitDriver.findElements(By.className("large"));
-
-         for (WebElement tt : test2) {
-            System.out.println(tt.getText().toString());
-            System.out.println("??????????????????????????????");
-
-            //System.out.println(tt.toString());
-        }
-
-
-        List<WebElement> test3 = unitDriver.findElements(By.className("url"));
-
-        for (WebElement tt : test3) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
-
-            //System.out.println(tt.toString());
-        }
-
-        List<WebElement> test4 = unitDriver.findElements(By.className("snippet"));
-
-        for (WebElement tt : test4) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
-
-            //System.out.println(tt.toString());
-        }
-
-        System.out.println("########################################################################################");
-
-        System.out.println(test2.size());
-        System.out.println(test3.size());
-        System.out.println(test4.size());
-  /*      WebElement next = unitDriver.findElement(By.className("navbutton"));
-        next.click();
-        //Thread.sleep(5000);
-
-        List<WebElement> test2 = unitDriver.findElements(By.id("links_wrapper"));
-        //System.out.println(test);
-
-        for (WebElement tt : test2) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
-            System.out.println(tt.toString());
-        }
-*/
-    }
 
     /**
      * unitDriver lädt die Engerine für die Websuche.
@@ -192,7 +109,7 @@ public class SearchApi {
             setSnippetList(getList(getSnippetKlasse()));
             ArrayList<Result> r = makeResultList();
 
-            for (int j = 0; i < r.size(); j++) {
+            for (int j = 0; j < r.size(); j++) {
                 results.add(r.get(j));
             }
 
@@ -218,7 +135,7 @@ public class SearchApi {
      * Setzt den Tag Parameter des Such Buttons der jeweiligen Suchmaschine.
      * @param searchButton Tag des Suchbuttons
      */
-    protected void setSearchButton(String searchButton) { //"navbutton"
+    protected void setSearchButton(String searchButton) {
         this.searchButton = searchButton;
     }
 
@@ -304,11 +221,96 @@ public class SearchApi {
     }
 
     public void setCountResult(int countResult) {
+        countResult = Math.round((countResult / 30));
         this.countResult = countResult;
     }
 }
 
 
+
+/*  public static void main(String[] args) throws InterruptedException {
+        // Create a new instance of the html unit driver
+        // Notice that the remainder of the code relies on the interface,
+
+
+
+        // Declaring and initialising the HtmlUnitWebDriver
+        HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
+
+        //unitDriver.setJavascriptEnabled(true);
+
+        //?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=Harry%20Potter
+
+
+        unitDriver.get("https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=ganz");
+*//*
+        Sendet die Suchanfrage und klickt auf den Suchbutton
+        WebElement query = unitDriver.findElement(By.name("q"));
+        query.sendKeys("ente");
+        query.submit();*//*
+
+
+        String domainName = unitDriver.getTitle();
+        System.out.println("Domain name is " + domainName);
+
+        // List<WebElement> test = unitDriver.findElements(By.className("links_main links_deep"));
+      *//*  List<WebElement> test1 = unitDriver.findElements(By.id("links"));
+        //System.out.println(test);
+
+        for (WebElement tt : test1) {
+            System.out.println(tt.getText().toString());
+            System.out.println("_________________________________################______________");
+
+            //System.out.println(tt.toString());
+        }*//*
+
+        List<WebElement> test2 = unitDriver.findElements(By.className("large"));
+
+         for (WebElement tt : test2) {
+            System.out.println(tt.getText().toString());
+            System.out.println("??????????????????????????????");
+
+            //System.out.println(tt.toString());
+        }
+
+
+        List<WebElement> test3 = unitDriver.findElements(By.className("url"));
+
+        for (WebElement tt : test3) {
+            System.out.println(tt.getText().toString());
+            System.out.println("_________________________________");
+
+            //System.out.println(tt.toString());
+        }
+
+        List<WebElement> test4 = unitDriver.findElements(By.className("snippet"));
+
+        for (WebElement tt : test4) {
+            System.out.println(tt.getText().toString());
+            System.out.println("_________________________________");
+
+            //System.out.println(tt.toString());
+        }
+
+        System.out.println("########################################################################################");
+
+        System.out.println(test2.size());
+        System.out.println(test3.size());
+        System.out.println(test4.size());
+  *//*      WebElement next = unitDriver.findElement(By.className("navbutton"));
+        next.click();
+        //Thread.sleep(5000);
+
+        List<WebElement> test2 = unitDriver.findElements(By.id("links_wrapper"));
+        //System.out.println(test);
+
+        for (WebElement tt : test2) {
+            System.out.println(tt.getText().toString());
+            System.out.println("_________________________________");
+            System.out.println(tt.toString());
+        }
+*//*
+    }*/
 
 
 //-------------
