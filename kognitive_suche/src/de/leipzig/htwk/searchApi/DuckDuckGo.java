@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class DuckDuckGo extends SearchApi {
 
 
-
+ //TODO umbenenen zu duck api
     ArrayList<Result> resultList;
 
     public DuckDuckGo(String query, int anzResultCount) throws SearchApiExecption {

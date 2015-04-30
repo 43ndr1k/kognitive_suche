@@ -100,6 +100,7 @@ public class SearchApi {
 
         unitDriver.get(url);
 
+        //TODO global setzten, for schleifen entfernen.
         ArrayList<Result> results = new ArrayList<Result>();
 
         for (int i = 0; i < getCountResult();i++) {
