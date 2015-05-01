@@ -1,6 +1,7 @@
 package visualize;
 
 
+import cognitive.search.ReturnTagList;
 import javafx.scene.layout.Pane;
 import komplexe.suche.TagObjectList;
 
@@ -43,7 +44,7 @@ public class VisController {
    * @param tags Tag Objekt
    * @return Pane mit positionierten Objekten
    */
-  public Pane startVisualize(TagObjectList tags) {
+  public Pane startVisualize(ReturnTagList tags) {
     Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags);
 
     return pattern.getPane();

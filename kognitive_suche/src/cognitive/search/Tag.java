@@ -1,4 +1,4 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
 import java.util.ArrayList;
 
@@ -37,4 +37,18 @@ public class Tag {
     return tags.size();
   }
 
+
+  /**prüfen, ob ein Buchstabe in der Liste der Gruppen des Kölner Phonetik Algorithmus enthalten ist.
+   * @author Steffen Schreiber
+   */ 
+  
+static boolean contains(char c, char[] array) {
+    for (char x : array) {
+        if (x == c) {
+            return true;
+        }
+    }
+    return false;
 }
+}
+

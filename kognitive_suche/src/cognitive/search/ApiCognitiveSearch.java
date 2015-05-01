@@ -1,4 +1,4 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
 import java.util.ArrayList;
 
@@ -31,24 +31,35 @@ public class ApiCognitiveSearch {
     merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
     merge.addInfo(count.getTagFrequency());
 
-
-
     list = merge.getReturnTagList();
 
     EditTags edit = new EditTags(list);
-    System.out.println("Anzahl der Tags ohne stem-Algorithmus: " + list.getsize());
+    System.out.println("Anzahl der Tags ohne Algorithmus: " + list.getsize());
     list.sortTagsByPriority();
     list.testOutput(10); // Testausgabe der top 10 Tags
     System.out
         .println("--------------------------------------------------------------------------------------");
-    edit.stem();
+    edit.removeTagsFromWordList();
+    System.out.println("Anzahl Tags mit Entfernen der in der Wortlist enthaltenen Wörter: "
+        + list.getsize());
     list = edit.getTags();
-
+    list.testOutput(10);
+    System.out
+        .println("--------------------------------------------------------------------------------------");
+    edit.stem();
+    System.out.println("Ausgabe der Tags mit Anwendung der Porter-Stemmer-Algorithmus: "
+        + list.getsize());
+    list = edit.getTags();
     list.sortTagsByPriority();
     list.testOutput(10); // Testausgabe der top 10 Tags
 
+    // Hilfe für Steffen
+    // edit.Encoding(searchWord);
+    // list.testOutput(10);
+
+
     System.out.println("Anzahl der Tags mit stem-Algorithmus: " + edit.getTags().getsize());
-    return merge.getReturnTagList();
+    return list;
 
   }
 }

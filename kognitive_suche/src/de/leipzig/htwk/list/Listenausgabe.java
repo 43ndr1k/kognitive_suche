@@ -44,7 +44,7 @@ public class Listenausgabe {
 	}
 	
 	public Listenausgabe(String query){
-		mController.queryFaroo(query);
+		mController.farooSearch(query);
 		Results r = mController.getResultList();
 		for(int i = 0; i < r.getResults().size(); i++) {
 			kwic.add(r.getResults().get(i).getKwic());

@@ -1,4 +1,4 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
 
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class ReturnTagObject {
   }
 
   public Double getPriority() {
-     return Math.abs(priority);
+     return priority;
      
   }
 }

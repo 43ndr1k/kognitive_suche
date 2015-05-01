@@ -3,10 +3,10 @@ package de.leipzig.htwk.tests;
 
 import java.io.IOException;
 
+import cognitive.search.ApiCognitiveSearch;
+import cognitive.search.ReturnTagList;
 import de.leipzig.htwk.websearch.HTMLTools;
 import general.functions.TxtReader;
-import kognitver.algorithmus.ApiCognitiveSearch;
-import kognitver.algorithmus.ReturnTagList;
 
 public class ApiKognitiveSearchTest {
 
@@ -20,9 +20,10 @@ public class ApiKognitiveSearchTest {
 
 
     ApiCognitiveSearch test = new ApiCognitiveSearch();
-    String[] text = getTest();
+    //String[] text = getTest();
     zstVorher = System.currentTimeMillis();
-    test.ApiCognitiveSearch(text, "Sigma Sport");
+    String[] texet = {"Test","Test"};
+    test.ApiCognitiveSearch(texet, "Sigma Sport");
     zstNachher = System.currentTimeMillis();
     System.out.println("Zeit benötigt: Kognitiver Algorithmus: "
         + ((zstNachher - zstVorher)) + " millisec");
@@ -43,14 +44,13 @@ public class ApiKognitiveSearchTest {
 
   private static String[] getTest() {
     String[] url =
-        {"http://www.sigma-foto.de/home.html", "http://www.sigmasport.de/de/startseite/?flash=1",
+        {   "http://www.sigma-foto.de/home.html", "http://www.sigmasport.de/de/startseite/?flash=1",
             "https://www.sigmaaldrich.com/", "http://de.wikipedia.org/wiki/Sigma",
-            "http://www.sigmasport.com/de/produkte/pulscomputer/running_computer/rc_1411/?flash=1",
             "http://www.sigmaphoto.com/"
-
         };
     HTMLTools web = new HTMLTools();
     String tmp;
+    System.out.println(url.length);
     for (int i = 0; i < url.length; i++) {
       long zstVorher;
       long zstNachher;

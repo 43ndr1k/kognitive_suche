@@ -276,7 +276,7 @@ public class Gui extends Application {
     private Controller Controller = new Controller();
     private void searching(String what, String language, String q, int start){
         Controller.setParameter(language,what,start);
-        Controller.queryFaroo(q);
+        Controller.farooSearch(q);
     }
 
 }

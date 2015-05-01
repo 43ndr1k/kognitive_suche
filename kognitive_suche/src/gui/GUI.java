@@ -33,6 +33,8 @@ import visualize.VisController;
 
 import java.util.ArrayList;
 
+import cognitive.search.ReturnTagList;
+
 /**
  * GUI Erstellung
  *
@@ -97,7 +99,7 @@ public class GUI extends Application {
    */
   private void getData() {
 
-    mController.queryFaroo(suchleiste.getText());
+    mController.farooSearch(suchleiste.getText());
     Results r = mController.getResultList();
     for (int i = 0; i < r.getResults().size(); i++) {
       kwic.add(r.getResults().get(i).getKwic());
@@ -105,10 +107,6 @@ public class GUI extends Application {
       url.add(r.getResults().get(i).getUrl());
     }
 
-    ArrayList<SimAlgTags> treffer = mController.getTags();
-    for (int i = 0; i < treffer.size(); i++) {
-      tags.add(treffer.get(i).gettag());
-    }
   }
 
   
@@ -279,14 +277,8 @@ public class GUI extends Application {
     suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-          getData();
-          // textfield();
-          //startVisual();
-          
-          //Startet nun die Methode initVisual() aus dem Controller
-          mController.initVisual();
-          System.out.println("mController.initVisual() wurde aufgerufen");
+        if (keyEvent.getCode() == KeyCode.ENTER) {   
+          startQuery();
         }
       }
 
@@ -297,13 +289,7 @@ public class GUI extends Application {
     sucheF.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent sucheF) {
-        getData();
-        // textfield(); /*Ruft die Methode zur Generierung Textfelder auf*/
-        //startVisual();
-        
-        //Startet nun die Methode initVisual() aus dem Controller
-        mController.initVisual();
-        System.out.println("mController.initVisual() wurde aufgerufen");
+        startQuery();
       }
     });
 
@@ -341,15 +327,15 @@ public class GUI extends Application {
     /**
      * @author Christian Schmidt
      */
-    // Label f�r die Suchoptionen
+    // Label für die Suchoptionen
 
-    Label label = new Label("Farroo Suchoptionen");
+    Label label = new Label("Faroo Suchoptionen");
     label.setFont(Font.font("Arial", 14));
     HBox schrift = new HBox(label);
     schrift.setAlignment(Pos.CENTER);
     schrift.setPadding(new Insets(-15, 15, 15, 15));
     schrift.setSpacing(10);
-    // Buttons f�r die Suchoptionen
+    // Buttons für die Suchoptionen
     final Button[] btnlanguage = new Button[2];
     btnlanguage[0] = new Button("de");
     btnlanguage[0].setText("German");
@@ -433,7 +419,7 @@ public class GUI extends Application {
    * @author Fabian Freihube, Sebastian Hügelmann (small Part)
    * @param stage Ist Grundfläche für alle Panes.
    */
-  public void startVisual(TagObjectList Tags) {
+  public void startVisual(ReturnTagList list) {
     /*
      * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
      * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
@@ -444,7 +430,7 @@ public class GUI extends Application {
 	//VisualTest tmp = new VisualTest();
 
     //TagObjectList tags = tmp.getTags();
-	TagObjectList tags = Tags;
+	ReturnTagList tags = list;
 
     BorderPane visPane = new BorderPane();
     BorderPane homebuttonPane = new BorderPane();
@@ -467,6 +453,13 @@ public class GUI extends Application {
     Scene visual = new Scene(visPane);
     stage.setScene(visual);
     System.out.println("scene gesetzt");
+  }
+  
+  private void startQuery() {
+    getData();
+    //Startet nun die Methode initVisual() aus dem Controller
+    System.out.println("mController.initVisual() wurde aufgerufen");
+    mController.initVisual();
   }
 
 }

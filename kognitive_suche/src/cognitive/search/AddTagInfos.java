@@ -1,4 +1,4 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,6 @@ public class AddTagInfos {
             getFunctionPriority(function, values, i));
     }
   }
-
 
   public void addInfo(ArrayList<Tag> info) {
 
@@ -82,13 +81,9 @@ public class AddTagInfos {
     }
     return 0;
 
-
-
   }
 
   public ReturnTagList getReturnTagList() {
     return list;
   }
-
-
 }

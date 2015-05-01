@@ -1,6 +1,5 @@
-package kognitver.algorithmus;
+package cognitive.search;
 
-import general.functions.TxtReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,10 +16,9 @@ public class WordCount {
   public void analyseText(String[] searchText, String searchWord) {
 
 
-    int numTags = 0;
     int numbContSearchWord = 0; // Anzahl der im Text enthaltenen Suchwörter
 
-   // readWordList();
+    // readWordList();
 
     for (int i = 0; i < searchText.length; i++) { // Alle Textblöcke werden nacheinander durchsucht
 
@@ -48,7 +46,6 @@ public class WordCount {
                                                               // hinzugefügt
             tagFrequency.addTagObject(parts[j], i);
             tagFrequency.getTagByTagName(parts[j]).addPriority(1);
-            numTags++;
           }
         }
       }
@@ -56,19 +53,7 @@ public class WordCount {
 
   }
 
-  /**
- * 
- */
-  private void readWordList() {
-    TxtReader tr = new TxtReader();
-    String tmp = "";
-    try {
-      tmp = tr.readFile("stoplist_de.txt");
-    } catch (IOException e) {
-      System.out.println("Stoplist datei nicht gefunden");
-    }
-    wordList = tmp.split("\n");
-  }
+
 
   private void findTagNearby(String[] parts, int j, int i, String searchWord, int numbContSearchWord) {
     {
