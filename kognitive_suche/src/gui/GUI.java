@@ -29,6 +29,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import komplexe.suche.TagObjectList;
 import simple.algorithm.SimAlgTags;
+import visualize.Pattern;
 import visualize.VisController;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class GUI extends Application {
   // private Scene start1 = new Scene(pane1);
   private int anzkat = 10;
 
-  final TextField suchleiste = new TextField(); /* DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO */
+  TextField suchleiste = new TextField(); /* DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO */
 
   public static void main(String[] args) {
     launch(args);
@@ -97,17 +98,17 @@ public class GUI extends Application {
    * @param url Url der jeweiligen Adresse
    * @param tags Erstellten Tags vom simplen Algorithmus
    */
-  private void getData() {
-
-    mController.farooSearch(suchleiste.getText());
-    Results r = mController.getResultList();
-    for (int i = 0; i < r.getResults().size(); i++) {
-      kwic.add(r.getResults().get(i).getKwic());
-      // title.add(r.getResults().get(i).getTitle());
-      url.add(r.getResults().get(i).getUrl());
-    }
-
-  }
+//  private void getData() {
+//
+//    mController.farooSearch(suchleiste.getText());
+//    Results r = mController.getResultList();
+//    for (int i = 0; i < r.getResults().size(); i++) {
+//      kwic.add(r.getResults().get(i).getKwic());
+//      // title.add(r.getResults().get(i).getTitle());
+//      url.add(r.getResults().get(i).getUrl());
+//    }
+//
+//  }
 
   
   /**
@@ -309,7 +310,7 @@ public class GUI extends Application {
     });
 
     /**
-     * Soll sp�ter mal die Links aufrufen.
+     * Soll später mal die Links aufrufen.
      * @author Sadik Ulusan
      */
     // Auswahl der Sprache mit einer Combobox
@@ -454,12 +455,34 @@ public class GUI extends Application {
     stage.setScene(visual);
     System.out.println("scene gesetzt");
   }
-  
-  private void startQuery() {
-    getData();
+ 
+  /**
+   * Diese Methode startet die Suche aus dem Controller sowie die Visualisierung aus dem VisController
+   * @param suchleiste Holt sich den Text aus dem Textfield "suchleiste".
+   */
+  public void startQuery() {
+    //getData();
+    System.out.println("GUI Suchleiste.getText(): "+suchleiste.getText());
+    mController.farooSearch(suchleiste.getText());
+    System.out.println("mController.farooSearch(suchleiste.getText()) wurde aufgerufen");
     //Startet nun die Methode initVisual() aus dem Controller
     System.out.println("mController.initVisual() wurde aufgerufen");
     mController.initVisual();
   }
 
+  public void setSuchleiste(TextField suchleiste) {
+    this.suchleiste = suchleiste;
+  }
+  
+  public void setSuchleisteText(String suchleiste){
+    this.suchleiste.setText(suchleiste);
+    System.out.println(suchleiste);
+    System.out.println("Übergebens Label"+ this.suchleiste.getText());
+  }
+
+  public GUI getGUI() {
+    // TODO Auto-generated method stub
+    return this;
+  }
+  
 }

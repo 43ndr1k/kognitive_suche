@@ -13,10 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import komplexe.suche.TagObjectList;
-//import gui.GUI;
-//import java.awt.event.MouseAdapter;
-//import javafx.scene.input.MouseEvent;
+import gui.GUI;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Generierung des Feldes von Hexagons
@@ -51,7 +49,7 @@ public class Pattern {
   /**
    * @author Sebastian Hügelmann
    */
-//  private GUI gui;
+  private GUI gui;
 //  private String[] labelQueryArray = new String[maxTags];
 //  private int labelQueryArrayCounter=0;
 
@@ -61,14 +59,14 @@ public class Pattern {
    * @param paneHeight Höhe des Feldes
    * @param paneWidth Breite des Feldes
    * @param query
-   * @param tags2
+   * @param tags
    */
-  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags2) {
+  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags) {
     // TODO Auto-generated method stub
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
-    this.tags = tags2;
-    this.activePads = tags2.getsize();
+    this.tags = tags;
+    this.activePads = tags.getsize();
 
     visPane = new Pane();
     visPane.setPrefSize(paneHeight, paneWidth);
@@ -77,7 +75,7 @@ public class Pattern {
     double oneHexWidth = getHexWidth();
     double columnCorrection = getColumnCorrection(oneHexHeight);
 
-    // Berechnung der Zeilen und Spaltenanzahl in Abh�ngigkeit von Fenstergr��e und PadSize
+    // Berechnung der Zeilen und Spaltenanzahl in Abhängigkeit von Fenstergröße und PadSize
     int rows = getRows(oneHexHeight);
     int columns = getColumns(oneHexWidth, columnCorrection);
 
@@ -86,7 +84,7 @@ public class Pattern {
     Boolean[][] padMap = createPadMap(rows, columns);
     visPane =
         printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-            tags2);
+            tags);
     // iv
     Button list = new Button("Liste");// liste Button
 
@@ -201,7 +199,6 @@ public class Pattern {
     /**
      * @author Sebastian Hügelmann
      */
-//    labelQueryArrayCounter=0;
     return visPane;
 
   }
@@ -260,13 +257,12 @@ public class Pattern {
     Pad pad = null;
     StackPane padPane = new StackPane();
     StackPane exPadPane = new StackPane();
-    Pane linkPane = genLinkPane();
-    
+    Pane linkPane = genLinkPane(); 
     
     /**
      * @author Sebastian Hügelmann
      */
-    //String testlabel = "baum";
+    String testlabel = "baum";
     //labelQueryArray[labelQueryArrayCounter]=labelText;
     
     Label smallTopicLabel = new Label(labelText);
@@ -314,16 +310,18 @@ public class Pattern {
     /**
      * @author Sebastian Hügelmann
      */
-//    exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//      @Override
-//      public void handle(MouseEvent event) {
-//          System.out.println("Hallo");
-//          //System.out.println(labelQueryArray[labelQueryArrayCounter]);
-//          //System.out.println("Counter:"+labelQueryArrayCounter);
-//          gui.startQuery(testlabel);
-//      }
-//    });
-//    labelQueryArrayCounter++;
+    exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+          System.out.println("Hallo");
+          //System.out.println(labelQueryArray[labelQueryArrayCounter]);
+          //System.out.println("Counter:"+labelQueryArrayCounter);
+          System.out.println(testlabel);
+          gui.getGUI().setSuchleisteText(testlabel);
+          gui.getGUI().startQuery();
+      }
+    });
+    //labelQueryArrayCounter++;
 
     return visPane;
   }
@@ -399,8 +397,4 @@ public class Pattern {
   /**
    * @author Sebastian Hügelmann
    */
-//  public void setGUI(GUI gui) {
-//    this.gui = gui;
-//  }
-
 }
