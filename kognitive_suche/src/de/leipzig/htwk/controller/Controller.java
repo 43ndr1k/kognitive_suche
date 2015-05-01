@@ -5,6 +5,9 @@ import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
 import de.leipzig.htwk.faroo.api.Result;
 import de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
+import de.leipzig.htwk.searchApi.SearchApiExecption;
+import de.leipzig.htwk.searchApi.SearchResults;
 import de.leipzig.htwk.tests.VisualTest;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
@@ -13,6 +16,7 @@ import de.leipzig.htwk.createJson.CreateJsonDoc;
 import gui.GUI;
 import simple.algorithm.*;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import cognitive.search.ApiCognitiveSearch;
@@ -36,7 +40,6 @@ public class Controller {
   private int start = 1;
   private String key, url;
   private Results results;
-  private String query;
   private ReturnTagList tags;
   private GUI gui;
   private String searchWord;
@@ -66,7 +69,7 @@ public class Controller {
   /**
    * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
    * 
-   * @param pQuery Suchwort
+   * @param searchWord Suchwort
    * @return Results Liste mit den Ergebnisse.
    */
   public void queryFaroo() {
@@ -143,16 +146,16 @@ public class Controller {
    * @param query query
    */
   private void setQuery(String query) {
-    this.query = query;
+    this.searchWord = query;
   }
 
   /**
    * Gibt das Suchwort zurück.
    * 
-   * @return query
+   * @return searchWord
    */
   public String getQuery() {
-    return this.query;
+    return this.searchWord;
   }
 
 
@@ -186,10 +189,27 @@ public class Controller {
    * 
    * @param text - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
    */
-  public void farooSearch(String searchWord) {
+  public void farooSearch(String searchWord)  {
     this.searchWord = searchWord;
+    try {
+      duckDuckGoSearch();
+    } catch (SearchApiExecption searchApiExecption) {
+      searchApiExecption.printStackTrace();
+    } catch (MalformedURLException e) {
+      e.printStackTrace();
+    }
     queryFaroo();
     beginWebSearch();
 
   }
+
+  /**
+   *
+   * @return searchResults Liste mit den Ergebnissen aus der DuckDuckGo Suchmaschine.
+   * @throws SearchApiExecption
+   */
+public SearchResults duckDuckGoSearch() throws SearchApiExecption, MalformedURLException {
+  DuckDuckGoSearchApi search = new DuckDuckGoSearchApi(getQuery(), 100);
+  return search.getDuckDuckGoResults();
+}
 }

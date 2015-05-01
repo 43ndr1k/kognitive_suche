@@ -1,5 +1,6 @@
 package de.leipzig.htwk.searchApi;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,7 @@ public class DuckDuckGoSearchApi extends SearchApi {
 
     ArrayList<Result> resultList;
 
-    public DuckDuckGoSearchApi(String query, int anzResultCount) throws SearchApiExecption {
+    public DuckDuckGoSearchApi(String query, int anzResultCount) throws SearchApiExecption, MalformedURLException {
         setURL("https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1");
         setNextButton("navbutton");
         setCountResult(anzResultCount);

@@ -1,13 +1,21 @@
 package de.leipzig.htwk.searchApi;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.sun.javafx.scene.accessibility.Action;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import javax.swing.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * @Autor Hendrik Sawade.
@@ -78,7 +86,7 @@ public class SearchApi {
      * @return Results Liste
      * @throws SearchApiExecption
      */
-    public ArrayList<Result> query(String query) throws SearchApiExecption {
+    public ArrayList<Result> query(String query) throws SearchApiExecption, MalformedURLException {
         query = encoding(query);
         return searching(getURL() + "&q=" + query);
     }
@@ -100,17 +108,51 @@ public class SearchApi {
     }
 
     /**
+     * Verbindung zum Internet Testen.
+     */
+    private void internetTest() {
+        HttpURLConnection connection = null;
+
+        try {
+            connection = (HttpURLConnection) new URL("http://www.google.de").openConnection();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            connection.setRequestMethod("HEAD");
+        } catch (ProtocolException e) {
+            e.printStackTrace();
+        }
+        int responseCode = 0;
+        try {
+            responseCode = connection.getResponseCode();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (responseCode != 200) {
+            // Not OK.
+            System.out.println("Fehler!!!!!!!!!!!!!!!!!!!!!!!!!!!111");
+            infoBox("Verbindung zum Internet ist fehlgeschlagen.","Verbindungsfehler","Internet Connection");
+            System.exit(0);
+        }
+    }
+
+    /**
      * Kappselt den Suchvorgang.
      * @param url String zur Suchmaschine, einschließlich des Suchwortes
      * @return
      */
+    private ArrayList<Result> searching(String url) throws SearchApiExecption, MalformedURLException {
 
-    private ArrayList<Result> searching(String url) throws SearchApiExecption {
+        internetTest();
 
         try {
             unitDriver.get(url);
         } catch (WebDriverException ioe) {
             ioe.printStackTrace();
+
+            Platform.exit();
+            throw new SearchApiExecption("Keine Internetverbindung möglich");
         }
 
         try {
@@ -126,6 +168,18 @@ public class SearchApi {
             throw new SearchApiExecption("Beim erstellen der Ergebnis Liste ist ein Fehler aufgetreten");
         }
         return this.resultList;
+    }
+
+    /**
+     * Info Box für Meldungen.
+     * @param infoMessage
+     * @param titleBar
+     * @param headerMessage
+     */
+    public void infoBox(String infoMessage, String titleBar, String headerMessage) {
+        MessageBox messageBox = new MessageBox(infoMessage, titleBar, headerMessage);
+        messageBox.run();
+        messageBox.showAndWait();
     }
 
     /**
