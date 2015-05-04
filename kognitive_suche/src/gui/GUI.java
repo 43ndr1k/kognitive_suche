@@ -294,10 +294,10 @@ public class GUI extends Application {
     vbox3.getChildren().addAll(btnsrc[0], btnsrc[1], btnsrc[2]);
     // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox
     // zusammengeführt
-    hbox3.getChildren().addAll(vbox2, vbox3);
+    //hbox3.getChildren().addAll(vbox2, vbox3);
     hbox1.getChildren().addAll(suchleiste, sucheF, sucheP);
-    vbox1.getChildren().addAll(goHomeButton(), hbox1, schrift, hbox3);
-    hbox2.getChildren().addAll(close);
+    vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
+    //hbox2.getChildren().addAll(close);
     // Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
     mController.setParameter(SelectedLanguage[0], Selectedsrc[0], 1);
     return start;
