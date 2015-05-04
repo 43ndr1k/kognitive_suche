@@ -12,9 +12,12 @@ import de.leipzig.htwk.websearch.ThreadRun;
 import de.leipzig.htwk.createJson.CreateJsonDoc;
 import gui.GUI;
 import simple.algorithm.*;
+import visualize.VisController;
 
 import java.util.ArrayList;
 
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import cognitive.search.ApiCognitiveSearch;
 import cognitive.search.ReturnTagList;
 import komplexe.suche.TagObjectList;
@@ -84,38 +87,33 @@ public class Controller {
   }
 
   private void beginWebSearch() {
-	  
-	/**
-	 * @author Franz Schwarzer
-	 */
+
+    /**
+     * @author Franz Schwarzer
+     */
     String tmp;
     HTMLTools webSearch = new HTMLTools();
     Results r = results;
     int resultSize = r.getResults().size();
     String[] searchText = new String[resultSize];
-    
-    ThreadRun tr = new ThreadRun(r, searchWord,resultSize);
-    String clearPageText[]=new String[resultSize];
-    for(int i=0;i<resultSize;i++){
-    	System.out.println(i);
-    	clearPageText[i]=webSearch.filterHTML(Static.pageText[i]);
-    	System.out.println(clearPageText[i]);
-	}
+
+    ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
+    String clearPageText[] = new String[resultSize];
+    for (int i = 0; i < resultSize; i++) {
+      System.out.println(i);
+      clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
+      System.out.println(clearPageText[i]);
+    }
     beginCognitiveSearch(clearPageText, searchWord);
 
   }
 
   private void beginCognitiveSearch(String[] searchText, String searchWord) {
-
+    String searchword = searchWord;
     ApiCognitiveSearch search = new ApiCognitiveSearch();
     ReturnTagList list = new ReturnTagList();
     list = search.ApiCognitiveSearch(searchText, searchWord);
-    initVisual(list);
-
-  }
-
-  private void initVisual(ReturnTagList list) {
-    gui.startVisual(list);
+    initVisual(list, searchword);
 
   }
 
@@ -162,9 +160,37 @@ public class Controller {
    * @author Sebastian Hügelmann
    * @param gui Nutzt momentanen Status der GUI.
    */
-  public void initVisual() {
+  public void initVisual(ReturnTagList list, String searchword) {
 
-    gui.startVisual(tags);
+    // gui.startVisual(tags);
+    /*
+     * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
+     * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
+     * werden.
+     */
+    System.out.println("startVisual Gestartet");
+    ReturnTagList tags = list;
+
+    BorderPane visPane = new BorderPane();
+    BorderPane homebuttonPane = new BorderPane();
+
+    homebuttonPane.setCenter(gui.goHomeButton());
+    homebuttonPane.setStyle("-fx-background-color: #FFF;");
+    homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
+
+    VisController visualControler = new VisController();
+    visualControler.setPane(visPane);
+    visualControler.setQuery(searchword);
+    // iv
+    visualControler.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
+    visualControler.setPaneWidth((int) gui.getStage().getWidth());
+
+    visPane.setCenter(visualControler.startVisualize(tags));
+    visPane.setTop(homebuttonPane);
+    System.out.println("startVisual fertig");
+
+    Scene visual = new Scene(visPane);
+    gui.setStageScene(visual);
 
   }
 

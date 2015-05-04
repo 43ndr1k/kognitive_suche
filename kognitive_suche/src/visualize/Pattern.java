@@ -317,8 +317,8 @@ public class Pattern {
           //System.out.println(labelQueryArray[labelQueryArrayCounter]);
           //System.out.println("Counter:"+labelQueryArrayCounter);
           System.out.println(testlabel);
-          gui.getGUI().setSuchleisteText(testlabel);
-          gui.getGUI().startQuery();
+          //gui.getGUI().setSuchleisteText(testlabel);
+          //gui.getGUI().startQuery();
       }
     });
     //labelQueryArrayCounter++;

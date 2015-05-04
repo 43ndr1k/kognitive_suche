@@ -420,67 +420,70 @@ public class GUI extends Application {
    * @author Fabian Freihube, Sebastian Hügelmann (small Part)
    * @param stage Ist Grundfläche für alle Panes.
    */
-  public void startVisual(ReturnTagList list) {
-    /*
-     * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
-     * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
-     * werden.
-     */
-	System.out.println("startVisual Gestartet");
-    
-	//VisualTest tmp = new VisualTest();
-
-    //TagObjectList tags = tmp.getTags();
-	ReturnTagList tags = list;
-
-    BorderPane visPane = new BorderPane();
-    BorderPane homebuttonPane = new BorderPane();
-
-    homebuttonPane.setCenter(goHomeButton());
-    homebuttonPane.setStyle("-fx-background-color: #FFF;");
-    homebuttonPane.setPrefHeight(windowHeight * 0.15);
-    
-    VisController visualControler = new VisController();
-    visualControler.setPane(visPane);
-    visualControler.setQuery(suchleiste.getText());
-    // iv
-    visualControler.setPaneHeight((int) (stage.getHeight() * 0.85));
-    visualControler.setPaneWidth((int) stage.getWidth());
-
-    visPane.setCenter(visualControler.startVisualize(tags));
-    visPane.setTop(homebuttonPane);
-    System.out.println("startVisual fertig");
-
-    Scene visual = new Scene(visPane);
+//  public void startVisual(ReturnTagList list) {
+//    /*
+//     * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
+//     * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
+//     * werden.
+//     */
+//	System.out.println("startVisual Gestartet");
+//	ReturnTagList tags = list;
+//
+//    BorderPane visPane = new BorderPane();
+//    BorderPane homebuttonPane = new BorderPane();
+//
+//    homebuttonPane.setCenter(goHomeButton());
+//    homebuttonPane.setStyle("-fx-background-color: #FFF;");
+//    homebuttonPane.setPrefHeight(windowHeight * 0.15);
+//    
+//    VisController visualControler = new VisController();
+//    visualControler.setPane(visPane);
+//    visualControler.setQuery(suchleiste.getText());
+//    // iv
+//    visualControler.setPaneHeight((int) (stage.getHeight() * 0.85));
+//    visualControler.setPaneWidth((int) stage.getWidth());
+//
+//    visPane.setCenter(visualControler.startVisualize(tags));
+//    visPane.setTop(homebuttonPane);
+//    System.out.println("startVisual fertig");
+//
+//    Scene visual = new Scene(visPane);
+//    //stage.setScene(visual);
+//  }
+  
+  public void setStageScene(Scene visual) {
+    this.stage.setScene(visual);
     stage.setScene(visual);
-    System.out.println("scene gesetzt");
   }
- 
+  
+  public Stage getStage(){
+    return this.stage;
+  }
+
   /**
-   * Diese Methode startet die Suche aus dem Controller sowie die Visualisierung aus dem VisController
+   * Diese Methode startet die Suche aus dem Controller
    * @param suchleiste Holt sich den Text aus dem Textfield "suchleiste".
    */
   public void startQuery() {
-    //getData();
-    System.out.println("GUI Suchleiste.getText(): "+suchleiste.getText());
     mController.farooSearch(suchleiste.getText());
-    System.out.println("mController.farooSearch(suchleiste.getText()) wurde aufgerufen");
-
   }
-
-  public void setSuchleiste(TextField suchleiste) {
-    this.suchleiste = suchleiste;
-  }
+  
+  /**
+   * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.
+   * @param suchleiste Suchleiste für den Suchbegriff.
+   */
   
   public void setSuchleisteText(String suchleiste){
     this.suchleiste.setText(suchleiste);
-    System.out.println(suchleiste);
-    System.out.println("Übergebens Label"+ this.suchleiste.getText());
+    System.out.println("Übergebener Begriff" + suchleiste);
+  }
+  
+  public static int getWindowheight() {
+    return windowHeight;
   }
 
-  public GUI getGUI() {
-    // TODO Auto-generated method stub
-    return this;
+  public static int getWindowwidth() {
+    return windowWidth;
   }
   
 }
