@@ -393,8 +393,4 @@ public class Pattern {
     return visPane;
     // TODO Auto-generated method stub
   }
-  
-  /**
-   * @author Sebastian Hügelmann
-   */
 }

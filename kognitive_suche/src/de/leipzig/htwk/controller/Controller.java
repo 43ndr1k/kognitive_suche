@@ -3,24 +3,18 @@ package de.leipzig.htwk.controller;
 import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
-import de.leipzig.htwk.faroo.api.Result;
 import de.leipzig.htwk.faroo.api.Results;
-import de.leipzig.htwk.tests.VisualTest;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
-import de.leipzig.htwk.createJson.CreateJsonDoc;
 import gui.GUI;
 import simple.algorithm.*;
 import visualize.VisController;
-
 import java.util.ArrayList;
-
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import cognitive.search.ApiCognitiveSearch;
 import cognitive.search.ReturnTagList;
-import komplexe.suche.TagObjectList;
 
 /**
  * @author Hendrik Sawade
@@ -40,7 +34,6 @@ public class Controller {
   private String key, url;
   private Results results;
   private String query;
-  private ReturnTagList tags;
   private GUI gui;
   private String searchWord;
 
@@ -153,16 +146,15 @@ public class Controller {
     return this.query;
   }
 
-
   /**
-   * Methode für den Aufruf der startVisual() Methode in der Klasse GUI.
+   * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
    * 
-   * @author Sebastian Hügelmann
-   * @param gui Nutzt momentanen Status der GUI.
+   * @author Fabian Freihube, Sebastian Hügelmann
+   * @param gui Objekt GUI aktuelle GUI.
+   * @param list Übergabe der gefundenen Ergebnisse per Liste.
+   * @param searchword Übergabe des Suchwortes als String.
    */
   public void initVisual(ReturnTagList list, String searchword) {
-
-    // gui.startVisual(tags);
     /*
      * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
      * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
@@ -196,20 +188,18 @@ public class Controller {
 
 
   /**
-   * Methode Gui Setter
+   * Methode zur Übergabe der GUI an den Controller.
+   * 
+   * @author Sebastian Hügelmann
    */
   public void setGUI(GUI gui) {
     this.gui = gui;
   }
 
-  public ArrayList<SimAlgTags> getTags() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   /**
    * In dieser Funktion werden die Funktionen für eine Suche über Faroo gestartet.
    * 
+   * @author Tobias Lenz, Franz Schwarzer
    * @param text - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
    */
   public void farooSearch(String searchWord) {
@@ -217,5 +207,9 @@ public class Controller {
     queryFaroo();
     beginWebSearch();
 
+  }
+
+  public ArrayList<SimAlgTags> getTags() {
+    return null;
   }
 }
