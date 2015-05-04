@@ -41,22 +41,33 @@ public class SearchApi {
     String nextButton;
 
     /**
-     * largeList, urlList, snippetList dienen zur Temporären Speicherung der Suchergebnisse
+     * titleClassList, linkClassList, descriptionClassList dienen zur Temporären Speicherung der Suchergebnisse
      * entsprechen der bedeutung.
      */
-    List<WebElement> largeList = null;
-    List<WebElement> urlList = null;
-    List<WebElement> snippetList = null;
+    List<WebElement> titleClassList = null;
+    List<WebElement> linkClassList = null;
+    List<WebElement> descriptionClassList = null;
 
     /**
      * Klassen Parameter für large, url und snippet
      */
-    String largeKasse, urlKlasse, snippetKlasse;
+    String titleClass, linkClass, descriptionClass;
 
     /**
      * Wie viele Ergebnisse will man haben
      */
-    int countResult;
+    int anzResultSize;
+
+
+    public SearchApi(String url, String nextButton, String titleClass, String urlKlasse, String snippetKlasse) {
+
+        this.url = url;
+        this.nextButton = nextButton;
+        this.titleClass = titleClass;
+        this.linkClass = urlKlasse;
+        this.descriptionClass = snippetKlasse;
+
+    }
     /**
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
      */
@@ -87,23 +98,7 @@ public class SearchApi {
      */
     public ArrayList<Result> query(String query) throws SearchApiExecption, MalformedURLException {
         query = encoding(query);
-        return searching(getURL() + "&q=" + query);
-    }
-
-    /**
-     *
-     * @return url Beinhaltet die URL zu der Suchmaschine.
-     */
-    protected String getURL() {
-        return this.url;
-    }
-
-    /**
-     * Setzt die URL für die jeweilige Suchmaschine.
-     * @param url Suchmaschinen URL.
-     */
-    protected void setURL(String url) {
-        this.url = url;
+        return searching(this.url + query);
     }
 
     /**
@@ -138,15 +133,15 @@ public class SearchApi {
 
     /**
      * Kappselt den Suchvorgang.
-     * @param url String zur Suchmaschine, einschließlich des Suchwortes
+     * @param completeUrl String zur Suchmaschine, einschließlich des Suchwortes
      * @return
      */
-    private ArrayList<Result> searching(String url) throws SearchApiExecption, MalformedURLException {
+    private ArrayList<Result> searching(String completeUrl) throws SearchApiExecption, MalformedURLException {
 
         internetTest();
 
         try {
-            unitDriver.get(url);
+            unitDriver.get(completeUrl);
         } catch (WebDriverException ioe) {
             ioe.printStackTrace();
 
@@ -155,16 +150,16 @@ public class SearchApi {
         }
 
         try {
-            for (int i = 0; i < getCountResult(); i++) {
-                setLargeList(getList(getLargeKasse()));
-                setUrlList(getList(getUrlKlasse()));
-                setSnippetList(getList(getSnippetKlasse()));
+            for (int i = 0; i < this.anzResultSize; i++) {
+                this.titleClassList = (getList(this.titleClass));
+                this.linkClassList = (getList(this.linkClass));
+                this.descriptionClassList = (getList(this.descriptionClass));
                 makeResultList();
                 moreResults();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new SearchApiExecption("Beim erstellen der Ergebnis Liste ist ein Fehler aufgetreten");
+            throw new SearchApiExecption("Beim Erstellen der Ergebnisliste ist ein Fehler aufgetreten");
         }
         return this.resultList;
     }
@@ -194,24 +189,17 @@ public class SearchApi {
         }
     }
 
-    /**
-     * Setzt den Tag Parameter des Such Buttons der jeweiligen Suchmaschine.
-     * @param nextButton Tag des Suchbuttons
-     */
-    protected void setNextButton(String nextButton) {
-        this.nextButton = nextButton;
-    }
 
     /**
      * Gibt eine Result Liste zurück,mit den Result Objekt.
      * @return resultList Beinhaltet eine List mit Result Objekten.
      */
     private void makeResultList() {
-        for (int i = 0; i < this.largeList.size();i++) {
+        for (int i = 0; i < this.titleClassList.size();i++) {
             this.resultList.add(new Result(
-                    this.largeList.get(i).getText(),
-                    this.snippetList.get(i).getText(),
-                    this.urlList.get(i).getText())
+                    this.titleClassList.get(i).getText(),
+                    this.descriptionClassList.get(i).getText(),
+                    this.linkClassList.get(i).getText())
             );
         }
 
@@ -230,228 +218,19 @@ public class SearchApi {
 
         } catch (WebDriverException e) {
             e.printStackTrace();
-            throw new SearchApiExecption("Bei dem suchen von Ergebnissen, in den Tags, ist ein Fehler aufgetreten.");
+            throw new SearchApiExecption("Bei dem Suchen von Ergebnissen, in den Tags, ist ein Fehler aufgetreten.");
         }
         return list;
     }
 
-
-    protected List<WebElement> getLargeList() {
-        return largeList;
+    public SearchResults getDuckDuckGoResults() {
+        SearchResults results = new SearchResults();
+        results.setResults(resultList);
+        return results;
     }
 
-    protected void setLargeList(List<WebElement> largeList) {
-        this.largeList = largeList;
-    }
-
-    protected List<WebElement> getUrlList() {
-        return urlList;
-    }
-
-    protected void setUrlList(List<WebElement> urlList) {
-        this.urlList = urlList;
-    }
-
-    protected List<WebElement> getSnippetList() {
-        return snippetList;
-    }
-
-    protected void setSnippetList(List<WebElement> snippetList) {
-        this.snippetList = snippetList;
-    }
-
-    public String getLargeKasse() {
-        return largeKasse;
-    }
-
-    public void setLargeKasse(String largeKasse) {
-        this.largeKasse = largeKasse;
-    }
-
-    public String getUrlKlasse() {
-        return urlKlasse;
-    }
-
-    public void setUrlKlasse(String urlKlasse) {
-        this.urlKlasse = urlKlasse;
-    }
-
-    public String getSnippetKlasse() {
-        return snippetKlasse;
-    }
-
-    public void setSnippetKlasse(String snippetKlasse) {
-        this.snippetKlasse = snippetKlasse;
-    }
-
-    public int getCountResult() {
-        return countResult;
-    }
-
-    public void setCountResult(int countResult) {
-        this.countResult = countResult;
+    public void setAnzResultSize(int anzResultSize) {
+        this.anzResultSize = anzResultSize;
     }
 }
 
-
-
-/*  public static void main(String[] args) throws InterruptedException {
-        // Create a new instance of the html unit driver
-        // Notice that the remainder of the code relies on the interface,
-
-
-
-        // Declaring and initialising the HtmlUnitWebDriver
-        HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
-
-        //unitDriver.setJavascriptEnabled(true);
-
-        //?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=Harry%20Potter
-
-
-        unitDriver.get("https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=ganz");
-*//*
-        Sendet die Suchanfrage und klickt auf den Suchbutton
-        WebElement query = unitDriver.findElement(By.name("q"));
-        query.sendKeys("ente");
-        query.submit();*//*
-
-
-        String domainName = unitDriver.getTitle();
-        System.out.println("Domain name is " + domainName);
-
-        // List<WebElement> test = unitDriver.findElements(By.className("links_main links_deep"));
-      *//*  List<WebElement> test1 = unitDriver.findElements(By.id("links"));
-        //System.out.println(test);
-
-        for (WebElement tt : test1) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________################______________");
-
-            //System.out.println(tt.toString());
-        }*//*
-
-        List<WebElement> test2 = unitDriver.findElements(By.className("large"));
-
-         for (WebElement tt : test2) {
-            System.out.println(tt.getText().toString());
-            System.out.println("??????????????????????????????");
-
-            //System.out.println(tt.toString());
-        }
-
-
-        List<WebElement> test3 = unitDriver.findElements(By.className("url"));
-
-        for (WebElement tt : test3) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
-
-            //System.out.println(tt.toString());
-        }
-
-        List<WebElement> test4 = unitDriver.findElements(By.className("snippet"));
-
-        for (WebElement tt : test4) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
-
-            //System.out.println(tt.toString());
-        }
-
-        System.out.println("########################################################################################");
-
-        System.out.println(test2.size());
-        System.out.println(test3.size());
-        System.out.println(test4.size());
-  *//*      WebElement next = unitDriver.findElement(By.className("navbutton"));
-        next.click();
-        //Thread.sleep(5000);
-
-        List<WebElement> test2 = unitDriver.findElements(By.id("links_wrapper"));
-        //System.out.println(test);
-
-        for (WebElement tt : test2) {
-            System.out.println(tt.getText().toString());
-            System.out.println("_________________________________");
-            System.out.println(tt.toString());
-        }
-*//*
-    }*/
-
-
-//-------------
-
-//____________
-
-
-
-
-
-
-
-      /*
-
-
-
-        WebClient webClient = new WebClient();
-        //driver.setJavascriptEnabled(true);
-
-
-
-        //System.out.println(driver.isJavascriptEnabled());
-
-        //driver.setJavascriptEnabled(true);
-        // And now use this to visit Google
-        //driver.get("http://blog.fastreboot.de");
-
-        try {
-            HtmlPage page = webClient.getPage("http://blog.fastreboot.de");
-            page.getTitleText();
-            page.getElementsByName("entry-content");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-*/
-
-//driver.get("https://duckduckgo.com/?q=test&ia=about");
-// Enter the query string "Cheese"
-//WebElement query = driver.findElement(By.name("q"));
-//query.sendKeys("ente");
-
-//System.out.println(driver.g.getTitle().toString());
-
-
-
-// Sleep until the div we want is visible or 5 seconds is over
-/*            long end = System.currentTimeMillis() + 5000;
-            List<WebElement> resultsDiv;
-            while (System.currentTimeMillis() < end) {
-                resultsDiv = driver.findElements(By.id("results"));
-
-            }
-            List<WebElement> test = driver.findElements(By.className("results"));
-            for (WebElement suggestion : test) {
-                System.out.println(suggestion.getText());
-            }*/
-
-// And now list the suggestions
-/*
-        //List<WebElement> test = driver.findElements(By.className("entry-content"));
-        List<WebElement> test = driver.findElements(By.className("c-info__body"));
-        System.out.println(test);
-
-        List<WebElement> allSuggestions = driver.findElements(By.xpath("//*[@class='entry-content']"));
-            System.out.println(allSuggestions);
-
-        for (WebElement suggestion : allSuggestions) {
-            System.out.println(suggestion.getText());
-        }
-
-        driver.quit();
-
-        */
-
-//    }
