@@ -1,18 +1,17 @@
 package de.leipzig.htwk.searchApi;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.sun.javafx.scene.accessibility.Action;
 import javafx.application.Platform;
-import javafx.stage.Stage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
