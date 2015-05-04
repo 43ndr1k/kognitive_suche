@@ -3,25 +3,18 @@ package de.leipzig.htwk.controller;
 import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
-import de.leipzig.htwk.faroo.api.Result;
 import de.leipzig.htwk.faroo.api.Results;
-import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
-import de.leipzig.htwk.searchApi.SearchApiExecption;
-import de.leipzig.htwk.searchApi.SearchResults;
-import de.leipzig.htwk.tests.VisualTest;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
-import de.leipzig.htwk.createJson.CreateJsonDoc;
 import gui.GUI;
 import simple.algorithm.*;
-
-import java.net.MalformedURLException;
+import visualize.VisController;
 import java.util.ArrayList;
-
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import cognitive.search.ApiCognitiveSearch;
 import cognitive.search.ReturnTagList;
-import komplexe.suche.TagObjectList;
 
 /**
  * @author Hendrik Sawade
@@ -40,7 +33,7 @@ public class Controller {
   private int start = 1;
   private String key, url;
   private Results results;
-  private ReturnTagList tags;
+  private String query;
   private GUI gui;
   private String searchWord;
 
@@ -69,7 +62,7 @@ public class Controller {
   /**
    * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
    * 
-   * @param searchWord Suchwort
+   * @param pQuery Suchwort
    * @return Results Liste mit den Ergebnisse.
    */
   public void queryFaroo() {
@@ -87,38 +80,33 @@ public class Controller {
   }
 
   private void beginWebSearch() {
-	  
-	/**
-	 * @author Franz Schwarzer
-	 */
+
+    /**
+     * @author Franz Schwarzer
+     */
     String tmp;
     HTMLTools webSearch = new HTMLTools();
     Results r = results;
     int resultSize = r.getResults().size();
     String[] searchText = new String[resultSize];
-    
-    ThreadRun tr = new ThreadRun(r, searchWord,resultSize);
-    String clearPageText[]=new String[resultSize];
-    for(int i=0;i<resultSize;i++){
-    	System.out.println(i);
-    	clearPageText[i]=webSearch.filterHTML(Static.pageText[i]);
-    	System.out.println(clearPageText[i]);
-	}
+
+    ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
+    String clearPageText[] = new String[resultSize];
+    for (int i = 0; i < resultSize; i++) {
+      System.out.println(i);
+      clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
+      System.out.println(clearPageText[i]);
+    }
     beginCognitiveSearch(clearPageText, searchWord);
 
   }
 
   private void beginCognitiveSearch(String[] searchText, String searchWord) {
-
+    String searchword = searchWord;
     ApiCognitiveSearch search = new ApiCognitiveSearch();
     ReturnTagList list = new ReturnTagList();
     list = search.ApiCognitiveSearch(searchText, searchWord);
-    initVisual(list);
-
-  }
-
-  private void initVisual(ReturnTagList list) {
-    gui.startVisual(list);
+    initVisual(list, searchword);
 
   }
 
@@ -146,70 +134,80 @@ public class Controller {
    * @param query query
    */
   private void setQuery(String query) {
-    this.searchWord = query;
+    this.query = query;
   }
 
   /**
    * Gibt das Suchwort zurück.
    * 
-   * @return searchWord
+   * @return query
    */
   public String getQuery() {
-    return this.searchWord;
+    return this.query;
+  }
+
+  /**
+   * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
+   * 
+   * @author Fabian Freihube, Sebastian Hügelmann
+   * @param gui Objekt GUI aktuelle GUI.
+   * @param list Übergabe der gefundenen Ergebnisse per Liste.
+   * @param searchword Übergabe des Suchwortes als String.
+   */
+  public void initVisual(ReturnTagList list, String searchword) {
+    /*
+     * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
+     * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
+     * werden.
+     */
+    System.out.println("startVisual Gestartet");
+    ReturnTagList tags = list;
+
+    BorderPane visPane = new BorderPane();
+    BorderPane homebuttonPane = new BorderPane();
+
+    homebuttonPane.setCenter(gui.goHomeButton());
+    homebuttonPane.setStyle("-fx-background-color: #FFF;");
+    homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
+
+    VisController visualControler = new VisController();
+    visualControler.setPane(visPane);
+    visualControler.setQuery(searchword);
+    // iv
+    visualControler.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
+    visualControler.setPaneWidth((int) gui.getStage().getWidth());
+
+    visPane.setCenter(visualControler.startVisualize(tags));
+    visPane.setTop(homebuttonPane);
+    System.out.println("startVisual fertig");
+
+    Scene visual = new Scene(visPane);
+    gui.setStageScene(visual);
   }
 
 
   /**
-   * Methode für den Aufruf der startVisual() Methode in der Klasse GUI.
+   * Methode zur Übergabe der GUI an den Controller.
    * 
    * @author Sebastian Hügelmann
-   * @param gui Nutzt momentanen Status der GUI.
-   */
-  public void initVisual() {
-
-    gui.startVisual(tags);
-
-  }
-
-
-  /**
-   * Methode Gui Setter
    */
   public void setGUI(GUI gui) {
     this.gui = gui;
   }
 
-  public ArrayList<SimAlgTags> getTags() {
-    // TODO Auto-generated method stub
-    return null;
-  }
-
   /**
    * In dieser Funktion werden die Funktionen für eine Suche über Faroo gestartet.
    * 
+   * @author Tobias Lenz, Franz Schwarzer
    * @param text - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
    */
-  public void farooSearch(String searchWord)  {
+  public void farooSearch(String searchWord) {
     this.searchWord = searchWord;
-    try {
-      duckDuckGoSearch();
-    } catch (SearchApiExecption searchApiExecption) {
-      searchApiExecption.printStackTrace();
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    }
     queryFaroo();
     beginWebSearch();
-
   }
 
-  /**
-   *
-   * @return searchResults Liste mit den Ergebnissen aus der DuckDuckGo Suchmaschine.
-   * @throws SearchApiExecption
-   */
-public SearchResults duckDuckGoSearch() throws SearchApiExecption, MalformedURLException {
-  DuckDuckGoSearchApi search = new DuckDuckGoSearchApi(getQuery(), 100);
-  return search.getDuckDuckGoResults();
-}
+  public ArrayList<SimAlgTags> getTags() {
+    return null;
+  }
 }
