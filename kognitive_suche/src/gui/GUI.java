@@ -465,9 +465,7 @@ public class GUI extends Application {
     System.out.println("GUI Suchleiste.getText(): "+suchleiste.getText());
     mController.farooSearch(suchleiste.getText());
     System.out.println("mController.farooSearch(suchleiste.getText()) wurde aufgerufen");
-    //Startet nun die Methode initVisual() aus dem Controller
-    System.out.println("mController.initVisual() wurde aufgerufen");
-    mController.initVisual();
+
   }
 
   public void setSuchleiste(TextField suchleiste) {
