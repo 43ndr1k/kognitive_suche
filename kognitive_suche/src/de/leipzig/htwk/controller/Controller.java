@@ -183,7 +183,6 @@ public class Controller {
 
     Scene visual = new Scene(visPane);
     gui.setStageScene(visual);
-
   }
 
 
@@ -206,7 +205,6 @@ public class Controller {
     this.searchWord = searchWord;
     queryFaroo();
     beginWebSearch();
-
   }
 
   public ArrayList<SimAlgTags> getTags() {

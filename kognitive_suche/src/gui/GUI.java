@@ -23,7 +23,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+
 import java.util.ArrayList;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.concurrent.Task;
+import javafx.scene.Parent;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.util.Duration;
 
 /**
  * Erstellung der GUI
@@ -43,6 +57,12 @@ public class GUI extends Application {
   private Stage stage = new Stage();
 
   TextField suchleiste = new TextField(); /* DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO */
+
+  private Timeline timeline = new Timeline();
+  private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
+  BorderPane loadingPane = new BorderPane();
+  Scene loadingScene = new Scene(loadingPane);
+
 
   public static void main(String[] args) {
     launch(args);
@@ -93,8 +113,6 @@ public class GUI extends Application {
       @Override
       public void handle(MouseEvent event) {
         System.out.println("Tile pressed");
-        // start.setRoot(pane1);
-
         stage.setScene(drawHomeScreen());
       }
     });
@@ -131,8 +149,6 @@ public class GUI extends Application {
     hbox1.setAlignment(Pos.CENTER);
     hbox2.setAlignment(Pos.BOTTOM_RIGHT);// Rechte ecke postionsbestimmung closebox
 
-    // vbox2.setAlignment(arg0);
-    // vbox3.setAlignment(arg0);
     hbox3.setAlignment(Pos.BOTTOM_CENTER);
 
     hbox3.setPadding(new Insets(-50));
@@ -294,10 +310,10 @@ public class GUI extends Application {
     vbox3.getChildren().addAll(btnsrc[0], btnsrc[1], btnsrc[2]);
     // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox
     // zusammengeführt
-    //hbox3.getChildren().addAll(vbox2, vbox3);
+    // hbox3.getChildren().addAll(vbox2, vbox3);
     hbox1.getChildren().addAll(suchleiste, sucheF, sucheP);
     vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
-    //hbox2.getChildren().addAll(close);
+    // hbox2.getChildren().addAll(close);
     // Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
     mController.setParameter(SelectedLanguage[0], Selectedsrc[0], 1);
     return start;
@@ -309,8 +325,30 @@ public class GUI extends Application {
    * @param suchleiste Holt sich den Text aus dem Textfield "suchleiste".
    */
   public void startQuery() {
-    mController.farooSearch(suchleiste.getText());
+    stage.setScene(loadingIndicator());
+    
+    
+//    Task suche;
+//    suche = createWorker();
+//    new Thread(suche).start();
+    
+    Platform.runLater(new Runnable() {
+      @Override
+      public void run() {
+        mController.farooSearch(suchleiste.getText());
+      }
+    });
   }
+  
+//  public Task createWorker() {
+//    return new Task() {
+//        @Override
+//        protected Object call() throws Exception {
+//          mController.farooSearch(suchleiste.getText());
+//            return null;
+//        }
+//    };
+//}
 
   /**
    * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.
@@ -339,6 +377,70 @@ public class GUI extends Application {
 
   public Stage getStage() {
     return this.stage;
+  }
+
+  /**
+   * Methode für den Loading Indicator
+   * 
+   * @author Sebastian Hügelmann
+   * @param loadingPane BorderPane welche erstellt wird um den Ladebalken anzuzeigen.
+   * @param timeline Timeline Objekt zur KeyFrame Animation
+   * @param stroke gestrichelte Linie
+   * @param loadingScene neue Szene für den Ladebalken
+   */
+
+  private Scene loadingIndicator() {
+    System.out.println("Ladebalken Methode gestartet!");
+    loadingPane.setStyle("-fx-background-color: #FFF;");
+    timeline.setCycleCount(Timeline.INDEFINITE);
+
+    final KeyValue kv = new KeyValue(stroke, 0);
+    final KeyFrame kf = new KeyFrame(Duration.millis(1500), kv);
+
+    timeline.getKeyFrames().add(kf);
+    timeline.play();
+
+    // Vertikale Box für Loading Bar und darunter Label
+    VBox root = new VBox(3);
+    root.setAlignment(Pos.CENTER);
+
+    // Stackpane für den Balken
+    StackPane progressIndicator = new StackPane();
+
+    // Ladebalken
+    Rectangle bar = new Rectangle(350, 13);
+    bar.setFill(Color.TRANSPARENT);
+    bar.setStroke(Color.BLACK);
+    bar.setArcHeight(15);
+    bar.setArcWidth(15);
+    bar.setStrokeWidth(2);
+
+    // Viereck im balken
+    Rectangle progress = new Rectangle(342, 6);
+    progress.setFill(Color.BLACK);
+    progress.setStroke(Color.BLACK);
+    progress.setArcHeight(8);
+    progress.setArcWidth(8);
+    progress.setStrokeWidth(1.5);
+    progress.getStrokeDashArray().addAll(3.0, 7.0, 3.0, 7.0);
+    progress.strokeDashOffsetProperty().bind(stroke);
+
+    // Hinzufügen zur StackPane
+    progressIndicator.getChildren().add(progress);
+    progressIndicator.getChildren().add(bar);
+
+    // Stackpane zur VBox um darunter das label zu packen
+    root.getChildren().add(progressIndicator);
+
+    Text label = new Text("Loading...");
+    label.setFill(Color.BLACK);
+
+    // Label wird hinzugefügt
+    root.getChildren().add(label);
+
+    // Jetzt ist alles in der VBox root
+    loadingPane.setCenter(root);
+    return loadingScene;
   }
 
 }
