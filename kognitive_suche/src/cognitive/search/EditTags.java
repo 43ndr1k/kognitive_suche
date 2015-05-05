@@ -25,24 +25,23 @@ public class EditTags {
 
   
 
-  public static ArrayList<String> colognePhonetic(ArrayList<String> tags){
+  public void colognePhonetic(){
 	  
-	  ArrayList<String> pruefgleich = new ArrayList<String>();
-	  pruefgleich = tags;
+	  ReturnTagList pruefgleich = tags;
 	  
-	  for (int i=0; i<=tags.size(); i++ ){
-		  ColognePhonetic.Encoding(pruefgleich.get(i));
-		  ColognePhonetic.CleaningDoubles(pruefgleich.get(i));
-		  ColognePhonetic.CleaningZeroes(pruefgleich.get(i));
+	  for (int i=0; i<=tags.getsize(); i++ ){
+		  ColognePhonetic.Encoding(pruefgleich.getTagObject(i).gettag());
+		  ColognePhonetic.CleaningDoubles(pruefgleich.getTagObject(i).gettag());
+		  ColognePhonetic.CleaningZeroes(pruefgleich.getTagObject(i).gettag());
 	  }
-	   for (int n=0; n<tags.size(); n++){
-			  for (int m=0; m<=tags.size(); m++){
-				  if (pruefgleich.get(n)==pruefgleich.get(m) && n!=m){
-					 //tags.renameTag(tags.get(n), tags.get(m));
+	   for (int n=0; n<tags.getsize(); n++){
+			  for (int m=0; m<=tags.getsize(); m++){
+				  if (pruefgleich.getTagObject(n).gettag()==pruefgleich.getTagObject(m).gettag() && n!=m){
+				    
+					 tags.renameTag(tags.getTagObject(n).gettag(), tags.getTagObject(m).gettag());
 				  }
 			  }
 		  }
-	  return tags;
   }
 
   public void stem() {
@@ -58,6 +57,7 @@ public class EditTags {
       if (stemmer.stem()) {
         tags.renameTag(tags.getTagObject(i).gettag(), stemmer.getCurrent());
         // If stemming is successful obtain the stem of the given word
+        
       }
     }
   }

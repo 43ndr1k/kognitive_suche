@@ -58,6 +58,12 @@ public class AddTagInfos {
       addInfo(info.get(i), function, values);
     }
   }
+  
+  public void addInfo(String[] info, Double priority){
+    for(int i =0; i < info.length; i++){
+      
+    }
+  }
 
   private double getFunctionPriority(String function, double[] values, int i) {
     double retValue;

@@ -52,11 +52,13 @@ public class ApiCognitiveSearch {
     list = edit.getTags();
     list.sortTagsByPriority();
     list.testOutput(10); // Testausgabe der top 10 Tags
-
-    // Hilfe für Steffen
-    // edit.Encoding(searchWord);
-    // list.testOutput(10);
-
+    
+   // edit.colognePhonetic();
+    System.out.println("Ausgabe der Tags mit Anwendung der Kölner Phonetic: "
+        + list.getsize());
+    list = edit.getTags();
+    list.sortTagsByPriority();
+    list.testOutput(10); // Testausgabe der top 10 Tags
 
     System.out.println("Anzahl der Tags mit stem-Algorithmus: " + edit.getTags().getsize());
     return list;

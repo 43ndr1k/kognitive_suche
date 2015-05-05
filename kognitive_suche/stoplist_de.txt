@@ -4,6 +4,9 @@ aber
 ach
 acht
 achte
+the
+var
+function
 achten
 achter
 achtes
@@ -14,6 +17,7 @@ allem
 allen
 aller
 allerdings
+herrn
 alles
 allgemeinen
 als
