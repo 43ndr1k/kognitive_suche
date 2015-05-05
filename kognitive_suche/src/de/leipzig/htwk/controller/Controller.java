@@ -87,7 +87,10 @@ public class Controller {
 
     /**
      * @author Franz Schwarzer
-     */
+     */ 
+    
+    long zstVorher = System.currentTimeMillis();
+    
     String tmp;
     HTMLTools webSearch = new HTMLTools();
     Results r = results;
@@ -101,16 +104,31 @@ public class Controller {
       clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
       System.out.println(clearPageText[i]);
     }
+    
+
+    
+    long zstNachher = System.currentTimeMillis();       //Zeitmessung
+    System.out.println("Zeit benötigt: Webseiten Suche: " + ((zstNachher - zstVorher)) + " millisec");
+    
     beginCognitiveSearch(clearPageText, searchWord);
 
   }
 
   private void beginCognitiveSearch(String[] searchText, String searchWord) {
+    long zstVorher = System.currentTimeMillis();
+
     String searchword = searchWord;
     ApiCognitiveSearch search = new ApiCognitiveSearch();
     ReturnTagList list = new ReturnTagList();
     list = search.ApiCognitiveSearch(searchText, searchWord);
-    initVisual(list, searchword);
+    
+
+    long zstNachher = System.currentTimeMillis();       //Zeitmessung
+    System.out.println("Zeit benötigt: Kognitiver Algorithmus: " + ((zstNachher - zstVorher)) + " millisec");
+    
+    initVisual(list, searchword);   //Aufruf der Visualisierung
+    
+    
 
   }
 
@@ -207,7 +225,12 @@ public class Controller {
    */
   public void farooSearch(String searchWord) {
     this.searchWord = searchWord;
-    queryFaroo();
+    long zstVorher = System.currentTimeMillis();
+    
+    queryFaroo();       //Starten der Faroo Suche
+    
+    long zstNachher = System.currentTimeMillis();       //Zeitmessung
+    System.out.println("Zeit benötigt: Faroo Suche: " + ((zstNachher - zstVorher)) + " millisec");
     beginWebSearch();
   }
 

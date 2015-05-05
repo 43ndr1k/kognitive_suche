@@ -463,10 +463,7 @@ public class GUI extends Application {
   }
 
   public void setPDFBoxDocuments (ArrayList<PDFDocument> pdfBoxDocuments) { 
-	System.out.println("Document" + pdfBoxDocuments.get(0).getDocname());
 	this.pdfBoxDocuments = pdfBoxDocuments;
   }
-  
-  
 
 }
