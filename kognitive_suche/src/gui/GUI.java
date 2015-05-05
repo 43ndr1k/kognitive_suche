@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+import pdf.box.access.PDFDocument;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -48,21 +49,23 @@ import javafx.util.Duration;
 public class GUI extends Application {
   private static final int windowHeight = 768;
   private static final int windowWidth = 1024;
-  private Controller mController = new Controller();
+  private int startMode = 0; //gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
+  private Controller mController;
   public ArrayList<String> tags = new ArrayList<String>();
   public ArrayList<String> url = new ArrayList<String>();
   public ArrayList<String> kwic = new ArrayList<String>();
   private BorderPane pane1 = new BorderPane();
-  Scene start = new Scene(pane1);
-  private Stage stage = new Stage();
+  Scene start;
+  private Stage stage;
 
-  TextField suchleiste = new TextField(); /* DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO */
+  TextField suchleiste; /* DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO */
 
   private Timeline timeline = new Timeline();
   private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
   BorderPane loadingPane = new BorderPane();
-  Scene loadingScene = new Scene(loadingPane);
-
+  Scene loadingScene;
+  
+  ArrayList <PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
 
   public static void main(String[] args) {
     launch(args);
@@ -76,7 +79,14 @@ public class GUI extends Application {
    */
   @Override
   public void start(Stage stage2) throws Exception {
-
+	
+	/* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
+	start = new Scene (pane1);
+	stage = new Stage ();
+	suchleiste = new TextField ();
+	loadingScene = new Scene(loadingPane);
+    mController = new Controller();
+    	  
     mController.setGUI(this);
     mController.setParameter("de", "web", 1);
 
@@ -442,5 +452,21 @@ public class GUI extends Application {
     loadingPane.setCenter(root);
     return loadingScene;
   }
+  
+  public void startKogSucheExtern () {
+	  startMode = 1;
+	  launch();
+  }
+  
+  public ArrayList<PDFDocument> getPDFBoxDocuments() {
+	return pdfBoxDocuments;
+  }
+
+  public void setPDFBoxDocuments (ArrayList<PDFDocument> pdfBoxDocuments) { 
+	System.out.println("Document" + pdfBoxDocuments.get(0).getDocname());
+	this.pdfBoxDocuments = pdfBoxDocuments;
+  }
+  
+  
 
 }
