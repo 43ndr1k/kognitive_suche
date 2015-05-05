@@ -59,10 +59,14 @@ public class AddTagInfos {
     }
   }
   
-  public void addInfo(String[] info, Double priority){
+  public void addInfo(String[] info, int textBlocNumber, Double priority){
     for(int i =0; i < info.length; i++){
-      
+      addInfo(info[i],textBlocNumber, priority);
     }
+  }
+
+  private void addInfo(String string,int textBlocNumber, Double priority) {
+   list.addTagObject(string, textBlocNumber, priority);    
   }
 
   private double getFunctionPriority(String function, double[] values, int i) {
