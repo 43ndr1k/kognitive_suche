@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame name="mainframe" id="main" size="900,800" title="PdfBorx" resizable="true">
+    <menubar name="menubar">
+        <menu name="filemenu" text="Datei">
+            <menuitem name="Import" text="PDF Importieren" Action="pdfImport" macos_preferences="true"/>
+            <menuitem name="ImportDir" text="Verzeichnis Importieren" Action="importDir" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="Export" text="PDF Exportieren" Action="pdfExport" macos_preferences="true"/>
+            <menuitem name="ExBib" text="BibTeX Exportieren" Action="bibexport" macos_preferences="true"/>
+            <menuitem name="kogSearcch" text="Kognitive Suche anwenden" Action="kogSearchStart" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="Similar" text="Ähnliche Dokumente" Action="similarDocuments" macos_preferences="true"/>
+            <menuitem name="SimilarCite" text="Ähnliche Dokumente - Literaturreferenz" Action="similarDocumentsCitation" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="Options" text="Einstellungen" Action="options" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="Beenden" text="Beenden" Action="exit" />
+            </menu>
+            <menu text="Hilfe">
+            <menuitem name="About" text="über PdfBorx" Action="about" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="FAQ" text="Handbuch" Action="manual" macos_preferences="true"/>
+        </menu>
+    </menubar>
+    
+    <vbox> 
+        <panel constraints="FlowLayout" alignment="FlowLayout.LEFT">
+            <label text="SUCHE"/>
+            <textfield id="searchField" Action="searchWord" columns="30"/>
+            <button text="X" Action="newSearch" />
+            <button id="searchButton" Action="searchWord" text="Suchen"/>
+            <combobox id="kategorie" Action="DO_SELECT" editable="false" enable="true" visible="true" background="WHITE"/>
+        </panel>
+
+        <scrollpane id="foundPdf" background="white" 
+                    VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" 
+                    HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED" >
+            <table id="tempList"/> 
+        </scrollpane>
+        
+        
+        <hbox>
+            <tabbedpane layout="Wrap_Tab_Layout">
+                <panel name="Metadaten" layout="BorderLayout(Borderlayout.CENTER)">
+                    <vbox>
+                        <scrollpane id="infoPdf" background="white" 
+                                    VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" 
+                                    HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED" >
+                            <table id="metaview" />
+                        </scrollpane>
+                        <panel layout="FlowLayout(FlowLayout.RIGHT)">
+                            <button text="Änderungen übernehmen" Action="confirmMetadataChange" layout="FlowLayout(Flowlayout.RIGHT)"/> 
+                        </panel>
+                    </vbox>
+                     
+                </panel>
+                <panel name="Bibtex" layout="BorderLayout(BorderLayout.CENTER)">
+                    <vbox>
+                        <scrollpane Size="100,50" 
+                                    VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" 
+                                      HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED">
+                            <textarea id="bibview"/>
+                        </scrollpane>
+                        <button text="Bibtex-Datei importieren" Action="importbibtex" layout="FlowLayout(Flowlayout.RIGHT)"/>
+                     </vbox>
+                </panel>
+                <panel name="Keywords" layout="BorderLayout(BorderLayout.CENTER">
+                    <hbox>
+                        <scrollpane id="foundkeywords" background="white" 
+                                VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" 
+                                HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED" >
+                        <list id="keywordList"/>         
+                        </scrollpane>
+                    </hbox>
+                </panel>
+                <panel name="Abstract" layout="BorderLayout(BorderLayout.CENTER">
+                    <vbox>
+                        <scrollpane id="abstractPane" background="white" 
+                                    VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" 
+                                    HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED" >
+                            <textarea id="abstractTextArea"/>
+                        </scrollpane>
+                    </vbox>
+                </panel>
+                <panel name="Literaturverzeichnis" layout="BorderLayout(BorderLayout.CENTER">
+                    <vbox>
+                        <scrollpane id="litrefScrollPane" background="white"
+                                    VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" 
+                                    HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED" >
+                            <textarea id="litrefTextArea" Columns="60" Rows="30"/>
+                        </scrollpane>
+                    </vbox>
+                </panel>
+            </tabbedpane>
+            <vbox>
+                <glue/><glue/><glue/>
+                <button text="Alle PDFs anzeigen" Action="showAllPdfs"/>
+                <glue/>
+                <button text="Ähnliche anzeigen" Action="similarDocuments"/>
+                <glue/>
+                <button text="Ähnliche (Literaturreferenz)" Action="similarDocumentsCitation"/>
+                <glue/><glue/><glue/> 
+                <button text="PDF importieren" Action="pdfImport"/>
+                <glue/>
+                <button text="PDF exportieren" Action="pdfExport"/>
+                <glue/>
+                <button text="Bibtex exportieren" Action="bibexport"/>
+                <glue/><glue/><glue/>
+                <button text="Onlinesuche" Action="onlineMetadata"/>
+                <glue/><glue/><glue/>
+            </vbox>
+        </hbox>
+    </vbox>
+    
+</frame>

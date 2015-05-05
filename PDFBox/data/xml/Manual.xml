@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame name="mainframe" id="main" size="800,600" title="PdfBorx">
+    <textarea id="html"></textarea>
+</frame>

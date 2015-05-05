@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--    @author Patrick
+        XML to confirm Metadata change
+        -->
+
+<frame name="confirmMetadata" id="confirmMetadata" size="380,100" title="">
+    <vbox>
+        <hbox>
+            <panel constraints="FlowLayout" alignment="FlowLayout.LEFT">
+                <label text="Änderungen übernehmen?"/>
+            </panel>
+        </hbox>
+        <hbox>
+            <panel>
+                <button text="Änderungen verwerfen" Action="discardMetadataChange"/>
+                <button text="Änderungen übernehmen" Action="acceptMetadataChange"/>
+            </panel>          
+        </hbox>   
+    </vbox>
+</frame>
