@@ -40,7 +40,7 @@ public class Pattern {
 
   private int activePads;
 
-  private static int maxTags = 9;
+  private static int MAX_TAGS = 9;
 
   private static Pane visPane;
 
@@ -83,8 +83,7 @@ public class Pattern {
 
     Boolean[][] padMap = createPadMap(rows, columns);
     visPane =
-        printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-            tags);
+        printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
     // iv
     Button list = new Button("Liste");// liste Button
 
@@ -168,8 +167,11 @@ public class Pattern {
    * @return visPane mit positionierten Elementen
    */
   private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorrection,
-      double oneHexHeight, int rows, int columns, Pane visPane, ReturnTagList tags2) {
-    int numOfTags = tags2.getSize();
+      double oneHexHeight, int rows, int columns, Pane visPane) {
+    int numOfTags = tags.getSize();
+    if(numOfTags > MAX_TAGS){
+      numOfTags = MAX_TAGS;
+    }
 
     for (int y = 0; y < rows; y++) {
       for (int x = 0; x < columns; x++) {
@@ -177,7 +179,7 @@ public class Pattern {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.25), tags2.getTagObject(tags2.getSize() - numOfTags).gettag());
+                    (x - 0.5), (y - 0.25), tags.getTagObject(tags.getSize() - numOfTags).getTag());
             numOfTags--;
           } else
             visPane =
@@ -187,7 +189,7 @@ public class Pattern {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.75), tags2.getTagObject(tags2.getSize() - numOfTags).gettag());
+                    (x - 0.5), (y - 0.75), tags.getTagObject(tags.getSize() - numOfTags).getTag());
             numOfTags--;
           } else
             visPane =

@@ -1,6 +1,11 @@
 package cognitive.search;
+
 import general.functions.TxtReader;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import snowballstemmer.GermanStemmer;
 
 public class EditTags {
@@ -14,30 +19,32 @@ public class EditTags {
     return tags;
   }
 
-  
-  /** Hier wird der Kölner Phonetik Algorithmus durchlaufen. 
+
+  /**
+   * Hier wird der Kölner Phonetik Algorithmus durchlaufen.
+   * 
    * @author Steffen Schreiber
    */
 
-  
 
-  public void colognePhonetic(){
-	  
-	  ReturnTagList pruefgleich = tags;
-	  
-	  for (int i=0; i<=tags.getSize(); i++ ){
-		  ColognePhonetic.Encoding(pruefgleich.getTagObject(i).gettag());
-		  ColognePhonetic.CleaningDoubles(pruefgleich.getTagObject(i).gettag());
-		  ColognePhonetic.CleaningZeroes(pruefgleich.getTagObject(i).gettag());
-	  }
-	   for (int n=0; n<tags.getSize(); n++){
-			  for (int m=0; m<=tags.getSize(); m++){
-				  if (pruefgleich.getTagObject(n).gettag()==pruefgleich.getTagObject(m).gettag() && n!=m){
-				    
-					 tags.renameTag(tags.getTagObject(n).gettag(), tags.getTagObject(m).gettag());
-				  }
-			  }
-		  }
+
+  public void colognePhonetic() {
+
+    ReturnTagList pruefgleich = tags;
+
+    for (int i = 0; i <= tags.getSize(); i++) {
+      ColognePhonetic.Encoding(pruefgleich.getTagObject(i).getTag());
+      ColognePhonetic.CleaningDoubles(pruefgleich.getTagObject(i).getTag());
+      ColognePhonetic.CleaningZeroes(pruefgleich.getTagObject(i).getTag());
+    }
+    for (int n = 0; n < tags.getSize(); n++) {
+      for (int m = 0; m <= tags.getSize(); m++) {
+        if (pruefgleich.getTagObject(n).getTag() == pruefgleich.getTagObject(m).getTag() && n != m) {
+
+          tags.renameTag(tags.getTagObject(n).getTag(), tags.getTagObject(m).getTag());
+        }
+      }
+    }
   }
 
   public void stem() {
@@ -46,14 +53,14 @@ public class EditTags {
 
     for (int i = 0; i < tags.getSize(); i++) {
       // set the word to be stemmed
-      stemmer.setCurrent(tags.getTagObject(i).gettag());
+      stemmer.setCurrent(tags.getTagObject(i).getTag());
 
 
       // call stem() method. stem() method returns boolean value.
       if (stemmer.stem()) {
-        tags.renameTag(tags.getTagObject(i).gettag(), stemmer.getCurrent());
+        tags.renameTag(tags.getTagObject(i).getTag(), stemmer.getCurrent());
         // If stemming is successful obtain the stem of the given word
-        
+
       }
     }
   }
@@ -74,11 +81,25 @@ public class EditTags {
     }
 
   }
-  public void removeTagsLongerThanVar(int lengthVar){
-       for(int i = 0; i < tags.getSize(); i++){
-         if(tags.getTagObject(i).gettag().length() > lengthVar){
-           tags.deleteTag(tags.getTagObject(i).gettag());
-         }
-       }
+
+  public void removeTagsLongerThanVar(int lengthVar) {
+    for (int i = 0; i < tags.getSize(); i++) {
+      if (tags.getTagObject(i).getTag().length() > lengthVar) {
+        tags.deleteTag(tags.getTagObject(i).getTag());
+      }
+    }
+  }
+
+  /**
+   * @author Tobias Lenz
+   * @param limit - Länge der gekürzten ReturnTagList
+   * 
+   *        Hier wird aus der ArrayListe eine subList erstellt und dem ReturnTagObject übergeben.
+   *        Dadurch wird die Liste auf die gewünschte Länge gekürzt
+   */
+  public void limitTags(int limit) {
+    if(limit < tags.getSize()){
+    tags.setTagObjects(new ArrayList<ReturnTagObject> (tags.getTags().subList(0, limit)));
+    }
   }
 }

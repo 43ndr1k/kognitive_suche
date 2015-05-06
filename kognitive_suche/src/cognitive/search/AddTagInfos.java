@@ -50,7 +50,7 @@ public class AddTagInfos {
   }
 
   public void addInfo(ReturnTagObject info) {
-    list.addTagObject(info.gettag(), info.getBlocNumbers(), info.getPriority());
+    list.addTagObject(info.getTag(), info.getBlocNumbers(), info.getPriority());
   }
 
   public void addInfo(ArrayList<Tag> info, String function, double[] values) {

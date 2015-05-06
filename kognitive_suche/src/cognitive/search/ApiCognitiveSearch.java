@@ -38,6 +38,7 @@ public class ApiCognitiveSearch {
     edit.removeTagsFromWordList();
     edit.stem();
     edit.removeTagsLongerThanVar(15);
+    edit.limitTags(100);
 
     tags = edit.getTags();
     tags.sortTagsByPriority();
