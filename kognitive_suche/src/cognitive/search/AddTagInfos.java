@@ -44,7 +44,7 @@ public class AddTagInfos {
   }
 
   public void addInfo(ReturnTagList info) {
-    for (int i = 0; i < info.getsize(); i++) {
+    for (int i = 0; i < info.getSize(); i++) {
       addInfo(info.getTagObject(i));
     }
   }

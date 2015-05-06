@@ -66,7 +66,7 @@ public class Pattern {
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
     this.tags = tags;
-    this.activePads = tags.getsize();
+    this.activePads = tags.getSize();
 
     visPane = new Pane();
     visPane.setPrefSize(paneHeight, paneWidth);
@@ -169,7 +169,7 @@ public class Pattern {
    */
   private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorrection,
       double oneHexHeight, int rows, int columns, Pane visPane, ReturnTagList tags2) {
-    int numOfTags = tags2.getsize();
+    int numOfTags = tags2.getSize();
 
     for (int y = 0; y < rows; y++) {
       for (int x = 0; x < columns; x++) {
@@ -177,7 +177,7 @@ public class Pattern {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.25), tags2.getTagObject(tags2.getsize() - numOfTags).gettag());
+                    (x - 0.5), (y - 0.25), tags2.getTagObject(tags2.getSize() - numOfTags).gettag());
             numOfTags--;
           } else
             visPane =
@@ -187,7 +187,7 @@ public class Pattern {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.75), tags2.getTagObject(tags2.getsize() - numOfTags).gettag());
+                    (x - 0.5), (y - 0.75), tags2.getTagObject(tags2.getSize() - numOfTags).gettag());
             numOfTags--;
           } else
             visPane =

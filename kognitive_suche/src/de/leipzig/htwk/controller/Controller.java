@@ -85,16 +85,13 @@ public class Controller {
 
     /**
      * @author Franz Schwarzer
-     */ 
-    
+     */
+
     long zstVorher = System.currentTimeMillis();
-    
-    String tmp;
+
     HTMLTools webSearch = new HTMLTools();
     Results r = results;
     int resultSize = r.getResults().size();
-    String[] searchText = new String[resultSize];
-
     ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
     String clearPageText[] = new String[resultSize];
     for (int i = 0; i < resultSize; i++) {
@@ -102,31 +99,48 @@ public class Controller {
       clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
       System.out.println(clearPageText[i]);
     }
-    
 
-    
-    long zstNachher = System.currentTimeMillis();       //Zeitmessung
-    System.out.println("Zeit benötigt: Webseiten Suche: " + ((zstNachher - zstVorher)) + " millisec");
-    
+
+    long zstNachher = System.currentTimeMillis(); // Zeitmessung
+    System.out.println("Zeit benötigt: Webseiten Suche: " + ((zstNachher - zstVorher))
+        + " millisec");
+
     beginCognitiveSearch(clearPageText, searchWord);
 
   }
 
+  /**
+   * @author TobiasLenz
+   * @param searchText selbsterklärend
+   * @param searchWord selbsterklärend
+   */
+
   private void beginCognitiveSearch(String[] searchText, String searchWord) {
     long zstVorher = System.currentTimeMillis();
 
-    String searchword = searchWord;
-    ApiCognitiveSearch search = new ApiCognitiveSearch();
-    ReturnTagList list = new ReturnTagList();
-    list = search.ApiCognitiveSearch(searchText, searchWord);
-    
+    ApiCognitiveSearch search = new ApiCognitiveSearch(searchText, searchWord);
+    ReturnTagList tags = new ReturnTagList();
 
-    long zstNachher = System.currentTimeMillis();       //Zeitmessung
-    System.out.println("Zeit benötigt: Kognitiver Algorithmus: " + ((zstNachher - zstVorher)) + " millisec");
-    
-    initVisual(list, searchword);   //Aufruf der Visualisierung
-    
-    
+    search.doWordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
+    search.doMergeTagInfos(); // Zusammenführen von Tag-Infos der Analysen
+    /**
+     * Hier können durch Nutzung der Api durch search.AddInfo bekannte Tag-Informationen hinzugefügt
+     * werden
+     * 
+     * bsp. search.AddTagInfo(String[] headline, priority 10);
+     */
+
+
+    search.doEditTags(); // Bearbeiten der Tags
+
+    long zstNachher = System.currentTimeMillis(); // Zeitmessung
+    System.out.println("Zeit benötigt: Kognitiver Algorithmus: " + ((zstNachher - zstVorher))
+        + " millisec");
+
+    tags = search.getTags();
+    initVisual(tags, searchWord); // Aufruf der Visualisierung
+
+
 
   }
 
@@ -224,10 +238,10 @@ public class Controller {
   public void farooSearch(String searchWord) {
     this.searchWord = searchWord;
     long zstVorher = System.currentTimeMillis();
-    
-    queryFaroo();       //Starten der Faroo Suche
-    
-    long zstNachher = System.currentTimeMillis();       //Zeitmessung
+
+    queryFaroo(); // Starten der Faroo Suche
+
+    long zstNachher = System.currentTimeMillis(); // Zeitmessung
     System.out.println("Zeit benötigt: Faroo Suche: " + ((zstNachher - zstVorher)) + " millisec");
     beginWebSearch();
   }

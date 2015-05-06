@@ -74,7 +74,7 @@ public class ReturnTagList {
     return tagObjects.get(num);
   }
 
-  public int getsize() {
+  public int getSize() {
     return tagObjects.size();
   }
 
@@ -122,4 +122,5 @@ public class ReturnTagList {
       System.out.println(tagObjects.get(i).gettag()+" Priority: "+Math.round(tagObjects.get(i).getPriority()));
     }
   }
+
 }

@@ -1,10 +1,6 @@
 package cognitive.search;
-
 import general.functions.TxtReader;
-
 import java.io.IOException;
-import java.util.ArrayList;
-
 import snowballstemmer.GermanStemmer;
 
 public class EditTags {
@@ -29,13 +25,13 @@ public class EditTags {
 	  
 	  ReturnTagList pruefgleich = tags;
 	  
-	  for (int i=0; i<=tags.getsize(); i++ ){
+	  for (int i=0; i<=tags.getSize(); i++ ){
 		  ColognePhonetic.Encoding(pruefgleich.getTagObject(i).gettag());
 		  ColognePhonetic.CleaningDoubles(pruefgleich.getTagObject(i).gettag());
 		  ColognePhonetic.CleaningZeroes(pruefgleich.getTagObject(i).gettag());
 	  }
-	   for (int n=0; n<tags.getsize(); n++){
-			  for (int m=0; m<=tags.getsize(); m++){
+	   for (int n=0; n<tags.getSize(); n++){
+			  for (int m=0; m<=tags.getSize(); m++){
 				  if (pruefgleich.getTagObject(n).gettag()==pruefgleich.getTagObject(m).gettag() && n!=m){
 				    
 					 tags.renameTag(tags.getTagObject(n).gettag(), tags.getTagObject(m).gettag());
@@ -48,7 +44,7 @@ public class EditTags {
     // create a new instance of PorterStemmer
     GermanStemmer stemmer = new GermanStemmer();
 
-    for (int i = 0; i < tags.getsize(); i++) {
+    for (int i = 0; i < tags.getSize(); i++) {
       // set the word to be stemmed
       stemmer.setCurrent(tags.getTagObject(i).gettag());
 
@@ -77,5 +73,12 @@ public class EditTags {
       tags.deleteTag(wordList[i]);
     }
 
+  }
+  public void removeTagsLongerThanVar(int lengthVar){
+       for(int i = 0; i < tags.getSize(); i++){
+         if(tags.getTagObject(i).gettag().length() > lengthVar){
+           tags.deleteTag(tags.getTagObject(i).gettag());
+         }
+       }
   }
 }

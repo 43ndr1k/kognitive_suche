@@ -1,9 +1,6 @@
 package de.leipzig.htwk.tests;
 
 
-import java.io.IOException;
-
-import cognitive.search.ApiCognitiveSearch;
 import cognitive.search.ReturnTagList;
 import de.leipzig.htwk.websearch.HTMLTools;
 import general.functions.TxtReader;
@@ -19,28 +16,18 @@ public class ApiKognitiveSearchTest {
     long zstNachher;
 
 
-    ApiCognitiveSearch test = new ApiCognitiveSearch();
+
     //String[] text = getTest();
     zstVorher = System.currentTimeMillis();
     String[] texet = {"Test","Test"};
-    test.ApiCognitiveSearch(texet, "Sigma Sport");
-    zstNachher = System.currentTimeMillis();
-    System.out.println("Zeit benötigt: Kognitiver Algorithmus: "
-        + ((zstNachher - zstVorher)) + " millisec");
-    String s = "se  in.";
 
-    // s = s.replaceAll("[.,!?]", " ");
-    s = s.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
+
+
 
     TxtReader tr = new TxtReader();
 
-    try {
-      s = tr.readFile("stoplist_de.txt");
-    } catch (IOException e) {
-      System.out.println("Das hat leider nicht geklappt");
-    }
 
-  }
+    }
 
   private static String[] getTest() {
     String[] url =
