@@ -249,6 +249,7 @@ public class Controller {
       System.exit(0);
     } else {
       //TODO hier kommt dann die Suche rein, GUI anpassen!
+      //TODO prüfen ob Liste leer ist die aus der Suche zurpück kommt
     }
   }
 

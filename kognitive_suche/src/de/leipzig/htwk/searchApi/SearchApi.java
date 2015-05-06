@@ -65,18 +65,24 @@ public class SearchApi {
     int anzRestResults = 0;
 
     /**
+     * No Results Class
+     */
+    String noresultclass;
+
+    /**
      *
      * @param url
      * @param nextButton
      * @param titleClass
      * @param urlKlasse
      * @param snippetKlasse
+     * @param noResultClass
      * @param anzSiteResults
      * @param gesamtAnzahlErgebnisse
      */
 
     public SearchApi(String url, String nextButton, String titleClass, String urlKlasse,
-                     String snippetKlasse, int anzSiteResults, int gesamtAnzahlErgebnisse) {
+                     String snippetKlasse, String noResultClass,int anzSiteResults, int gesamtAnzahlErgebnisse) {
 
         this.url = url;
         this.nextButton = nextButton;
@@ -84,6 +90,7 @@ public class SearchApi {
         this.linkClass = urlKlasse;
         this.descriptionClass = snippetKlasse;
         this.anzSiteResults = anzSiteResults;
+        this.noresultclass = noResultClass;
         this.gesamtAnzahlErgebnisse = gesamtAnzahlErgebnisse;
         this.anzRestResults = gesamtAnzahlErgebnisse;
     }
@@ -91,10 +98,10 @@ public class SearchApi {
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
      */
     private static String[] REPLACEMENTS = { "%", "%25", " ", "%20", "!",
-            "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
-            "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
-            "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
-            "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
+        "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
+        "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
+        "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
+        "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
 
     /**
      * Diese Methode codiert die query nach URL-Envording Richtlien
@@ -138,19 +145,25 @@ public class SearchApi {
 
         try {
             for (int i = 0; i < this.anzResultSize; i++) {
-                if((this.anzResultSize > 0) && (this.anzResultSize-1 != i)) {
-                    makeClassLists();
-                    makeResultList();
-                    moreResults();
+                List<WebElement> noResults = getList(this.noresultclass);
+                if(noResults.size() == 0 && anzRestResults != 0) {
+                    if ((this.anzResultSize > 0) && (this.anzResultSize - 1 != i)) {
+                        makeClassLists();
+                        makeResultList();
+                        moreResults();
+                    } else {
+                        makeClassLists();
+                        makeResultList();
+                    }
                 } else {
-                    makeClassLists();
-                    makeResultList();
+                    break;
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
             throw new SearchApiExecption("Beim Erstellen der Ergebnisliste ist ein Fehler aufgetreten");
         }
+
         return this.resultList;
     }
 
@@ -159,9 +172,9 @@ public class SearchApi {
      * @throws SearchApiExecption
      */
     private void makeClassLists() throws SearchApiExecption {
-        this.titleClassList = (getList(this.titleClass));
-        this.linkClassList = (getList(this.linkClass));
-        this.descriptionClassList = (getList(this.descriptionClass));
+            this.titleClassList = (getList(this.titleClass));
+            this.linkClassList = (getList(this.linkClass));
+            this.descriptionClassList = (getList(this.descriptionClass));
     }
 
     /**
@@ -220,7 +233,11 @@ public class SearchApi {
         try {
 
             list = unitDriver.findElements(By.className(className));
-            this.anzSiteResults = list.size();
+            if (list.size() != 0) {
+                this.anzSiteResults = list.size();
+            } else {
+                anzRestResults = 0;
+            }
 
         } catch (WebDriverException e) {
             e.printStackTrace();
