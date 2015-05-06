@@ -1,7 +1,5 @@
 package de.leipzig.htwk.searchApi;
 
-import java.net.MalformedURLException;
-
 /**
  * @Autor Hendrik Sawade.
  */
@@ -12,20 +10,20 @@ public class DuckDuckGoSearchApi extends SearchApi {
     private static String TITLECLASS = "large";
     private static String LINKCLASS = "url";
     private static String DESCRIPTIONCLASS = "snippet";
+    private static double anzSiteResults = 30.0;
 
 
+    public DuckDuckGoSearchApi(String query, int anzResultCount) throws SearchApiExecption {
 
-    public DuckDuckGoSearchApi(String query, int anzResultCount) throws SearchApiExecption, MalformedURLException {
-
-        super(URL, NEXTBUTTON, TITLECLASS, LINKCLASS, DESCRIPTIONCLASS );
+        super(URL, NEXTBUTTON, TITLECLASS, LINKCLASS, DESCRIPTIONCLASS, (int) anzSiteResults, anzResultCount);
             setAnzResultSize(anzResultCount);
         this.resultList = query(query);
     }
 
-    //TODO Zählt nicht richtig, berechnung anpassen. Mit Mod, Resultslist soschreiben das es genau die anforderte ergebnis zahl kommt get rest methode.
+    
     @Override
     public void setAnzResultSize(int countResult) {
-        countResult = (int) Math.ceil(countResult / 30.0);
+        countResult = (int) Math.ceil(countResult / anzSiteResults);
         super.setAnzResultSize(countResult);
     }
 }

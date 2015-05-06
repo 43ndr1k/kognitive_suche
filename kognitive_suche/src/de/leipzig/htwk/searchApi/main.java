@@ -8,7 +8,7 @@ import java.net.MalformedURLException;
 public class main {
     public static void main(String[] args) throws InterruptedException, SearchApiExecption, MalformedURLException {
 
-        DuckDuckGoSearchApi d = new DuckDuckGoSearchApi("Hallo Welt", 40);
+        DuckDuckGoSearchApi d = new DuckDuckGoSearchApi("Hallo Welt", 10);
         System.out.println(d.getDuckDuckGoResults().getResults().size());
 
         for (int i = 0; i < d.getDuckDuckGoResults().getResults().size();i++) {

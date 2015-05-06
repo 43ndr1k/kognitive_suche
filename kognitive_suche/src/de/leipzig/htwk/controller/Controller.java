@@ -247,6 +247,8 @@ public class Controller {
       messageBox.run();
       messageBox.showAndWait();
       System.exit(0);
+    } else {
+      //TODO hier kommt dann die Suche rein, GUI anpassen!
     }
   }
 

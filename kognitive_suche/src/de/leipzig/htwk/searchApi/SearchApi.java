@@ -1,18 +1,12 @@
 package de.leipzig.htwk.searchApi;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
-import de.leipzig.htwk.infoBox.MessageBox;
 import javafx.application.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,17 +51,41 @@ public class SearchApi {
     /**
      * Wie viele Ergebnisse will man haben
      */
-    int anzResultSize;
+    int anzResultSize, gesamtAnzahlErgebnisse;
 
+    /**
+     * Wie viele Ergebnisse gibt es pro Seite.
+     */
+    private int anzSiteResults;
 
-    public SearchApi(String url, String nextButton, String titleClass, String urlKlasse, String snippetKlasse) {
+    /**
+     * Wie viele ResterErgebnisse sind noch vorhanden.
+     * (gesamtAnzahlErgebnisse - anzSiteResults
+     */
+    int anzRestResults = 0;
+
+    /**
+     *
+     * @param url
+     * @param nextButton
+     * @param titleClass
+     * @param urlKlasse
+     * @param snippetKlasse
+     * @param anzSiteResults
+     * @param gesamtAnzahlErgebnisse
+     */
+
+    public SearchApi(String url, String nextButton, String titleClass, String urlKlasse,
+                     String snippetKlasse, int anzSiteResults, int gesamtAnzahlErgebnisse) {
 
         this.url = url;
         this.nextButton = nextButton;
         this.titleClass = titleClass;
         this.linkClass = urlKlasse;
         this.descriptionClass = snippetKlasse;
-
+        this.anzSiteResults = anzSiteResults;
+        this.gesamtAnzahlErgebnisse = gesamtAnzahlErgebnisse;
+        this.anzRestResults = gesamtAnzahlErgebnisse;
     }
     /**
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
@@ -97,39 +115,9 @@ public class SearchApi {
      * @return Results Liste
      * @throws SearchApiExecption
      */
-    public ArrayList<Result> query(String query) throws SearchApiExecption, MalformedURLException {
+    public ArrayList<Result> query(String query) throws SearchApiExecption {
         query = encoding(query);
         return searching(this.url + query);
-    }
-
-    /**
-     * Verbindung zum Internet Testen.
-     */
-    private void internetTest() {
-        HttpURLConnection connection = null;
-
-        try {
-            connection = (HttpURLConnection) new URL("http://www.google.de").openConnection();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            connection.setRequestMethod("HEAD");
-        } catch (ProtocolException e) {
-            e.printStackTrace();
-        }
-        int responseCode = 0;
-        try {
-            responseCode = connection.getResponseCode();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        if (responseCode != 200) {
-            // Not OK.
-            System.out.println("Fehler!!!!!!!!!!!!!!!!!!!!!!!!!!!111");
-            infoBox("Verbindung zum Internet ist fehlgeschlagen.","Verbindungsfehler","Internet Connection");
-            System.exit(0);
-        }
     }
 
     /**
@@ -137,9 +125,7 @@ public class SearchApi {
      * @param completeUrl String zur Suchmaschine, einschließlich des Suchwortes
      * @return
      */
-    private ArrayList<Result> searching(String completeUrl) throws SearchApiExecption, MalformedURLException {
-
-        internetTest();
+    private ArrayList<Result> searching(String completeUrl) throws SearchApiExecption {
 
         try {
             unitDriver.get(completeUrl);
@@ -152,11 +138,14 @@ public class SearchApi {
 
         try {
             for (int i = 0; i < this.anzResultSize; i++) {
-                this.titleClassList = (getList(this.titleClass));
-                this.linkClassList = (getList(this.linkClass));
-                this.descriptionClassList = (getList(this.descriptionClass));
-                makeResultList();
-                moreResults();
+                if((this.anzResultSize > 0) && (this.anzResultSize-1 != i)) {
+                    makeClassLists();
+                    makeResultList();
+                    moreResults();
+                } else {
+                    makeClassLists();
+                    makeResultList();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -166,15 +155,13 @@ public class SearchApi {
     }
 
     /**
-     * Info Box für Meldungen.
-     * @param infoMessage
-     * @param titleBar
-     * @param headerMessage
+     * Erstellt die Listen mit den Web Element Klassen
+     * @throws SearchApiExecption
      */
-    public void infoBox(String infoMessage, String titleBar, String headerMessage) {
-        MessageBox messageBox = new MessageBox(infoMessage, titleBar, headerMessage);
-        messageBox.run();
-        messageBox.showAndWait();
+    private void makeClassLists() throws SearchApiExecption {
+        this.titleClassList = (getList(this.titleClass));
+        this.linkClassList = (getList(this.linkClass));
+        this.descriptionClassList = (getList(this.descriptionClass));
     }
 
     /**
@@ -196,7 +183,8 @@ public class SearchApi {
      * @return resultList Beinhaltet eine List mit Result Objekten.
      */
     private void makeResultList() {
-        for (int i = 0; i < this.titleClassList.size();i++) {
+        int anz = createAnzResultObjects();
+        for (int i = 0; i < anz;i++) {
             this.resultList.add(new Result(
                     this.titleClassList.get(i).getText(),
                     this.descriptionClassList.get(i).getText(),
@@ -204,6 +192,22 @@ public class SearchApi {
             );
         }
 
+    }
+
+    /**
+     * Berechnet wie viele Result Objekte noch erstellt werden müssen, anhand wie viele ergebnisse
+     * pro Seite es gibt.
+     * @return anz Anzahl wie viele Ergebnisse es gibt.
+     */
+    private int createAnzResultObjects() {
+        int anz;
+        if (anzRestResults >= anzSiteResults) {
+            anzRestResults = anzRestResults - anzSiteResults;
+            anz = anzSiteResults;
+        } else {
+            anz = anzRestResults;
+        }
+        return anz;
     }
 
     /**
@@ -216,6 +220,7 @@ public class SearchApi {
         try {
 
             list = unitDriver.findElements(By.className(className));
+            this.anzSiteResults = list.size();
 
         } catch (WebDriverException e) {
             e.printStackTrace();
@@ -233,5 +238,7 @@ public class SearchApi {
     public void setAnzResultSize(int anzResultSize) {
         this.anzResultSize = anzResultSize;
     }
+
+
 }
 
