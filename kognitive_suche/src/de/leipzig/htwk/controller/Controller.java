@@ -10,11 +10,17 @@ import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
 import simple.algorithm.*;
 import visualize.VisController;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.util.ArrayList;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import cognitive.search.ApiCognitiveSearch;
 import cognitive.search.ReturnTagList;
+import de.leipzig.htwk.infoBox.MessageBox;
 
 /**
  * @author Hendrik Sawade
@@ -210,4 +216,39 @@ public class Controller {
   public ArrayList<SimAlgTags> getTags() {
     return null;
   }
+
+
+  /**
+   * Verbindung zum Internet Testen.
+   */
+  private void internetTest() {
+    HttpURLConnection connection = null;
+
+    try {
+      connection = (HttpURLConnection) new URL("http://www.google.de").openConnection();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    try {
+      connection.setRequestMethod("HEAD");
+    } catch (ProtocolException e) {
+      e.printStackTrace();
+    }
+    int responseCode = 0;
+    try {
+      responseCode = connection.getResponseCode();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    if (responseCode != 200) {
+      // Not OK.
+      System.out.println("Fehler!!!!!!!!!!!!!!!!!!!!!!!!!!!111");
+      MessageBox messageBox = new MessageBox("Verbindung zum Internet ist fehlgeschlagen.","Verbindungsfehler","Internet Connection");
+      messageBox.run();
+      messageBox.showAndWait();
+      System.exit(0);
+    }
+  }
+
+
 }

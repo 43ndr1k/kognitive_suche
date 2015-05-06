@@ -1,4 +1,4 @@
-package de.leipzig.htwk.searchApi;
+package de.leipzig.htwk.infoBox;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;

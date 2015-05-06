@@ -1,6 +1,7 @@
 package de.leipzig.htwk.searchApi;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import de.leipzig.htwk.infoBox.MessageBox;
 import javafx.application.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
