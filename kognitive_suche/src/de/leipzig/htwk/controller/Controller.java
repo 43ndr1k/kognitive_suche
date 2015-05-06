@@ -13,6 +13,7 @@ import visualize.VisController;
 
 import java.util.ArrayList;
 
+import pdf.box.access.PDFDocument;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import cognitive.search.ApiCognitiveSearch;
@@ -38,6 +39,7 @@ public class Controller {
   private String query;
   private GUI gui;
   private String searchWord;
+  private ArrayList <PDFDocument> pdfBoxDocuments;
 
   /**
    * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
@@ -249,4 +251,9 @@ public class Controller {
   public ArrayList<SimAlgTags> getTags() {
     return null;
   }
+
+  public ArrayList<PDFDocument> getPDFBoxDocuments() {
+	return gui.getPDFBoxDocuments();
+  }
+  
 }
