@@ -8,6 +8,9 @@ import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
 import de.leipzig.htwk.faroo.api.Results;
 import de.leipzig.htwk.infoBox.MessageBox;
+import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
+import de.leipzig.htwk.searchApi.SearchApiExecption;
+import de.leipzig.htwk.searchApi.SearchResults;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
@@ -283,7 +286,7 @@ public class Controller {
     }
     if (responseCode != 200) {
       // Not OK.
-      System.out.println("Fehler!!!!!!!!!!!!!!!!!!!!!!!!!!!111");
+      System.out.println("Fehler!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       MessageBox messageBox = new MessageBox("Verbindung zum Internet ist fehlgeschlagen.","Verbindungsfehler","Internet Connection");
       messageBox.run();
       messageBox.showAndWait();
@@ -299,6 +302,16 @@ public class Controller {
   public ArrayList<PDFDocument> getPDFBoxDocuments() {
 	return gui.getPDFBoxDocuments();
   }
-  
+
+  /**
+   * Beinhaltet eine ArrayList mit den Ergebnissen die die Suchmaschine gefunden hat.
+   * @return SearchResults Liste mit den Suchergebnissen
+   * @throws SearchApiExecption
+   */
+  private SearchResults searchApi() throws SearchApiExecption {
+    DuckDuckGoSearchApi duckDuckGoSearchApi = new DuckDuckGoSearchApi(getQuery(), 79); // Maximal 79 Ergebnisse zurzeit!!
+    SearchResults results = duckDuckGoSearchApi.getResultList();
+    return results;
+  }
 
 }
