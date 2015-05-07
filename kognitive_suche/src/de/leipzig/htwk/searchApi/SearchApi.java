@@ -120,9 +120,9 @@ public class SearchApi {
      * @return Results Liste
      * @throws SearchApiExecption
      */
-    public ArrayList<Result> query(String query) throws SearchApiExecption {
+    public void query(String query) throws SearchApiExecption {
         query = encoding(query);
-        return searching(this.url + query);
+        searching(this.url + query);
     }
 
     /**
@@ -130,7 +130,7 @@ public class SearchApi {
      * @param completeUrl String zur Suchmaschine, einschließlich des Suchwortes
      * @return
      */
-    private ArrayList<Result> searching(String completeUrl) throws SearchApiExecption {
+    private void searching(String completeUrl) throws SearchApiExecption {
 
         try {
             unitDriver.get(completeUrl);
@@ -158,8 +158,6 @@ public class SearchApi {
             e.printStackTrace();
             throw new SearchApiExecption("Beim Erstellen der Ergebnisliste ist ein Fehler aufgetreten");
         }
-
-        return this.resultList;
     }
 
     /**
@@ -243,7 +241,7 @@ public class SearchApi {
         return list;
     }
 
-    public SearchResults getDuckDuckGoResults() {
+    public SearchResults getResultList() {
         SearchResults results = new SearchResults();
         results.setResults(resultList);
         return results;

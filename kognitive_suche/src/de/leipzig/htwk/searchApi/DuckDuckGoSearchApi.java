@@ -16,7 +16,7 @@ public class DuckDuckGoSearchApi extends SearchApi {
     public DuckDuckGoSearchApi(String query, int anzResultCount) throws SearchApiExecption {
 
         super(URL, NEXTBUTTON, TITLECLASS, LINKCLASS, DESCRIPTIONCLASS, NORESULTSCLASS,anzResultCount);
-        this.resultList = query(query);
+        query(query);
     }
 
 
