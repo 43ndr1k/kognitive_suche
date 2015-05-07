@@ -145,13 +145,10 @@ public class SearchApi {
             while (resultList.size() < gesamtAnzahlErgebnisse) {
                 List<WebElement> noResults = getList(this.noresultclass);
                 if(noResults.size() == 0 && anzRestResults != 0) {
-                    if ((gesamtAnzahlErgebnisse - resultList.size()) > anzRestResults || gesamtAnzahlErgebnisse == anzRestResults) {
-                        makeClassLists();
-                        makeResultList();
+                    makeClassLists();
+                    makeResultList();
+                    if (resultList.size() < gesamtAnzahlErgebnisse) {
                         moreResults();
-                    } else {
-                        makeClassLists();
-                        makeResultList();
                     }
                 } else {
                     break;
@@ -237,7 +234,7 @@ public class SearchApi {
                 this.anzSiteResults = list.size();
             } else if(className == noresultclass && list.size() != 0) {
                 anzRestResults = 0;
-                }
+            }
 
         } catch (WebDriverException e) {
             e.printStackTrace();
