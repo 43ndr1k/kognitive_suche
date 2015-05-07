@@ -51,7 +51,7 @@ public class SearchApi {
     /**
      * Wie viele Ergebnisse will man haben
      */
-    int anzResultSize, gesamtAnzahlErgebnisse;
+    int gesamtAnzahlErgebnisse;
 
     /**
      * Wie viele Ergebnisse gibt es pro Seite.
@@ -77,19 +77,17 @@ public class SearchApi {
      * @param urlKlasse
      * @param snippetKlasse
      * @param noResultClass
-     * @param anzSiteResults
      * @param gesamtAnzahlErgebnisse
      */
 
     public SearchApi(String url, String nextButton, String titleClass, String urlKlasse,
-                     String snippetKlasse, String noResultClass,int anzSiteResults, int gesamtAnzahlErgebnisse) {
+                     String snippetKlasse, String noResultClass, int gesamtAnzahlErgebnisse) {
 
         this.url = url;
         this.nextButton = nextButton;
         this.titleClass = titleClass;
         this.linkClass = urlKlasse;
         this.descriptionClass = snippetKlasse;
-        this.anzSiteResults = anzSiteResults;
         this.noresultclass = noResultClass;
         this.gesamtAnzahlErgebnisse = gesamtAnzahlErgebnisse;
         this.anzRestResults = gesamtAnzahlErgebnisse;
@@ -144,10 +142,10 @@ public class SearchApi {
         }
 
         try {
-            for (int i = 0; i < this.anzResultSize; i++) {
+            while (resultList.size() < gesamtAnzahlErgebnisse) {
                 List<WebElement> noResults = getList(this.noresultclass);
                 if(noResults.size() == 0 && anzRestResults != 0) {
-                    if ((this.anzResultSize > 0) && (this.anzResultSize - 1 != i)) {
+                    if ((gesamtAnzahlErgebnisse - resultList.size()) > anzRestResults || gesamtAnzahlErgebnisse == anzRestResults) {
                         makeClassLists();
                         makeResultList();
                         moreResults();
@@ -172,9 +170,9 @@ public class SearchApi {
      * @throws SearchApiExecption
      */
     private void makeClassLists() throws SearchApiExecption {
-            this.titleClassList = (getList(this.titleClass));
-            this.linkClassList = (getList(this.linkClass));
-            this.descriptionClassList = (getList(this.descriptionClass));
+        this.titleClassList = (getList(this.titleClass));
+        this.linkClassList = (getList(this.linkClass));
+        this.descriptionClassList = (getList(this.descriptionClass));
     }
 
     /**
@@ -223,6 +221,8 @@ public class SearchApi {
         return anz;
     }
 
+
+
     /**
      * Sucht nach einer bestimmten Kklasse, die man übergibt. Die Klasse wo die Ergennisse drin stehen.
      * @param className
@@ -235,9 +235,9 @@ public class SearchApi {
             list = unitDriver.findElements(By.className(className));
             if (list.size() != 0) {
                 this.anzSiteResults = list.size();
-            } else {
+            } else if(className == noresultclass && list.size() != 0) {
                 anzRestResults = 0;
-            }
+                }
 
         } catch (WebDriverException e) {
             e.printStackTrace();
@@ -252,9 +252,6 @@ public class SearchApi {
         return results;
     }
 
-    public void setAnzResultSize(int anzResultSize) {
-        this.anzResultSize = anzResultSize;
-    }
 
 
 }
