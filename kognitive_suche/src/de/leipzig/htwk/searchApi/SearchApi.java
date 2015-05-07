@@ -1,6 +1,5 @@
 package de.leipzig.htwk.searchApi;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
 import javafx.application.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
@@ -19,7 +18,7 @@ public class SearchApi {
     /**
      * unitDriver lädt die Engerine für die Websuche.
      */
-    private HtmlUnitDriver unitDriver = new HtmlUnitDriver(BrowserVersion.CHROME);
+    private HtmlUnitDriver unitDriver = new HtmlUnitDriver();
 
     /**
      * Beinhaltet die alle Results als Result Objekte.

@@ -178,6 +178,8 @@ public class Controller {
 
     VisController visualControler = new VisController();
     visualControler.setPane(visPane);
+
+    
     visualControler.setQuery(searchword);
     // iv
     visualControler.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
