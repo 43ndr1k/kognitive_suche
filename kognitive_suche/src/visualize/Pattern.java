@@ -13,10 +13,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import komplexe.suche.TagObjectList;
-//import gui.GUI;
-//import java.awt.event.MouseAdapter;
-//import javafx.scene.input.MouseEvent;
+import gui.GUI;
+import javafx.scene.input.MouseEvent;
 
 /**
  * Generierung des Feldes von Hexagons
@@ -38,11 +36,11 @@ public class Pattern {
     private static final Color COLOR_LIGHTGREY = Color.web("#e5e5e5");
 
     private Color[] colors = {COLOR_LIGHTGREEN, COLOR_ORANGE, COLOR_LIGHTBLUE, COLOR_RED,
-            COLOR_LIGHTPURPLE, COLOR_LIGHTGREY};
+        COLOR_LIGHTPURPLE, COLOR_LIGHTGREY};
 
     private int activePads;
 
-    private static int maxTags = 9;
+    private static int MAX_TAGS = 9;
 
     private static Pane visPane;
 
@@ -51,9 +49,9 @@ public class Pattern {
     /**
      * @author Sebastian Hügelmann
      */
-//  private GUI gui;
-//  private String[] labelQueryArray = new String[maxTags];
-//  private int labelQueryArrayCounter=0;
+    private GUI gui;
+    //  private String[] labelQueryArray = new String[maxTags];
+    //  private int labelQueryArrayCounter=0;
 
     /**
      * Generiert das Feld von Hexagons
@@ -61,14 +59,14 @@ public class Pattern {
      * @param paneHeight Höhe des Feldes
      * @param paneWidth Breite des Feldes
      * @param query
-     * @param tags2
+     * @param tags
      */
-    public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags2) {
+    public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags) {
         // TODO Auto-generated method stub
         this.paneHeight = paneHeight;
         this.paneWidth = paneWidth;
-        this.tags = tags2;
-        this.activePads = tags2.getsize();
+        this.tags = tags;
+        this.activePads = tags.getSize();
 
         visPane = new Pane();
         visPane.setPrefSize(paneHeight, paneWidth);
@@ -77,7 +75,7 @@ public class Pattern {
         double oneHexWidth = getHexWidth();
         double columnCorrection = getColumnCorrection(oneHexHeight);
 
-        // Berechnung der Zeilen und Spaltenanzahl in Abh�ngigkeit von Fenstergr��e und PadSize
+        // Berechnung der Zeilen und Spaltenanzahl in Abhängigkeit von Fenstergröße und PadSize
         int rows = getRows(oneHexHeight);
         int columns = getColumns(oneHexWidth, columnCorrection);
 
@@ -85,8 +83,7 @@ public class Pattern {
 
         Boolean[][] padMap = createPadMap(rows, columns);
         visPane =
-                printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                        tags2);
+            printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
         // iv
         Button list = new Button("Liste");// liste Button
 
@@ -121,7 +118,7 @@ public class Pattern {
      */
     private int getColumns(double oneHexWidth, double columnCorrection) {
         return (int) (Math
-                .round((((paneWidth / (oneHexWidth - columnCorrection + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
+            .round((((paneWidth / (oneHexWidth - columnCorrection + PAD_OFFSET)) + 0.5) + 0.5) * 1) / 1.0);
     }
 
     /**
@@ -170,38 +167,40 @@ public class Pattern {
      * @return visPane mit positionierten Elementen
      */
     private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorrection,
-                              double oneHexHeight, int rows, int columns, Pane visPane, ReturnTagList tags2) {
-        int numOfTags = tags2.getsize();
+                              double oneHexHeight, int rows, int columns, Pane visPane) {
+        int numOfTags = tags.getSize();
+        if(numOfTags > MAX_TAGS){
+            numOfTags = MAX_TAGS;
+        }
 
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < columns; x++) {
                 if ((x % 2) == 0) {
                     if (padMap[x][y] == true) {
                         visPane =
-                                addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                                        (x - 0.5), (y - 0.25), tags2.getTagObject(tags2.getsize() - numOfTags).gettag());
+                            addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                                (x - 0.5), (y - 0.25), tags.getTagObject(tags.getSize() - numOfTags).getTag());
                         numOfTags--;
                     } else
                         visPane =
-                                addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                                        (x - 0.5), (y - 0.25));
+                            addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                                (x - 0.5), (y - 0.25));
                 } else {
                     if (padMap[x][y] == true) {
                         visPane =
-                                addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                                        (x - 0.5), (y - 0.75), tags2.getTagObject(tags2.getsize() - numOfTags).gettag());
+                            addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                                (x - 0.5), (y - 0.75), tags.getTagObject(tags.getSize() - numOfTags).getTag());
                         numOfTags--;
                     } else
                         visPane =
-                                addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                                        (x - 0.5), (y - 0.75));
+                            addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                                (x - 0.5), (y - 0.75));
                 }
             }
         }
         /**
          * @author Sebastian Hügelmann
          */
-//    labelQueryArrayCounter=0;
         return visPane;
 
     }
@@ -231,8 +230,8 @@ public class Pattern {
         padPane.setLayoutY(yPos);
 
         pad =
-                new Pad(PAD_SIZE, (oneHexWidth - columnCorrection + PAD_OFFSET) * (x),
-                        (oneHexHeight + PAD_OFFSET) * (y), COLOR_LIGHTGREY);
+            new Pad(PAD_SIZE, (oneHexWidth - columnCorrection + PAD_OFFSET) * (x),
+                (oneHexHeight + PAD_OFFSET) * (y), COLOR_LIGHTGREY);
 
         padPane.getChildren().add(pad.getShape());
         padPane.getChildren().add(pad.getLightShape());
@@ -262,11 +261,10 @@ public class Pattern {
         StackPane exPadPane = new StackPane();
         Pane linkPane = genLinkPane();
 
-
         /**
          * @author Sebastian Hügelmann
          */
-        //String testlabel = "baum";
+        String testlabel = "baum";
         //labelQueryArray[labelQueryArrayCounter]=labelText;
 
         Label smallTopicLabel = new Label(labelText);
@@ -286,7 +284,7 @@ public class Pattern {
 
         exPadPane.setLayoutX(xPos - (PAD_SIZE * 2.2 - PAD_SIZE));
         exPadPane.setLayoutY(yPos
-                - (0.5 * (oneHexHeight + PAD_OFFSET) * 2.2 - 0.5 * (oneHexHeight + PAD_OFFSET)));
+            - (0.5 * (oneHexHeight + PAD_OFFSET) * 2.2 - 0.5 * (oneHexHeight + PAD_OFFSET)));
 
         padPane.getChildren().add(pad.getShape());
         padPane.getChildren().add(pad.getLightShape());
@@ -314,16 +312,18 @@ public class Pattern {
         /**
          * @author Sebastian Hügelmann
          */
-//    exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-//      @Override
-//      public void handle(MouseEvent event) {
-//          System.out.println("Hallo");
-//          //System.out.println(labelQueryArray[labelQueryArrayCounter]);
-//          //System.out.println("Counter:"+labelQueryArrayCounter);
-//          gui.startQuery(testlabel);
-//      }
-//    });
-//    labelQueryArrayCounter++;
+        exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                System.out.println("Hallo");
+                //System.out.println(labelQueryArray[labelQueryArrayCounter]);
+                //System.out.println("Counter:"+labelQueryArrayCounter);
+                System.out.println(testlabel);
+                //gui.getGUI().setSuchleisteText(testlabel);
+                //gui.getGUI().startQuery();
+            }
+        });
+        //labelQueryArrayCounter++;
 
         return visPane;
     }
@@ -395,12 +395,4 @@ public class Pattern {
         return visPane;
         // TODO Auto-generated method stub
     }
-
-    /**
-     * @author Sebastian Hügelmann
-     */
-//  public void setGUI(GUI gui) {
-//    this.gui = gui;
-//  }
-
 }

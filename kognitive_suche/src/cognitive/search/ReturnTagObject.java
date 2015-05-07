@@ -22,7 +22,7 @@ public class ReturnTagObject {
     this.tag = tag;
   }
 
-  public String gettag() {
+  public String getTag() {
     return tag;
   }
 

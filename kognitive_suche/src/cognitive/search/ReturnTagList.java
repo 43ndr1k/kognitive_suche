@@ -28,6 +28,14 @@ public class ReturnTagList {
     return searchword;
   }
 
+  public ArrayList<ReturnTagObject> getTagObjects() {
+    return tagObjects;
+  }
+
+  public void setTagObjects(ArrayList<ReturnTagObject> tagObjects) {
+    this.tagObjects = tagObjects;
+  }
+
   /**
    * 
    * @param keyword
@@ -74,7 +82,7 @@ public class ReturnTagList {
     return tagObjects.get(num);
   }
 
-  public int getsize() {
+  public int getSize() {
     return tagObjects.size();
   }
 
@@ -86,7 +94,7 @@ public class ReturnTagList {
   public ReturnTagObject getTagByTagName(String tag) {
     tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
     for (int i = 0; i < tagObjects.size(); i++) {
-      if (tag.equalsIgnoreCase(tagObjects.get(i).gettag())) {
+      if (tag.equalsIgnoreCase(tagObjects.get(i).getTag())) {
         return tagObjects.get(i);
       }
     }
@@ -119,7 +127,8 @@ public class ReturnTagList {
   public void testOutput(int num){
     if(num > tagObjects.size()) num = tagObjects.size();
     for(int i = 0; i < num; i++){
-      System.out.println(tagObjects.get(i).gettag()+" Priority: "+Math.round(tagObjects.get(i).getPriority()));
+      System.out.println(tagObjects.get(i).getTag()+" Priority: "+Math.round(tagObjects.get(i).getPriority()));
     }
   }
+
 }

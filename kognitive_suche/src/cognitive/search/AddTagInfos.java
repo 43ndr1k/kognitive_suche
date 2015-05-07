@@ -44,19 +44,29 @@ public class AddTagInfos {
   }
 
   public void addInfo(ReturnTagList info) {
-    for (int i = 0; i < info.getsize(); i++) {
+    for (int i = 0; i < info.getSize(); i++) {
       addInfo(info.getTagObject(i));
     }
   }
 
   public void addInfo(ReturnTagObject info) {
-    list.addTagObject(info.gettag(), info.getBlocNumbers(), info.getPriority());
+    list.addTagObject(info.getTag(), info.getBlocNumbers(), info.getPriority());
   }
 
   public void addInfo(ArrayList<Tag> info, String function, double[] values) {
     for (int i = 0; i < info.size(); i++) {
       addInfo(info.get(i), function, values);
     }
+  }
+  
+  public void addInfo(String[] info, int textBlocNumber, Double priority){
+    for(int i =0; i < info.length; i++){
+      addInfo(info[i],textBlocNumber, priority);
+    }
+  }
+
+  private void addInfo(String string,int textBlocNumber, Double priority) {
+   list.addTagObject(string, textBlocNumber, priority);    
   }
 
   private double getFunctionPriority(String function, double[] values, int i) {

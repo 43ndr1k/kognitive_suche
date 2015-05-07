@@ -1,14 +1,21 @@
 package de.leipzig.htwk.controller;
 
+
+import cognitive.search.ApiCognitiveSearch;
+import cognitive.search.ReturnTagList;
 import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
 import de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.infoBox.MessageBox;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
-import simple.algorithm.*;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import pdf.box.access.PDFDocument;
+import simple.algorithm.SimAlgTags;
 import visualize.VisController;
 
 import java.io.IOException;
@@ -16,11 +23,6 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import cognitive.search.ApiCognitiveSearch;
-import cognitive.search.ReturnTagList;
-import de.leipzig.htwk.infoBox.MessageBox;
 
 /**
  * @author Hendrik Sawade
@@ -42,6 +44,7 @@ public class Controller {
   private String query;
   private GUI gui;
   private String searchWord;
+  private ArrayList <PDFDocument> pdfBoxDocuments;
 
   /**
    * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
@@ -90,12 +93,12 @@ public class Controller {
     /**
      * @author Franz Schwarzer
      */
-    String tmp;
+
+    long zstVorher = System.currentTimeMillis();
+
     HTMLTools webSearch = new HTMLTools();
     Results r = results;
     int resultSize = r.getResults().size();
-    String[] searchText = new String[resultSize];
-
     ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
     String clearPageText[] = new String[resultSize];
     for (int i = 0; i < resultSize; i++) {
@@ -103,16 +106,48 @@ public class Controller {
       clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
       System.out.println(clearPageText[i]);
     }
+
+
+    long zstNachher = System.currentTimeMillis(); // Zeitmessung
+    System.out.println("Zeit benötigt: Webseiten Suche: " + ((zstNachher - zstVorher))
+        + " millisec");
+
     beginCognitiveSearch(clearPageText, searchWord);
 
   }
 
+  /**
+   * @author TobiasLenz
+   * @param searchText selbsterklärend
+   * @param searchWord selbsterklärend
+   */
+
   private void beginCognitiveSearch(String[] searchText, String searchWord) {
-    String searchword = searchWord;
-    ApiCognitiveSearch search = new ApiCognitiveSearch();
-    ReturnTagList list = new ReturnTagList();
-    list = search.ApiCognitiveSearch(searchText, searchWord);
-    initVisual(list, searchword);
+    long zstVorher = System.currentTimeMillis();
+
+    ApiCognitiveSearch search = new ApiCognitiveSearch(searchText, searchWord);
+    ReturnTagList tags = new ReturnTagList();
+
+    search.doWordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
+    search.doMergeTagInfos(); // Zusammenführen von Tag-Infos der Analysen
+    /**
+     * Hier können durch Nutzung der Api durch search.AddInfo bekannte Tag-Informationen hinzugefügt
+     * werden
+     * 
+     * bsp. search.AddTagInfo(String[] headline, priority 10);
+     */
+
+
+    search.doEditTags(); // Bearbeiten der Tags
+
+    long zstNachher = System.currentTimeMillis(); // Zeitmessung
+    System.out.println("Zeit benötigt: Kognitiver Algorithmus: " + ((zstNachher - zstVorher))
+        + " millisec");
+
+    tags = search.getTags();
+    initVisual(tags, searchWord); // Aufruf der Visualisierung
+
+
 
   }
 
@@ -211,14 +246,18 @@ public class Controller {
    */
   public void farooSearch(String searchWord) {
     this.searchWord = searchWord;
-    queryFaroo();
+    long zstVorher = System.currentTimeMillis();
+
+    queryFaroo(); // Starten der Faroo Suche
+
+    long zstNachher = System.currentTimeMillis(); // Zeitmessung
+    System.out.println("Zeit benötigt: Faroo Suche: " + ((zstNachher - zstVorher)) + " millisec");
     beginWebSearch();
   }
 
   public ArrayList<SimAlgTags> getTags() {
     return null;
   }
-
 
   /**
    * Verbindung zum Internet Testen.
@@ -255,5 +294,11 @@ public class Controller {
     }
   }
 
+
+
+  public ArrayList<PDFDocument> getPDFBoxDocuments() {
+	return gui.getPDFBoxDocuments();
+  }
+  
 
 }

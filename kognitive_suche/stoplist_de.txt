@@ -4,6 +4,12 @@ aber
 ach
 acht
 achte
+the
+var
+div
+function
+important
+classmenueitem
 achten
 achter
 achtes
@@ -14,6 +20,7 @@ allem
 allen
 aller
 allerdings
+herrn
 alles
 allgemeinen
 als

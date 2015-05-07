@@ -59,11 +59,14 @@ public class WordCount {
     {
       tagNearby.add(numbContSearchWord, new Tag(i, parts[j]));
       for (int l = 1; l < RANGE; l++) {
-        if (j - l >= 0 && !badWord(parts[j - l])) {
+        if (j - l >= 0 && !badWord(parts[j - l]) && !badWord(parts[j - l])) {
           tagNearby.get(numbContSearchWord).addtag(parts[j - l]);
         }
 
-        if (j + l < parts.length && !badWord(parts[j + l])/* && parts[j+l] != "[^.!?]" */) {
+        if (j + l < parts.length && !badWord(parts[j + l]) && !badWord(parts[j + l])/*
+                                                                                     * && parts[j+l]
+                                                                                     * != "[^.!?]"
+                                                                                     */) {
           tagNearby.get(numbContSearchWord).addtag(parts[j + l]);
         }
       }

@@ -1,7 +1,5 @@
 package cognitive.search;
 
-import java.util.ArrayList;
-
 public class ApiCognitiveSearch {
   /**
    * Algorithmus zur Erkennung von Schlüsselbegriffen Diese Klasse nimmt ein Array von Textblöcken,
@@ -19,47 +17,56 @@ public class ApiCognitiveSearch {
    * @author Tobias Lenz
    */
   AddTagInfos merge;
-  ReturnTagList list;
+  ReturnTagList tags;
 
-  public ReturnTagList ApiCognitiveSearch(String[] searchText, String searchWord) {
 
-    WordCount count = new WordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
-    count.analyseText(searchText, searchWord);
+  long zstVorher;
+  long zstNachher;
+  WordCount count = new WordCount();
+  private String[] searchText;
+  private String searchWord;
 
-    AddTagInfos merge = new AddTagInfos(searchWord); // Zusammenführen von Tag-Infos der Analysen
+  public ApiCognitiveSearch(String[] searchText, String searchWord) {
+    this.searchText = searchText;
+    this.searchWord = searchWord;
+
+
+  }
+
+  public void doEditTags() {
+    EditTags edit = new EditTags(tags);
+    edit.removeTagsFromWordList();
+    edit.stem();
+    edit.removeTagsLongerThanVar(15);
+    edit.limitTags(100);
+
+    tags = edit.getTags();
+    tags.sortTagsByPriority();
+
+  }
+
+  public void doMergeTagInfos() {
+    zstVorher = System.currentTimeMillis();
+    AddTagInfos merge = new AddTagInfos(searchWord);
     double[] function = {-3, 0, 10};
     merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
     merge.addInfo(count.getTagFrequency());
 
-    list = merge.getReturnTagList();
+    tags = merge.getReturnTagList();
 
-    EditTags edit = new EditTags(list);
-    System.out.println("Anzahl der Tags ohne Algorithmus: " + list.getsize());
-    list.sortTagsByPriority();
-    list.testOutput(10); // Testausgabe der top 10 Tags
-    System.out
-        .println("--------------------------------------------------------------------------------------");
-    edit.removeTagsFromWordList();
-    System.out.println("Anzahl Tags mit Entfernen der in der Wortlist enthaltenen Wörter: "
-        + list.getsize());
-    list = edit.getTags();
-    list.testOutput(10);
-    System.out
-        .println("--------------------------------------------------------------------------------------");
-    edit.stem();
-    System.out.println("Ausgabe der Tags mit Anwendung der Porter-Stemmer-Algorithmus: "
-        + list.getsize());
-    list = edit.getTags();
-    list.sortTagsByPriority();
-    list.testOutput(10); // Testausgabe der top 10 Tags
+    zstNachher = System.currentTimeMillis();
+    System.out.println("Zeit benötigt: Tag-Merge: " + ((zstNachher - zstVorher)) + " millisec");
+  }
 
-    // Hilfe für Steffen
-    // edit.Encoding(searchWord);
-    // list.testOutput(10);
+  public void doWordCount() {
+    zstVorher = System.currentTimeMillis();
+    count.analyseText(searchText, searchWord);
 
+    zstNachher = System.currentTimeMillis();
+    System.out.println("Zeit benötigt: WordCount: " + ((zstNachher - zstVorher)) + " millisec");
+  }
 
-    System.out.println("Anzahl der Tags mit stem-Algorithmus: " + edit.getTags().getsize());
-    return list;
-
+  public ReturnTagList getTags() {
+    return tags;
   }
 }
