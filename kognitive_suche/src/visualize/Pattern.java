@@ -51,9 +51,6 @@ public class Pattern {
    */
   private GUI gui;
 
-  // private String[] labelQueryArray = new String[maxTags];
-  // private int labelQueryArrayCounter=0;
-
   /**
    * Generiert das Feld von Hexagons
    * 
@@ -197,9 +194,6 @@ public class Pattern {
         }
       }
     }
-    /**
-     * @author Sebastian Hügelmann
-     */
     return visPane;
 
   }
@@ -264,8 +258,6 @@ public class Pattern {
      * @author Sebastian Hügelmann
      */
     String testlabel = "baum";
-    // labelQueryArray[labelQueryArrayCounter]=labelText;
-
     Label smallTopicLabel = new Label(labelText);
     Label largeTopicLabel = new Label(labelText);
 
@@ -315,14 +307,15 @@ public class Pattern {
       @Override
       public void handle(MouseEvent event) {
         System.out.println("Hallo");
-        // System.out.println(labelQueryArray[labelQueryArrayCounter]);
-        // System.out.println("Counter:"+labelQueryArrayCounter);
         System.out.println(testlabel);
-        // gui.getGUI().setSuchleisteText(testlabel);
-        // gui.getGUI().startQuery();
+        System.out.println(largeTopicLabel.getText());
+        // GUI.getInstance();
+        gui = GUI.getInstance();
+        // Funzt noch nicht da Scheiße!
+        System.out.println("Text geholt von gui suchleiste: " + gui.getSuchleiste().getText());
+        gui.setSuchleisteText(largeTopicLabel.getText());
       }
     });
-    // labelQueryArrayCounter++;
 
     return visPane;
   }

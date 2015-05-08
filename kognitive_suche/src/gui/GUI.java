@@ -12,6 +12,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,6 +28,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 import pdf.box.access.PDFDocument;
+import visualize.Pattern;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -49,7 +51,7 @@ import javafx.util.Duration;
 public class GUI extends Application {
   private static final int windowHeight = 768;
   private static final int windowWidth = 1024;
-  private int startMode = 0; //gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
+  private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
   private Controller mController;
   public ArrayList<String> tags = new ArrayList<String>();
   public ArrayList<String> url = new ArrayList<String>();
@@ -64,8 +66,13 @@ public class GUI extends Application {
   private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
   BorderPane loadingPane = new BorderPane();
   Scene loadingScene;
-  
-  ArrayList <PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
+
+  ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
+
+  /* Problem ist, da es keine Main gibt, gibt es keine Klasse private GUI(){} welche die instance einmal initialisiert
+   * bzw. vollständig erstellt
+   */
+  private static GUI instance;
 
   public static void main(String[] args) {
     launch(args);
@@ -79,16 +86,17 @@ public class GUI extends Application {
    */
   @Override
   public void start(Stage stage2) throws Exception {
-	
-	/* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
-	start = new Scene (pane1);
-	stage = new Stage ();
-	suchleiste = new TextField ();
-	loadingScene = new Scene(loadingPane);
+
+
+    /* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
+    start = new Scene(pane1);
+    stage = new Stage();
+    suchleiste = new TextField();
+    loadingScene = new Scene(loadingPane);
     mController = new Controller();
-    	  
+
     mController.setGUI(this);
-    mController.setParameter("de", "web", 1);
+    // mController.setParameter("de", "web", 1);
 
     /* Anzeige der Stage */
     stage.setTitle("Kognitive Suche");
@@ -336,12 +344,12 @@ public class GUI extends Application {
    */
   public void startQuery() {
     stage.setScene(loadingIndicator());
-    
-    
-//    Task suche;
-//    suche = createWorker();
-//    new Thread(suche).start();
-    
+
+
+    // Task suche;
+    // suche = createWorker();
+    // new Thread(suche).start();
+
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
@@ -349,16 +357,16 @@ public class GUI extends Application {
       }
     });
   }
-  
-//  public Task createWorker() {
-//    return new Task() {
-//        @Override
-//        protected Object call() throws Exception {
-//          mController.farooSearch(suchleiste.getText());
-//            return null;
-//        }
-//    };
-//}
+
+  // public Task createWorker() {
+  // return new Task() {
+  // @Override
+  // protected Object call() throws Exception {
+  // mController.farooSearch(suchleiste.getText());
+  // return null;
+  // }
+  // };
+  // }
 
   /**
    * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.
@@ -368,8 +376,9 @@ public class GUI extends Application {
    */
 
   public void setSuchleisteText(String suchleiste) {
+    System.out.println("Übergebener Begriff " + suchleiste);
     this.suchleiste.setText(suchleiste);
-    System.out.println("Übergebener Begriff" + suchleiste);
+    System.out.println(this.suchleiste.getText());
   }
 
   public static int getWindowheight() {
@@ -452,18 +461,30 @@ public class GUI extends Application {
     loadingPane.setCenter(root);
     return loadingScene;
   }
-  
-  public void startKogSucheExtern () {
-	  startMode = 1;
-	  launch();
+
+  public void startKogSucheExtern() {
+    startMode = 1;
+    launch();
   }
-  
+
   public ArrayList<PDFDocument> getPDFBoxDocuments() {
-	return pdfBoxDocuments;
+    return pdfBoxDocuments;
   }
 
-  public void setPDFBoxDocuments (ArrayList<PDFDocument> pdfBoxDocuments) { 
-	this.pdfBoxDocuments = pdfBoxDocuments;
+  public void setPDFBoxDocuments(ArrayList<PDFDocument> pdfBoxDocuments) {
+    this.pdfBoxDocuments = pdfBoxDocuments;
   }
 
+  public TextField getSuchleiste() {
+    // TODO Auto-generated method stub
+    return suchleiste;
+  }
+
+  public static GUI getInstance() {
+    if (instance == null) {
+      instance = new GUI();
+    }
+    return instance;
+
+  }
 }
