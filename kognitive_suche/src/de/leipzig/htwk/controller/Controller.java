@@ -39,7 +39,7 @@ public class Controller {
   private String query;
   private GUI gui;
   private String searchWord;
-  private ArrayList <PDFDocument> pdfBoxDocuments;
+  private ArrayList<PDFDocument> pdfBoxDocuments;
 
   /**
    * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
@@ -95,7 +95,7 @@ public class Controller {
     Results r = results;
     int resultSize = r.getResults().size();
     ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
-    String clearPageText[] = new String[resultSize];
+    String[] clearPageText = new String[resultSize];
     for (int i = 0; i < resultSize; i++) {
       System.out.println(i);
       clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
@@ -253,7 +253,7 @@ public class Controller {
   }
 
   public ArrayList<PDFDocument> getPDFBoxDocuments() {
-	return gui.getPDFBoxDocuments();
+    return gui.getPDFBoxDocuments();
   }
-  
+
 }

@@ -2,7 +2,7 @@ package pdf.box.access;
 
 import java.util.ArrayList;
 
-public class PDFBoxAccessController {
+public class Pdfboxaccesscontroller {
 
   /**
    * PDF Box Acces Controler
@@ -17,21 +17,21 @@ public class PDFBoxAccessController {
    * @author Fabian Freihube
    */
 
-  ArrayList<PDFDocument> PDFDoc = new ArrayList<PDFDocument>();
+  ArrayList<PDFDocument> pdfdoc = new ArrayList<PDFDocument>();
 
   String docname;
 
-  public PDFBoxAccessController(String pdfbox_path) {
+  public Pdfboxaccesscontroller(String pdfbox_path) {
 
     PDFBox PDFBox = new PDFBox(pdfbox_path);
 
-    this.PDFDoc = PDFBox.getKeywords();
+    this.pdfdoc = PDFBox.getKeywords();
 
 
   }
 
   public ArrayList<PDFDocument> getDocKeywords() {
-    return PDFDoc;
+    return pdfdoc;
   }
 
 

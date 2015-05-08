@@ -38,17 +38,19 @@ public class Tag {
   }
 
 
-  /**prüfen, ob ein Buchstabe in der Liste der Gruppen des Kölner Phonetik Algorithmus enthalten ist.
+  /**
+   * prüfen, ob ein Buchstabe in der Liste der Gruppen des Kölner Phonetik Algorithmus enthalten
+   * ist.
+   * 
    * @author Steffen Schreiber
-   */ 
-  
-static boolean contains(char c, char[] array) {
+   */
+
+  static boolean contains1(char c, char[] array) {
     for (char x : array) {
-        if (x == c) {
-            return true;
-        }
+      if (x == c) {
+        return true;
+      }
     }
     return false;
+  }
 }
-}
-

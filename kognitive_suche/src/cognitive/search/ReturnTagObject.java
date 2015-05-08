@@ -13,7 +13,7 @@ public class ReturnTagObject {
    * @param bloc_number - Liste von Textblöcken, in denen der Tag vorhanden ist.
    */
 
-  private ArrayList<Integer> bloc_Numbers = new ArrayList<Integer>();
+  private ArrayList<Integer> blocNumbers = new ArrayList<Integer>();
   private String tag;
   private double priority = 0;
 
@@ -30,7 +30,7 @@ public class ReturnTagObject {
     if (checkBlocNumber(blocNumber)) {
       return;
     }
-    bloc_Numbers.add(blocNumber);
+    blocNumbers.add(blocNumber);
   }
 
   /**
@@ -41,8 +41,8 @@ public class ReturnTagObject {
    *         Textblocknummer enthalten ist.
    */
   public Boolean checkBlocNumber(int number) {
-    for (int i = 0; i < bloc_Numbers.size(); i++) {
-      if (bloc_Numbers.get(i) == number) {
+    for (int i = 0; i < blocNumbers.size(); i++) {
+      if (blocNumbers.get(i) == number) {
         return true;
       }
     }
@@ -50,11 +50,11 @@ public class ReturnTagObject {
   }
 
   public int getNumOfBlocs() {
-    return bloc_Numbers.size();
+    return blocNumbers.size();
   }
 
   public ArrayList<Integer> getBlocNumbers() {
-    return bloc_Numbers;
+    return blocNumbers;
   }
 
   public void addPriority(double priority) {
@@ -62,7 +62,7 @@ public class ReturnTagObject {
   }
 
   public Double getPriority() {
-     return priority;
-     
+    return priority;
+
   }
 }

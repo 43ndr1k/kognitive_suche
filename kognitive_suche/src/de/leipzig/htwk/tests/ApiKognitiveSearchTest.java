@@ -17,24 +17,22 @@ public class ApiKognitiveSearchTest {
 
 
 
-    //String[] text = getTest();
+    // String[] text = getTest();
     zstVorher = System.currentTimeMillis();
-    String[] texet = {"Test","Test"};
-
+    String[] texet = {"Test", "Test"};
 
 
 
     TxtReader tr = new TxtReader();
 
 
-    }
+  }
 
   private static String[] getTest() {
     String[] url =
-        {   "http://www.sigma-foto.de/home.html", "http://www.sigmasport.de/de/startseite/?flash=1",
+        {"http://www.sigma-foto.de/home.html", "http://www.sigmasport.de/de/startseite/?flash=1",
             "https://www.sigmaaldrich.com/", "http://de.wikipedia.org/wiki/Sigma",
-            "http://www.sigmaphoto.com/"
-        };
+            "http://www.sigmaphoto.com/"};
     HTMLTools web = new HTMLTools();
     String tmp;
     System.out.println(url.length);
@@ -47,7 +45,8 @@ public class ApiKognitiveSearchTest {
       tmp = web.filterHTML(tmp);
       url[i] = tmp;
       zstNachher = System.currentTimeMillis();
-      System.out.println("Zeit benötigt: Webseite "+i+": " + ((zstNachher - zstVorher) ) + " millisec");
+      System.out.println("Zeit benötigt: Webseite " + i + ": " + ((zstNachher - zstVorher))
+          + " millisec");
     }
     return url;
   }

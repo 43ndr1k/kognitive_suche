@@ -1,6 +1,6 @@
 package pdf.box.access;
 
-public class PDFKeyword implements IPDFKeyword {
+public class Pdfkeyword implements Ipdfkeywords {
 
   /**
    * Keyword Object
@@ -16,7 +16,7 @@ public class PDFKeyword implements IPDFKeyword {
   String term;
   float weight;
 
-  public PDFKeyword(String term, float weight) {
+  public Pdfkeyword(String term, float weight) {
     this.term = term;
     this.weight = weight;
   }

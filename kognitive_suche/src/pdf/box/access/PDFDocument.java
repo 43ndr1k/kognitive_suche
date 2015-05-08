@@ -16,11 +16,11 @@ public class PDFDocument {
    */
 
   String docname;
-  ArrayList<PDFKeyword> Keywords = new ArrayList<PDFKeyword>();
+  ArrayList<Pdfkeyword> keyWords = new ArrayList<Pdfkeyword>();
 
-  public PDFDocument(String docname, ArrayList<PDFKeyword> Keywords) {
+  public PDFDocument(String docname, ArrayList<Pdfkeyword> keywords) {
     this.docname = docname;
-    this.Keywords = Keywords;
+    this.keyWords = keywords;
   }
 
   public String getDocname() {
@@ -31,12 +31,12 @@ public class PDFDocument {
     this.docname = docname;
   }
 
-  public ArrayList<PDFKeyword> getKeywords() {
-    return Keywords;
+  public ArrayList<Pdfkeyword> getKeywords() {
+    return keyWords;
   }
 
-  public void setKeywords(ArrayList<PDFKeyword> keywords) {
-    Keywords = keywords;
+  public void setKeywords(ArrayList<Pdfkeyword> keywords) {
+    keyWords = keywords;
   }
 
 

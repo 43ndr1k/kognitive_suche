@@ -20,16 +20,18 @@ public class AddTagInfos {
 
   public void addInfo(Tag info) {
     if (info != null) {
-      for (int i = 0; i < info.getsize(); i++)
+      for (int i = 0; i < info.getsize(); i++) {
         list.addTagObject(info.gettag(i), info.getTextBlocNumber());
+      }
     }
   }
 
   public void addInfo(Tag info, String function, double[] values) {
     if (info != null) {
-      for (int i = 0; i < info.getsize(); i++)
+      for (int i = 0; i < info.getsize(); i++) {
         list.addTagObject(info.gettag(i), info.getTextBlocNumber(),
             getFunctionPriority(function, values, i));
+      }
     }
   }
 
@@ -58,15 +60,15 @@ public class AddTagInfos {
       addInfo(info.get(i), function, values);
     }
   }
-  
-  public void addInfo(String[] info, int textBlocNumber, Double priority){
-    for(int i =0; i < info.length; i++){
-      addInfo(info[i],textBlocNumber, priority);
+
+  public void addInfo(String[] info, int textBlocNumber, Double priority) {
+    for (int i = 0; i < info.length; i++) {
+      addInfo(info[i], textBlocNumber, priority);
     }
   }
 
-  private void addInfo(String string,int textBlocNumber, Double priority) {
-   list.addTagObject(string, textBlocNumber, priority);    
+  private void addInfo(String string, int textBlocNumber, Double priority) {
+    list.addTagObject(string, textBlocNumber, priority);
   }
 
   private double getFunctionPriority(String function, double[] values, int i) {
@@ -87,6 +89,8 @@ public class AddTagInfos {
         if (retValue > 0) {
           return retValue;
         }
+      default:
+        break;
 
     }
     return 0;

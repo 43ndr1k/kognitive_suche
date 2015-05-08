@@ -1,6 +1,6 @@
 package pdf.box.access;
 
-public interface IPDFKeyword {
+public interface Ipdfkeywords {
 
   public String getTerm();
 

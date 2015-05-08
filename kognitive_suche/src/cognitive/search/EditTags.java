@@ -34,9 +34,9 @@ public class EditTags {
     ReturnTagList pruefgleich = tags;
 
     for (int i = 0; i <= tags.getSize(); i++) {
-      ColognePhonetic.Encoding(pruefgleich.getTagObject(i).getTag());
-      ColognePhonetic.CleaningDoubles(pruefgleich.getTagObject(i).getTag());
-      ColognePhonetic.CleaningZeroes(pruefgleich.getTagObject(i).getTag());
+      ColognePhonetic.enCoding(pruefgleich.getTagObject(i).getTag());
+      ColognePhonetic.cleaningDoubles(pruefgleich.getTagObject(i).getTag());
+      ColognePhonetic.cleaningZeroes(pruefgleich.getTagObject(i).getTag());
     }
     for (int n = 0; n < tags.getSize(); n++) {
       for (int m = 0; m <= tags.getSize(); m++) {
@@ -125,16 +125,17 @@ public class EditTags {
 
   private ArrayList<Integer> addTagsBlocNumbers(ArrayList<Integer> blocNumbers,
       ArrayList<Integer> currentBlocs) {
-   
+
     for (int i = 0; i < blocNumbers.size(); i++) {
       boolean flag = false;
       for (int j = i; j < currentBlocs.size(); j++) {
         if (blocNumbers.get(i) == currentBlocs.get(j)) {
-            flag = true;
+          flag = true;
         }
       }
-      if (!flag)
+      if (!flag) {
         currentBlocs.add(blocNumbers.get(i));
+      }
     }
     return currentBlocs;
   }

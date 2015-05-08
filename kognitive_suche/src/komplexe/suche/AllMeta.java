@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.faroo.api.Results;
 
-/** @author Franz Schwarzer
+/**
+ * @author Franz Schwarzer
  */
 
 public class AllMeta {

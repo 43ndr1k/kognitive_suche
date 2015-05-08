@@ -177,20 +177,22 @@ public class Pattern {
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
                     (x - 0.5), (y - 0.25), tags.getTagObject(rangeOfTags - numOfTags).getTag());
             numOfTags--;
-          } else
+          } else {
             visPane =
                 addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
                     (x - 0.5), (y - 0.25));
+          }
         } else {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
                     (x - 0.5), (y - 0.75), tags.getTagObject(rangeOfTags - numOfTags).getTag());
             numOfTags--;
-          } else
+          } else {
             visPane =
                 addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
                     (x - 0.5), (y - 0.75));
+          }
         }
       }
     }
@@ -216,11 +218,11 @@ public class Pattern {
     Pad pad;
     StackPane padPane = new StackPane();
 
-    double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
-    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
+    double xpos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
+    double ypos = (oneHexHeight + PAD_OFFSET) * (y);
 
-    padPane.setLayoutX(xPos);
-    padPane.setLayoutY(yPos);
+    padPane.setLayoutX(xpos);
+    padPane.setLayoutY(ypos);
 
     pad =
         new Pad(PAD_SIZE, (oneHexWidth - columnCorrection + PAD_OFFSET) * (x),

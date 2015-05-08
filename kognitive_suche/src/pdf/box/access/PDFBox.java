@@ -41,7 +41,7 @@ public class PDFBox {
      * @author Fabian Freihube
      */
 
-    ArrayList<PDFKeyword> Keywords = null;
+    ArrayList<Pdfkeyword> Keywords = null;
     ArrayList<PDFDocument> PDFDoc = new ArrayList<PDFDocument>();
 
     InputStream inputStream = p.getInputStream();
@@ -62,12 +62,12 @@ public class PDFBox {
         }
 
         if (reading)
-          Keywords.add(new PDFKeyword(line.split(":")[0], Float.parseFloat(line.split(":")[1])));
+          Keywords.add(new Pdfkeyword(line.split(":")[0], Float.parseFloat(line.split(":")[1])));
 
         if (line.split(":")[0].equals("STARTKEY")) {
           reading = true;
           doc = line.split(":")[1];
-          Keywords = new ArrayList<PDFKeyword>();
+          Keywords = new ArrayList<Pdfkeyword>();
         }
 
       }

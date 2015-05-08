@@ -69,8 +69,9 @@ public class GUI extends Application {
 
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
 
-  /* Problem ist, da es keine Main gibt, gibt es keine Klasse private GUI(){} welche die instance einmal initialisiert
-   * bzw. vollständig erstellt
+  /*
+   * Problem ist, da es keine Main gibt, gibt es keine Klasse private GUI(){} welche die instance
+   * einmal initialisiert bzw. vollständig erstellt
    */
   private static GUI instance;
 

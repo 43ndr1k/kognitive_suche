@@ -8,8 +8,8 @@ public class TagObjectList {
    * @author Tobias Lenz
    * 
    * 
-   *         Objekt zur Uebergabe von Taginformatinen enth�lt eine ArrayList von TagObjects Bei
-   *         der Initialisierung soll das entsprechende Suchwort uebergeben werden
+   *         Objekt zur Uebergabe von Taginformatinen enth�lt eine ArrayList von TagObjects Bei der
+   *         Initialisierung soll das entsprechende Suchwort uebergeben werden
    * 
    */
   private static String searchword;

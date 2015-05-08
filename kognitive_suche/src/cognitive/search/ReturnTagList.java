@@ -118,16 +118,21 @@ public class ReturnTagList {
     sortTagsByPriority();
     return tagObjects;
   }
-/**
- * hier werden die Tags nach Priorität geordnet
- */
+
+  /**
+   * hier werden die Tags nach Priorität geordnet
+   */
   public void sortTagsByPriority() {
     Collections.sort(tagObjects, new ReturnTagListSort());
   }
-  public void testOutput(int num){
-    if(num > tagObjects.size()) num = tagObjects.size();
-    for(int i = 0; i < num; i++){
-      System.out.println(tagObjects.get(i).getTag()+" Priority: "+Math.round(tagObjects.get(i).getPriority()));
+
+  public void testOutput(int num) {
+    if (num > tagObjects.size()) {
+      num = tagObjects.size();
+    }
+    for (int i = 0; i < num; i++) {
+      System.out.println(tagObjects.get(i).getTag() + " Priority: "
+          + Math.round(tagObjects.get(i).getPriority()));
     }
   }
 

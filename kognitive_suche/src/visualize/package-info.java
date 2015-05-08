@@ -1,7 +1,7 @@
-//TODO Das Kommentar zu dem Package bitte ändern
+// TODO Das Kommentar zu dem Package bitte ändern
 /**
- * Der erste Satz als kurze Beschreibung für das Package.
- * Eine ausführlichere Beschreibung für das Package {@code visualize}.
+ * Der erste Satz als kurze Beschreibung für das Package. Eine ausführlichere Beschreibung für das
+ * Package {@code visualize}.
  * <p>
  * Eventuell zweiter Absatz der Beschreibung.
  *

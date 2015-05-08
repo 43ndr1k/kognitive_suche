@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class WordCount {
 
   private String[] wordList = {};
-  final int RANGE = 3;
+  final int range1 = 3;
   private String text;
   private ReturnTagList tagFrequency = new ReturnTagList();// Datentyp für häufigste
   // Suchwörter
@@ -57,7 +57,7 @@ public class WordCount {
   private void findTagNearby(String[] parts, int j, int i, String searchWord, int numbContSearchWord) {
     {
       tagNearby.add(numbContSearchWord, new Tag(i, parts[j]));
-      for (int l = 1; l < RANGE; l++) {
+      for (int l = 1; l < range1; l++) {
         if (j - l >= 0 && !badWord(parts[j - l]) && !badWord(parts[j - l])) {
           tagNearby.get(numbContSearchWord).addtag(parts[j - l]);
         }

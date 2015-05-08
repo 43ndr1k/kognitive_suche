@@ -6,6 +6,7 @@ import java.util.ArrayList;
 // import java.io.*;
 
 import de.leipzig.htwk.faroo.api.Results;
+
 /**
  * 
  * @author vnaumchy
@@ -22,12 +23,12 @@ public class ObBearbeitung {
 
     String[] tags;
     String erstesWort;
-    String Website;
+    String webSite;
     for (int i = 0; i < results.getResults().size(); i++) {
-      Website = results.getResults().get(i).getUrl();
+      webSite = results.getResults().get(i).getUrl();
       tags = results.getResults().get(i).getTitle().split(" ");
       erstesWort = tags[0];
-      rueckgabe.add(i, new SimAlgTags(erstesWort, Website));
+      rueckgabe.add(i, new SimAlgTags(erstesWort, webSite));
     }
 
 

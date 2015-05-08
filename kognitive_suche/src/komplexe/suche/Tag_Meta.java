@@ -11,7 +11,8 @@ import de.leipzig.htwk.websearch.HTMLTools;
 
 public class Tag_Meta extends Thread {
 
-  /** @author Franz Schwarzer
+  /**
+   * @author Franz Schwarzer
    * 
    */
 
@@ -38,8 +39,8 @@ public class Tag_Meta extends Thread {
 
 
   String[] getMetaKeys() {
-	 HTMLTools html=new HTMLTools();
-	 String sc= html.getHTMLSourceCode(url);
+    HTMLTools html = new HTMLTools();
+    String sc = html.getHTMLSourceCode(url);
 
     // Suche nach Meta Key
     Statics.pageText[urlNumber] = sc;
@@ -47,7 +48,7 @@ public class Tag_Meta extends Thread {
 
   }
 
-  ArrayList<String[]> UrlKeys(String[] urls) {
+  ArrayList<String[]> urlKeys(String[] urls) {
 
 
     ArrayList<String[]> rueckgabe = new ArrayList<String[]>();

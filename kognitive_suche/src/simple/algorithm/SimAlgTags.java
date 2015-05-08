@@ -9,7 +9,7 @@ import java.util.ArrayList;
  **/
 public class SimAlgTags {
 
-  
+
   private int zaehler;
   private String tag;
   private ArrayList<String> links = new ArrayList<String>();

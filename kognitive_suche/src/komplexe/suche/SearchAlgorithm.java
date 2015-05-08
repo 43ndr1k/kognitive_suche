@@ -33,11 +33,11 @@ public class SearchAlgorithm {
 
       text = ergebnis[i].getsearchtext();
       text = text.replaceAll("[^a-zA-Z0-9 .�������@]", ""); // hier werden alle
-                                                                          // Zeichen aus dem Text
-                                                                          // gel�scht, welche
-                                                                          // weder Zahlen,
-                                                                          // Buchstaben, . oder
-                                                                          // Leerzeichen sind
+                                                            // Zeichen aus dem Text
+                                                            // gel�scht, welche
+                                                            // weder Zahlen,
+                                                            // Buchstaben, . oder
+                                                            // Leerzeichen sind
       // Hinweis: "Regul�re Ausdr�cke"
       String[] parts = text.split(" ");
 
@@ -100,7 +100,7 @@ public class SearchAlgorithm {
     /**
      * @author Steffen Schreiber
      */
-    String wordList[] =
+    String[] wordList =
         {"der", "die", "das", "dem", "den", "ein", "eines", "eine", "einem", "einen", "des", "da",
             "wo", "von", "den", "und", "dieser", "jener", "kein", "deren", "dessen", "oder",
             "auch", "wir", "ihr", "er", "sie", "Sie", "es", "euch", "keiner", "jeder", "uns",
@@ -112,10 +112,10 @@ public class SearchAlgorithm {
             "Jahr", "eins", "zwei", "drei", "vier", "fünf", "sechs", "sieben", "acht", "neun",
             "null", "zwischen", "immer", "Jahren", "sagte", "sagt", "wurde", "so", "solange",
             "vor", "über", "In", "in", "hat", "am", "sich", "als", "werden", "wollen", "müssen",
-            "würden", "neu", "rund", "groß", "klein", "alt", "jung", "möglich", "deutlich",
-            "weit", "viel", "fest", "weich", "flüssig", "gut", "lang", "knapp", "künftig",
-            "schwer", "genau", "sicher", "ihrer", "ihrem", "mich", "mir", "ihm", "unser", "ich",
-            "du", "häufig", "wenig", "wenige", "einzelner", "lassen", "gehen", "laufen", "rennen",
+            "würden", "neu", "rund", "groß", "klein", "alt", "jung", "möglich", "deutlich", "weit",
+            "viel", "fest", "weich", "flüssig", "gut", "lang", "knapp", "künftig", "schwer",
+            "genau", "sicher", "ihrer", "ihrem", "mich", "mir", "ihm", "unser", "ich", "du",
+            "häufig", "wenig", "wenige", "einzelner", "lassen", "gehen", "laufen", "rennen",
             "fliegen", "heißen", "warm", "kalt", "wärmer", "kälter", "heiß", "gilt", "gelten",
             "stehen", "schwimmen",};
 
@@ -147,18 +147,18 @@ public class SearchAlgorithm {
     ArrayList<String> returnlist = new ArrayList<String>();
     ArrayList<String> haeufigeTags = new ArrayList<String>();
     ArrayList<String> naheTags = new ArrayList<String>();
-    ArrayList<String> UrlKeys = new ArrayList<String>();
+    ArrayList<String> urlKeys = new ArrayList<String>();
 
     /**
      * Vorf�hrung mit festgelegten Metakeys
      * 
      */
-    UrlKeys.add("URL");
-    UrlKeys.add("Karsten");
-    UrlKeys.add("Sammlung");
-    UrlKeys.add("Weicker");
-    UrlKeys.add("Dr.");
-    UrlKeys.add("�mter");
+    urlKeys.add("URL");
+    urlKeys.add("Karsten");
+    urlKeys.add("Sammlung");
+    urlKeys.add("Weicker");
+    urlKeys.add("Dr.");
+    urlKeys.add("�mter");
 
     for (int i = 0; i < 15; i++) {
       haeufigeTags.add(tagfrequency.get(i).gettag());
@@ -169,8 +169,8 @@ public class SearchAlgorithm {
     }
 
     for (int x = 0; x < haeufigeTags.size(); x++) {
-      for (int y = 0; y < UrlKeys.size(); y++) {
-        if (haeufigeTags.get(x).equalsIgnoreCase(UrlKeys.get(y))) {
+      for (int y = 0; y < urlKeys.size(); y++) {
+        if (haeufigeTags.get(x).equalsIgnoreCase(urlKeys.get(y))) {
           returnlist.add(haeufigeTags.get(x));
           // Set<String> set = new LinkedHashSet<String>(returnlist);
           // returnlist = new ArrayList<String>(set);
@@ -180,8 +180,8 @@ public class SearchAlgorithm {
     }
 
     for (int x = 0; x < naheTags.size(); x++) {
-      for (int y = 0; y < UrlKeys.size(); y++) {
-        if (naheTags.get(x).equalsIgnoreCase(UrlKeys.get(y))) {
+      for (int y = 0; y < urlKeys.size(); y++) {
+        if (naheTags.get(x).equalsIgnoreCase(urlKeys.get(y))) {
           returnlist.add(naheTags.get(x));
         }
       }
