@@ -26,7 +26,7 @@ public class PDFBox {
       p = pb.start();
       System.out.println(pb + " STARTED");
     } catch (IOException e) {
-      // TODO Auto-generated catch block
+      // Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -75,7 +75,7 @@ public class PDFBox {
       bufferedReader.close();
 
     } catch (IOException e) {
-      // TODO Auto-generated catch block
+      // Auto-generated catch block
       e.printStackTrace();
     }
 

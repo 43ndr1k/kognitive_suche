@@ -6,7 +6,9 @@ import java.util.ArrayList;
 public class ReturnTagObject {
 
   /**
-   * @author Tobias Lenz Objekt zur Weitergabe von Tags mit den dazugehörigen URLS
+   * Objekt zur Weitergabe von Tags mit den dazugehörigen URLS.
+   * 
+   * @author Tobias Lenz 
    * 
    * @param tagName - Name des Tags
    * @param priority - Wertigkeit des Tags

@@ -477,7 +477,7 @@ public class GUI extends Application {
   }
 
   public TextField getSuchleiste() {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
     return suchleiste;
   }
 

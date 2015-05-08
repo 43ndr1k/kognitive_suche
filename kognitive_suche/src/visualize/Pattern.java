@@ -60,7 +60,7 @@ public class Pattern {
    * @param tags
    */
   public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags) {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
     this.tags = tags;
@@ -340,7 +340,7 @@ public class Pattern {
    * @return padMap
    */
   private Boolean[][] createPadMap(int rows, int columns) {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
     Boolean[][] padMap = new Boolean[columns][rows];
 
     int insertRow = rows / 2;
@@ -387,6 +387,6 @@ public class Pattern {
 
   public Pane getPane() {
     return visPane;
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
   }
 }

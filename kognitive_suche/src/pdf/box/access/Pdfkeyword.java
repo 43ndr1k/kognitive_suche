@@ -23,25 +23,25 @@ public class Pdfkeyword implements Ipdfkeywords {
 
   @Override
   public String getTerm() {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
     return term;
   }
 
   @Override
   public float getWeight() {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
     return weight;
   }
 
   @Override
   public void setWeight(float weight) {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
 
   }
 
   @Override
   public void setTerm(String term) {
-    // TODO Auto-generated method stub
+    // Auto-generated method stub
   }
 
 }

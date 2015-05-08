@@ -28,7 +28,7 @@ import java.nio.file.Paths;
 
 
 /**
- * @Autor Hendrik Sawade.
+ * @author Hendrik Sawade.
  */
 
 /**

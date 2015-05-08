@@ -1,7 +1,7 @@
 package de.leipzig.htwk.createJson;
 
 /**
- * @Autor Hendrik Sawade.
+ * @author Hendrik Sawade.
  */
 
 /**
