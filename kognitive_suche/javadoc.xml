@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="package" additionalparam=" -charset &quot;UTF-8&quot;" author="true" classpath="lib/gson-2.3.1.jar;lib/commons-lang3-3.4.jar;lib/junit-4.7.jar;SnowballStemmer.jar" destdir="doc" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="general.functions,pdf.box.access,de.leipzig.htwk.tests,simple.algorithm,komplexe.suche,de.leipzig.htwk.list,visualize,de.leipzig.htwk.controller,de.leipzig.htwk.createJson,cognitive.search,de.leipzig.htwk.gui,gui,de.leipzig.htwk.faroo.api,de.leipzig.htwk.websearch" source="1.8" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

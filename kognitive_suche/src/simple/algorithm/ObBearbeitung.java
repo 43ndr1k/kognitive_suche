@@ -6,14 +6,16 @@ import java.util.ArrayList;
 // import java.io.*;
 
 import de.leipzig.htwk.faroo.api.Results;
-
+/**
+ * 
+ * @author vnaumchy
+ * @author sulusan
+ * @deprecated Die Klasse wie das ganze Packet wurde als Ausgangspunkt gedacht
+ */
 public class ObBearbeitung {
 
-  /**
-   * @author Vadzim Naumchyk & Sadik Ulusan
-   */
   /*
-   * /* Die Methode nimmt Resultate von Faroo und erstes Wort von URL
+   * Die Methode nimmt Resultate von Faroo und erstes Wort von URL
    */
   public ArrayList<SimAlgTags> annahme(Results results) {
     ArrayList<SimAlgTags> rueckgabe = new ArrayList<SimAlgTags>();

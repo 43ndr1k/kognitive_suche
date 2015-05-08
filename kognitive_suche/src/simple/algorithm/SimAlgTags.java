@@ -2,12 +2,14 @@ package simple.algorithm;
 
 import java.util.ArrayList;
 
+/**
+ * @author vnaumchy
+ * @author sulusan
+ * @deprecated Die Klasse wie das ganze Packet wurde als Ausgangspunkt gedacht
+ **/
 public class SimAlgTags {
 
-  /**
-   * @author Vadzim Naumchyk & Sadik Ulusan
-   **/
-
+  
   private int zaehler;
   private String tag;
   private ArrayList<String> links = new ArrayList<String>();
