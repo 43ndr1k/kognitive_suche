@@ -45,13 +45,14 @@ public class Pattern {
   private static Pane visPane;
 
   private static ReturnTagList tags;
-  
+
   /**
    * @author Sebastian Hügelmann
    */
   private GUI gui;
-//  private String[] labelQueryArray = new String[maxTags];
-//  private int labelQueryArrayCounter=0;
+
+  // private String[] labelQueryArray = new String[maxTags];
+  // private int labelQueryArrayCounter=0;
 
   /**
    * Generiert das Feld von Hexagons
@@ -109,8 +110,7 @@ public class Pattern {
   }
 
   /**
-   * Berechnet die Anzahl der Spalten in Abhängikeit von der Größe der Hexagons und des
-   * Feldes.
+   * Berechnet die Anzahl der Spalten in Abhängikeit von der Größe der Hexagons und des Feldes.
    * 
    * @param oneHexWidth Breite eines Hexagons
    * @param columnCorrection Versatz zwischen den Hexagons in der Breite
@@ -163,23 +163,22 @@ public class Pattern {
    * @param rows Anzahl der Reihen
    * @param columns Anzahl der Spalten
    * @param visPane Hauptpane auf der die Elemente positioniert werden.
-   * @param tags2 Tag Obejkt
    * @return visPane mit positionierten Elementen
    */
   private Pane printPattern(Boolean[][] padMap, double oneHexWidth, double columnCorrection,
       double oneHexHeight, int rows, int columns, Pane visPane) {
     int numOfTags = tags.getSize();
-    if(numOfTags > MAX_TAGS){
+    if (numOfTags > MAX_TAGS) {
       numOfTags = MAX_TAGS;
     }
-
+    int rangeOfTags = numOfTags;
     for (int y = 0; y < rows; y++) {
       for (int x = 0; x < columns; x++) {
         if ((x % 2) == 0) {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.25), tags.getTagObject(tags.getSize() - numOfTags).getTag());
+                    (x - 0.5), (y - 0.25), tags.getTagObject(rangeOfTags - numOfTags).getTag());
             numOfTags--;
           } else
             visPane =
@@ -189,7 +188,7 @@ public class Pattern {
           if (padMap[x][y] == true) {
             visPane =
                 addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    (x - 0.5), (y - 0.75), tags.getTagObject(tags.getSize() - numOfTags).getTag());
+                    (x - 0.5), (y - 0.75), tags.getTagObject(rangeOfTags - numOfTags).getTag());
             numOfTags--;
           } else
             visPane =
@@ -259,14 +258,14 @@ public class Pattern {
     Pad pad = null;
     StackPane padPane = new StackPane();
     StackPane exPadPane = new StackPane();
-    Pane linkPane = genLinkPane(); 
-    
+    Pane linkPane = genLinkPane();
+
     /**
      * @author Sebastian Hügelmann
      */
     String testlabel = "baum";
-    //labelQueryArray[labelQueryArrayCounter]=labelText;
-    
+    // labelQueryArray[labelQueryArrayCounter]=labelText;
+
     Label smallTopicLabel = new Label(labelText);
     Label largeTopicLabel = new Label(labelText);
 
@@ -308,22 +307,22 @@ public class Pattern {
     pad.getExLightShape().setOnMouseExited(event -> {
       exPadPane.setVisible(false);
     });
-    
+
     /**
      * @author Sebastian Hügelmann
      */
     exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-          System.out.println("Hallo");
-          //System.out.println(labelQueryArray[labelQueryArrayCounter]);
-          //System.out.println("Counter:"+labelQueryArrayCounter);
-          System.out.println(testlabel);
-          //gui.getGUI().setSuchleisteText(testlabel);
-          //gui.getGUI().startQuery();
+        System.out.println("Hallo");
+        // System.out.println(labelQueryArray[labelQueryArrayCounter]);
+        // System.out.println("Counter:"+labelQueryArrayCounter);
+        System.out.println(testlabel);
+        // gui.getGUI().setSuchleisteText(testlabel);
+        // gui.getGUI().startQuery();
       }
     });
-    //labelQueryArrayCounter++;
+    // labelQueryArrayCounter++;
 
     return visPane;
   }
