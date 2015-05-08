@@ -8,8 +8,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import simple.algorithm.SimAlgTags;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import simple.algorithm.SimAlgTags;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Listenausgabe {
@@ -67,8 +73,33 @@ public class Listenausgabe {
     Label[] label = new Label[25];
     // Label label2[] = new Label[25];
     int anzsucherg = 10; /* Momentan immer 10 da nur 10 URLs von Faroo */
+
+    final WebView browser = new WebView();
+    final WebEngine webEngine = browser.getEngine();
     for (int k = 0; k < anzsucherg; k++) {
-      // link[k] = new Hyperlink("www.oracle.com"); /*arraylist.get(URL); from Arraylist*/
+      Hyperlink h = new Hyperlink();
+      // final String url = "http://www.oracle.com";
+      // final String url = "H:/Dokumente/Eigene Bilder/NeueWegeMD.pdf";
+      final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
+      // Hyperlink h = new Hyperlink(url); /*getHyperlink from Nodelist
+      h.setOnAction(new EventHandler<ActionEvent>() {
+        public void handle(ActionEvent e) {
+          System.out.println("Hyperlink geklickt!");
+          webEngine.load(url);
+          Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " +
+          "javascript:location.href=' " + url + " ' " );
+          try {
+            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
+          } catch (IOException e1) {
+            e1.printStackTrace();
+          }
+        }
+      });
+      link[k] = h;
+      /*
+       * arraylist.get(URL); from // link[k] = new Hyperlink("www.oracle.com");
+       * /*arraylist.get(URL); from Arraylist
+       */
       link[k] = new Hyperlink(url.get(k));
       /* arraylist.get(KWIC) von arraylist */
       // label[k] = new
@@ -136,7 +167,7 @@ public class Listenausgabe {
      * 
      * //Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " + //
      * "javascript:location.href=' " + url + " ' " ); try { Runtime.getRuntime().exec(
-     * "rundll32 url.dll,FileProtocolHandler " + url ); } catch (IOException e1) {
+     * "rundll32 url.dll,FileProtocolHandler " + e ); } catch (IOException e1) {
      * e1.printStackTrace(); }
      * 
      * 
