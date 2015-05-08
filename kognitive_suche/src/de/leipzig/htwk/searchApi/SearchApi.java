@@ -20,6 +20,9 @@ public class SearchApi {
      */
     private HtmlUnitDriver unitDriver = new HtmlUnitDriver();
 
+
+
+
     /**
      * Beinhaltet die alle Results als Result Objekte.
      */
