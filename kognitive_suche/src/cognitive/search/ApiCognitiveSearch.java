@@ -1,5 +1,7 @@
 package cognitive.search;
 
+import java.util.ArrayList;
+
 public class ApiCognitiveSearch {
   /**
    * Algorithmus zur Erkennung von Schlüsselbegriffen Diese Klasse nimmt ein Array von Textblöcken,
@@ -38,10 +40,22 @@ public class ApiCognitiveSearch {
     edit.removeTagsFromWordList();
     edit.stem();
     edit.removeTagsLongerThanVar(15);
+    edit.sortTagsByPriority();
     edit.limitTags(100);
+    edit.findRepresentativeTags(findOutBlocNumbers());
 
     tags = edit.getTags();
-    tags.sortTagsByPriority();
+
+  }
+
+  private ArrayList<Integer> findOutBlocNumbers() {
+    ArrayList<Integer> blocTmp = new ArrayList<Integer>();
+    for (int i = 0; i < searchText.length; i++) {
+      if (!searchText[i].isEmpty()) {
+        blocTmp.add(i);
+      }
+    }
+    return blocTmp;
 
   }
 

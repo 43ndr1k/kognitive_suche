@@ -4,7 +4,8 @@ import general.functions.TxtReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 
 import snowballstemmer.GermanStemmer;
 
@@ -95,11 +96,50 @@ public class EditTags {
    * @param limit - Länge der gekürzten ReturnTagList
    * 
    *        Hier wird aus der ArrayListe eine subList erstellt und dem ReturnTagObject übergeben.
-   *        Dadurch wird die Liste auf die gewünschte Länge gekürzt
+   *        Dadurch wird die Liste auf die gewünschte Länge gekürzt !Wird nur zur
+   *        Laufzeitverbesserung benötigt!
    */
   public void limitTags(int limit) {
-    if(limit < tags.getSize()){
-    tags.setTagObjects(new ArrayList<ReturnTagObject> (tags.getTags().subList(0, limit)));
+    if (limit < tags.getSize()) {
+      tags.setTagObjects(new ArrayList<ReturnTagObject>(tags.getTags().subList(0, limit)));
     }
+  }
+
+  /**
+   * 
+   * @param allBlocs
+   */
+  public void findRepresentativeTags(ArrayList<Integer> allBlocs) {
+    ArrayList<Integer> currentBlocs = new ArrayList<Integer>();
+    int i = 0;
+    do {
+      currentBlocs = addTagsBlocNumbers(tags.getTagObject(i).getBlocNumbers(), currentBlocs);
+      currentBlocs = new ArrayList<Integer>(new LinkedHashSet<Integer>(currentBlocs));
+      Collections.sort(currentBlocs);
+      i++;
+    } while (currentBlocs.size() != allBlocs.size() && i < tags.getSize());
+    System.out.println(currentBlocs);
+    System.out.println(allBlocs);
+    System.out.println("Geht " + i + " : " + tags.getSize());
+  }
+
+  private ArrayList<Integer> addTagsBlocNumbers(ArrayList<Integer> blocNumbers,
+      ArrayList<Integer> currentBlocs) {
+   
+    for (int i = 0; i < blocNumbers.size(); i++) {
+      boolean flag = false;
+      for (int j = i; j < currentBlocs.size(); j++) {
+        if (blocNumbers.get(i) == currentBlocs.get(j)) {
+            flag = true;
+        }
+      }
+      if (!flag)
+        currentBlocs.add(blocNumbers.get(i));
+    }
+    return currentBlocs;
+  }
+
+  public void sortTagsByPriority() {
+    tags.sortTagsByPriority();
   }
 }

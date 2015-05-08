@@ -19,7 +19,7 @@ public class ReturnTagList {
   private ArrayList<ReturnTagObject> tagObjects = new ArrayList<ReturnTagObject>();
 
   public ReturnTagList(String searchword) {
-    this.searchword = searchword;
+    ReturnTagList.searchword = searchword;
   }
 
   public ReturnTagList() {}
