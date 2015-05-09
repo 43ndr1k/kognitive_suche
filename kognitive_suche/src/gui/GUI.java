@@ -2,6 +2,7 @@ package gui;
 
 
 import de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.main.Main;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -48,7 +49,7 @@ import javafx.util.Duration;
  * @author Sebastian Hügelmann
  */
 
-public class GUI extends Application {
+public class GUI extends Stage{
   private static final int windowHeight = 768;
   private static final int windowWidth = 1024;
   private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
@@ -75,9 +76,7 @@ public class GUI extends Application {
    */
   private static GUI instance;
 
-  public static void main(String[] args) {
-    launch(args);
-  }
+
 
   /**
    * {@inheritDoc}
@@ -85,32 +84,29 @@ public class GUI extends Application {
    * @exception Exception
    * @param stage2 Ist Grundfläche für alle Panes.
    */
-  @Override
-  public void start(Stage stage2) throws Exception {
-
-
+  private GUI(){
     /* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
-    start = new Scene(pane1);
-    stage = new Stage();
-    suchleiste = new TextField();
-    loadingScene = new Scene(loadingPane);
-    mController = new Controller();
-
-    mController.setGUI(this);
-    // mController.setParameter("de", "web", 1);
-
-    /* Anzeige der Stage */
-    stage.setTitle("Kognitive Suche");
+  start = new Scene(pane1);
+  stage = new Stage();
+  suchleiste = new TextField();
+  loadingScene = new Scene(loadingPane);
+  mController = new Controller();
+  
+  mController.setGUI(this);
+  // mController.setParameter("de", "web", 1);
+  
+  /* Anzeige der Stage */
+  stage.setTitle("Kognitive Suche");
     stage.centerOnScreen();
-
+  
     stage.setWidth(windowWidth);
     stage.setHeight(windowHeight);
     stage.setScene(drawHomeScreen());
-
+  
     stage.setResizable(true);
     stage.show();
-
   }
+
 
   /**
    * Methode zur Erstellung des Buttons mit Logo für die Rückkehr auf die Startseite.
@@ -452,7 +448,7 @@ public class GUI extends Application {
 
   public void startKogSucheExtern() {
     startMode = 1;
-    launch();
+    Main.launch();
   }
 
   public ArrayList<PDFDocument> getPDFBoxDocuments() {

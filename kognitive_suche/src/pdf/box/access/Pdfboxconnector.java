@@ -10,7 +10,7 @@ public class Pdfboxconnector {
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
 
   public void startKogSuche() {
-    GUI gui = new GUI();
+    GUI gui = GUI.getInstance();
     gui.setPDFBoxDocuments(pdfBoxDocuments);
     gui.startKogSucheExtern();
   }
