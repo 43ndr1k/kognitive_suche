@@ -2,6 +2,7 @@ package pdf.box.access;
 
 import java.util.ArrayList;
 
+@Deprecated
 public class Pdfboxaccesscontroller {
 
   /**

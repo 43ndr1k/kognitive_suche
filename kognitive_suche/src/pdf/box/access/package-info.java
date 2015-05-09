@@ -1,12 +1,17 @@
 // TODO Fabian, Das Kommentar zu dem Package bitte ändern. Du weißt am besten, was hier geschieht. 
 /**
- * Der erste Satz als kurze Beschreibung für das Package. Eine ausführlichere Beschreibung für das
- * Package {@code pdf.box.access}.
- * <p>
- * Eventuell zweiter Absatz der Beschreibung.
+ * Hier wird die Anbindung an die PDFBox realisiert. 
+ * Der pdfbooxconector erstellt eine neue Instanz GUI und startet diese.
+ * 
+ * Der GUI werde die verschiedenen eingelesenen PDFDocuments übergeben. 
+ * Jede dieser PDF Objecte enthält den Namen der PDF (Dateiname) und eine Liste
+ * von Pdfkeywords.
+ * 
+ * Ein PDFKeyword Object besteht zum einen aus dem Keyword an sich und seiner Relevanz
+ * (Ein Wert zwischen 0.0 und 1.0 der angibt wie wichtig dieses Keyword ist.)
+ * 
  *
  * @author Fabian Freihube
- * @author Autor2
  * @version 1.0
  */
 package pdf.box.access;
