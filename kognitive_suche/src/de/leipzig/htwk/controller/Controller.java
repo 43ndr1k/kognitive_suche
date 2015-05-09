@@ -8,11 +8,8 @@ import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
-import simple.algorithm.*;
 import visualize.VisController;
-
 import java.util.ArrayList;
-
 import pdf.box.access.PDFDocument;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -65,8 +62,7 @@ public class Controller {
 
   /**
    * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
-   * 
-   * @param pQuery Suchwort
+   *
    * @return Results Liste mit den Ergebnisse.
    */
   public void queryFaroo() {
@@ -186,7 +182,6 @@ public class Controller {
    * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
    * 
    * @author Fabian Freihube, Sebastian Hügelmann
-   * @param gui Objekt GUI aktuelle GUI.
    * @param list Übergabe der gefundenen Ergebnisse per Liste.
    * @param searchword Übergabe des Suchwortes als String.
    */
@@ -235,7 +230,7 @@ public class Controller {
    * In dieser Funktion werden die Funktionen für eine Suche über Faroo gestartet.
    * 
    * @author Tobias Lenz, Franz Schwarzer
-   * @param text - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
+   * @param searchWord - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
    */
   public void farooSearch(String searchWord) {
     this.searchWord = searchWord;
@@ -246,10 +241,6 @@ public class Controller {
     long zstNachher = System.currentTimeMillis(); // Zeitmessung
     System.out.println("Zeit benötigt: Faroo Suche: " + ((zstNachher - zstVorher)) + " millisec");
     beginWebSearch();
-  }
-
-  public ArrayList<SimAlgTags> getTags() {
-    return null;
   }
 
   public ArrayList<PDFDocument> getPDFBoxDocuments() {
