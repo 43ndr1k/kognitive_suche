@@ -69,15 +69,6 @@ public class GUI extends Application {
 
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
 
-  /*
-   * Problem ist, da es keine Main gibt, gibt es keine Klasse private GUI(){} welche die instance
-   * einmal initialisiert bzw. vollständig erstellt
-   */
-  private static GUI instance;
-
-  public static void main(String[] args) {
-    launch(args);
-  }
 
   /**
    * {@inheritDoc}
@@ -468,11 +459,4 @@ public class GUI extends Application {
     return suchleiste;
   }
 
-  public static GUI getInstance() {
-    if (instance == null) {
-      instance = new GUI();
-    }
-    return instance;
-
-  }
 }

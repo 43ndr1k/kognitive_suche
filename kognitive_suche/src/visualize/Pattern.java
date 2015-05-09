@@ -53,18 +53,19 @@ public class Pattern {
 
   /**
    * Generiert das Feld von Hexagons
-   * 
-   * @param paneHeight Höhe des Feldes
+   *  @param paneHeight Höhe des Feldes
    * @param paneWidth Breite des Feldes
    * @param query
    * @param tags
+   * @param gui
    */
-  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags) {
+  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags, GUI gui) {
     // Auto-generated method stub
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
     this.tags = tags;
     this.activePads = tags.getSize();
+    this.gui = gui;
 
     visPane = new Pane();
     visPane.setPrefSize(paneHeight, paneWidth);
@@ -312,7 +313,6 @@ public class Pattern {
         System.out.println(testlabel);
         System.out.println(largeTopicLabel.getText());
         // GUI.getInstance();
-        gui = GUI.getInstance();
         // Funzt noch nicht da Scheiße!
         System.out.println("Text geholt von gui suchleiste: " + gui.getSuchleiste().getText());
         gui.setSuchleisteText(largeTopicLabel.getText());
@@ -389,4 +389,13 @@ public class Pattern {
     return visPane;
     // Auto-generated method stub
   }
+
+    /**
+     * Methode zur Übergabe der GUI an den Controller.
+     *
+     * @author Sebastian Hügelmann
+     */
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+    }
 }

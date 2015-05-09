@@ -10,6 +10,7 @@ import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
 import visualize.VisController;
 import java.util.ArrayList;
+
 import pdf.box.access.PDFDocument;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -202,6 +203,7 @@ public class Controller {
     homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
 
     VisController visualControler = new VisController();
+    visualControler.setGUI(this.gui);
     visualControler.setPane(visPane);
     visualControler.setQuery(searchword);
     // iv
