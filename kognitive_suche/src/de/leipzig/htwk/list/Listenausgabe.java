@@ -10,12 +10,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import simple.algorithm.SimAlgTags;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import simple.algorithm.SimAlgTags;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class Listenausgabe {
@@ -55,10 +50,10 @@ public class Listenausgabe {
       url.add(r.getResults().get(i).getUrl());
     }
 
-    ArrayList<SimAlgTags> treffer = mController.getTags();
+  /*  ArrayList<SimAlgTags> treffer = mController.getTags();
     for (int i = 0; i < treffer.size(); i++) {
       tags.add(treffer.get(i).gettag());
-    }
+    }*/
 
   }
 
@@ -80,8 +75,8 @@ public class Listenausgabe {
       Hyperlink h = new Hyperlink();
       // final String url = "http://www.oracle.com";
       // final String url = "H:/Dokumente/Eigene Bilder/NeueWegeMD.pdf";
-      final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
-      // Hyperlink h = new Hyperlink(url); /*getHyperlink from Nodelist
+     /* final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
+      // Hyperlink h = new Hyperlink(url); *//*getHyperlink from Nodelist
       h.setOnAction(new EventHandler<ActionEvent>() {
         public void handle(ActionEvent e) {
           System.out.println("Hyperlink geklickt!");
@@ -94,7 +89,7 @@ public class Listenausgabe {
             e1.printStackTrace();
           }
         }
-      });
+      });*/
       link[k] = h;
       /*
        * arraylist.get(URL); from // link[k] = new Hyperlink("www.oracle.com");
