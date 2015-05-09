@@ -49,7 +49,7 @@ import javafx.util.Duration;
  * @author Sebastian Hügelmann
  */
 
-public class GUI extends Stage{
+public class GUI extends Stage {
   private static final int windowHeight = 768;
   private static final int windowWidth = 1024;
   private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
@@ -60,49 +60,40 @@ public class GUI extends Stage{
   private BorderPane pane1 = new BorderPane();
   Scene start;
   private Stage stage;
-
-  TextField suchleiste; /* DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO */
-
+  TextField suchleiste;
   private Timeline timeline = new Timeline();
   private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
   BorderPane loadingPane = new BorderPane();
   Scene loadingScene;
-
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
-
-  /*
-   * Problem ist, da es keine Main gibt, gibt es keine Klasse private GUI(){} welche die instance
-   * einmal initialisiert bzw. vollständig erstellt
-   */
+  
   private static GUI instance;
 
 
 
   /**
-   * {@inheritDoc}
+   * Konstruktor wird benötigt um eine Instanz der GUI zu erstellen. Threadunsichere Instanzerstellung.
    * 
-   * @exception Exception
-   * @param stage2 Ist Grundfläche für alle Panes.
    */
-  private GUI(){
+  private GUI() {
     /* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
-  start = new Scene(pane1);
-  stage = new Stage();
-  suchleiste = new TextField();
-  loadingScene = new Scene(loadingPane);
-  mController = new Controller();
-  
-  mController.setGUI(this);
-  // mController.setParameter("de", "web", 1);
-  
-  /* Anzeige der Stage */
-  stage.setTitle("Kognitive Suche");
+    start = new Scene(pane1);
+    stage = new Stage();
+    suchleiste = new TextField();
+    loadingScene = new Scene(loadingPane);
+    mController = new Controller();
+
+    mController.setGUI(this);
+    // mController.setParameter("de", "web", 1);
+
+    /* Anzeige der Stage */
+    stage.setTitle("Kognitive Suche");
     stage.centerOnScreen();
-  
+
     stage.setWidth(windowWidth);
     stage.setHeight(windowHeight);
     stage.setScene(drawHomeScreen());
-  
+
     stage.setResizable(true);
     stage.show();
   }
@@ -223,111 +214,8 @@ public class GUI extends Stage{
       }
 
     });
-
-    /**
-     * Soll später mal die Links aufrufen.
-     * 
-     * @author Sadik Ulusan
-     */
-    // Auswahl der Sprache mit einer Combobox
-    /*
-     * final ObservableList<String> languages = FXCollections.observableArrayList( "deutsch",
-     * "englisch", "chinesisch" ); final ComboBox language = new ComboBox();
-     * 
-     * hbox1.getChildren().addAll(suchleiste,sucheF,sucheP, language);
-     * 
-     * language.setItems(languages);
-     */
-
-
-
-    /**
-     * @author Christian Schmidt
-     */
-    // Label für die Suchoptionen
-
-    Label label = new Label("Faroo Suchoptionen");
-    label.setFont(Font.font("Arial", 14));
-    HBox schrift = new HBox(label);
-    schrift.setAlignment(Pos.CENTER);
-    schrift.setPadding(new Insets(-15, 15, 15, 15));
-    schrift.setSpacing(10);
-    // Buttons für die Suchoptionen
-    final Button[] btnlanguage = new Button[2];
-    btnlanguage[0] = new Button("de");
-    btnlanguage[0].setText("German");
-    btnlanguage[0].setStyle("-fx-background-color: #00B2EE;");
-    btnlanguage[0].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnlanguage[0].setStyle("-fx-background-color: #00B2EE;");
-        btnlanguage[1].setStyle("-fx-background: #FFFFFF;");
-        SelectedLanguage[0] = "de";
-        mController.setParameter("de", "web", 1);
-
-      }
-    });
-    btnlanguage[1] = new Button("en");
-    btnlanguage[1].setText("English");
-    btnlanguage[1].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnlanguage[1].setStyle("-fx-background-color: #00B2EE;");
-        btnlanguage[0].setStyle("-fx-background: #FFFFFF;");
-        SelectedLanguage[0] = "en";
-      }
-    });
-
-    final Button[] btnsrc = new Button[3];
-    btnsrc[0] = new Button("web");
-    btnsrc[0].setText("Web");
-    btnsrc[0].setStyle("-fx-background-color: #00B2EE;");
-    btnsrc[0].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnsrc[0].setStyle("-fx-background-color: #00B2EE;");
-        btnsrc[1].setStyle("-fx-background: #FFFFFF;");
-        btnsrc[2].setStyle("-fx-background: #FFFFFF;");
-        Selectedsrc[0] = "web";
-      }
-    });
-    btnsrc[1] = new Button("news");
-    btnsrc[1].setText("News");
-    btnsrc[1].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnsrc[1].setStyle("-fx-background-color: #00B2EE;");
-        btnsrc[0].setStyle("-fx-background: #FFFFFF;");
-        btnsrc[2].setStyle("-fx-background: #FFFFFF;");
-        Selectedsrc[0] = "news";
-      }
-    });
-    btnsrc[2] = new Button("topics");
-    btnsrc[2].setText("Headlines");
-    btnsrc[2].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnsrc[2].setStyle("-fx-background-color: #00B2EE;");
-        btnsrc[1].setStyle("-fx-background: #FFFFFF;");
-        btnsrc[0].setStyle("-fx-background: #FFFFFF;");
-        Selectedsrc[0] = "topics";
-
-      }
-    });
-
-    // --------------------------------------------------
-    // Vertikalbox für Buttons Deutsch und Englisch
-    vbox2.getChildren().addAll(btnlanguage[0], btnlanguage[1]);
-    // Vertikalbox für WEB NEWS und Title
-    vbox3.getChildren().addAll(btnsrc[0], btnsrc[1], btnsrc[2]);
-    // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox
-    // zusammengeführt
-    // hbox3.getChildren().addAll(vbox2, vbox3);
     hbox1.getChildren().addAll(suchleiste, sucheF, sucheP);
     vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
-    // hbox2.getChildren().addAll(close);
-    // Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
-    mController.setParameter(SelectedLanguage[0], Selectedsrc[0], 1);
     return start;
   }
 
@@ -337,8 +225,6 @@ public class GUI extends Stage{
    */
   public void startQuery() {
     stage.setScene(loadingIndicator());
-
-
     // Task suche;
     // suche = createWorker();
     // new Thread(suche).start();
