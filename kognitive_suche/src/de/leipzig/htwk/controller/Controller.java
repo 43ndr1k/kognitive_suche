@@ -201,14 +201,14 @@ public class Controller {
     homebuttonPane.setStyle("-fx-background-color: #FFF;");
     homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
 
-    VisController visualControler = new VisController();
-    visualControler.setPane(visPane);
-    visualControler.setQuery(searchword);
+    VisController visualController = new VisController();
+    visualController.setPane(visPane);
+    visualController.setQuery(searchword);
     // iv
-    visualControler.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
-    visualControler.setPaneWidth((int) gui.getStage().getWidth());
+    visualController.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
+    visualController.setPaneWidth((int) gui.getStage().getWidth());
 
-    visPane.setCenter(visualControler.startVisualize(tags));
+    visPane.setCenter(visualController.startVisualize(tags));
     visPane.setTop(homebuttonPane);
     System.out.println("startVisual fertig");
 

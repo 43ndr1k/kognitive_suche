@@ -84,7 +84,7 @@ public class GUI extends Stage {
     mController = new Controller();
 
     mController.setGUI(this);
-    // mController.setParameter("de", "web", 1);
+    mController.setParameter("de", "web", 1);
 
     /* Anzeige der Stage */
     stage.setTitle("Kognitive Suche");
@@ -224,7 +224,7 @@ public class GUI extends Stage {
    *
    */
   public void startQuery() {
-    stage.setScene(loadingIndicator());
+    stage.setScene(loadIndicator());
     // Task suche;
     // suche = createWorker();
     // new Thread(suche).start();
@@ -258,6 +258,7 @@ public class GUI extends Stage {
     System.out.println("Übergebener Begriff " + suchleiste);
     this.suchleiste.setText(suchleiste);
     System.out.println(this.suchleiste.getText());
+    startQuery();
   }
 
   public static int getWindowheight() {
@@ -278,7 +279,7 @@ public class GUI extends Stage {
   }
 
 
-  private Scene loadingIndicator() {
+  private Scene loadIndicator() {
     System.out.println("Ladebalken Methode gestartet!");
     loadingPane.setStyle("-fx-background-color: #FFF;");
     timeline.setCycleCount(Timeline.INDEFINITE);

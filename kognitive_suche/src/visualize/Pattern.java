@@ -308,13 +308,7 @@ public class Pattern {
     exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        System.out.println("Hallo");
-        System.out.println(testlabel);
-        System.out.println(largeTopicLabel.getText());
-        // GUI.getInstance();
         gui = GUI.getInstance();
-        // Funzt noch nicht da Scheiße!
-        System.out.println("Text geholt von gui suchleiste: " + gui.getSuchleiste().getText());
         gui.setSuchleisteText(largeTopicLabel.getText());
       }
     });
