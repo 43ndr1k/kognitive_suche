@@ -83,7 +83,7 @@ public class GUI extends Application {
    * {@inheritDoc}
    * 
    * @exception Exception
-   * @param stage Ist Grundfläche für alle Panes.
+   * @param stage2 Ist Grundfläche für alle Panes.
    */
   @Override
   public void start(Stage stage2) throws Exception {
@@ -116,7 +116,6 @@ public class GUI extends Application {
    * Methode zur Erstellung des Buttons mit Logo für die Rückkehr auf die Startseite.
    * 
    * @author Sebastian Hügelmann
-   * @param stage Ist Grundfläche für alle Panes.
    * @return HBox
    */
   public HBox goHomeButton() {
@@ -147,8 +146,6 @@ public class GUI extends Application {
    * Methode zeichnet die Startszene
    * 
    * @author Sebastian Hügelmann
-   * @param pane1 Die Grundpane die auf der "stage" liegt. Ist eine BorderPane.
-   * @param suchleiste Ist das Textfield zur Eingabe des Suchbegriffes.
    * @return Scene
    */
   public Scene drawHomeScreen() {
@@ -340,8 +337,7 @@ public class GUI extends Application {
 
   /**
    * Diese Methode startet die Suche aus dem Controller
-   * 
-   * @param suchleiste Holt sich den Text aus dem Textfield "suchleiste".
+   *
    */
   public void startQuery() {
     stage.setScene(loadingIndicator());
@@ -399,15 +395,6 @@ public class GUI extends Application {
     return this.stage;
   }
 
-  /**
-   * Methode für den Loading Indicator
-   * 
-   * @author Sebastian Hügelmann
-   * @param loadingPane BorderPane welche erstellt wird um den Ladebalken anzuzeigen.
-   * @param timeline Timeline Objekt zur KeyFrame Animation
-   * @param stroke gestrichelte Linie
-   * @param loadingScene neue Szene für den Ladebalken
-   */
 
   private Scene loadingIndicator() {
     System.out.println("Ladebalken Methode gestartet!");
