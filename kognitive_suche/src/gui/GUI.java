@@ -1,7 +1,7 @@
 package gui;
 
-
 import de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.searchApi.SearchApiExecption;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -51,6 +51,10 @@ import javafx.util.Duration;
 public class GUI extends Application {
   private static final int windowHeight = 768;
   private static final int windowWidth = 1024;
+  private static final int FAROO = 0;
+  private static final int DUCKDUCKGO = 1;
+
+
   private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
   private Controller mController;
   public ArrayList<String> tags = new ArrayList<String>();
@@ -341,7 +345,11 @@ public class GUI extends Application {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        mController.farooSearch(suchleiste.getText());
+          try {
+              mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
+          } catch (SearchApiExecption searchApiExecption) {
+              searchApiExecption.printStackTrace();
+          }
       }
     });
   }

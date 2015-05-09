@@ -41,7 +41,7 @@ public class Listenausgabe {
     this.height = height;
   }
 
-  public Listenausgabe(String query) {
+ /* public Listenausgabe(String query) {
     mController.farooSearch(query);
     Results r = mController.getResultList();
     for (int i = 0; i < r.getResults().size(); i++) {
@@ -50,12 +50,7 @@ public class Listenausgabe {
       url.add(r.getResults().get(i).getUrl());
     }
 
-  /*  ArrayList<SimAlgTags> treffer = mController.getTags();
-    for (int i = 0; i < treffer.size(); i++) {
-      tags.add(treffer.get(i).gettag());
-    }*/
-
-  }
+  }*/
 
   public ScrollPane ergebnisausgabe() {
     // HBox hbox;

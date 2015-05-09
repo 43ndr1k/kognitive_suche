@@ -86,20 +86,20 @@ public class Pattern {
     // iv
     Button list = new Button("Liste");// liste Button
 
-    list.setOnAction(new EventHandler<ActionEvent>() {
+   /* list.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent list) {
         visPane.getChildren().clear();
         Listenausgabe ausgabe = new Listenausgabe(query);
         ausgabe.setWidth(paneWidth);
         ausgabe.setHeight(paneHeight);
-        /**
+        *//**
          * Listenausgabe an Patterngui weitergegeben
-         */
+         *//*
         visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
       }
 
-    });
+    });*/
 
 
     visPane.getChildren().addAll(list);

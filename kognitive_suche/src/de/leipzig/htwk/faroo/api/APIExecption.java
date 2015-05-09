@@ -22,7 +22,7 @@ public class APIExecption extends Exception {
    * Eine Exeption die sagt, dass die result Liste leer ist.
    */
   public APIExecption() {
-    super("Result Liste ist leer");
+    super("Result_ Liste ist leer");
   }
 
   /**
