@@ -143,7 +143,7 @@ public class SearchApi {
     public void query(String query) throws SearchApiExecption {
         query = encoding(query);
         searching(this.url + query);
-        //driver.quit();
+
     }
 
     /**
