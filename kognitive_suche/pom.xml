@@ -16,10 +16,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.detro</groupId>
+            <groupId>com.github.detro.ghostdriver</groupId>
             <artifactId>phantomjsdriver</artifactId>
-            <version>1.2.0</version>
-            <scope>test</scope>
+            <version>1.0.4</version>
         </dependency>
     </dependencies>
     <build>
