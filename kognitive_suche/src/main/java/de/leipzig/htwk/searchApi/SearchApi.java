@@ -27,7 +27,7 @@ public class SearchApi {
     /**
      * Pfad zu Phantomjs
      */
-    static String PHANTOMJS = "lib/phantomjs";
+    static String PHANTOMJS = "lib/phantomjsLinux";
 
 
     /**

@@ -1,13 +1,12 @@
 package cognitive.search;
 
 import general.functions.TxtReader;
+import snowballstemmer.GermanStemmer;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-
-import snowballstemmer.GermanStemmer;
 
 public class EditTags {
   ReturnTagList tags;
