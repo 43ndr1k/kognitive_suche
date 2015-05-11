@@ -3,11 +3,13 @@ package de.leipzig.htwk.controller;
 import cognitive.search.ReturnTagObject;
 import de.leipzig.htwk.faroo.api.*;
 import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
+import de.leipzig.htwk.searchApi.PhantomjsDriver;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import visualize.VisController;
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class Controller {
   private GUI gui;
   private String searchWord;
   private ArrayList<PDFDocument> pdfBoxDocuments;
-
+  private PhantomJSDriver driver;
   /**
    * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
    */
@@ -46,6 +48,8 @@ public class Controller {
     ConfigFileManagement config = new ConfigFileManagement();
     this.key = config.getKey();
     this.url = config.geturl();
+    PhantomjsDriver pJD = new PhantomjsDriver();
+    this.driver = pJD.getDriver();
   }
 
   /**
@@ -88,7 +92,7 @@ public class Controller {
         case 1:
             System.out.println("Query DuckDuckGo");
 
-            DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord, 80);
+            DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord, 80, this.driver);
             this.results = duckApi.getResultList();
 
             for(Result r: results.getResults()){
@@ -281,4 +285,8 @@ public class Controller {
     return gui.getPDFBoxDocuments();
   }
 
+    public void closePhantomjsDriver() {
+        this.driver.quit();
+    }
 }
+

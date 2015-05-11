@@ -7,8 +7,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,17 +17,11 @@ import java.util.List;
  */
 public class SearchApi {
 
-    /**
-     * unitDriver lädt die Engerine für die Websuche.
-     */
-    private PhantomJSDriver driver;
 
     /**
-     * Pfad zu Phantomjs
+     * Phantomjs driver
      */
-    static String PHANTOMJS = "lib/phantomjsLinux";
-
-
+    PhantomJSDriver driver;
     /**
      * Beinhaltet die alle Results als Result_ Objekte.
      */
@@ -81,12 +73,6 @@ public class SearchApi {
     /**
      * SetUp für den Phantomjs Driver.
      */
-    private void driverSetUp() {
-        //Create instance of PhantomJS driver
-        DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
-        capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,PHANTOMJS);
-        driver = new PhantomJSDriver(capabilities);
-    }
 
     /**
      *
@@ -100,7 +86,7 @@ public class SearchApi {
      */
 
     public SearchApi(String url, String nextButton, String titleClass, String urlKlasse,
-                     String snippetKlasse, String noResultClass, int gesamtAnzahlErgebnisse) {
+                     String snippetKlasse, String noResultClass, int gesamtAnzahlErgebnisse, PhantomJSDriver driver) {
 
         this.url = url;
         this.nextButton = nextButton;
@@ -110,7 +96,7 @@ public class SearchApi {
         this.noresultclass = noResultClass;
         this.gesamtAnzahlErgebnisse = gesamtAnzahlErgebnisse;
         this.anzRestResults = gesamtAnzahlErgebnisse;
-        driverSetUp();
+        this.driver = driver;
     }
     /**
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.

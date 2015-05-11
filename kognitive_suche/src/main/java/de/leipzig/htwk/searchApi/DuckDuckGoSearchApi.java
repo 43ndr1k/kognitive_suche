@@ -1,5 +1,7 @@
 package de.leipzig.htwk.searchApi;
 
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+
 /**
  * @Autor Hendrik Sawade.
  */
@@ -13,9 +15,9 @@ public class DuckDuckGoSearchApi extends SearchApi {
     //private static double anzSiteResults = 30.0;
     private static String NORESULTSCLASS = "no-results";
 
-    public DuckDuckGoSearchApi(String query, int anzResultCount) throws SearchApiExecption {
+    public DuckDuckGoSearchApi(String query, int anzResultCount, PhantomJSDriver driver) throws SearchApiExecption {
 
-        super(URL, NEXTBUTTON, TITLECLASS, LINKCLASS, DESCRIPTIONCLASS, NORESULTSCLASS,anzResultCount);
+        super(URL, NEXTBUTTON, TITLECLASS, LINKCLASS, DESCRIPTIONCLASS, NORESULTSCLASS,anzResultCount, driver);
         query(query);
     }
 
