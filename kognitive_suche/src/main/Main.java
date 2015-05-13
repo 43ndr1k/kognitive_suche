@@ -1,11 +1,22 @@
 package main;
+
 import gui.GUI;
 import javafx.application.Application;
+import javafx.stage.Stage;
 
-public class Main {
+/**
+ * Die Main :D
+ * @author Sebastian Hügelmann
+ */
 
+public class Main extends Application{
 	public static void main(String[] args) {
-        Application.launch(GUI.class, args);
+		launch(args);
 	}
 
+	@Override
+	public void start(Stage arg0) throws Exception {
+		GUI.getInstance();
+
+	}
 }

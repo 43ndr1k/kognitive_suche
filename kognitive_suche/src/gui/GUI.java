@@ -1,11 +1,9 @@
 package gui;
 
+
 import de.leipzig.htwk.controller.Controller;
-<<<<<<< HEAD
 import de.leipzig.htwk.main.Main;
-=======
 import de.leipzig.htwk.searchApi.SearchApiExecption;
->>>>>>> rework
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -58,7 +56,6 @@ public class GUI extends Stage {
   private static final int FAROO = 0;
   private static final int DUCKDUCKGO = 1;
 
-
   private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
   private Controller mController;
   public ArrayList<String> tags = new ArrayList<String>();
@@ -73,17 +70,14 @@ public class GUI extends Stage {
   BorderPane loadingPane = new BorderPane();
   Scene loadingScene;
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
-<<<<<<< HEAD
-  
+
   private static GUI instance;
 
-=======
->>>>>>> rework
 
 
   /**
    * Konstruktor wird benötigt um eine Instanz der GUI zu erstellen. Threadunsichere Instanzerstellung.
-   * 
+   *
    */
   private GUI() {
     /* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
@@ -111,7 +105,7 @@ public class GUI extends Stage {
 
   /**
    * Methode zur Erstellung des Buttons mit Logo für die Rückkehr auf die Startseite.
-   * 
+   *
    * @author Sebastian Hügelmann
    * @return HBox
    */
@@ -141,7 +135,7 @@ public class GUI extends Stage {
 
   /**
    * Methode zeichnet die Startszene
-   * 
+   *
    * @author Sebastian Hügelmann
    * @return Scene
    */
@@ -242,11 +236,14 @@ public class GUI extends Stage {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-          try {
-              mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
-          } catch (SearchApiExecption searchApiExecption) {
-              searchApiExecption.printStackTrace();
-          }
+        //mController.farooSearch(suchleiste.getText());
+
+        // TODO: SearchAPi (DuckDuckGO) verwenden
+        try {
+          mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
+        } catch (SearchApiExecption searchApiExecption) {
+          searchApiExecption.printStackTrace();
+        }
       }
     });
   }
@@ -263,7 +260,7 @@ public class GUI extends Stage {
 
   /**
    * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.
-   * 
+   *
    * @author Sebastian Hügelmann
    * @param suchleiste Suchleiste für den Suchbegriff.
    */
@@ -365,4 +362,11 @@ public class GUI extends Stage {
     return suchleiste;
   }
 
+  public static GUI getInstance() {
+    if (instance == null) {
+      instance = new GUI();
+    }
+    return instance;
+
+  }
 }
