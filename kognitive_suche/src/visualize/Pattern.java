@@ -53,18 +53,19 @@ public class Pattern {
 
   /**
    * Generiert das Feld von Hexagons
-   * 
-   * @param paneHeight Höhe des Feldes
+   *  @param paneHeight Höhe des Feldes
    * @param paneWidth Breite des Feldes
    * @param query
    * @param tags
+   * @param gui
    */
-  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags) {
+  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags, GUI gui) {
     // Auto-generated method stub
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
     this.tags = tags;
     this.activePads = tags.getSize();
+    this.gui = gui;
 
     visPane = new Pane();
     visPane.setPrefSize(paneHeight, paneWidth);
@@ -85,20 +86,20 @@ public class Pattern {
     // iv
     Button list = new Button("Liste");// liste Button
 
-    list.setOnAction(new EventHandler<ActionEvent>() {
+   /* list.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent list) {
         visPane.getChildren().clear();
         Listenausgabe ausgabe = new Listenausgabe(query);
         ausgabe.setWidth(paneWidth);
         ausgabe.setHeight(paneHeight);
-        /**
+        *//**
          * Listenausgabe an Patterngui weitergegeben
-         */
+         *//*
         visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
       }
 
-    });
+    });*/
 
 
     visPane.getChildren().addAll(list);
@@ -308,7 +309,16 @@ public class Pattern {
     exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
+<<<<<<< HEAD
         gui = GUI.getInstance();
+=======
+        System.out.println("Hallo");
+        System.out.println(testlabel);
+        System.out.println(largeTopicLabel.getText());
+        // GUI.getInstance();
+        // Funzt noch nicht da Scheiße!
+        System.out.println("Text geholt von gui suchleiste: " + gui.getSuchleiste().getText());
+>>>>>>> rework
         gui.setSuchleisteText(largeTopicLabel.getText());
       }
     });
@@ -383,4 +393,13 @@ public class Pattern {
     return visPane;
     // Auto-generated method stub
   }
+
+    /**
+     * Methode zur Übergabe der GUI an den Controller.
+     *
+     * @author Sebastian Hügelmann
+     */
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+    }
 }

@@ -13,7 +13,7 @@ public class Results {
   private ArrayList<Result> results;
 
   /**
-   * Gibt die Result Liste zurück
+   * Gibt die Result_ Liste zurück
    * 
    * @return results
    */
@@ -22,7 +22,7 @@ public class Results {
   }
 
   /**
-   * Nimmt die Result Liste entgegen.
+   * Nimmt die Result_ Liste entgegen.
    * 
    * @param results
    */
