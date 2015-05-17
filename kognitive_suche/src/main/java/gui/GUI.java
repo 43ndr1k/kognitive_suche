@@ -1,9 +1,14 @@
 package gui;
 
+
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
-import javafx.application.Application;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,8 +16,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,26 +24,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
-
-import java.util.ArrayList;
-
-import pdf.box.access.PDFDocument;
-import visualize.Pattern;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.concurrent.Task;
-import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
+import main.Main;
+import pdf.box.access.PDFDocument;
+
+import java.util.ArrayList;
 
 /**
  * Erstellung der GUI
@@ -48,12 +42,11 @@ import javafx.util.Duration;
  * @author Sebastian Hügelmann
  */
 
-public class GUI extends Application {
+public class GUI extends Stage {
   private static final int windowHeight = 768;
   private static final int windowWidth = 1024;
   private static final int FAROO = 0;
   private static final int DUCKDUCKGO = 1;
-
 
   private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
   private Controller mController;
@@ -63,27 +56,22 @@ public class GUI extends Application {
   private BorderPane pane1 = new BorderPane();
   Scene start;
   private Stage stage;
-
-  TextField suchleiste; /* DIESEN TEXT BRAUCH DER CONTROLLER UND FAROO */
-
+  TextField suchleiste;
   private Timeline timeline = new Timeline();
   private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
   BorderPane loadingPane = new BorderPane();
   Scene loadingScene;
-
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
+
+  private static GUI instance;
+
 
 
   /**
-   * {@inheritDoc}
-   * 
-   * @exception Exception
-   * @param stage2 Ist Grundfläche für alle Panes.
+   * Konstruktor wird benötigt um eine Instanz der GUI zu erstellen. Threadunsichere Instanzerstellung.
+   *
    */
-  @Override
-  public void start(Stage stage2) throws Exception {
-
-
+  private GUI() {
     /* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
     start = new Scene(pane1);
     stage = new Stage();
@@ -92,7 +80,7 @@ public class GUI extends Application {
     mController = new Controller();
 
     mController.setGUI(this);
-    // mController.setParameter("de", "web", 1);
+    mController.setParameter("de", "web", 1);
 
     /* Anzeige der Stage */
     stage.setTitle("Kognitive Suche");
@@ -104,12 +92,12 @@ public class GUI extends Application {
 
     stage.setResizable(true);
     stage.show();
-
   }
+
 
   /**
    * Methode zur Erstellung des Buttons mit Logo für die Rückkehr auf die Startseite.
-   * 
+   *
    * @author Sebastian Hügelmann
    * @return HBox
    */
@@ -139,7 +127,7 @@ public class GUI extends Application {
 
   /**
    * Methode zeichnet die Startszene
-   * 
+   *
    * @author Sebastian Hügelmann
    * @return Scene
    */
@@ -222,111 +210,8 @@ public class GUI extends Application {
       }
 
     });
-
-    /**
-     * Soll später mal die Links aufrufen.
-     * 
-     * @author Sadik Ulusan
-     */
-    // Auswahl der Sprache mit einer Combobox
-    /*
-     * final ObservableList<String> languages = FXCollections.observableArrayList( "deutsch",
-     * "englisch", "chinesisch" ); final ComboBox language = new ComboBox();
-     * 
-     * hbox1.getChildren().addAll(suchleiste,sucheF,sucheP, language);
-     * 
-     * language.setItems(languages);
-     */
-
-
-
-    /**
-     * @author Christian Schmidt
-     */
-    // Label für die Suchoptionen
-
-    Label label = new Label("Faroo Suchoptionen");
-    label.setFont(Font.font("Arial", 14));
-    HBox schrift = new HBox(label);
-    schrift.setAlignment(Pos.CENTER);
-    schrift.setPadding(new Insets(-15, 15, 15, 15));
-    schrift.setSpacing(10);
-    // Buttons für die Suchoptionen
-    final Button[] btnlanguage = new Button[2];
-    btnlanguage[0] = new Button("de");
-    btnlanguage[0].setText("German");
-    btnlanguage[0].setStyle("-fx-background-color: #00B2EE;");
-    btnlanguage[0].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnlanguage[0].setStyle("-fx-background-color: #00B2EE;");
-        btnlanguage[1].setStyle("-fx-background: #FFFFFF;");
-        SelectedLanguage[0] = "de";
-        mController.setParameter("de", "web", 1);
-
-      }
-    });
-    btnlanguage[1] = new Button("en");
-    btnlanguage[1].setText("English");
-    btnlanguage[1].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnlanguage[1].setStyle("-fx-background-color: #00B2EE;");
-        btnlanguage[0].setStyle("-fx-background: #FFFFFF;");
-        SelectedLanguage[0] = "en";
-      }
-    });
-
-    final Button[] btnsrc = new Button[3];
-    btnsrc[0] = new Button("web");
-    btnsrc[0].setText("Web");
-    btnsrc[0].setStyle("-fx-background-color: #00B2EE;");
-    btnsrc[0].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnsrc[0].setStyle("-fx-background-color: #00B2EE;");
-        btnsrc[1].setStyle("-fx-background: #FFFFFF;");
-        btnsrc[2].setStyle("-fx-background: #FFFFFF;");
-        Selectedsrc[0] = "web";
-      }
-    });
-    btnsrc[1] = new Button("news");
-    btnsrc[1].setText("News");
-    btnsrc[1].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnsrc[1].setStyle("-fx-background-color: #00B2EE;");
-        btnsrc[0].setStyle("-fx-background: #FFFFFF;");
-        btnsrc[2].setStyle("-fx-background: #FFFFFF;");
-        Selectedsrc[0] = "news";
-      }
-    });
-    btnsrc[2] = new Button("topics");
-    btnsrc[2].setText("Headlines");
-    btnsrc[2].setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent event) {
-        btnsrc[2].setStyle("-fx-background-color: #00B2EE;");
-        btnsrc[1].setStyle("-fx-background: #FFFFFF;");
-        btnsrc[0].setStyle("-fx-background: #FFFFFF;");
-        Selectedsrc[0] = "topics";
-
-      }
-    });
-
-    // --------------------------------------------------
-    // Vertikalbox für Buttons Deutsch und Englisch
-    vbox2.getChildren().addAll(btnlanguage[0], btnlanguage[1]);
-    // Vertikalbox für WEB NEWS und Title
-    vbox3.getChildren().addAll(btnsrc[0], btnsrc[1], btnsrc[2]);
-    // Die beiden Vertikalboxen von Sprache und Suchart werden in einer Horizontalbox
-    // zusammengeführt
-    // hbox3.getChildren().addAll(vbox2, vbox3);
     hbox1.getChildren().addAll(suchleiste, sucheF, sucheP);
     vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
-    // hbox2.getChildren().addAll(close);
-    // Parameterübergabe an den Controller - scheint hier aber nicht zu gehen
-    mController.setParameter(SelectedLanguage[0], Selectedsrc[0], 1);
     return start;
   }
 
@@ -335,9 +220,7 @@ public class GUI extends Application {
    *
    */
   public void startQuery() {
-    stage.setScene(loadingIndicator());
-
-
+    stage.setScene(loadIndicator());
     // Task suche;
     // suche = createWorker();
     // new Thread(suche).start();
@@ -345,11 +228,14 @@ public class GUI extends Application {
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-          try {
-              mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
-          } catch (SearchApiExecption searchApiExecption) {
-              searchApiExecption.printStackTrace();
-          }
+        //mController.farooSearch(suchleiste.getText());
+
+        // TODO: SearchAPi (DuckDuckGO) verwenden
+        try {
+          mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
+        } catch (SearchApiExecption searchApiExecption) {
+          searchApiExecption.printStackTrace();
+        }
       }
     });
   }
@@ -366,7 +252,7 @@ public class GUI extends Application {
 
   /**
    * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.
-   * 
+   *
    * @author Sebastian Hügelmann
    * @param suchleiste Suchleiste für den Suchbegriff.
    */
@@ -375,6 +261,7 @@ public class GUI extends Application {
     System.out.println("Übergebener Begriff " + suchleiste);
     this.suchleiste.setText(suchleiste);
     System.out.println(this.suchleiste.getText());
+    startQuery();
   }
 
   public static int getWindowheight() {
@@ -395,7 +282,7 @@ public class GUI extends Application {
   }
 
 
-  private Scene loadingIndicator() {
+  private Scene loadIndicator() {
     System.out.println("Ladebalken Methode gestartet!");
     loadingPane.setStyle("-fx-background-color: #FFF;");
     timeline.setCycleCount(Timeline.INDEFINITE);
@@ -451,7 +338,7 @@ public class GUI extends Application {
 
   public void startKogSucheExtern() {
     startMode = 1;
-    launch();
+    Main.launch();
   }
 
   public ArrayList<PDFDocument> getPDFBoxDocuments() {
@@ -467,4 +354,11 @@ public class GUI extends Application {
     return suchleiste;
   }
 
+  public static GUI getInstance() {
+    if (instance == null) {
+      instance = new GUI();
+    }
+    return instance;
+
+  }
 }
