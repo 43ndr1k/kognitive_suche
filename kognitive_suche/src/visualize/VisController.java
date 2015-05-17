@@ -2,6 +2,7 @@ package visualize;
 
 
 import cognitive.search.ReturnTagList;
+import gui.GUI;
 import javafx.scene.layout.Pane;
 import komplexe.suche.TagObjectList;
 
@@ -21,6 +22,7 @@ public class VisController {
   private static int activePads;
   private static Pane pane;
   private static String query;
+  private GUI gui;
 
   public int getPaneWidth() {
     return paneWidth;
@@ -45,11 +47,20 @@ public class VisController {
    * @return Pane mit positionierten Objekten
    */
   public Pane startVisualize(ReturnTagList tags) {
-    Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags);
+    Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags, this.gui);
 
     return pattern.getPane();
   }
 
+
+    /**
+     * Methode zur Übergabe der GUI an den Controller.
+     *
+     * @author Sebastian Hügelmann
+     */
+    public void setGUI(GUI gui) {
+        this.gui = gui;
+    }
 
   /**
    * 

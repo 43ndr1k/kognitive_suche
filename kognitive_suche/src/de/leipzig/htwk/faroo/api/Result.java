@@ -54,6 +54,13 @@ public class Result {
     this.firstPublished = firstPublished;
   }
 
+    public Result(String title, String kwic, String url) {
+        this.title = title;
+        this.kwic = kwic;
+        this.url = url;
+
+    }
+
   public String getTitle() {
     return title;
   }
@@ -96,6 +103,10 @@ public class Result {
 
   public void setTitle() {
     this.title = "Keine Ergebnisse";
+  }
+
+  public void setUrl(String pUrl){
+      this.url = pUrl;
   }
 
 

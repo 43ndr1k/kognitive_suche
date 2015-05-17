@@ -105,7 +105,7 @@ public class Api {
     try {
 
       int responseCode = pHttpURLConnection.getResponseCode();
-      System.out.println("Result: " + responseCode);
+      System.out.println("Result_: " + responseCode);
       BufferedReader in =
           new BufferedReader(new InputStreamReader(pHttpURLConnection.getInputStream()));
       String inputLine;
