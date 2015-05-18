@@ -292,7 +292,7 @@ public class Controller {
 
                 }
                 long zstNachher = System.currentTimeMillis(); // Zeitmessung
-                System.out.println("Zeit benötigt: Webseiten Suche: " + ((zstNachher - zstVorher))
+                System.out.println("Zeit benötigt: DuckDuckGo Suche: " + ((zstNachher - zstVorher))
                         + " millisec");
 
                 beginWebSearch();
