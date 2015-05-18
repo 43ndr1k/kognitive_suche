@@ -38,12 +38,15 @@ public class ApiCognitiveSearch {
   public void doEditTags() {
     EditTags edit = new EditTags(tags);
     edit.removeTagsFromWordList();
-    edit.stem();
+    edit.getTags().testOutput(50);
+    
+   // edit.stem();
     edit.removeTagsLongerThanVar(15);
-    edit.sortTagsByPriority();
     edit.limitTags(100);
-    edit.findRepresentativeTags(findOutBlocNumbers());
+   // edit.findRepresentativeTags(findOutBlocNumbers());
 
+    
+    edit.sortTagsByPriority();
     tags = edit.getTags();
 
   }
@@ -61,13 +64,13 @@ public class ApiCognitiveSearch {
 
   public void doMergeTagInfos() {
     zstVorher = System.currentTimeMillis();
+    
     AddTagInfos merge = new AddTagInfos(searchWord);
     double[] function = {-3, 0, 10};
-    merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
     merge.addInfo(count.getTagFrequency());
-
+    merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);   
     tags = merge.getReturnTagList();
-
+    System.out.println("hier");
     zstNachher = System.currentTimeMillis();
     System.out.println("Zeit benötigt: Tag-Merge: " + ((zstNachher - zstVorher)) + " millisec");
   }
