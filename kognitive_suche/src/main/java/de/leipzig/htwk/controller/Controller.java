@@ -274,9 +274,11 @@ public class Controller {
                 } catch (APIExecption apiExecption) {
                     apiExecption.printStackTrace();
                 }
+
                 break;
             case 1:
                 System.out.println("Query DuckDuckGo");
+                long zstVorher = System.currentTimeMillis();
 
                 DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord, 80, this.driver);
                 this.results = duckApi.getResultList();
@@ -289,6 +291,9 @@ public class Controller {
                     System.out.println(r.getUrl());
 
                 }
+                long zstNachher = System.currentTimeMillis(); // Zeitmessung
+                System.out.println("Zeit benötigt: Webseiten Suche: " + ((zstNachher - zstVorher))
+                        + " millisec");
 
                 beginWebSearch();
 
