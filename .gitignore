@@ -140,5 +140,6 @@ hs_err_pid*
 out/
 
 # log files
+
 *.log
 target/
