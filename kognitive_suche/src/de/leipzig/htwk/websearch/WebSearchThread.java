@@ -63,7 +63,6 @@ public class WebSearchThread extends Thread {
 		Static.pageText[urlNumber] = sc;
 		// String[] mk=html.getMetaKeys(sc);
 		ready = true;
-		System.out.println(urlNumber);
 		return null;
 
 	}
@@ -72,7 +71,7 @@ public class WebSearchThread extends Thread {
 	void stoppeEndless() {
 		if (ready == false) {
 			Static.pageText[urlNumber] = "";
-			System.out.println(urlNumber + " xoxoxxooxoxoxxo");
+			System.out.println(urlNumber + " iCh bin tot");
 			this.stop();
 		} else {
 			System.out.println(urlNumber + " ICH BIN FERTIG");

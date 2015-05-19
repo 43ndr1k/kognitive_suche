@@ -20,274 +20,286 @@ import cognitive.search.ReturnTagList;
  */
 
 /**
- * Der Controller dient zur Vermittlung. Er wickelt die Kommunikation zwischen den einzelenen
- * Klassen ab.
+ * Der Controller dient zur Vermittlung. Er wickelt die Kommunikation zwischen
+ * den einzelenen Klassen ab.
  */
 public class Controller {
 
-    /**
-     * Die Parameter für die Weitergabe der einzelnen Informationen.
-     */
-    private String language, src;
-    private int start = 1;
-    private String key, url;
-    private Results results;
-    private String query;
-    private GUI gui;
-    private String searchWord;
-    private ArrayList<PDFDocument> pdfBoxDocuments;
+	/**
+	 * Die Parameter für die Weitergabe der einzelnen Informationen.
+	 */
+	private String language, src;
+	private int start = 1;
+	private String key, url;
+	private Results results;
+	private String query;
+	private GUI gui;
+	private String searchWord;
+	private ArrayList<PDFDocument> pdfBoxDocuments;
 
-    /**
-     * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
-     */
-    public Controller() {
-        ConfigFileManagement config = new ConfigFileManagement();
-        this.key = config.getKey();
-        this.url = config.geturl();
-    }
+	/**
+	 * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die
+	 * Faroo API URL.
+	 */
+	public Controller() {
+		ConfigFileManagement config = new ConfigFileManagement();
+		this.key = config.getKey();
+		this.url = config.geturl();
+	}
 
-    /**
-     * Parameter für die Faroo API
-     *
-     * @param _src Welche Informationen möchte man haben
-     * @param s Startwert ab welchem Suchergebnis man Ergebnisse haben möchte.
-     * @param l Welche Sprache
-     */
-    public void setParameter(String l, String _src, int s) {
-        this.language = l;
-        this.src = _src;
-        this.start = s;
-    }
+	/**
+	 * Parameter für die Faroo API
+	 *
+	 * @param _src
+	 *            Welche Informationen möchte man haben
+	 * @param s
+	 *            Startwert ab welchem Suchergebnis man Ergebnisse haben möchte.
+	 * @param l
+	 *            Welche Sprache
+	 */
+	public void setParameter(String l, String _src, int s) {
+		this.language = l;
+		this.src = _src;
+		this.start = s;
+	}
 
-    /**
-     * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
-     *
-     * @return Results Liste mit den Ergebnisse.
-     */
-    public void queryFaroo() {
-        Api api = new Api(key, url);
-        setQuery(searchWord);
-        try {
-            System.out.println("Suche gestartet");
-            Results results = api.query(this.start, searchWord, this.language, src);
-            setResultList(results);
+	/**
+	 * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
+	 *
+	 * @return Results Liste mit den Ergebnisse.
+	 */
+	public void queryFaroo() {
+		Api api = new Api(key, url);
+		setQuery(searchWord);
+		try {
+			System.out.println("Suche gestartet");
+			Results results = api.query(this.start, searchWord, this.language,
+					src);
+			setResultList(results);
 
+		} catch (APIExecption apiExecption) {
+			apiExecption.printStackTrace();
+		}
+	}
 
-        } catch (APIExecption apiExecption) {
-            apiExecption.printStackTrace();
-        }
-    }
+	private void beginWebSearch() {
 
-    private void beginWebSearch() {
+		/**
+		 * @author Franz Schwarzer
+		 */
 
-        /**
-         * @author Franz Schwarzer
-         */
+		long zstVorher = System.currentTimeMillis();
 
-        long zstVorher = System.currentTimeMillis();
+		HTMLTools webSearch = new HTMLTools();
+		Results r = results;
+		int resultSize = r.getResults().size();
+		ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
+		String[] clearPageText = new String[resultSize];
+		for (int i = 0; i < resultSize; i++) {
+			clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
+		}
 
-        HTMLTools webSearch = new HTMLTools();
-        Results r = results;
-        int resultSize = r.getResults().size();
-        ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
-        String[] clearPageText = new String[resultSize];
-        for (int i = 0; i < resultSize; i++) {
-            System.out.println(i);
-            clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
-           // System.out.println(clearPageText[i]);
-        }
+		long zstNachher = System.currentTimeMillis(); // Zeitmessung
+		System.out.println("Zeit benötigt: Webseiten Suche: "
+				+ ((zstNachher - zstVorher)) + " millisec");
 
+		beginCognitiveSearch(clearPageText, searchWord);
 
-        long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: Webseiten Suche: " + ((zstNachher - zstVorher))
-                + " millisec");
+	}
 
-        beginCognitiveSearch(clearPageText, searchWord);
+	/**
+	 * @author TobiasLenz
+	 * @param searchText
+	 *            selbsterklärend
+	 * @param searchWord
+	 *            selbsterklärend
+	 */
 
-    }
+	private void beginCognitiveSearch(String[] searchText, String searchWord) {
+		long zstVorher = System.currentTimeMillis();
 
-    /**
-     * @author TobiasLenz
-     * @param searchText selbsterklärend
-     * @param searchWord selbsterklärend
-     */
+		ApiCognitiveSearch search = new ApiCognitiveSearch(searchText,
+				searchWord);
+		ReturnTagList tags = new ReturnTagList();
 
-    private void beginCognitiveSearch(String[] searchText, String searchWord) {
-        long zstVorher = System.currentTimeMillis();
+		search.doWordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
+		search.doMergeTagInfos(); // Zusammenführen von Tag-Infos der Analysen
+		/**
+		 * Hier können durch Nutzung der Api durch search.AddInfo bekannte
+		 * Tag-Informationen hinzugefügt werden
+		 *
+		 * bsp. search.AddTagInfo(String[] headline, priority 10);
+		 */
 
-        ApiCognitiveSearch search = new ApiCognitiveSearch(searchText, searchWord);
-        ReturnTagList tags = new ReturnTagList();
+		search.doEditTags(); // Bearbeiten der Tags
 
-        search.doWordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
-        search.doMergeTagInfos(); // Zusammenführen von Tag-Infos der Analysen
-        /**
-         * Hier können durch Nutzung der Api durch search.AddInfo bekannte Tag-Informationen hinzugefügt
-         * werden
-         *
-         * bsp. search.AddTagInfo(String[] headline, priority 10);
-         */
+		long zstNachher = System.currentTimeMillis(); // Zeitmessung
+		System.out.println("Zeit benötigt: Kognitiver Algorithmus: "
+				+ ((zstNachher - zstVorher)) + " millisec");
 
+		tags = search.getTags();
+		initVisual(tags, searchWord); // Aufruf der Visualisierung
 
-        search.doEditTags(); // Bearbeiten der Tags
+	}
 
-        long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: Kognitiver Algorithmus: " + ((zstNachher - zstVorher))
-                + " millisec");
+	/**
+	 * Setzt die Results Liste temporär für den simple Algorithmus.
+	 *
+	 * @param results
+	 *            - Results Liste
+	 */
+	private void setResultList(Results results) {
+		this.results = results;
+	}
 
-        tags = search.getTags();
-        initVisual(tags, searchWord); // Aufruf der Visualisierung
+	/**
+	 * Stellt die Results Liste zur Verfügung.
+	 *
+	 * @return results Results Liste
+	 */
+	public Results getResultList() {
+		return this.results;
+	}
 
+	/**
+	 * Setzt das Suchwort
+	 *
+	 * @param query
+	 *            query
+	 */
+	private void setQuery(String query) {
+		this.query = query;
+	}
 
+	/**
+	 * Gibt das Suchwort zurück.
+	 *
+	 * @return query
+	 */
+	public String getQuery() {
+		return this.query;
+	}
 
-    }
+	/**
+	 * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
+	 *
+	 * @author Fabian Freihube, Sebastian Hügelmann
+	 * @param list
+	 *            Übergabe der gefundenen Ergebnisse per Liste.
+	 * @param searchword
+	 *            Übergabe des Suchwortes als String.
+	 */
+	public void initVisual(ReturnTagList list, String searchword) {
+		/*
+		 * das Objekt Tag, welches aus der Klasse visualtest übernommen wird
+		 * dient zu Testzwecken und kann bei der fertigen Implementation durch
+		 * ein Objekt des Komplexen Suchalgorithmus ersezt werden.
+		 */
+		System.out.println("startVisual Gestartet");
+		ReturnTagList tags = list;
 
-    /**
-     * Setzt die Results Liste temporär für den simple Algorithmus.
-     *
-     * @param results - Results Liste
-     */
-    private void setResultList(Results results) {
-        this.results = results;
-    }
+		BorderPane visPane = new BorderPane();
+		BorderPane homebuttonPane = new BorderPane();
 
-    /**
-     * Stellt die Results Liste zur Verfügung.
-     *
-     * @return results Results Liste
-     */
-    public Results getResultList() {
-        return this.results;
-    }
+		homebuttonPane.setCenter(gui.goHomeButton());
+		homebuttonPane.setStyle("-fx-background-color: #FFF;");
+		homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
 
-    /**
-     * Setzt das Suchwort
-     *
-     * @param query query
-     */
-    private void setQuery(String query) {
-        this.query = query;
-    }
+		VisController visualController = new VisController();
+		visualController.setPane(visPane);
+		visualController.setQuery(searchword);
+		// iv
+		visualController
+				.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
+		visualController.setPaneWidth((int) gui.getStage().getWidth());
 
-    /**
-     * Gibt das Suchwort zurück.
-     *
-     * @return query
-     */
-    public String getQuery() {
-        return this.query;
-    }
+		visPane.setCenter(visualController.startVisualize(tags));
+		visPane.setTop(homebuttonPane);
+		System.out.println("startVisual fertig");
 
-    /**
-     * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
-     *
-     * @author Fabian Freihube, Sebastian Hügelmann
-     * @param list Übergabe der gefundenen Ergebnisse per Liste.
-     * @param searchword Übergabe des Suchwortes als String.
-     */
-    public void initVisual(ReturnTagList list, String searchword) {
-    /*
-     * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
-     * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
-     * werden.
-     */
-        System.out.println("startVisual Gestartet");
-        ReturnTagList tags = list;
+		Scene visual = new Scene(visPane);
+		gui.setStageScene(visual);
+	}
 
-        BorderPane visPane = new BorderPane();
-        BorderPane homebuttonPane = new BorderPane();
+	/**
+	 * Methode zur Übergabe der GUI an den Controller.
+	 *
+	 * @author Sebastian Hügelmann
+	 */
+	public void setGUI(GUI gui) {
+		this.gui = gui;
+	}
 
-        homebuttonPane.setCenter(gui.goHomeButton());
-        homebuttonPane.setStyle("-fx-background-color: #FFF;");
-        homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
+	/**
+	 * In dieser Funktion werden die Funktionen für eine Suche über Faroo
+	 * gestartet.
+	 *
+	 * @author Tobias Lenz, Franz Schwarzer
+	 * @param searchWord
+	 *            - Der Suchtext, welcher über die Suchmaschine genutzt werden
+	 *            soll.
+	 */
+	public void farooSearch(String searchWord) {
+		this.searchWord = searchWord;
+		long zstVorher = System.currentTimeMillis();
 
-        VisController visualController = new VisController();
-        visualController.setPane(visPane);
-        visualController.setQuery(searchword);
-        // iv
-        visualController.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
-        visualController.setPaneWidth((int) gui.getStage().getWidth());
+		queryFaroo(); // Starten der Faroo Suche
 
-        visPane.setCenter(visualController.startVisualize(tags));
-        visPane.setTop(homebuttonPane);
-        System.out.println("startVisual fertig");
+		long zstNachher = System.currentTimeMillis(); // Zeitmessung
+		System.out.println("Zeit benötigt: Faroo Suche: "
+				+ ((zstNachher - zstVorher)) + " millisec");
+		beginWebSearch();
+	}
 
-        Scene visual = new Scene(visPane);
-        gui.setStageScene(visual);
-    }
+	public void setPDFBoxDocuments(ArrayList<PDFDocument> PDFBoxDocuments) {
+		this.pdfBoxDocuments = PDFBoxDocuments;
+	}
 
+	/**
+	 * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
+	 *
+	 * @return Results Liste mit den Ergebnisse.
+	 */
+	public void querySearchEngine(int pSearchEngine, String pSearchWord)
+			throws SearchApiExecption {
 
-    /**
-     * Methode zur Übergabe der GUI an den Controller.
-     *
-     * @author Sebastian Hügelmann
-     */
-    public void setGUI(GUI gui) {
-        this.gui = gui;
-    }
+		this.searchWord = pSearchWord;
 
-    /**
-     * In dieser Funktion werden die Funktionen für eine Suche über Faroo gestartet.
-     *
-     * @author Tobias Lenz, Franz Schwarzer
-     * @param searchWord - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
-     */
-    public void farooSearch(String searchWord) {
-        this.searchWord = searchWord;
-        long zstVorher = System.currentTimeMillis();
+		switch (pSearchEngine) {
+		case 0:
+			System.out.println("Query Faroo");
 
-        queryFaroo(); // Starten der Faroo Suche
+			Api api = new Api(key, url);
+			setQuery(searchWord);
+			try {
+				System.out.println("Suche gestartet");
+				this.results = api.query(this.start, searchWord, this.language,
+						src);
+				beginWebSearch();
 
-        long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: Faroo Suche: " + ((zstNachher - zstVorher)) + " millisec");
-        beginWebSearch();
-    }
+			} catch (APIExecption apiExecption) {
+				apiExecption.printStackTrace();
+			}
+			break;
+		case 1:
+			System.out.println("Query DuckDuckGo");
 
-    public void setPDFBoxDocuments(ArrayList<PDFDocument> PDFBoxDocuments) {
-        this.pdfBoxDocuments = PDFBoxDocuments;
-    }
+			DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord,
+					80);
+			this.results = duckApi.getResultList();
 
-    /**
-     * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
-     *
-     * @return Results Liste mit den Ergebnisse.
-     */
-    public void querySearchEngine(int pSearchEngine, String pSearchWord) throws SearchApiExecption {
+			for (Result r : results.getResults()) {
 
-        this.searchWord = pSearchWord;
+				String url = r.getUrl();
+				r.setUrl("http://www." + url);
 
-        switch (pSearchEngine) {
-            case 0:
-                System.out.println("Query Faroo");
+				System.out.println(r.getUrl());
 
-                Api api = new Api(key, url);
-                setQuery(searchWord);
-                try {
-                    System.out.println("Suche gestartet");
-                    this.results = api.query(this.start, searchWord, this.language, src);
-                    beginWebSearch();
+			}
 
-                } catch (APIExecption apiExecption) {
-                    apiExecption.printStackTrace();
-                }
-                break;
-            case 1:
-                System.out.println("Query DuckDuckGo");
+			beginWebSearch();
 
-                DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord, 80);
-                this.results = duckApi.getResultList();
-
-                for (Result r : results.getResults()) {
-
-                    String url = r.getUrl();
-                    r.setUrl("http://www." + url);
-
-                    System.out.println(r.getUrl());
-
-                }
-
-                beginWebSearch();
-
-                break;
-        }
-    }
+			break;
+		}
+	}
 }
