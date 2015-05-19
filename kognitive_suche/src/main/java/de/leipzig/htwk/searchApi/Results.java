@@ -1,4 +1,6 @@
-package de.leipzig.htwk.faroo.api;
+package de.leipzig.htwk.searchApi;
+
+import de.leipzig.htwk.searchApi.Result;
 
 import java.util.ArrayList;
 

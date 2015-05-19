@@ -1,8 +1,6 @@
 package de.leipzig.htwk.websearch;
 
-import komplexe.suche.Tag_Meta;
-import komplexe.suche.UrlObjektList;
-import de.leipzig.htwk.faroo.api.Results;
+import de.leipzig.htwk.searchApi.Results;
 
 public class ThreadRun {
 

@@ -1,7 +1,5 @@
 package de.leipzig.htwk.searchApi;
 
-import de.leipzig.htwk.faroo.api.Result;
-import de.leipzig.htwk.faroo.api.Results;
 import javafx.application.Platform;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
@@ -10,6 +8,8 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.validator.*; // Import routines package!
 
 
 /**
@@ -196,14 +196,24 @@ public class SearchApi {
      * @return resultList Beinhaltet eine List mit Result_ Objekten.
      */
     private void makeResultList() {
+        // Get an UrlValidator with custom schemes
+        String[] customSchemes = { "sftp", "scp", "https", "http" };
+        UrlValidator customValidator = new UrlValidator(customSchemes);
+        if (!customValidator.isValid("http://www.apache.org")) {
+            System.out.println("valid");
+        }
         int anz = createAnzResultObjects();
         for (int i = 0; i < anz;i++) {
-            this.resultList.add(new Result(
-                    this.titleClassList.get(i).getText(),
-                    this.descriptionClassList.get(i).getText(),
-                    this.linkClassList.get(i).getText())
-            );
-        }
+
+                    this.resultList.add(new Result(
+                                    this.titleClassList.get(i).getText(),
+                                    this.descriptionClassList.get(i).getText(),
+                                    "https://www." + this.linkClassList.get(i).getText())
+                    );
+                }
+
+
+
 
     }
 
