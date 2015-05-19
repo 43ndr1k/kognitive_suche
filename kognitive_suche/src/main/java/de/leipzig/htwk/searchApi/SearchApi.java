@@ -9,7 +9,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.validator.*; // Import routines package!
+import org.apache.commons.validator.routines.*; // Import routines package!
 
 
 /**
@@ -102,10 +102,10 @@ public class SearchApi {
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
      */
     private static String[] REPLACEMENTS = { "%", "%25", " ", "%20", "!",
-        "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
-        "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
-        "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
-        "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
+            "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
+            "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
+            "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
+            "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
 
     /**
      * Diese Methode codiert die query nach URL-Envording Richtlien
@@ -197,20 +197,34 @@ public class SearchApi {
      */
     private void makeResultList() {
         // Get an UrlValidator with custom schemes
-        String[] customSchemes = { "sftp", "scp", "https", "http" };
+        String[] customSchemes = { "sftp", "scp", "https", "http", "ftp" };
         UrlValidator customValidator = new UrlValidator(customSchemes);
-        if (!customValidator.isValid("http://www.apache.org")) {
-            System.out.println("valid");
-        }
+
         int anz = createAnzResultObjects();
         for (int i = 0; i < anz;i++) {
+            if (customValidator.isValid(this.linkClassList.get(i).getText())) {
+                System.out.println("valid");
+                this.resultList.add(new Result(
+                        this.titleClassList.get(i).getText(),
+                        this.descriptionClassList.get(i).getText(),
+                        this.linkClassList.get(i).getText())
+                );
+            }   else if (customValidator.isValid("https://" + this.linkClassList.get(i).getText())) {
+                this.resultList.add(new Result(
+                        this.titleClassList.get(i).getText(),
+                        this.descriptionClassList.get(i).getText(),
+                        "https://" + this.linkClassList.get(i).getText())
+                );
+            } else {
+                this.resultList.add(new Result(
+                                this.titleClassList.get(i).getText(),
+                                this.descriptionClassList.get(i).getText(),
+                                "https://www." + this.linkClassList.get(i).getText())
+                );
+            }
 
-                    this.resultList.add(new Result(
-                                    this.titleClassList.get(i).getText(),
-                                    this.descriptionClassList.get(i).getText(),
-                                    "https://www." + this.linkClassList.get(i).getText())
-                    );
-                }
+
+        }
 
 
 

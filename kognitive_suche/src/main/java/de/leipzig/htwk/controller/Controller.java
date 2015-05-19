@@ -281,14 +281,6 @@ public class Controller {
                 DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord, 80, this.driver);
                 this.results = duckApi.getResultList();
 
-                for (Result r : results.getResults()) {
-
-                    String url = r.getUrl();
-                    r.setUrl("http://www." + url);
-
-                    System.out.println(r.getUrl());
-
-                }
                 long zstNachher = System.currentTimeMillis(); // Zeitmessung
                 System.out.println("Zeit benötigt: DuckDuckGo Suche: " + ((zstNachher - zstVorher))
                         + " millisec");
