@@ -344,19 +344,6 @@ public class GUI extends Stage {
     return loadingScene;
   }
 
-  public void startKogSucheExtern() {
-    startMode = 1;
-    Main.launch();
-  }
-
-  public ArrayList<PDFDocument> getPDFBoxDocuments() {
-    return pdfBoxDocuments;
-  }
-
-  public void setPDFBoxDocuments(ArrayList<PDFDocument> pdfBoxDocuments) {
-    this.pdfBoxDocuments = pdfBoxDocuments;
-  }
-
   public TextField getSuchleiste() {
     // Auto-generated method stub
     return suchleiste;
@@ -368,5 +355,9 @@ public class GUI extends Stage {
     }
     return instance;
 
+  }
+  
+  public Controller getController() {
+    return mController;
   }
 }
