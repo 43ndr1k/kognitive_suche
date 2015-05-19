@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
@@ -25,12 +26,11 @@ public class HTMLTools {
      * @return Es wird der Klartext zur�ckgegeben
      */
 
-    StringEscapeUtils eu = new StringEscapeUtils();
     htmlCode = htmlCode.replaceAll("\\<.*?\\>", ""); // filtert HTML-Tags
     htmlCode = htmlCode.replaceAll("\\s+", " "); // filtert Leerzeichen
-    htmlCode = eu.unescapeXml(htmlCode);
-    htmlCode = eu.unescapeHtml3(htmlCode);
-    htmlCode = eu.unescapeHtml4(htmlCode);
+    htmlCode = StringEscapeUtils.unescapeXml(htmlCode);
+    htmlCode = StringEscapeUtils.unescapeHtml3(htmlCode);
+    htmlCode = StringEscapeUtils.unescapeHtml4(htmlCode);
 
 
     return htmlCode;
@@ -58,8 +58,8 @@ public class HTMLTools {
       e.printStackTrace();
     } catch (IOException e) {
       e.printStackTrace();
-    }
-
+    } 
+    
     return sb.toString();
   }
 

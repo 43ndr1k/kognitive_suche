@@ -94,7 +94,7 @@ public class Controller {
         for (int i = 0; i < resultSize; i++) {
             System.out.println(i);
             clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
-            System.out.println(clearPageText[i]);
+           // System.out.println(clearPageText[i]);
         }
 
 
