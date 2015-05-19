@@ -143,4 +143,20 @@ public class EditTags {
   public void sortTagsByPriority() {
     tags.sortTagsByPriority();
   }
+  
+  public void removeSpaces(){
+    int i = 0;
+    while(("a").compareToIgnoreCase(tags.getTagObject(i).getTag()) > 0){
+     tags.deleteTag(i);
+      i++;
+    }
+  }
+  public void removeSearchwords(){
+    String searchword = tags.getSearchword();
+    String[] parts = searchword.split(" ");
+    for (int i = 0; i < parts.length; i++) {
+        tags.deleteTag(parts[i]);
+      }
+    
+  }
 }

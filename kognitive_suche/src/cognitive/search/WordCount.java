@@ -11,7 +11,11 @@ public class WordCount {
   private ReturnTagList tagFrequency = new ReturnTagList();// Datentyp für häufigste
   // Suchwörter
   private ArrayList<Tag> tagNearby = new ArrayList<Tag>(); // Datentyp für Umgebungssuchwörter
-
+/**
+ * 
+ * @param searchText
+ * @param searchWord
+ */
   public void analyseText(String[] searchText, String searchWord) {
 
 
@@ -31,7 +35,7 @@ public class WordCount {
       String[] parts = text.split(" ");
 
       for (int j = 0; j < parts.length; j++) { // Der Textblock wird durchsucht
-        if (doescontain(searchWord, parts[j])) { // Falls Das Suchwort vorkommt, wird findTagNearby
+        if (doesContain(searchWord, parts[j])) { // Falls Das Suchwort vorkommt, wird findTagNearby
                                                  // aufgerufen
           findTagNearby(parts, j, i, searchWord, numbContSearchWord);
           numbContSearchWord++;
@@ -43,8 +47,7 @@ public class WordCount {
                                                               // als
                                                               // Tag
                                                               // hinzugefügt
-            tagFrequency.addTagObject(parts[j], i);
-            tagFrequency.getTagByTagName(parts[j]).addPriority(1);
+            tagFrequency.addTagObject(parts[j], i, 1);
           }
         }
       }
@@ -62,10 +65,7 @@ public class WordCount {
           tagNearby.get(numbContSearchWord).addtag(parts[j - l]);
         }
 
-        if (j + l < parts.length && !badWord(parts[j + l]) && !badWord(parts[j + l])/*
-                                                                                     * && parts[j+l]
-                                                                                     * != "[^.!?]"
-                                                                                     */) {
+        if (j + l < parts.length && !badWord(parts[j + l]) && !badWord(parts[j + l])) {
           tagNearby.get(numbContSearchWord).addtag(parts[j + l]);
         }
       }
@@ -73,11 +73,16 @@ public class WordCount {
 
   }
 
-
-  private boolean doescontain(String searchword, String string) {
+/**
+ * 
+ * @param searchword
+ * @param word - Word, welches auf Vorkommen im Suchstring geprüft werden soll
+ * @return true - falls Word enthalten false - sonst
+ */
+  private boolean doesContain(String searchword, String word) {
     String[] parts = searchword.split(" ");
     for (int i = 0; i < parts.length; i++) {
-      if (parts[i].equalsIgnoreCase(string)) {
+      if (parts[i].equalsIgnoreCase(word)) {
         return true;
       }
     }

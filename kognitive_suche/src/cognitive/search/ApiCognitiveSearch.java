@@ -18,9 +18,9 @@ public class ApiCognitiveSearch {
    *
    * @author Tobias Lenz
    */
-  AddTagInfos merge;
-  ReturnTagList tags;
 
+  ReturnTagList tags;
+  AddTagInfos merge;
 
   long zstVorher;
   long zstNachher;
@@ -34,18 +34,41 @@ public class ApiCognitiveSearch {
 
 
   }
+/**
+ * 
+ */
+  public void doWordCount() {
+    zstVorher = System.currentTimeMillis();
+    count.analyseText(searchText, searchWord);
 
+    zstNachher = System.currentTimeMillis();
+    System.out.println("Zeit benötigt: WordCount: " + ((zstNachher - zstVorher)) + " millisec");
+  }
+/**
+ * Hier werden die Ergebnisse der 
+ */
+  public void doMergeTagInfos() {
+
+    merge = new AddTagInfos(searchWord);
+    merge.addInfo(count.getTagFrequency());
+    double[] function = {-3, 0, 5};
+    merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);
+    tags = merge.getReturnTagList();
+
+  }
+/**
+ * 
+ */
   public void doEditTags() {
     EditTags edit = new EditTags(tags);
     edit.removeTagsFromWordList();
-    edit.getTags().testOutput(50);
-    
-   // edit.stem();
-    edit.removeTagsLongerThanVar(15);
-    edit.limitTags(100);
-   // edit.findRepresentativeTags(findOutBlocNumbers());
 
-    
+    // edit.stem();
+    edit.removeTagsLongerThanVar(15);
+    // edit.findRepresentativeTags(findOutBlocNumbers());
+    edit.removeSpaces();
+    edit.removeSearchwords();
+    tags = edit.getTags();
     edit.sortTagsByPriority();
     tags = edit.getTags();
 
@@ -60,27 +83,6 @@ public class ApiCognitiveSearch {
     }
     return blocTmp;
 
-  }
-
-  public void doMergeTagInfos() {
-    zstVorher = System.currentTimeMillis();
-    
-    AddTagInfos merge = new AddTagInfos(searchWord);
-    double[] function = {-3, 0, 10};
-    merge.addInfo(count.getTagFrequency());
-    merge.addInfo(count.gettagNearby(), "ax²+bx+c", function);   
-    tags = merge.getReturnTagList();
-    System.out.println("hier");
-    zstNachher = System.currentTimeMillis();
-    System.out.println("Zeit benötigt: Tag-Merge: " + ((zstNachher - zstVorher)) + " millisec");
-  }
-
-  public void doWordCount() {
-    zstVorher = System.currentTimeMillis();
-    count.analyseText(searchText, searchWord);
-
-    zstNachher = System.currentTimeMillis();
-    System.out.println("Zeit benötigt: WordCount: " + ((zstNachher - zstVorher)) + " millisec");
   }
 
   public ReturnTagList getTags() {

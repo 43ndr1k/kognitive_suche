@@ -139,6 +139,10 @@ public class ReturnTagList {
   public void deleteTag(String tag) {
     tags.remove(getTagByTagName(tag));
   }
+  
+  public void deleteTag(int num){
+    tags.remove(num);
+  }
 
   public ArrayList<ReturnTagObject> getTags() {
     return tags;

@@ -20,16 +20,16 @@ public class AddTagInfos {
 
   public void addInfo(Tag info) {
     if (info != null) {
-      for (int i = 0; i < info.getsize(); i++) {
-        tags.addTagObject(info.gettag(i), info.getTextBlocNumber());
+      for (int i = 0; i < info.getSize(); i++) {
+        tags.addTagObject(info.getTag(i), info.getTextBlocNumber());
       }
     }
   }
 
   public void addInfo(Tag info, String function, double[] values) {
     if (info != null) {
-      for (int i = 0; i < info.getsize(); i++) {
-        tags.addTagObject(info.gettag(i), info.getTextBlocNumber(),
+      for (int i = 0; i < info.getSize(); i++) {
+        tags.addTagObject(info.getTag(i), info.getTextBlocNumber(),
             getFunctionPriority(function, values, i));
       }
     }

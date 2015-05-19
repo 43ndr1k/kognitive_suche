@@ -29,11 +29,11 @@ public class Tag {
     tags.add(tag);
   }
 
-  public String gettag(int number) {
+  public String getTag(int number) {
     return tags.get(number);
   }
 
-  public int getsize() {
+  public int getSize() {
     return tags.size();
   }
 

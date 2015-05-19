@@ -19,7 +19,7 @@ public class SearchApiExecption extends Exception {
     }
 
     /**
-     * Nimmt den Fehlercode an und sendet ihnan super weiter.
+     * Nimmt den Fehlercode an und sendet ihn an super weiter.
      * @param wort
      */
 
