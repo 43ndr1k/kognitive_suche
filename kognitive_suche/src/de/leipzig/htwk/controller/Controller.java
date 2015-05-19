@@ -242,8 +242,8 @@ public class Controller {
         beginWebSearch();
     }
 
-    public ArrayList<PDFDocument> getPDFBoxDocuments() {
-        return gui.getPDFBoxDocuments();
+    public void setPDFBoxDocuments(ArrayList<PDFDocument> PDFBoxDocuments) {
+        this.pdfBoxDocuments = PDFBoxDocuments;
     }
 
     /**

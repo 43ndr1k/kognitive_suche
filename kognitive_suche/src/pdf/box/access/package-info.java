@@ -9,7 +9,6 @@
  * 
  * Ein PDFKeyword Object besteht zum einen aus dem Keyword an sich und seiner Relevanz
  * (Ein Wert zwischen 0.0 und 1.0 der angibt wie wichtig dieses Keyword ist.)
- * 
  *
  * @author Fabian Freihube
  * @version 1.0
