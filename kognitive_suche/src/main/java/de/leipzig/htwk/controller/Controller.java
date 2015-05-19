@@ -282,7 +282,7 @@ public class Controller {
                 this.results = duckApi.getResultList();
 
                 long zstNachher = System.currentTimeMillis(); // Zeitmessung
-                System.out.println("Zeit benötigt: DuckDuckGo Suche: " + ((zstNachher - zstVorher))
+                System.out.println("Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher))
                         + " millisec");
 
                 beginWebSearch();

@@ -148,6 +148,7 @@ public class SearchApi {
         }
 
         try {
+            long zstVorher = System.currentTimeMillis();
             while (resultList.size() < gesamtAnzahlErgebnisse) {
                 List<WebElement> noResults = getList(this.noresultclass);
                 if(noResults.size() == 0 && anzRestResults != 0) {
@@ -160,6 +161,11 @@ public class SearchApi {
                     break;
                 }
             }
+
+        long zstNachher = System.currentTimeMillis(); // Zeitmessung
+        System.out.println("Zeit benötigt: DuckDuckGo Suche Result Liste erstellen + alles andere: " + ((zstNachher - zstVorher))
+            + " millisec");
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new SearchApiExecption("Beim Erstellen der Ergebnisliste ist ein Fehler aufgetreten");
@@ -226,7 +232,7 @@ public class SearchApi {
         }
 
         long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: DuckDuckGo Suche: " + ((zstNachher - zstVorher))
+        System.out.println("Zeit benötigt: DuckDuckGo Suche Result Liste erstellen: " + ((zstNachher - zstVorher))
             + " millisec");
 
 
