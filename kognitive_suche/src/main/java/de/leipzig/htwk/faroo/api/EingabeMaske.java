@@ -54,6 +54,7 @@ public class EingabeMaske extends Stage {
     final TextField urlTextBox = new TextField();
     urlTextBox.setMaxWidth(300);
     urlTextBox.setText("http://www.faroo.com/api?");
+    keyTextBox.setText("2CJIbhzsHU4nlSqBVZ2OP3fimb4_");
     Label lkey = new Label("Eingabe Key");
     Label lurl = new Label("Eingabe URL");
     VBox centerBox = new VBox(lkey, keyTextBox, lurl, urlTextBox);

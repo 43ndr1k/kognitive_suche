@@ -1,6 +1,7 @@
 package de.leipzig.htwk.searchApi;
 
 import javafx.application.Platform;
+import org.apache.commons.validator.routines.UrlValidator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -8,8 +9,6 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.apache.commons.validator.routines.*; // Import routines package!
 
 
 /**
@@ -200,6 +199,8 @@ public class SearchApi {
         String[] customSchemes = { "sftp", "scp", "https", "http", "ftp" };
         UrlValidator customValidator = new UrlValidator(customSchemes);
 
+        long zstVorher = System.currentTimeMillis();
+
         int anz = createAnzResultObjects();
         for (int i = 0; i < anz;i++) {
             if (customValidator.isValid(this.linkClassList.get(i).getText())) {
@@ -222,11 +223,11 @@ public class SearchApi {
                                 "https://www." + this.linkClassList.get(i).getText())
                 );
             }
-
-
         }
 
-
+        long zstNachher = System.currentTimeMillis(); // Zeitmessung
+        System.out.println("Zeit benötigt: DuckDuckGo Suche: " + ((zstNachher - zstVorher))
+            + " millisec");
 
 
     }

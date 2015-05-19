@@ -32,7 +32,7 @@ public class Controller {
     private String language, src;
     private int start = 1;
     private String key, url;
-    private Results results;
+    private Results results; // Wenn Liste Leer, dann gibt es keine Ergebnisse
     private String query;
     private GUI gui;
     private String searchWord;
