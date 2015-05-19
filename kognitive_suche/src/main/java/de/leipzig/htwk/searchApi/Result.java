@@ -1,4 +1,4 @@
-package de.leipzig.htwk.faroo.api;
+package de.leipzig.htwk.searchApi;
 
 /**
  * @Autor Hendrik Sawade.
@@ -101,13 +101,6 @@ public class Result {
     return firstPublished;
   }
 
-  public void setTitle() {
-    this.title = "Keine Ergebnisse";
-  }
-
-  public void setUrl(String pUrl){
-      this.url = pUrl;
-  }
 
 
 }

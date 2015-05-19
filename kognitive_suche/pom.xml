@@ -35,6 +35,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.4</version>
         </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>1.4.1</version>
+        </dependency>
 
 
 
@@ -45,7 +50,7 @@
         <repository>
             <id>project.local</id>
             <name>project</name>
-            <url>file:${project.basedir}/repo</url>
+            <url>file:${project.basedir}/lib</url>
         </repository>
     </repositories>
 

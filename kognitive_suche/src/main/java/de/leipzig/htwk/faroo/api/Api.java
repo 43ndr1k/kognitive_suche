@@ -2,6 +2,8 @@ package de.leipzig.htwk.faroo.api;
 
 
 import com.google.gson.Gson;
+import de.leipzig.htwk.searchApi.Result;
+import de.leipzig.htwk.searchApi.Results;
 
 import java.io.BufferedReader;
 import java.io.IOException;

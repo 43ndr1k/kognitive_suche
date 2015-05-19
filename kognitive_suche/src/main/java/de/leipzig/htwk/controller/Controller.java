@@ -3,9 +3,7 @@ package de.leipzig.htwk.controller;
 import cognitive.search.ApiCognitiveSearch;
 import cognitive.search.ReturnTagList;
 import de.leipzig.htwk.faroo.api.*;
-import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
-import de.leipzig.htwk.searchApi.PhantomjsDriver;
-import de.leipzig.htwk.searchApi.SearchApiExecption;
+import de.leipzig.htwk.searchApi.*;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
@@ -274,21 +272,18 @@ public class Controller {
                 } catch (APIExecption apiExecption) {
                     apiExecption.printStackTrace();
                 }
+
                 break;
             case 1:
                 System.out.println("Query DuckDuckGo");
+                long zstVorher = System.currentTimeMillis();
 
                 DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord, 80, this.driver);
                 this.results = duckApi.getResultList();
 
-                for (Result r : results.getResults()) {
-
-                    String url = r.getUrl();
-                    r.setUrl("http://www." + url);
-
-                    System.out.println(r.getUrl());
-
-                }
+                long zstNachher = System.currentTimeMillis(); // Zeitmessung
+                System.out.println("Zeit benötigt: DuckDuckGo Suche: " + ((zstNachher - zstVorher))
+                        + " millisec");
 
                 beginWebSearch();
 
