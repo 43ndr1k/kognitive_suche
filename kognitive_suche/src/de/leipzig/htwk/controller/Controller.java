@@ -251,6 +251,11 @@ public class Controller {
 		beginWebSearch();
 	}
 
+    /**
+     * Annahme der PDFDocument Elemente
+     * 
+     * @param PDFBoxDocuments ArrayList welche die Namen der PDFs sowie deren Keywords enthält
+     */
 	public void setPDFBoxDocuments(ArrayList<PDFDocument> PDFBoxDocuments) {
 		this.pdfBoxDocuments = PDFBoxDocuments;
 	}
