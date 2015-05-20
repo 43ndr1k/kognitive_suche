@@ -71,6 +71,7 @@ public class ApiCognitiveSearch {
     tags = edit.getTags();
     edit.sortTagsByPriority();
     tags = edit.getTags();
+    edit.kategorisieren();
 
   }
 

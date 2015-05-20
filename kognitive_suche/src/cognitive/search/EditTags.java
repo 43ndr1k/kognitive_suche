@@ -2,6 +2,7 @@ package cognitive.search;
 
 import general.functions.TxtReader;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -159,4 +160,48 @@ public class EditTags {
       }
     
   }
+  /*
+   * @author Ivan Ivanikov
+   * @param Kategorien werden erstellt indem Listen aus dem Ordner Lists nach enthaltenen
+   * Begriffen durchsucht werden z.z werden einfach alle gefundenen Objekte ausgegeben
+   * -> es sollen die Dateinamen ausgegeben werden um später die Tags aus speziellen listen ziehen zu können
+   * 
+   * 
+   */
+  public void kategorisieren(){
+	  
+		File[] files = new File("Lists").listFiles();
+		  //System.out.println(files[]);
+		  
+		  for(File list: files){
+			  System.out.println(list.getAbsolutePath());
+			  if (list.isFile()){
+				  //for(int j = 0; j < files.length; j++){  
+		  String wordList[];
+			    TxtReader tr = new TxtReader();
+			    String tmp = "";
+			    try {
+			      tmp = tr.readFile(list.getAbsolutePath());
+			      System.out.println("personiert");
+			    } catch (IOException e) {
+			      System.out.println("Personenliste nicht gefunden");
+			    }
+			    wordList = tmp.split("\n");
+
+			    for (int i = 0; i < wordList.length; i++) {
+			      for (int l = 0; l < tags.getTagObjects().size(); l++){
+			    	  
+			    	  if (tags.getTagObject(l).getTag().equalsIgnoreCase(wordList[i])){
+			    		 // System.out.println(">"+tags.getTagObjects().get(l).getTag());
+			    	  }
+			  }
+			  
+			
+			    	  
+			      //}
+			    }
+			    }
+		  }
+
+	}
 }
