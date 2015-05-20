@@ -7,19 +7,22 @@ import javafx.stage.Stage;
 import de.leipzig.htwk.controller.Controller;
 import gui.GUI;
 
+/**
+ * Sorgt für die Annahme der PDFDocumentElemente, den start der Kog. Suche-GUI und die Weitegerabe der PDFDocuments an den Controller
+ * 
+ * @author Fabian Freihube
+ *
+ */
 public class Pdfboxconnector extends Application {
 
-  ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
+  static ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
   Controller mController;
 
+  /**
+   * Startet die GUI der Kog. Suche
+   */
   public void startKogSuche() {
-    //GUI gui = GUI.getInstance();
-    //gui.setPDFBoxDocuments(pdfBoxDocuments);
-    //gui.startKogSucheExtern();
-    
     launch();
-   
-    
   }
 
   public ArrayList<PDFDocument> getPdfBoxDocuments() {
@@ -27,17 +30,17 @@ public class Pdfboxconnector extends Application {
   }
 
   public void setPdfBoxDocuments(ArrayList<PDFDocument> pdfBoxDocuments) {
-    this.pdfBoxDocuments = pdfBoxDocuments;
+    Pdfboxconnector.pdfBoxDocuments = pdfBoxDocuments;
   }
 
   @Override
   public void start(Stage arg0) throws Exception {
     // TODO Auto-generated method stub
+    
     GUI gui = GUI.getInstance();
     mController = gui.getController();
-    mController.setPDFBoxDocuments(pdfBoxDocuments);
+    mController.setPDFBoxDocuments(Pdfboxconnector.pdfBoxDocuments);
+    
   }
-
-
-
+  
 }
