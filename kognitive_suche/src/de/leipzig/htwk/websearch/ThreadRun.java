@@ -46,8 +46,9 @@ public class ThreadRun {
 			wst[i].start();
 
 		}
-
+		
 		while (ready() == false) {
+			
 		}
 
 	}

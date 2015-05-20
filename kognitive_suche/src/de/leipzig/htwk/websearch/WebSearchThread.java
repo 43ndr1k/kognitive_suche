@@ -64,8 +64,11 @@ public class WebSearchThread extends Thread {
 		Document doc = html.getHTMLDocument(url);
 		Static.pageText[urlNumber] = html.getHTMLText(doc);
 		String keywords = html.getMetaKeys(doc);
+		if(keywords==null){
+			Static.keywords[urlNumber]=null;
+		}else{
 		Static.keywords[urlNumber] = keywords.split(Pattern.quote("."));
-
+		}
 		ready = true;
 
 	}
