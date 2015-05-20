@@ -9,6 +9,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 /**
  * @author Franz Schwarzer
@@ -37,54 +41,53 @@ public class HTMLTools {
 
   }
 
-  public String getHTMLSourceCode(String url) {
+	public Document getHTMLDocument(String url) {
+		Document doc=null;
+		try {
+			doc = Jsoup.connect(url).get();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			System.out.println("_________________-------__________");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 
-    StringBuilder sb = new StringBuilder();
+		return doc;
+	}
+	
+	public String getHTMLText(Document document){
+		if(document==null){
+			return "";
+		}
+			return document.body().text();
+	}
 
-    /**
-     * Funktion zum herauslesen des Quellcodes aus einer URL
-     * 
-     * @paramsb - StringBuilder --> fasst die Zeilen zu einem String zusammen
-     * @return gibt den Quellcode zur�ck
-     */
-    try {
-      Scanner scanner =
-          new Scanner(new InputStreamReader(new URL(url).openStream(), StandardCharsets.UTF_8));
-      while (scanner.hasNextLine()) {
-        sb.append(scanner.nextLine() + "\n");
-      }
-      scanner.close();
-    } catch (MalformedURLException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } 
-    
-    return sb.toString();
-  }
+	static String getMetaTag(Document document, String attr) {
+		
+		if(document==null){
+			return "";
+		}
 
-  public String[] getMetaKeys(String htmlSourceCode) {
+		Elements elements = document.select("meta[name=" + attr + "]");
+		for (Element element : elements) {
+			final String s = element.attr("content");
+			if (s != null)
+				return s;
+		}
+		elements = document.select("meta[property=" + attr + "]");
+		for (Element element : elements) {
+			final String s = element.attr("content");
+			if (s != null)
+				return s;
+		}
+		return null;
+	}
+	
+	String getMetaKeys(Document document){
+		return getMetaTag(document,"keywords");
+		
 
-    /**
-     * Funktion, welche aus dem Quelltext die Metakeys in ein Array speichert
-     * 
-     * @param htmlSourceCode - zu �bergeben ist ein HTML QuellCode
-     * @return gibt die Meta Keys zur�ck
-     */
-
-    int index = htmlSourceCode.indexOf("<meta name=\"keywords\" content=");
-    String sub = htmlSourceCode.substring(index);
-    index = sub.indexOf("/>");
-    sub = sub.substring(0, index);
-
-    for (int i = 0; i < 2; i++) {
-      index = sub.indexOf("\"", sub.indexOf("\"") + 1);
-      sub = sub.substring(index);
-    }
-
-    sub = sub.substring(1, sub.length() - 2);
-    String[] keys = sub.split(", ");
-
-    return keys;
-  }
+	}
 }

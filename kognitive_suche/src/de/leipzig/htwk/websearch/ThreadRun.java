@@ -37,6 +37,7 @@ public class ThreadRun {
 		System.out.println(anzahlErgebnisse);
 		this.anzahlErgebnisse = anzahlErgebnisse;
 		Static.pageText = new String[anzahlErgebnisse];
+		Static.keywords=new String[anzahlErgebnisse][];
 		wst = new WebSearchThread[anzahlErgebnisse];
 
 		for (int i = 0; i < results.getResults().size(); i++) {

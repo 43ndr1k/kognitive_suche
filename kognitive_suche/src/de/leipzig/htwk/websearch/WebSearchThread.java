@@ -1,9 +1,15 @@
 package de.leipzig.htwk.websearch;
 
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
+
+import org.jsoup.nodes.Document;
 
 import komplexe.suche.Statics;
 
@@ -43,27 +49,24 @@ public class WebSearchThread extends Thread {
 			public void run() {
 				stoppeEndless();
 			}
-		}, TimeUnit.SECONDS.toMillis(3));
-
-		this.keys = setTags();
+		}, TimeUnit.SECONDS.toMillis(2));
+		setTextAndKeywords();
 	}
 
-	String[] setTags() {
+	void setTextAndKeywords() {
 
 		/**
-		 * @return Rückgabe wird später durch das entsprechende Objekt ersetzt
-		 *         Hier müssen ausserdem die Funktionen des CognitiveSearch mit
-		 *         eingebunden werden
-		 * 
+		 * Mit dieser Funktion werden in Static Keywords und PageText der Url
+		 * gesetzt
 		 */
 
 		HTMLTools html = new HTMLTools();
-		String sc = html.getHTMLSourceCode(url);
+		Document doc = html.getHTMLDocument(url);
+		Static.pageText[urlNumber] = html.getHTMLText(doc);
+		String keywords = html.getMetaKeys(doc);
+		Static.keywords[urlNumber] = keywords.split(Pattern.quote("."));
 
-		Static.pageText[urlNumber] = sc;
-		// String[] mk=html.getMetaKeys(sc);
 		ready = true;
-		return null;
 
 	}
 
@@ -75,6 +78,7 @@ public class WebSearchThread extends Thread {
 			this.stop();
 		} else {
 			System.out.println(urlNumber + " ICH BIN FERTIG");
+			stop();
 		}
 
 	}

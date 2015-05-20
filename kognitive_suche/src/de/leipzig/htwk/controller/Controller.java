@@ -96,8 +96,10 @@ public class Controller {
 		ThreadRun tr = new ThreadRun(r, searchWord, resultSize);
 		String[] clearPageText = new String[resultSize];
 		for (int i = 0; i < resultSize; i++) {
-			clearPageText[i] = webSearch.filterHTML(Static.pageText[i]);
-		}
+			clearPageText[i] = Static.pageText[i];
+			}
+		
+		
 
 		long zstNachher = System.currentTimeMillis(); // Zeitmessung
 		System.out.println("Zeit benötigt: Webseiten Suche: "
