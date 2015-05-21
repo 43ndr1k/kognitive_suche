@@ -16,7 +16,9 @@ public class Main extends Application{
 
   @Override
   public void start(Stage arg0) throws Exception {
+    System.out.println("vor Gui");
     GUI.getInstance();
+    System.out.println("nach Gui");
     
   }
 }

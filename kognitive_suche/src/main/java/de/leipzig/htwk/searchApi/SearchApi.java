@@ -101,10 +101,10 @@ public class SearchApi {
      * Dienen für die korrekte Darstellung des Suchbegriffes. Muss in html verträgliche Darstellung gebracht werden.
      */
     private static String[] REPLACEMENTS = { "%", "%25", " ", "%20", "!",
-            "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
-            "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
-            "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
-            "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
+        "%21", "#", "%23", "\\$", "%24", "\"", "%22", "&", "%26", "’",
+        "%27", "\\(", "%28", "\\)", "%29", "\\*", "%2A", "\\+", "%2B", ",",
+        "%2C", "/", "%2F", ":", "%3A", ";", "%3B", "=", "%3D", "\\?",
+        "%3F", "@", "%40", "\\[", "%5B", "]", "%5D" };
 
     /**
      * Diese Methode codiert die query nach URL-Envording Richtlien
@@ -162,9 +162,9 @@ public class SearchApi {
                 }
             }
 
-        long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: DuckDuckGo Suche Result Liste erstellen + alles andere: " + ((zstNachher - zstVorher))
-            + " millisec");
+            long zstNachher = System.currentTimeMillis(); // Zeitmessung
+            System.out.println("Zeit benötigt: DuckDuckGo Suche Result Liste erstellen + alles andere: " + ((zstNachher - zstVorher))
+                + " millisec");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -202,7 +202,7 @@ public class SearchApi {
      */
     private void makeResultList() {
         // Get an UrlValidator with custom schemes
-        String[] customSchemes = { "sftp", "scp", "https", "http", "ftp" };
+        String[] customSchemes = { "https", "http"};
         UrlValidator customValidator = new UrlValidator(customSchemes);
 
         long zstVorher = System.currentTimeMillis();
@@ -224,9 +224,9 @@ public class SearchApi {
                 );
             } else {
                 this.resultList.add(new Result(
-                                this.titleClassList.get(i).getText(),
-                                this.descriptionClassList.get(i).getText(),
-                                "https://www." + this.linkClassList.get(i).getText())
+                        this.titleClassList.get(i).getText(),
+                        this.descriptionClassList.get(i).getText(),
+                        "https://www." + this.linkClassList.get(i).getText())
                 );
             }
         }
@@ -268,7 +268,7 @@ public class SearchApi {
             list = driver.findElements(By.className(className));
             if (list.size() != 0) {
                 this.anzSiteResults = list.size();
-            } else if(className == noresultclass && list.size() != 0) {
+            } else if(className.equals(noresultclass) && list.size() != 0) {
                 anzRestResults = 0;
             }
 
