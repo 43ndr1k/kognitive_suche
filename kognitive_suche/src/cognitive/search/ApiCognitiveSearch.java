@@ -70,8 +70,9 @@ public class ApiCognitiveSearch {
     edit.removeSearchwords();
     tags = edit.getTags();
     edit.sortTagsByPriority();
-    tags = edit.getTags();
     edit.kategorisieren();
+    tags = edit.getTags();
+    
 
   }
 

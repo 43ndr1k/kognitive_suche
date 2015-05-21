@@ -82,8 +82,9 @@ public class ReturnTagList {
    * @param priority
    */
   public void addTagObject(String tag, ArrayList<Integer> textBlocNumber, double priority) {
+    tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
     if (getTagByTagName(tag) == null) {
-      tags.add(new ReturnTagObject(tag));
+      tags.add(getInsertPosition(tag), new ReturnTagObject(tag));
     }
     for (int i = 0; i < textBlocNumber.size(); i++) {
       getTagByTagName(tag).addBlocNumber(textBlocNumber.get(i));
