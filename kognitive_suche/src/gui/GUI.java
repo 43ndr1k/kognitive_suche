@@ -27,7 +27,17 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import pdf.box.access.PDFDocument;
 import visualize.Pattern;
@@ -113,8 +123,8 @@ public class GUI extends Stage {
 
     HBox hboxHOME = new HBox();
     final ImageView imv = new ImageView();
-    final Image image2 = new Image("http://www.imn.htwk-leipzig.de/~shuegelm/image.jpg");
-    imv.setImage(image2);
+    final Image image = new Image("https://photos-1.dropbox.com/t/2/AAA2SyEtb197unSv2umWiNKyJlQtx3AvjDi37mPJUt32lA/12/91512043/jpeg/32x32/1/1432213200/0/2/image.jpg/COu50SsgASACIAMgBCAFIAYoASgC/Zd6nJKD-a2Ag_-gG3vkbWjk1N3-s-am__xZOUyLkdLk?size_mode=5");
+    imv.setImage(image);
     imv.setCursor(Cursor.HAND);
 
     imv.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -130,6 +140,12 @@ public class GUI extends Stage {
     hboxHOME.setAlignment(Pos.CENTER);
     hboxHOME.setPadding(new Insets(15, 15, 15, 15));
     return hboxHOME;
+  }
+
+
+  private String InputStream() {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 

@@ -4,7 +4,6 @@ package visualize;
 import cognitive.search.ReturnTagList;
 import gui.GUI;
 import javafx.scene.layout.Pane;
-import komplexe.suche.TagObjectList;
 
 /**
  * Controller der Visualisierung
@@ -17,7 +16,6 @@ public class VisController {
 
   private static int paneWidth;
   private static int paneHeight;
-  private TagObjectList tags;
 
   private static int activePads;
   private static Pane pane;

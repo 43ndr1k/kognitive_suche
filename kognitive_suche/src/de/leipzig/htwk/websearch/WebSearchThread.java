@@ -11,8 +11,6 @@ import java.util.regex.Pattern;
 
 import org.jsoup.nodes.Document;
 
-import komplexe.suche.Statics;
-
 public class WebSearchThread extends Thread {
 
 	/**

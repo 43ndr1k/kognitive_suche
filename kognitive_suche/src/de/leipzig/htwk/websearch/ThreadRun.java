@@ -4,8 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import komplexe.suche.Tag_Meta;
-import komplexe.suche.UrlObjektList;
 import de.leipzig.htwk.faroo.api.Results;
 
 public class ThreadRun {
