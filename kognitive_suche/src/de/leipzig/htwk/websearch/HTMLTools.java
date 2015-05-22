@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -47,7 +48,9 @@ public class HTMLTools {
 			doc = Jsoup.connect(url).get();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
-			System.out.println("_________________-------__________");
+			System.out.println("UnknownHost");
+		}catch (HttpStatusException e){
+			System.out.println("HTTPSTATUS");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
