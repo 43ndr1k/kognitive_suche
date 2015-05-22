@@ -48,7 +48,7 @@ public class WebSearchThread extends Thread {
 			public void run() {
 				stoppeEndless();
 			}
-		}, TimeUnit.SECONDS.toMillis(3));
+		}, TimeUnit.SECONDS.toMillis(1));
 		setTextAndKeywords();
 	}
 
