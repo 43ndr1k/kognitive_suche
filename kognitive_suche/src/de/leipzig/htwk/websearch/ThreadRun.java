@@ -57,9 +57,15 @@ public class ThreadRun {
 		 */
 
 		for (int i = 0; i < anzahlErgebnisse; i++) {
-			if (wst[i].isAlive() == true) {
+			if (wst[i].isAliveAndInTime() == true) {
 				return false;
 			}
+		}
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		System.out.println("fertig");
 		return true;

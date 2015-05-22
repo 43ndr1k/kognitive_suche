@@ -31,6 +31,7 @@ public class WebSearchThread extends Thread {
 	int urlNumber;
 	String[] keys;
 	boolean ready = false;
+	boolean death =false;
 
 	WebSearchThread(String url, int urlNumber) {
 		this.url = url;
@@ -47,7 +48,7 @@ public class WebSearchThread extends Thread {
 			public void run() {
 				stoppeEndless();
 			}
-		}, TimeUnit.SECONDS.toMillis(2));
+		}, TimeUnit.SECONDS.toMillis(3));
 		setTextAndKeywords();
 	}
 
@@ -76,12 +77,26 @@ public class WebSearchThread extends Thread {
 		if (ready == false) {
 			Static.pageText[urlNumber] = "";
 			System.out.println(urlNumber + " iCh bin tot");
+			death=true;
 			this.stop();
 		} else {
 			System.out.println(urlNumber + " ICH BIN FERTIG");
 			stop();
 		}
 
+	}
+	
+	public boolean isAliveAndInTime(){
+		if(isAlive()==false){
+			return false;
+		}
+		if(death==true){
+			Static.pageText[urlNumber]="";
+			Static.keywords[urlNumber]=null;
+			return false;
+		}
+		return true;
+		
 	}
 
 }
