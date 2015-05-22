@@ -61,12 +61,12 @@ public class ThreadRun {
 				return false;
 			}
 		}
-		try {
+		/*try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		System.out.println("fertig");
 		return true;
 

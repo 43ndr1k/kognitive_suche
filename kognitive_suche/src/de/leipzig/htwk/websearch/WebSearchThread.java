@@ -61,6 +61,7 @@ public class WebSearchThread extends Thread {
 
 		HTMLTools html = new HTMLTools();
 		Document doc = html.getHTMLDocument(url);
+		if(death=true){Static.pageText[urlNumber]="";}
 		Static.pageText[urlNumber] = html.getHTMLText(doc);
 		String keywords = html.getMetaKeys(doc);
 		if(keywords==null){
