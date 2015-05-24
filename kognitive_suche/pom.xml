@@ -77,12 +77,15 @@
             <scope>system</scope>
             <systemPath>${basedir}/lib/SnowballStemmer.jar</systemPath>
         </dependency>
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.7.2</version>
+        </dependency>
 
 
 
     </dependencies>
-
-
 
     <build>
 
@@ -91,14 +94,16 @@
 				<directory>${basedir}/static/icons</directory>
 				<includes>
 					<include>*.png</include>
+
 				</includes>
 			</resource>
             <resource>
 				<directory>${basedir}/lib</directory>
 				<includes>
-					<include>phantomjsLinux</include>
+                    <include>phantomjsLinux</include>
                     <include>phantomjsMac</include>
                     <include>phantomjsWin.exe</include>
+
 				</includes>
 			</resource>
 		</resources>
@@ -200,6 +205,8 @@
                     </execution>
                 </executions>
             </plugin>
+
+
 
         </plugins>
     </build>

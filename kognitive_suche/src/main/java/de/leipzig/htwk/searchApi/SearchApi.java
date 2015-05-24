@@ -1,7 +1,6 @@
 package de.leipzig.htwk.searchApi;
 
 import javafx.application.Platform;
-import org.apache.commons.validator.routines.UrlValidator;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -14,7 +13,7 @@ import java.util.List;
 /**
  * @Autor Hendrik Sawade.
  */
-public class SearchApi {
+public class SearchApi{
 
 
     /**
@@ -64,6 +63,10 @@ public class SearchApi {
      */
     int anzRestResults = 0;
 
+    /**
+     * Anzahl wie viele Ergebnisse noch übrig sind.
+     */
+    int restAnz;
     /**
      * No Results Class
      */
@@ -153,6 +156,7 @@ public class SearchApi {
                 List<WebElement> noResults = getList(this.noresultclass);
                 if(noResults.size() == 0 && anzRestResults != 0) {
                     makeClassLists();
+                    createAnzResultObjects();
                     makeResultList();
                     if (resultList.size() < gesamtAnzahlErgebnisse) {
                         moreResults();
@@ -176,7 +180,7 @@ public class SearchApi {
      * Erstellt die Listen mit den Web Element Klassen
      * @throws SearchApiExecption
      */
-    private void makeClassLists() throws SearchApiExecption {
+    protected void makeClassLists() throws SearchApiExecption {
         this.titleClassList = (getList(this.titleClass));
         this.linkClassList = (getList(this.linkClass));
         this.descriptionClassList = (getList(this.descriptionClass));
@@ -196,39 +200,21 @@ public class SearchApi {
     }
 
 
+
     /**
      * Gibt eine Result_ Liste zurück,mit den Result_ Objekt.
      * @return resultList Beinhaltet eine List mit Result_ Objekten.
      */
     private void makeResultList() {
-        // Get an UrlValidator with custom schemes
-        String[] customSchemes = { "https", "http"};
-        UrlValidator customValidator = new UrlValidator(customSchemes);
-
         long zstVorher = System.currentTimeMillis();
 
-        int anz = createAnzResultObjects();
-        for (int i = 0; i < anz;i++) {
-            if (customValidator.isValid(this.linkClassList.get(i).getText())) {
-                System.out.println("valid");
+
+        for (int i = 0; i < restAnz;i++) {
                 this.resultList.add(new Result(
                         this.titleClassList.get(i).getText(),
                         this.descriptionClassList.get(i).getText(),
-                        this.linkClassList.get(i).getText())
+                        this.linkClassList.get(i).getAttribute("href").toString())
                 );
-            }   else if (customValidator.isValid("https://" + this.linkClassList.get(i).getText())) {
-                this.resultList.add(new Result(
-                        this.titleClassList.get(i).getText(),
-                        this.descriptionClassList.get(i).getText(),
-                        "https://" + this.linkClassList.get(i).getText())
-                );
-            } else {
-                this.resultList.add(new Result(
-                        this.titleClassList.get(i).getText(),
-                        this.descriptionClassList.get(i).getText(),
-                        "https://www." + this.linkClassList.get(i).getText())
-                );
-            }
         }
 
         long zstNachher = System.currentTimeMillis(); // Zeitmessung
@@ -243,15 +229,15 @@ public class SearchApi {
      * pro Seite es gibt.
      * @return anz Anzahl wie viele Ergebnisse es gibt.
      */
-    private int createAnzResultObjects() {
-        int anz;
+    private void createAnzResultObjects() {
+
         if (anzRestResults >= anzSiteResults) {
             anzRestResults = anzRestResults - anzSiteResults;
-            anz = anzSiteResults;
+            restAnz = anzSiteResults;
         } else {
-            anz = anzRestResults;
+            restAnz = anzRestResults;
         }
-        return anz;
+
     }
 
 
@@ -261,7 +247,7 @@ public class SearchApi {
      * @param className
      * @return Liste mit den gefundenen Suchergebnissen der angegebenen Klasse.
      */
-    private List<WebElement> getList(String className) throws SearchApiExecption {
+    protected List<WebElement> getList(String className) throws SearchApiExecption {
         List<WebElement> list = null;
         try {
 
@@ -279,9 +265,12 @@ public class SearchApi {
         return list;
     }
 
-    public Results getResultList() {
+    public Results getResultList() throws SearchApiExecption{
         Results results = new Results();
         results.setResults(resultList);
+        if (resultList.isEmpty()){
+            throw new SearchApiExecption("Result Liste ist leer, keine Ergebnisse Gefunden");
+        }
         return results;
     }
 

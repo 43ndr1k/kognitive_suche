@@ -285,6 +285,9 @@ public class Controller {
                 System.out.println("Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher))
                         + " millisec");
 
+                //TODO Zeile kann entfernt werden, wenn die gui die Methode closeDriver beim schließen aufruft!
+                closeDriver();
+
                 beginWebSearch();
 
                 break;

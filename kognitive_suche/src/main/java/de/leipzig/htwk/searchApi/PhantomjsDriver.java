@@ -57,15 +57,10 @@ public class PhantomjsDriver {
             case "MAC OS X":
                 var = phantomjs[1];
                 break;
-            case "Windows 8.1":
+           default:
                 var = phantomjs[2];
                 break;
-            case "Windows 8":
-                var = phantomjs[2];
-                break;
-            case "Windows 7":
-                var = phantomjs[2];
-                break;
+
         }
 
         return var;
