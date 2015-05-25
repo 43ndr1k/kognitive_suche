@@ -30,8 +30,3 @@ public class DuckDuckGoSearchApi extends SearchApi {
         super.makeClassLists();
     }
 }
-//*[@id="links"]/div[26]/div[2]/a
-//*[@id="links"]/div[1]/div[2]/a
-//a[@href]
-//a/@href[@class='specified_string']
-//driver.findElements(By.xpath("//*[@id=\"links\"]/div[1]/div[2]/a"));

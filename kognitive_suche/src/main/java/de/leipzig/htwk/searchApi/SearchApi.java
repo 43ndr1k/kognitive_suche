@@ -43,6 +43,11 @@ public class SearchApi{
     List<WebElement> descriptionClassList = null;
 
     /**
+     * Liste mit denThreads für die Result Liste
+     */
+    ArrayList<MakeResultListThread> threadlist = new ArrayList<MakeResultListThread>();
+
+    /**
      * Klassen Parameter für large, url und snippet
      */
     String titleClass, linkClass, descriptionClass;
@@ -157,12 +162,30 @@ public class SearchApi{
                 if(noResults.size() == 0 && anzRestResults != 0) {
                     makeClassLists();
                     createAnzResultObjects();
-                    makeResultList();
+
+                    for (int i = 0; i < restAnz;i++) {
+                        MakeResultListThread th = new MakeResultListThread(titleClassList.get(i).getText(), descriptionClassList.get(i).getText(),
+                            linkClassList.get(i).getAttribute("href").toString(),this);
+                        th.start();
+                        threadlist.add(th);
+                    }
+
+
+
                     if (resultList.size() < gesamtAnzahlErgebnisse) {
                         moreResults();
                     }
                 } else {
                     break;
+                }
+            }
+            int ready = 0;
+            while(ready < threadlist.size()-1) {
+                for(MakeResultListThread th: threadlist) {
+                    if(!th.isAlive()) {
+                        //                    threadlist.remove(th);
+                        ready++;
+                    }
                 }
             }
 
@@ -174,6 +197,7 @@ public class SearchApi{
             e.printStackTrace();
             throw new SearchApiExecption("Beim Erstellen der Ergebnisliste ist ein Fehler aufgetreten");
         }
+
     }
 
     /**
@@ -206,20 +230,6 @@ public class SearchApi{
      * @return resultList Beinhaltet eine List mit Result_ Objekten.
      */
     private void makeResultList() {
-        long zstVorher = System.currentTimeMillis();
-
-
-        for (int i = 0; i < restAnz;i++) {
-                this.resultList.add(new Result(
-                        this.titleClassList.get(i).getText(),
-                        this.descriptionClassList.get(i).getText(),
-                        this.linkClassList.get(i).getAttribute("href").toString())
-                );
-        }
-
-        long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: DuckDuckGo Suche Result Liste erstellen: " + ((zstNachher - zstVorher))
-            + " millisec");
 
 
     }
@@ -274,6 +284,15 @@ public class SearchApi{
         return results;
     }
 
+
+    public void setResult(Result r)  {
+        /**
+         * Prüft ob alle Threads fertig abgearbeitet sind
+         */
+        synchronized (this) {
+            resultList.add(r);
+        }
+    }
 
 
 }

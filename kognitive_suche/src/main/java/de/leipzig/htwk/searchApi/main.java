@@ -16,7 +16,8 @@ public class main {
         PhantomJSDriver driver;
         PhantomjsDriver dr = new PhantomjsDriver();
         driver = dr.getDriver();
-        DuckDuckGoSearchApi d = new DuckDuckGoSearchApi("ente", 80, driver); // Maximal 79 Ergebnisse zurzeit!!
+        System.out.println("DUCK DUCK GO!!!!!!");
+        DuckDuckGoSearchApi d = new DuckDuckGoSearchApi("wgt 2015", 80, driver); // Maximal 79 Ergebnisse zurzeit!!
         System.out.println("Gesamanzahl an Ergebnissen: " + d.getResultList().getResults().size());
 
         for (int i = 0; i < d.getResultList().getResults().size();i++) {
