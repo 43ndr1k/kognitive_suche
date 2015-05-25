@@ -7,8 +7,12 @@ import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
+import search.history.HistoryObject;
+import search.history.SearchHistory;
 import visualize.VisController;
+
 import java.util.ArrayList;
+
 import pdf.box.access.PDFDocument;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -36,6 +40,13 @@ public class Controller {
 	private GUI gui;
 	private String searchWord;
 	private ArrayList<PDFDocument> pdfBoxDocuments;
+	private SearchHistory lastSearches;
+	
+	//test
+	private Scene visual;
+	public Scene getVisual() {
+		return visual;
+	}
 
 	/**
 	 * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die
@@ -45,6 +56,8 @@ public class Controller {
 		ConfigFileManagement config = new ConfigFileManagement();
 		this.key = config.getKey();
 		this.url = config.geturl();
+		
+		lastSearches = new SearchHistory();
 	}
 
 	/**
@@ -217,9 +230,9 @@ public class Controller {
 
 		visPane.setCenter(visualController.startVisualize(tags));
 		visPane.setTop(homebuttonPane);
-		System.out.println("startVisual fertig");
+		
 
-		Scene visual = new Scene(visPane);
+		visual = new Scene(visPane);
 		gui.setStageScene(visual);
 	}
 
@@ -271,6 +284,8 @@ public class Controller {
 			throws SearchApiExecption {
 
 		this.searchWord = pSearchWord;
+		
+		lastSearches.addSearch(searchWord);
 
 		switch (pSearchEngine) {
 		case 0:
@@ -308,5 +323,9 @@ public class Controller {
 
 			break;
 		}
+	}
+
+	public ArrayList<HistoryObject> getHistory() {
+		return lastSearches.getSearches();
 	}
 }
