@@ -15,8 +15,8 @@ public class ColognePhonetic {
   private static char[] group4 = new char[] {'G', 'K', 'Q',};
   private static char[] group6 = new char[] {'M', 'N'};
   private static char[] group8 = new char[] {'S', 'Z', 'ß'};
-  private static char[] groupCFirst = new char[] {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U', 'X'};
-  private static char[] groupCNoFirst = new char[] {'A', 'H', 'K', 'O', 'Q', 'U', 'X'};
+  private static char[] groupCFirst = new char[] {'A', 'H', 'K', 'L', 'O', 'Q', 'R', 'U', 'X', 'Ä', 'Ö', 'Ü'};
+  private static char[] groupCNoFirst = new char[] {'A', 'H', 'K', 'O', 'Q', 'U', 'X', 'Ä', 'Ö', 'Ü'};
   private static char[] groupCPrevious = new char[] {'S', 'Z'};
   private static char[] groupDTPrevious = new char[] {'C', 'S', 'Z'};
   private static char[] groupXFollow = new char[] {'C', 'K', 'Q'};
@@ -25,18 +25,17 @@ public class ColognePhonetic {
 
   public static String enCoding(String hallo) {
 
+	hallo = hallo.replaceAll("[?.!/^#:;*,~]", "");
     char[] content = new char[hallo.length()];
     {
-      for (int c = 0; c < hallo.length(); c++) {
-        content[c] = hallo.toUpperCase().charAt(c);
+      for (int i = 0; i < hallo.length(); i++) {
+        content[i] = hallo.toUpperCase().charAt(i);
       }
     }
+    System.out.println(content);
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < content.length; i++) {
       char entry = content[i];
-      if ((entry >= 'A' && entry <= 'Z')) {
-        continue;
-      }
 
       if (entry == 'H') {
         continue;
@@ -166,16 +165,16 @@ public class ColognePhonetic {
   // Kölner Phonetik abgeschlossen.
   public static String cleaningZeroes(String hallo) {
 
-    StringBuilder sb = new StringBuilder();
-    char[] content = hallo.toCharArray();
-    for (int i = 0; i < content.length; i++) {
-      char entry = content[i];
-      if (i != 0) {
-        if (content[i] != 0) {
-          sb.append(entry);
-        }
-      }
-    }
-    return sb.toString();
+	StringBuilder sb = new StringBuilder();
+    String content = hallo;
+    char firstChar = content.charAt(0);
+    StringBuffer rest = new StringBuffer(content);
+    rest.deleteCharAt(0);
+    int i;
+    while ((i=rest.indexOf("0")) > -1)
+    	rest.deleteCharAt(i);
+	sb.append(firstChar);
+	sb.append(rest);
+	return sb.toString();
   }
 }
