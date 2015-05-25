@@ -7,8 +7,11 @@ import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
+import search.history.SearchHistory;
 import visualize.VisController;
+
 import java.util.ArrayList;
+
 import pdf.box.access.PDFDocument;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -51,6 +54,8 @@ public class Controller {
 		ConfigFileManagement config = new ConfigFileManagement();
 		this.key = config.getKey();
 		this.url = config.geturl();
+		
+		
 	}
 
 	/**
@@ -277,6 +282,9 @@ public class Controller {
 			throws SearchApiExecption {
 
 		this.searchWord = pSearchWord;
+		
+		SearchHistory lastSearches = new SearchHistory();
+		lastSearches.addSearch(searchWord);
 
 		switch (pSearchEngine) {
 		case 0:
