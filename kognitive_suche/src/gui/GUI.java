@@ -13,9 +13,13 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -32,6 +36,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -41,6 +47,7 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import pdf.box.access.PDFDocument;
+import search.history.HistoryObject;
 import visualize.Pattern;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -53,6 +60,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.util.Duration;
 
 /**
@@ -223,15 +232,11 @@ public class GUI extends Stage {
       }
     });
 
-    Button sucheP = new Button("Suche in P");
+    Button sucheP = new Button("Verlauf");
     sucheP.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent sucheP) {
-        // mController.startSearchP();
-        // kwic = mController.getKeywords2();
-        // url = mController.getDocName();
-        // tags = mController.getKeywords1(); // Ohne Sortierung soviel ich weiß
-
+    	  showHistory();
       }
 
     });
@@ -239,6 +244,76 @@ public class GUI extends Stage {
     vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
     return start;
   }
+  
+	/**
+	 * @author Fabian Freihube
+	 * Methode um den Suchverlauf anzuzeigen
+	 */
+	private void showHistory() {
+		// TODO Auto-generated method stub
+	
+		ArrayList<HistoryObject> historyData = mController.getHistory();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		Separator sTitle = new Separator();
+	    VBox vbox1 = new VBox();
+	    VBox titleBox = new VBox();
+	    HBox lineBox;
+	    BorderPane historyPane = new BorderPane();
+	    BorderPane pane = new BorderPane();
+	    ScrollPane rol = new ScrollPane();
+	    Hyperlink[] link = new Hyperlink[historyData.size()];
+	    Label dateLabel = new Label();
+	    
+	    Label title = new Label("Verlaufsübersicht:");
+	    title.setStyle("-fx-font-size: 20pt;");
+	    titleBox.getChildren().addAll(title, sTitle);
+	    pane.setTop(titleBox);
+
+	    // Label label2[] = new Label[25];
+
+	    for (int k = 0; k < historyData.size(); k++) {      
+	      dateLabel = new Label(dateFormat.format(historyData.get(k).date) + ":	");
+	      link[k] = new Hyperlink(historyData.get(k).searchWord);
+	      lineBox = new HBox();
+	      lineBox.setStyle("-fx-padding: 5 5 5 5");
+	      lineBox.getChildren().addAll(dateLabel, link[k]);
+	      vbox1.getChildren().add(lineBox);
+	      dateLabel.setWrapText(true);
+	      dateLabel.setStyle("-fx-font-weight: italic;");
+	      dateLabel.setStyle("-fx-label-padding: 0 0 0 0;");
+	      dateLabel.setStyle("-fx-font-size: 20pt;");
+	      link[k].setStyle("-fx-font-size: 18pt;");
+	      
+	      String searchword = historyData.get(k).searchWord;
+	      
+	      link[k].setOnAction(new EventHandler<ActionEvent>() {
+	          @Override
+	          public void handle(ActionEvent sucheP) {
+	        	  setSuchleisteText(searchword);
+	          }
+	        });
+	    }
+
+	    pane.setCenter(vbox1);
+	    rol.setPrefSize(500, 500);
+	    rol.setContent(pane);
+	    rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+	    rol.setStyle("-fx-padding: 25 25 25 25");
+
+		BorderPane homebuttonPane = new BorderPane();
+
+		homebuttonPane.setCenter(goHomeButton());
+		homebuttonPane.setStyle("-fx-background-color: #FFF;");
+		homebuttonPane.setPrefHeight(getWindowheight() * 0.15);
+	    
+	    historyPane.setTop(homebuttonPane);
+	    historyPane.setCenter(rol);
+	    Scene historyScene = new Scene (historyPane);
+	    
+	    stage.setScene(historyScene);
+
+	}
 
   /**
    * Diese Methode startet die Suche aus dem Controller

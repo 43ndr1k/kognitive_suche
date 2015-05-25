@@ -7,6 +7,7 @@ import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import gui.GUI;
+import search.history.HistoryObject;
 import search.history.SearchHistory;
 import visualize.VisController;
 
@@ -39,6 +40,7 @@ public class Controller {
 	private GUI gui;
 	private String searchWord;
 	private ArrayList<PDFDocument> pdfBoxDocuments;
+	private SearchHistory lastSearches;
 	
 	//test
 	private Scene visual;
@@ -55,7 +57,7 @@ public class Controller {
 		this.key = config.getKey();
 		this.url = config.geturl();
 		
-		
+		lastSearches = new SearchHistory();
 	}
 
 	/**
@@ -283,7 +285,6 @@ public class Controller {
 
 		this.searchWord = pSearchWord;
 		
-		SearchHistory lastSearches = new SearchHistory();
 		lastSearches.addSearch(searchWord);
 
 		switch (pSearchEngine) {
@@ -322,5 +323,9 @@ public class Controller {
 
 			break;
 		}
+	}
+
+	public ArrayList<HistoryObject> getHistory() {
+		return lastSearches.getSearches();
 	}
 }
