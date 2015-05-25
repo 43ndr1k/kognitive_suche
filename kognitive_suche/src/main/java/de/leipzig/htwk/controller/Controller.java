@@ -228,29 +228,16 @@ public class Controller {
         this.gui = gui;
     }
 
-    /**
-     * In dieser Funktion werden die Funktionen für eine Suche über Faroo gestartet.
-     *
-     * @author Tobias Lenz, Franz Schwarzer
-     * @param searchWord - Der Suchtext, welcher über die Suchmaschine genutzt werden soll.
-     */
-    public void farooSearch(String searchWord) {
-        this.searchWord = searchWord;
-        long zstVorher = System.currentTimeMillis();
-
-        queryFaroo(); // Starten der Faroo Suche
-
-        long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: Faroo Suche: " + ((zstNachher - zstVorher)) + " millisec");
-        beginWebSearch();
-    }
-
     public ArrayList<PDFDocument> getPDFBoxDocuments() {
         return gui.getPDFBoxDocuments();
     }
 
     /**
-     * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
+     * @Autor Hendrik Sawade
+     */
+
+    /**
+     * Die Suchanfrage an Faroo und DuckDuckGo, diese wird von der GUI aufgerufen.
      *
      * @return Results Liste mit den Ergebnisse.
      */
@@ -267,7 +254,6 @@ public class Controller {
                 try {
                     System.out.println("Suche gestartet");
                     this.results = api.query(this.start, searchWord, this.language, src);
-                    beginWebSearch();
 
                 } catch (APIExecption apiExecption) {
                     apiExecption.printStackTrace();
@@ -282,17 +268,21 @@ public class Controller {
                 this.results = duckApi.getResultList();
 
                 long zstNachher = System.currentTimeMillis(); // Zeitmessung
-                System.out.println("Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher))
+                System.out.println(
+                    "Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher))
                         + " millisec");
 
                 //TODO Zeile kann entfernt werden, wenn die gui die Methode closeDriver beim schließen aufruft!
                 closeDriver();
-
-                beginWebSearch();
-
                 break;
         }
+
+        beginWebSearch();
     }
+
+    /**
+     * @Autor Hendrik Sawade
+     */
 
     /**
      * Schließt den phantomjs Driver
