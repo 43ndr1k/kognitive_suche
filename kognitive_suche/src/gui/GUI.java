@@ -39,6 +39,7 @@ import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
 import javax.imageio.ImageIO;
@@ -253,6 +254,7 @@ public class GUI extends Stage {
 		// TODO Auto-generated method stub
 	
 		ArrayList<HistoryObject> historyData = mController.getHistory();
+		Collections.reverse(historyData);
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
 		Separator sTitle = new Separator();
