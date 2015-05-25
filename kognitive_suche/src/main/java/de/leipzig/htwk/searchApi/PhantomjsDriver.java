@@ -35,10 +35,19 @@ public class PhantomjsDriver {
         driver = new PhantomJSDriver(capabilities);
 
     }
+
+    /**
+     * gibt die Instance des phantomjs driver zurück.
+     * @return driver
+     */
     public PhantomJSDriver getDriver() {
         return driver;
     }
 
+    /**
+     * Ermittelt das Betriebsystem und gibt den Pfad zu phantomjs zurück.
+     * @return var String mit dem Pfad zu phantomjs
+     */
     private String getPHANTOMJSPhad() {
         String phantomjs[] = {"lib/phantomjsLinux", "lib/phantomjsMac", "lib/phantomjsWin.exe"};
 

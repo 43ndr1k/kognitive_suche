@@ -3,6 +3,11 @@ package de.leipzig.htwk.searchApi;
 /**
  * @Autor Hendrik Sawade
  */
+
+
+/**
+ * Naut ein Result Objekt. jedes Objekt wird in einem Thread erstellt.
+ */
 public class MakeResultListThread extends Thread{
 
     private String title = null;

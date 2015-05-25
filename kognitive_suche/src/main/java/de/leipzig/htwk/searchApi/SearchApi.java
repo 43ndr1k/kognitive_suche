@@ -13,8 +13,14 @@ import java.util.List;
 /**
  * @Autor Hendrik Sawade.
  */
-public class SearchApi{
 
+
+/**
+ * SeachApi ist die Hauptklasse für das Suchen von Ergebnissen bei Verschiedenen Suchmaschinen.
+ * Von dieser Klasse ist es möglich Verschiedene Suchmaschinen Abzuleiten. Die Abgeleiteten Klassen
+ * müssen für jede Suchmaschine spezifiziert werden.
+ */
+public class SearchApi{
 
     /**
      * Phantomjs driver
@@ -82,18 +88,19 @@ public class SearchApi{
      */
 
     /**
-     *
-     * @param url
-     * @param nextButton
-     * @param titleClass
-     * @param urlKlasse
-     * @param snippetKlasse
-     * @param noResultClass
-     * @param gesamtAnzahlErgebnisse
+     * Baut die Spezifikationen für die Suchmaschine.
+     * @param url url der Suchmaschine.
+     * @param nextButton Button für das laden der nächsten Ergebnis Seite bei der Suchmaschinen Seite.
+     * @param titleClass Name der Klasse wo der Titel der Ergebnisse drin stehen.
+     * @param urlKlasse Name der Klasse wo die URL der Ergebnisse drin stehen.
+     * @param snippetKlasse Name der Klasse wo die Beschreibung der Ergebnisse drin stehen.
+     * @param noResultClass Name der Klasse, wenn es keine Ergebnisse mehr gibt.
+     * @param gesamtAnzahlErgebnisse Wie viele Ergebnisse man haben möchte
+     * @param driver Phantomjs Driver
      */
-
     public SearchApi(String url, String nextButton, String titleClass, String urlKlasse,
-                     String snippetKlasse, String noResultClass, int gesamtAnzahlErgebnisse, PhantomJSDriver driver) {
+                     String snippetKlasse, String noResultClass, int gesamtAnzahlErgebnisse,
+                     PhantomJSDriver driver) {
 
         this.url = url;
         this.nextButton = nextButton;
@@ -141,8 +148,10 @@ public class SearchApi{
 
     /**
      * Kappselt den Suchvorgang.
+     * Ruft die Webseite ab.
+     * Startet für jedes Ergebniss ein eigenen Thread
+     * Speichert die Result Objekte in eine Arrayliste
      * @param completeUrl String zur Suchmaschine, einschließlich des Suchwortes
-     * @return
      */
     private void searching(String completeUrl) throws SearchApiExecption {
 
@@ -150,7 +159,6 @@ public class SearchApi{
             driver.get(completeUrl);
         } catch (WebDriverException ioe) {
             ioe.printStackTrace();
-
             Platform.exit();
             throw new SearchApiExecption("Keine Internetverbindung möglich");
         }
@@ -162,16 +170,16 @@ public class SearchApi{
                 if(noResults.size() == 0 && anzRestResults != 0) {
                     makeClassLists();
                     createAnzResultObjects();
-
+                    /**
+                     * Erzeugt die Threads
+                     * Für jedes Ergebnisse ein eigender Thread
+                     */
                     for (int i = 0; i < restAnz;i++) {
                         MakeResultListThread th = new MakeResultListThread(titleClassList.get(i).getText(), descriptionClassList.get(i).getText(),
                             linkClassList.get(i).getAttribute("href").toString(),this);
                         th.start();
                         threadlist.add(th);
                     }
-
-
-
                     if (resultList.size() < gesamtAnzahlErgebnisse) {
                         moreResults();
                     }
@@ -183,7 +191,6 @@ public class SearchApi{
             while(ready < threadlist.size()-1) {
                 for(MakeResultListThread th: threadlist) {
                     if(!th.isAlive()) {
-                        //                    threadlist.remove(th);
                         ready++;
                     }
                 }
@@ -223,17 +230,6 @@ public class SearchApi{
         }
     }
 
-
-
-    /**
-     * Gibt eine Result_ Liste zurück,mit den Result_ Objekt.
-     * @return resultList Beinhaltet eine List mit Result_ Objekten.
-     */
-    private void makeResultList() {
-
-
-    }
-
     /**
      * Berechnet wie viele Result_ Objekte noch erstellt werden müssen, anhand wie viele ergebnisse
      * pro Seite es gibt.
@@ -249,8 +245,6 @@ public class SearchApi{
         }
 
     }
-
-
 
     /**
      * Sucht nach einer bestimmten Kklasse, die man übergibt. Die Klasse wo die Ergennisse drin stehen.
@@ -275,6 +269,12 @@ public class SearchApi{
         return list;
     }
 
+    /**
+     * Erstellt die Klasse Results und fügt dort die fertige reszltList hinzu.
+     * Gibt die fertige Result Liste an die Klasse DuckDuckGoApi zurück.
+     * @return results Results Klasse mit der result Liste.
+     * @throws SearchApiExecption
+     */
     public Results getResultList() throws SearchApiExecption{
         Results results = new Results();
         results.setResults(resultList);
@@ -285,15 +285,13 @@ public class SearchApi{
     }
 
 
+    /**
+     * Fügt die fertigen gebauten Result Objekte zu der resultListe hinzu.
+     * @param r Result Objekt
+     */
     public void setResult(Result r)  {
-        /**
-         * Prüft ob alle Threads fertig abgearbeitet sind
-         */
         synchronized (this) {
             resultList.add(r);
         }
     }
-
-
 }
-
