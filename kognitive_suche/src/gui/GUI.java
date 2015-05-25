@@ -33,6 +33,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
@@ -245,34 +246,51 @@ public class GUI extends Stage {
    */
   public void startQuery() {
     stage.setScene(loadIndicator());
-    // Task suche;
-    // suche = createWorker();
-    // new Thread(suche).start();
 
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-        //mController.farooSearch(suchleiste.getText());
-
-        // TODO: SearchAPi (DuckDuckGO) verwenden
         try {
           mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
         } catch (SearchApiExecption searchApiExecption) {
           searchApiExecption.printStackTrace();
         }
       }
-    });
+    });//runlater Ende
+    
+//    final Task task = new Task(){                               // 1
+//        @Override
+//        public Void call() {
+//        	try {
+//				mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
+//			} catch (SearchApiExecption e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//            return null;
+//        } 
+//    };
+//    new Thread(task).start();
+//    System.out.println("gestartet");
+    
+//    Task task = new Task<Void>() {
+//        @Override public Void call() {
+//        	try {
+//				mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
+//			} catch (SearchApiExecption e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//            stage.setScene(mController.getVisual());
+//            return null;
+//        }
+//    };
+//
+//    Thread th = new Thread(task);
+//    th.setDaemon(true);
+//    th.start();
+    
   }
-
-  // public Task createWorker() {
-  // return new Task() {
-  // @Override
-  // protected Object call() throws Exception {
-  // mController.farooSearch(suchleiste.getText());
-  // return null;
-  // }
-  // };
-  // }
 
   /**
    * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.

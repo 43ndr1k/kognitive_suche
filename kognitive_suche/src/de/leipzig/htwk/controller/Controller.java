@@ -36,6 +36,12 @@ public class Controller {
 	private GUI gui;
 	private String searchWord;
 	private ArrayList<PDFDocument> pdfBoxDocuments;
+	
+	//test
+	private Scene visual;
+	public Scene getVisual() {
+		return visual;
+	}
 
 	/**
 	 * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die
@@ -217,9 +223,9 @@ public class Controller {
 
 		visPane.setCenter(visualController.startVisualize(tags));
 		visPane.setTop(homebuttonPane);
-		System.out.println("startVisual fertig");
+		
 
-		Scene visual = new Scene(visPane);
+		visual = new Scene(visPane);
 		gui.setStageScene(visual);
 	}
 
