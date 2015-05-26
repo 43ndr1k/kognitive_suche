@@ -32,7 +32,6 @@ public class ColognePhonetic {
         content[i] = hallo.toUpperCase().charAt(i);
       }
     }
-    System.out.println(content);
     StringBuilder sb = new StringBuilder();
     for (int i = 0; i < content.length; i++) {
       char entry = content[i];

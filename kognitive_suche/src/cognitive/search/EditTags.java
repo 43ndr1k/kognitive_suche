@@ -211,7 +211,8 @@ public class EditTags {
    * @param tag
    * @return
    */
-  private boolean isInList(String[] wordList, String tag) {
+  //private
+  public boolean isInList(String[] wordList, String tag) {
     tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
     int mitte;
     int links = 0;

@@ -75,6 +75,7 @@ public class WordCount {
    * @param word - Word, welches auf Vorkommen im Suchstring geprüft werden soll
    * @return true - falls Word enthalten false - sonst
    */
+  //private
   public boolean doesContain(String searchword, String word) {
     String[] parts = searchword.split(" ");
     for (int i = 0; i < parts.length; i++) {	
@@ -86,7 +87,7 @@ public class WordCount {
       if (parts[i].equalsIgnoreCase(word)) {
         return true;
       }
-    }    	
+    }
     return false;
   }
 

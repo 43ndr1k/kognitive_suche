@@ -51,8 +51,8 @@ public class ReturnTagList {
     getTagByTagName(tag).addBlocNumber(textBlocNumber);
     getTagByTagName(tag).addPriority(priority);
   }
-
-  private int getInsertPosition(String tag) {
+  //private
+  public int getInsertPosition(String tag) {
     int mitte = 0;
     int links = 0;
     int rechts = tags.size() - 1;
