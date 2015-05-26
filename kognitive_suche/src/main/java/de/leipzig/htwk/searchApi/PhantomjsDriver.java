@@ -28,9 +28,12 @@ public class PhantomjsDriver {
      */
     private PhantomJSDriver driver;
 
+    //File f = new File((getClass().getResource("/lib/phantomjsLinux").getPath()));
+
     public PhantomjsDriver() {
         //Create instance of PhantomJS driver
         DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+
         capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,getPHANTOMJSPhad());
         driver = new PhantomJSDriver(capabilities);
 
@@ -51,9 +54,10 @@ public class PhantomjsDriver {
     private String getPHANTOMJSPhad() {
         String phantomjs[] = {"lib/phantomjsLinux", "lib/phantomjsMac", "lib/phantomjsWin.exe"};
 
+
         String os = "os.name";
 
-        Properties prop = System.getProperties( );
+        Properties prop = System.getProperties();
         String system = prop.getProperty(os);
         System.out.println( "Betriebssystem: " + system);
 
