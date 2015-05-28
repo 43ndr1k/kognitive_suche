@@ -1,3 +1,10 @@
+/*
+ * @author Ivan Ivanikov
+ * @param Liste wird erzeugt indem die Waben überschrieben werden. Aufbau wie bei Google leicht und übersichtlich
+ * scrollpane hinzugefügt falls Listen zu groß und unübersichtlich werden
+ * Anbindung an Suchergebniss von Christian Schmidt
+ */
+
 package de.leipzig.htwk.list;
 
 import de.leipzig.htwk.controller.Controller;
@@ -82,7 +89,7 @@ public class Listenausgabe {
           h.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent link) {
             	  try {
-                      Desktop.getDesktop().browse(new URI(h.getText()));
+                      Desktop.getDesktop().browse(new URI(h.getText()));//so sehen klickbare Links aus
                   } catch (Exception e) {
                   
             }
