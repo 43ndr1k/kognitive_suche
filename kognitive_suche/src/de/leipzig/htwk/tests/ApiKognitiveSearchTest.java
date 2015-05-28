@@ -41,9 +41,7 @@ public class ApiKognitiveSearchTest {
       long zstNachher;
 
       zstVorher = System.currentTimeMillis();
-      tmp = web.getHTMLSourceCode(url[i]);
-      tmp = web.filterHTML(tmp);
-      url[i] = tmp;
+    
       zstNachher = System.currentTimeMillis();
       System.out.println("Zeit benötigt: Webseite " + i + ": " + ((zstNachher - zstVorher))
           + " millisec");

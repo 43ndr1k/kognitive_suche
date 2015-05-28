@@ -2,6 +2,8 @@ package de.leipzig.htwk.list;
 
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.faroo.api.Results;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Listenausgabe {
@@ -41,16 +43,17 @@ public class Listenausgabe {
     this.height = height;
   }
 
- /* public Listenausgabe(String query) {
-    mController.farooSearch(query);
-    Results r = mController.getResultList();
-    for (int i = 0; i < r.getResults().size(); i++) {
-      kwic.add(r.getResults().get(i).getKwic());
-      title.add(r.getResults().get(i).getTitle());
-      url.add(r.getResults().get(i).getUrl());
+  public Listenausgabe(Results results) {
+    //mController.farooSearch(query); benötigt ?
+    Results ListofResults = mController.getResultList();
+    System.out.println(ListofResults.getResults().get(1).getTitle());
+    for (int i = 0; i < 50; i++) {  //i < ListofResults.getResults().size()
+      kwic.add(ListofResults.getResults().get(i).getKwic());
+      title.add(ListofResults.getResults().get(i).getTitle());
+      url.add(ListofResults.getResults().get(i).getUrl());
     }
 
-  }*/
+  }
 
   public ScrollPane ergebnisausgabe() {
     // HBox hbox;
@@ -58,7 +61,7 @@ public class Listenausgabe {
     VBox vbox2;
     BorderPane pane = new BorderPane();
     ScrollPane rol = new ScrollPane();
-    Hyperlink[] link = new Hyperlink[25];
+    Hyperlink[] link = new Hyperlink[50];
     Label[] label1 = new Label[50];
     Label[] label = new Label[25];
     // Label label2[] = new Label[25];
@@ -70,21 +73,20 @@ public class Listenausgabe {
       Hyperlink h = new Hyperlink();
       // final String url = "http://www.oracle.com";
       // final String url = "H:/Dokumente/Eigene Bilder/NeueWegeMD.pdf";
-     /* final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
+     //final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
       // Hyperlink h = new Hyperlink(url); *//*getHyperlink from Nodelist
       h.setOnAction(new EventHandler<ActionEvent>() {
-        public void handle(ActionEvent e) {
+        public void handle(ActionEvent link) {
           System.out.println("Hyperlink geklickt!");
-          webEngine.load(url);
-          Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " +
-          "javascript:location.href=' " + url + " ' " );
+          //webEngine.load(url.get());
+         // Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " + "javascript:location.href=' " + url + " ' " );
           try {
             Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
           } catch (IOException e1) {
             e1.printStackTrace();
           }
         }
-      });*/
+      });
       link[k] = h;
       /*
        * arraylist.get(URL); from // link[k] = new Hyperlink("www.oracle.com");
