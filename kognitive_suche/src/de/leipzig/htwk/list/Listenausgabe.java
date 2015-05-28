@@ -1,3 +1,10 @@
+/*
+ * @author Ivan Ivanikov
+ * @param Liste wird erzeugt indem die Waben überschrieben werden. Aufbau wie bei Google leicht und übersichtlich
+ * scrollpane hinzugefügt falls Listen zu groß und unübersichtlich werden
+ * Anbindung an Suchergebniss von Christian Schmidt
+ */
+
 package de.leipzig.htwk.list;
 
 import de.leipzig.htwk.controller.Controller;
@@ -12,7 +19,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import java.io.IOException;
+
+import java.awt.Desktop;
+
+import java.net.URI;
 import java.util.ArrayList;
 
 public class Listenausgabe {
@@ -81,29 +91,24 @@ public class Listenausgabe {
     final WebView browser = new WebView();
     final WebEngine webEngine = browser.getEngine();
     for (int k = 0; k < anzsucherg; k++) {
-      Hyperlink h = new Hyperlink();
-      // final String url = "http://www.oracle.com";
-      // final String url = "H:/Dokumente/Eigene Bilder/NeueWegeMD.pdf";
-     //final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
-      // Hyperlink h = new Hyperlink(url); *//*getHyperlink from Nodelist
-      h.setOnAction(new EventHandler<ActionEvent>() {
-        public void handle(ActionEvent link) {
-          System.out.println("Hyperlink geklickt!");
-          //webEngine.load(url.get());
-         // Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " + "javascript:location.href=' " + url + " ' " );
-          try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-          } catch (IOException e1) {
-            e1.printStackTrace();
-          }
-        }
-      });
-      link[k] = h;
+    	  Hyperlink h = new Hyperlink(url.get(k));
+          h.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent link) {
+            	  try {
+                      Desktop.getDesktop().browse(new URI(h.getText()));//so sehen klickbare Links aus
+                  } catch (Exception e) {
+                  
+            }
+                System.out.println(url);
+                System.out.println(link);
+            }
+          });
+          link[k] = h;
       /*
        * arraylist.get(URL); from // link[k] = new Hyperlink("www.oracle.com");
        * /*arraylist.get(URL); from Arraylist
        */
-      link[k] = new Hyperlink(url.get(k));
+      
       /* arraylist.get(KWIC) von arraylist */
       // label[k] = new
       // Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
@@ -130,6 +135,9 @@ public class Listenausgabe {
        * getHostServices().showDocument(link[k].getText()); } });
        */
     }
+    /*
+     * @param Inhalt wird gefüllt und ein funktionierendes Scrollpane ist vorhanden, um durch längere Listen zu Scrollen
+     */
     // vbox1.setMaxSize(1000, 1000);
     vbox1.setStyle("-fx-border-width: 2;");
     vbox1.setStyle("-fx-border-color: black;");
