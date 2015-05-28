@@ -67,7 +67,7 @@ public class PhantomjsDriver {
             case "Linux":
                 var = phantomjs[0];
                 break;
-            case "MAC OS X":
+            case "Mac OS X":
                 var = phantomjs[1];
                 break;
            default:
