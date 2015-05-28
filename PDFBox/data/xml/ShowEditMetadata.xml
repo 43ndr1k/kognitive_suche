@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--    @author Patrick
+        XML to display and/or edit Metadata of PDFs
+        -->
+
+<frame name="showEditMetadata" id="showEditMetadata" size="320,230" title="Metadaten">
+    <panel layout="GridBagLayout">
+        
+        <!--Titel-->
+        <label  id="Titel" text="Titel">
+            <gridbagconstraints 
+                gridx="0" gridy="0" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                fill="GridBagConstraints.NONE"
+                insets="5,5,5,5" 
+                ipadx="0" ipady="0"/>
+        </label>
+        <textfield id="pdftitel" columns="20">
+            <gridbagconstraints anchor="GridBagConstraints.CENTER"
+                                insets="5,5,5,5" gridx="1" gridy="0"/>
+        </textfield>
+        
+        <!--Autor-->
+        <label  id="Autor"
+                text="Autor">
+                
+            <gridbagconstraints 
+                gridx="0" gridy="1" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                fill="GridBagConstraints.NONE"
+                insets="5,5,5,5" 
+                ipadx="0" ipady="0"/>
+        </label>
+        <textfield id="pdfautor" columns="20">
+            <gridbagconstraints anchor="GridBagConstraints.CENTER"
+                                insets="5,5,5,5" gridx="1" gridy="1"/>
+            
+        </textfield>
+        
+        <!--Version-->
+        <label  id="Version"
+                text="Version">
+                
+            <gridbagconstraints 
+                gridx="0" gridy="2" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                fill="GridBagConstraints.NONE"
+                insets="5,5,5,5" 
+                ipadx="0" ipady="0"/>
+        </label>
+        <textfield id="pdfversion" columns="20">
+            <gridbagconstraints anchor="GridBagConstraints.CENTER"
+                                insets="5,5,5,5" gridx="1" gridy="2"/>
+            
+        </textfield>
+        
+        <!-- Änderungen der Metadaten verwerfen-->
+        <button id="discardMetadata"
+                text="Änderungen verwerfen"
+                Action="discardMetadata">
+            <gridbagconstraints
+                gridx="1" gridy="3" 
+                gridwidth="0" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                fill="GridBagConstraints.NONE"
+                insets="5,5,5,5" 
+                ipadx="0" ipady="0"/>
+        </button>
+        
+        <!--Änderung der Metadaten übernehmen-->
+        <button id="changeMetadata"
+                text="Änderungen übernehmen"
+                Action="changeMetadata">
+            <gridbagconstraints
+                gridx="1" gridy="4" 
+                gridwidth="0" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                fill="GridBagConstraints.NONE"
+                insets="5,5,5,5" 
+                ipadx="0" ipady="0"/>
+        </button>
+        
+
+        
+        
+    </panel>
+
+
+
+
+
+
+</frame>

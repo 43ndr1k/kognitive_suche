@@ -1,0 +1,21 @@
+Dependencies:
+
+- PDFBox
+    - Encrypted PDF, optional
+        - bcprov
+        - bcmail
+    - Bidirektionale Sprache, optional
+        - icu4j
+    - Harte Dependencies
+        - jempbox
+        - fontbox
+        - commons-logging
+
+- Lucene
+    - ???
+
+- H2
+    - ???
+
+- SwiXML
+    - ???
