@@ -276,7 +276,11 @@ public class Controller {
 		this.pdfBoxDocuments = PDFBoxDocuments;
 	}
 
-	/**
+	public ArrayList<PDFDocument> getPdfBoxDocuments() {
+      return pdfBoxDocuments;
+    }
+
+  /**
 	 * Die Suchanfrage an Faroo, diese wird von der GUI aufgerufen.
 	 *
 	 * @return Results Liste mit den Ergebnisse.
