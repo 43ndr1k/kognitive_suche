@@ -134,7 +134,7 @@ public class GUI extends Stage {
 
     HBox hboxHOME = new HBox();
     final ImageView imv = new ImageView();
-    final Image image = new Image("file:bild.jpg");
+    final Image image = new Image("file:static/icons/bild.jpg");
     imv.setImage(image);
     imv.setCursor(Cursor.HAND);
 
@@ -179,6 +179,14 @@ public class GUI extends Stage {
     pane1.setStyle("-fx-background-color: #FFF;");
     pane1.setCenter(vbox1);
     pane1.setBottom(hbox2);// schliessen
+    
+    if(startMode == 1)
+    {
+       Label pdfAnzeige = new Label();
+       pdfAnzeige = new Label("Eingelesene PDFs: " + mController.getPdfBoxDocuments().size());
+       pdfAnzeige.setStyle("-fx-font-size: 12pt;");
+       hbox3.getChildren().addAll(pdfAnzeige);
+    }
 
     hbox1.setAlignment(Pos.CENTER);
     hbox2.setAlignment(Pos.BOTTOM_RIGHT);// Rechte ecke postionsbestimmung closebox
@@ -223,25 +231,51 @@ public class GUI extends Stage {
       }
 
     });
+    
+    hbox1.getChildren().add(suchleiste);
 
-    Button sucheF = new Button("Suche in F");
+    if(startMode == 0)
+    {
+    
+      Button sucheF = new Button("Suche in F");
+  
+      sucheF.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent sucheF) {
+          startQuery();
+        }
+      });
+      
+      hbox1.getChildren().add(sucheF);
+      
+    }
+    
+    if(startMode == 1)
+    {
+    
+      Button sucheP = new Button("Suche in PDFs");
+  
+      sucheP.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent sucheP) {
+          
+        }
+      });
+      
+      hbox1.getChildren().add(sucheP);
+      
+    }
 
-    sucheF.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent sucheF) {
-        startQuery();
-      }
-    });
-
-    Button sucheP = new Button("Verlauf");
-    sucheP.setOnAction(new EventHandler<ActionEvent>() {
+    Button history = new Button("Verlauf");
+    history.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent sucheP) {
     	  showHistory();
       }
 
     });
-    hbox1.getChildren().addAll(suchleiste, sucheF, sucheP);
+    
+    hbox1.getChildren().add(history);
     vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
     return start;
   }
@@ -470,5 +504,14 @@ public class GUI extends Stage {
   
   public Controller getController() {
     return mController;
+  }
+
+
+  public void setStartMode(int mode) {
+    this.startMode = mode;
+  }
+  
+  public void reDrawHomeScreen() {
+    stage.setScene(drawHomeScreen());
   }
 }

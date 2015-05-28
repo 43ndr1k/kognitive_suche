@@ -38,8 +38,10 @@ public class Pdfboxconnector extends Application {
     // TODO Auto-generated method stub
     
     GUI gui = GUI.getInstance();
+    gui.setStartMode(1);
     mController = gui.getController();
     mController.setPDFBoxDocuments(Pdfboxconnector.pdfBoxDocuments);
+    gui.reDrawHomeScreen();
     
   }
   
