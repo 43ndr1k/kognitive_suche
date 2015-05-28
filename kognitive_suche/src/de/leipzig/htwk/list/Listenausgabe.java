@@ -18,6 +18,8 @@ import java.util.ArrayList;
 public class Listenausgabe {
   private int width;
   private int height;
+  private int xpos;
+  private int ypos;
   private Controller mController = new Controller();
   public ArrayList<String> tags = new ArrayList<String>();
   public ArrayList<String> url = new ArrayList<String>();
@@ -42,6 +44,10 @@ public class Listenausgabe {
   public void setHeight(int height) {
     this.height = height;
   }
+
+  public void setLayoutX(int xpos) { this.xpos = xpos; }
+
+  public void setLayoutY(int ypos) { this.ypos = ypos; }
 
   /**
    * Erstellen der Liste
@@ -70,7 +76,7 @@ public class Listenausgabe {
     Label[] label1 = new Label[50];
     Label[] label = new Label[25];
     // Label label2[] = new Label[25];
-    int anzsucherg = 20; /* Momentan immer 10 da nur 10 URLs von Faroo */
+    int anzsucherg = 20;
 
     final WebView browser = new WebView();
     final WebEngine webEngine = browser.getEngine();
@@ -131,6 +137,8 @@ public class Listenausgabe {
     pane.getChildren().clear();
     pane.setCenter(vbox1);
     rol.setPrefSize((double) width, (double) height);
+    rol.setLayoutX((double) xpos);
+    rol.setLayoutY((double)ypos);
     rol.setContent(pane);
     rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
     // pane.setStyle(-);

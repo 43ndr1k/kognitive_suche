@@ -8,8 +8,10 @@ import de.leipzig.htwk.list.Listenausgabe;
 import de.leipzig.htwk.controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -72,8 +74,13 @@ public class Pattern {
     this.results = results;
 
 
-    visPane = new Pane();
-    visPane.setPrefSize(paneHeight, paneWidth);
+    visPane = new Pane();//Pane Für Kacheln
+    visPane.setPrefSize(paneHeight, paneWidth - 256);
+
+    //BorderPane SearchList = new BorderPane();//Pane für Suchliste
+    //SearchList.setPrefSize(paneHeight,paneWidth/2);
+
+
 
     double oneHexHeight = getHexHeight();
     double oneHexWidth = getHexWidth();
@@ -86,28 +93,29 @@ public class Pattern {
     System.out.println("Rows:" + rows + " Columns:" + columns + " ActivePads:" + activePads);
 
     Boolean[][] padMap = createPadMap(rows, columns);
-    visPane =
-        printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
+    visPane = printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
     // iv
-    Button list = new Button("Liste");// liste Button
 
-    list.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent Liste) {
-        visPane.getChildren().clear();
+
+   // list.setOnAction(new EventHandler<ActionEvent>() {
+     // @Override
+     // public void handle(ActionEvent Liste) {
+        //visPane.getChildren().clear();
 
         Listenausgabe ausgabe = new Listenausgabe(results);
-        ausgabe.setWidth(paneWidth);
-        ausgabe.setHeight(paneHeight);
+        ausgabe.setWidth(256);
+        ausgabe.setHeight(610);
+        ausgabe.setLayoutX(paneWidth - 270);
+        ausgabe.setLayoutY(0);
         /**
          * Listenausgabe an Patterngui weitergegeben
          */
         visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
-      }
 
-    });
 
-    visPane.getChildren().addAll(list);
+    //}});
+
+    //visPane.getChildren().addAll(list);
 
 
   }

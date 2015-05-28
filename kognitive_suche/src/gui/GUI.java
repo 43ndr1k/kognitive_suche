@@ -73,7 +73,7 @@ import javafx.util.Duration;
 
 public class GUI extends Stage {
   private static final int windowHeight = 768;
-  private static final int windowWidth = 1024;
+  private static final int windowWidth = 1280;
   private static final int FAROO = 0;
   private static final int DUCKDUCKGO = 1;
 
