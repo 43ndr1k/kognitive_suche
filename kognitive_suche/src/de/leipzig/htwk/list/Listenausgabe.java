@@ -43,14 +43,19 @@ public class Listenausgabe {
     this.height = height;
   }
 
+  /**
+   * Erstellen der Liste
+   *
+   * @author Christian Schmidt
+   */
   public Listenausgabe(Results results) {
     //mController.farooSearch(query); benötigt ?
-    Results ListofResults = mController.getResultList();
-    System.out.println(ListofResults.getResults().get(1).getTitle());
-    for (int i = 0; i < 50; i++) {  //i < ListofResults.getResults().size()
-      kwic.add(ListofResults.getResults().get(i).getKwic());
-      title.add(ListofResults.getResults().get(i).getTitle());
-      url.add(ListofResults.getResults().get(i).getUrl());
+    //Results results = mController.getResultList();
+    System.out.println(results.getResults().get(1).getTitle());
+    for (int i = 0; i < results.getResults().size(); i++) {
+      kwic.add(results.getResults().get(i).getKwic());
+      title.add(results.getResults().get(i).getTitle());
+      url.add(results.getResults().get(i).getUrl());
     }
 
   }
@@ -65,7 +70,7 @@ public class Listenausgabe {
     Label[] label1 = new Label[50];
     Label[] label = new Label[25];
     // Label label2[] = new Label[25];
-    int anzsucherg = 10; /* Momentan immer 10 da nur 10 URLs von Faroo */
+    int anzsucherg = 20; /* Momentan immer 10 da nur 10 URLs von Faroo */
 
     final WebView browser = new WebView();
     final WebEngine webEngine = browser.getEngine();
