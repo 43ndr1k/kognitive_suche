@@ -224,7 +224,7 @@ public class GUI extends Stage {
 
     });
 
-    Button sucheF = new Button("Suche in F");
+    Button sucheF = new Button("Suche in Web");
 
     sucheF.setOnAction(new EventHandler<ActionEvent>() {
       @Override

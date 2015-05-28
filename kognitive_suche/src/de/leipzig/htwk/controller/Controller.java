@@ -153,7 +153,7 @@ public class Controller {
 				+ ((zstNachher - zstVorher)) + " millisec");
 
 		tags = search.getTags();
-		initVisual(tags, searchWord); // Aufruf der Visualisierung
+		initVisual(tags, searchWord, results); // Aufruf der Visualisierung
 
 	}
 
@@ -204,12 +204,13 @@ public class Controller {
 	 * @param searchword
 	 *            Übergabe des Suchwortes als String.
 	 */
-	public void initVisual(ReturnTagList list, String searchword) {
+	public void initVisual(ReturnTagList list, String searchword, Results results) {
 		/*
 		 * das Objekt Tag, welches aus der Klasse visualtest übernommen wird
 		 * dient zu Testzwecken und kann bei der fertigen Implementation durch
 		 * ein Objekt des Komplexen Suchalgorithmus ersezt werden.
 		 */
+		//setResultList(results); brauch ich vielleicht
 		System.out.println("startVisual Gestartet");
 		ReturnTagList tags = list;
 
@@ -220,7 +221,7 @@ public class Controller {
 		homebuttonPane.setStyle("-fx-background-color: #FFF;");
 		homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
 
-		VisController visualController = new VisController();
+		VisController visualController = new VisController(results);
 		visualController.setPane(visPane);
 		visualController.setQuery(searchword);
 		// iv
@@ -318,7 +319,7 @@ public class Controller {
 				System.out.println(r.getUrl());
 
 			}
-
+			setResultList(results);
 			beginWebSearch();
 
 			break;
