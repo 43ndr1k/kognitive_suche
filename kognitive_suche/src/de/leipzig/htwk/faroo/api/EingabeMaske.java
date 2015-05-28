@@ -24,93 +24,96 @@ import javafx.stage.Stage;
  */
 public class EingabeMaske extends Stage {
 
-    /**
-     * Grafische eingabe Maske der Konfigurationsdatei.
-     */
-    private String key = "",url;
+  /**
+   * Grafische eingabe Maske der Konfigurationsdatei.
+   */
+  private String key = "", url;
 
-    public EingabeMaske() {
-        super();
-        setTitle("Konfigurationsmaske");
-    }
-    public void run() {
+  public EingabeMaske() {
+    super();
+    setTitle("Konfigurationsmaske");
+  }
 
-        /**
-         * Top Pane
-         */
-        Label toplabel = new Label("Eingabe der Konfigurationsdaten");
-        toplabel.setFont(Font.font("Cambria", 28));
-        HBox topBox = new HBox(toplabel);
-        topBox.setAlignment(Pos.TOP_LEFT);
-        topBox.setPadding(new Insets(15, 15, 15, 15));
-        topBox.setSpacing(10);
-
-        /**
-         * Center Pane
-         */
-        final TextField keyTextBox = new TextField();
-        keyTextBox.setMaxWidth(300);
-        final TextField urlTextBox = new TextField();
-        urlTextBox.setMaxWidth(300);
-        urlTextBox.setText("http://www.faroo.com/api?");
-        Label lkey = new Label("Eingabe Key");
-        Label lurl = new Label("Eingabe URL");
-        VBox centerBox = new VBox(lkey, keyTextBox, lurl, urlTextBox);
-        centerBox.setAlignment(Pos.TOP_LEFT);
-        centerBox.setPadding(new Insets(15,15,15,15));
-        centerBox.setSpacing(10);
-
-        /**
-         * Botom Pane
-         */
-        Button bok = new Button("    ok    ");
-        Button bAbbrechen = new Button("Abbrechen");
-        bAbbrechen.setCancelButton(true);
-        HBox BotomBox = new HBox(bok, bAbbrechen);
-        BotomBox.setAlignment(Pos.BOTTOM_RIGHT);
-        BotomBox.setPadding(new Insets(15,15,15,15));
-        BotomBox.setSpacing(10);
-        bAbbrechen.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                close();
-            }
-        });
-
-        bok.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                key = keyTextBox.getText();
-                url = urlTextBox.getText();
-                close();
-            }
-        });
-
-        /**
-         * config stage
-         */
-        BorderPane pane = new BorderPane();
-        pane.setTop(topBox);
-        pane.setCenter(centerBox);
-        pane.setBottom(BotomBox);
-        Scene scene = new Scene(pane, 450, 300);
-        setScene(scene);
-    }
+  public void run() {
 
     /**
-     * Gibt den API key zurück.
-     * @return key
+     * Top Pane
      */
-    public String getkey() {
-        return this.key;
-    }
+    Label toplabel = new Label("Eingabe der Konfigurationsdaten");
+    toplabel.setFont(Font.font("Cambria", 28));
+    HBox topBox = new HBox(toplabel);
+    topBox.setAlignment(Pos.TOP_LEFT);
+    topBox.setPadding(new Insets(15, 15, 15, 15));
+    topBox.setSpacing(10);
 
     /**
-     * Gibt die URL zurück.
-     * @return url
+     * Center Pane
      */
-    public String geturl() {
-        return this.url;
-    }
+    final TextField keyTextBox = new TextField();
+    keyTextBox.setMaxWidth(300);
+    final TextField urlTextBox = new TextField();
+    urlTextBox.setMaxWidth(300);
+    urlTextBox.setText("http://www.faroo.com/api?");
+    Label lkey = new Label("Eingabe Key");
+    Label lurl = new Label("Eingabe URL");
+    VBox centerBox = new VBox(lkey, keyTextBox, lurl, urlTextBox);
+    centerBox.setAlignment(Pos.TOP_LEFT);
+    centerBox.setPadding(new Insets(15, 15, 15, 15));
+    centerBox.setSpacing(10);
+
+    /**
+     * Botom Pane
+     */
+    Button bok = new Button("    ok    ");
+    Button babbrechen = new Button("Abbrechen");
+    babbrechen.setCancelButton(true);
+    HBox botombox = new HBox(bok, babbrechen);
+    botombox.setAlignment(Pos.BOTTOM_RIGHT);
+    botombox.setPadding(new Insets(15, 15, 15, 15));
+    botombox.setSpacing(10);
+    babbrechen.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        close();
+      }
+    });
+
+    bok.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        key = keyTextBox.getText();
+        url = urlTextBox.getText();
+        close();
+      }
+    });
+
+    /**
+     * config stage
+     */
+    BorderPane pane = new BorderPane();
+    pane.setTop(topBox);
+    pane.setCenter(centerBox);
+    pane.setBottom(botombox);
+    Scene scene = new Scene(pane, 450, 300);
+    setScene(scene);
+  }
+
+  /**
+   * Gibt den API key zurück.
+   * 
+   * @return key
+   */
+  public String getkey() {
+    return this.key;
+  }
+
+  /**
+   * Gibt die URL zurück.
+   * 
+   * @return url
+   */
+  public String geturl() {
+    return this.url;
+  }
 
 }

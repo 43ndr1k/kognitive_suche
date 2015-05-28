@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<frame name="mainframe" id="main" size="800,600" title="PdfBorx">
+    <menubar name="menubar">
+        <menu name="filemenu" text="Datei">
+            <menuitem name="Import" text="PDF Importieren" Action="pdfImport" macos_preferences="true"/>
+            <menuitem name="ImportDir" text="Verzeichnis Importieren" Action="importDir" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="Export" text="PDF Exportieren" Action="pdfExport" macos_preferences="true"></menuitem>
+            <menuitem name="ExBib" text="BibTeX Exportieren" Action="bibexport" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="Options" text="Einstellungen" Action="options" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="Beenden" text="Beenden" Action="exit" />
+            </menu>
+            <menu text="Hilfe">
+            <menuitem name="About" text="über PdfBorx" Action="about" macos_preferences="true"/>
+            <separator/>
+            <menuitem name="FAQ" text="Handbuch" Action="manual" macos_preferences="true"/>
+        </menu>
+    </menubar>
+
+ <!--Layout of the Mainframe-->
+    <panel layout="GridBagLayout">
+        <!--Describing Label-->
+        <label  id="foundPDF" 
+                text="Gefundene PDFs">
+            <gridbagconstraints
+                gridx="0" gridy="0" 
+                gridwidth="0" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                insets="25,5,0,0" 
+                ipadx="0" ipady="0"/>
+        </label>
+        
+               
+        <textfield id="searchField" columns="20">
+            <gridbagconstraints
+                insets="20,120,0,5" 
+                gridx="0" gridy="0"
+                gridwidth="0" gridheight="1"
+                anchor="GridBagConstraints.LINE_START"/>
+        </textfield>
+        
+        <button id="erase" text="x">
+            <gridbagconstraints
+                gridx="0" gridy="0"
+                gridwidth="0" gridheight="1"
+                anchor="GridBagConstraints.LINE_START"
+                insets="20,350,0,5"/>
+        </button>
+
+       
+        <!--Dropdown menu for sort after-->
+        <combobox   editable="true"
+                    enabled="true"
+                    visible="true"
+                    popubvisible="true"
+                    tooltiptext="Sortieren nach"
+                    name="TestName"
+                    id="kategorie"
+                    size="10" Action="DO_SELECT">
+            <gridbagconstraints
+                gridx="2" gridy="0" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.EAST" 
+                fill="GridBagConstraints.NONE"
+                insets="20,5,2,6" 
+                ipadx="0" ipady="0"/>
+        </combobox>
+       
+       <!--Scrollpane for showing the searched PDFs-->
+        <scrollpane id="foundPdf" background="white" VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED" >
+            <table id="tempList">
+            </table>
+            <gridbagconstraints  
+                gridx="0" gridy="1" 
+                gridwidth="3" gridheight="3" 
+                weightx="1.0" weighty="1.0"
+                insets="0,5,0,5" 
+                anchor="GridBagConstraints.CENTER" 
+                fill="GridBagConstraints.BOTH"
+/>
+       </scrollpane>
+       
+       <!--Button "MetadatenBearbeiten" and "SchluesselwoerterBearbeiten" below the Pane-->
+       <button text="Metadaten bearbeiten" Action="showEditMetadata">
+           <gridbagconstraints
+               gridx="0" gridy="4"
+               gridwidth="1" gridheight="1"
+               weightx="0.0" weighty="0.0"
+               anchor="gridbagconstraints.FIRST_LINE_START"
+               insets="0,5,0,5"/>
+       </button>   
+       <button text="Schlüsselwörter anzeigen" Action="showKeywords">
+           <gridbagconstraints
+               gridx="0" gridy="5" 
+               gridwidth="1" gridheight="1" 
+               weightx="0.0" weighty="0.0"
+               anchor="gridbagconstraints.FIRST_LINE_START" 
+               insets="0,5,0,5"/>
+       </button>
+       
+       <!--Button "PDF anzeigen" and "Aehnliche PDFs anzeigen" below the Pane-->   
+        <button text="PDF anzeigen">
+           <gridbagconstraints
+               gridx="2" gridy="4" 
+               gridwidth="1" gridheight="1" 
+               weightx="0.0" weighty="0.0"
+               anchor="GridBagConstraints.FIRST_LINE_END" 
+               fill="GridBagConstraints.NONE"
+               insets="5,2,0,5" 
+               ipadx="0" ipady="0"/>
+       </button>      
+       <button text="Ähnliche PDFs anzeigen">
+           <gridbagconstraints
+               gridx="2" gridy="5" 
+               gridwidth="1" gridheight="1" 
+               weightx="0.0" weighty="0.0"
+               anchor="GridBagConstraints.LINE_END" 
+               fill="GridBagConstraints.NONE"
+               insets="5,2,0,5" 
+               ipadx="0" ipady="0"/>
+       </button>
+       
+
+       <!--Second row of 3 Buttons below the Pane-->
+       <button text="PDF exportieren" Action="pdfExport">
+           <gridbagconstraints
+               gridx="0" gridy="7" 
+               gridwidth="3" gridheight="1" 
+               weightx="0.0" weighty="0.0"
+               anchor="GridBagConstraints.FIRST_LINE_START" 
+               fill="GridBagConstraints.NONE"
+               insets="30,5,10,5" 
+               ipadx="0" ipady="0"/>
+       </button>
+       <button text="Bibtex exportieren" Action="bibexport">
+           <gridbagconstraints
+               gridx="0" gridy="7" 
+               gridwidth="3" gridheight="1" 
+               weightx="0.0" weighty="0.0"
+               anchor="GridBagConstraints.CENTER" 
+               fill="GridBagConstraints.NONE"
+               insets="30,5,10,5" 
+               ipadx="0" ipady="0"/>
+       </button>
+       <button text="PDF importieren" Action="pdfImport">
+           <gridbagconstraints
+               gridx="0" gridy="7" 
+               gridwidth="3" gridheight="1" 
+               weightx="0.0" weighty="0.0"
+               anchor="GridBagConstraints.LINE_END" 
+               fill="GridBagConstraints.NONE"
+               insets="30,5,10,5" 
+               ipadx="0" ipady="0"/>
+       </button>
+       
+       
+        <!--Infoboxes with Labels-->
+        
+        <!--Information about PDFs-->
+        <label 	text="Metadaten">
+            <gridbagconstraints
+                gridx="4" gridy="1" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                fill="GridBagConstraints.NONE"
+                insets="0,5,0,5" 
+                ipadx="0" ipady="0"/>
+        </label> 
+        <scrollpane id="infoPdf" background="white" VerticalScrollBarPolicy="VERTICAL_SCROLLBAR_AS_NEEDED" HorizontalScrollBarPolicy = "HORIZONTAL_SCROLLBAR_AS_NEEDED" >
+        	<table id="metaview" ></table>
+            <gridbagconstraints
+                gridx="4" gridy="1" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.9" weighty="0.9"
+                anchor="GridBagConstraints.center" 
+                fill="GridBagConstraints.BOTH"
+                insets="20,5,0,5" 
+                ipadx="0" ipady="0"/>
+             
+       </scrollpane>      
+       
+       <!--Information about Bibtex-->
+       <label text="Bibtex">
+            <gridbagconstraints
+                gridx="4" gridy="2" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.0" weighty="0.0"
+                anchor="GridBagConstraints.FIRST_LINE_START" 
+                fill="GridBagConstraints.NONE"
+                insets="10,5,0,5" 
+                ipadx="0" ipady="0"/>
+        </label> 
+        <scrollpane background="white">
+            <textarea id="bibview">
+                
+            </textarea>
+            <gridbagconstraints
+                gridx="4" gridy="2" 
+                gridwidth="1" gridheight="1" 
+                weightx="0.9" weighty="0.9"
+                anchor="GridBagConstraints.PAGE_START" 
+                fill="GridBagConstraints.BOTH"
+                insets="30,5,0,5" 
+                ipadx="0" ipady="0"/>
+       </scrollpane> 
+       
+                <button text="Onlinesuche" Action="onlineMetadata">
+           <gridbagconstraints
+               gridx="1" gridy="4"
+               gridwidth="1" gridheight="1"
+               weightx="0.0" weighty="0.0"
+               anchor="gridbagconstraints.FIRST_LINE_START"
+               insets="0,5,0,5"/>
+       </button> 
+      
+    </panel>
+
+</frame>

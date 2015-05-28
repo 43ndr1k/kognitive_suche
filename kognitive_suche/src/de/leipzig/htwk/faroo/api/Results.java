@@ -10,21 +10,23 @@ import java.util.ArrayList;
  * Bereitstellung der Suchergebnisse.
  */
 public class Results {
-    private ArrayList<Result> results;
+  private ArrayList<Result> results;
 
-    /**
-     * Gibt die Result Liste zurück
-     * @return results
-     */
-    public ArrayList<Result> getResults() {
-        return results;
-    }
+  /**
+   * Gibt die Result_ Liste zurück
+   * 
+   * @return results
+   */
+  public ArrayList<Result> getResults() {
+    return results;
+  }
 
-    /**
-     * Nimmt die Result Liste entgegen.
-     * @param results
-     */
-    public void setResults(ArrayList<Result> results) {
-        this.results = results;
-    }
+  /**
+   * Nimmt die Result_ Liste entgegen.
+   * 
+   * @param results
+   */
+  public void setResults(ArrayList<Result> results) {
+    this.results = results;
+  }
 }
