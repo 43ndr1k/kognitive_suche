@@ -52,7 +52,7 @@ public class PhantomjsDriver {
      * @return var String mit dem Pfad zu phantomjs
      */
     private String getPHANTOMJSPhad() {
-        String phantomjs[] = {"src/main/resources/bin/phantomjsLinux.bin",
+        String phantomjs[] = {"repo/lib//phantomjsLinux.bin",
             "src/main/resources/bin/phantomjsMac.bin", "src/main/resources/bin/lib/phantomjsWin.exe"};
 
 
