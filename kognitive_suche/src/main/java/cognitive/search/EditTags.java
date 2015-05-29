@@ -3,6 +3,7 @@ package cognitive.search;
 import general.functions.TxtReader;
 import snowballstemmer.GermanStemmer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -141,5 +142,95 @@ public class EditTags {
 
   public void sortTagsByPriority() {
     tags.sortTagsByPriority();
+  }
+
+  public void removeSpaces() {
+    int i = 0;
+    while (("a").compareToIgnoreCase(tags.getTagObject(i).getTag()) > 0) {
+      tags.deleteTag(i);
+      i++;
+    }
+  }
+
+  public void removeSearchwords() {
+    String searchword = tags.getSearchword();
+    String[] parts = searchword.split(" ");
+    for (int i = 0; i < parts.length; i++) {
+      tags.deleteTag(parts[i]);
+    }
+
+  }
+
+  /**
+   * @author Ivan Ivanikov
+   * 
+   * @param Kategorien werden erstellt indem Listen aus dem Ordner Lists nach enthaltenen Begriffen
+   *        durchsucht werden z.z werden einfach alle gefundenen Objekte ausgegeben -> es sollen die
+   *        Dateinamen ausgegeben werden um später die Tags aus speziellen listen ziehen zu können
+   * 
+   * 
+   */
+  public void kategorisieren() {
+
+    File[] files = new File("Lists").listFiles();
+
+    // Iteration über alle Files in dem Ordner Lists
+    for (File list : files) {
+      String category = list.getName().replaceAll(".txt", "");
+      System.out.println(list.getAbsolutePath());
+
+      if (list.isFile()) {
+        String wordList[];
+
+        // File öffnen
+        try {
+          String tmp = new TxtReader().readFile(list.getAbsolutePath());
+          wordList = tmp.split("\n");
+        } catch (IOException e) {
+          System.out.println("Konnte " + list.getAbsolutePath() + " nicht öffnen!");
+          break;
+        }
+        // Die Tags werden auf Vorkommen in der aktuellen WorlList untersucht
+        for (int i = 0; i < tags.getSize(); i++) {
+          if (isInList(wordList, tags.getTagObject(i).getTag())) {
+            System.out.println(tags.getTagObject(i).getTag() + " wurde ersetzt durch: " + category);
+            tags.renameTag(tags.getTagObject(i).getTag(), category);
+          }
+        }
+
+      }
+    }
+
+  }
+
+  /**
+   * Binäre Suche
+   * 
+   * @param wordList
+   * @param tag
+   * @return
+   */
+  //private
+  public boolean isInList(String[] wordList, String tag) {
+    tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
+    int mitte;
+    int links = 0;
+    int rechts = wordList.length - 1;
+    int tmp;
+
+    while (links <= rechts) {
+      mitte = links + ((rechts - links) / 2);
+      tmp = tag.compareToIgnoreCase(wordList[mitte]);
+      if (tmp == 0) {
+        return true;
+      } else if (tmp < 0) { // Tag befindet sich in der linken Hälfte
+        rechts = mitte - 1;
+      } else if (tmp > 0) { // Tag befindet sich in der rechten Hälfte
+        links = mitte + 1;
+      }
+    }
+
+    return false;
+
   }
 }

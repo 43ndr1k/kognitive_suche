@@ -12,24 +12,24 @@ import java.util.ArrayList;
  */
 
 public class AddTagInfos {
-  private ReturnTagList list;
+  private ReturnTagList tags;
 
   public AddTagInfos(String searchWord) {
-    list = new ReturnTagList(searchWord);
+    tags = new ReturnTagList(searchWord);
   }
 
   public void addInfo(Tag info) {
     if (info != null) {
-      for (int i = 0; i < info.getsize(); i++) {
-        list.addTagObject(info.gettag(i), info.getTextBlocNumber());
+      for (int i = 0; i < info.getSize(); i++) {
+        tags.addTagObject(info.getTag(i), info.getTextBlocNumber());
       }
     }
   }
 
   public void addInfo(Tag info, String function, double[] values) {
     if (info != null) {
-      for (int i = 0; i < info.getsize(); i++) {
-        list.addTagObject(info.gettag(i), info.getTextBlocNumber(),
+      for (int i = 0; i < info.getSize(); i++) {
+        tags.addTagObject(info.getTag(i), info.getTextBlocNumber(),
             getFunctionPriority(function, values, i));
       }
     }
@@ -52,7 +52,7 @@ public class AddTagInfos {
   }
 
   public void addInfo(ReturnTagObject info) {
-    list.addTagObject(info.getTag(), info.getBlocNumbers(), info.getPriority());
+    tags.addTagObject(info.getTag(), info.getBlocNumbers(), info.getPriority());
   }
 
   public void addInfo(ArrayList<Tag> info, String function, double[] values) {
@@ -68,7 +68,7 @@ public class AddTagInfos {
   }
 
   private void addInfo(String string, int textBlocNumber, Double priority) {
-    list.addTagObject(string, textBlocNumber, priority);
+    tags.addTagObject(string, textBlocNumber, priority);
   }
 
   private double getFunctionPriority(String function, double[] values, int i) {
@@ -98,6 +98,6 @@ public class AddTagInfos {
   }
 
   public ReturnTagList getReturnTagList() {
-    return list;
+    return tags;
   }
 }

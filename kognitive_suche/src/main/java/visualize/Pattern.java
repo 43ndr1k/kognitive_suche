@@ -3,9 +3,10 @@ package visualize;
 
 
 import cognitive.search.ReturnTagList;
+import de.leipzig.htwk.list.Listenausgabe;
+import de.leipzig.htwk.searchApi.Results;
 import gui.GUI;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -23,6 +24,7 @@ public class Pattern {
 
   private int paneWidth;
   private int paneHeight;
+  private Results results;
   private static final double PAD_SIZE = 102;
   private static final double PAD_OFFSET = 3;
 
@@ -57,16 +59,23 @@ public class Pattern {
    * @param tags
    * @param gui
    */
-  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags, GUI gui) {
+  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags, GUI gui, Results results) {
     // Auto-generated method stub
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
     this.tags = tags;
     this.activePads = tags.getSize();
     this.gui = gui;
+    this.results = results;
 
-    visPane = new Pane();
-    visPane.setPrefSize(paneHeight, paneWidth);
+
+    visPane = new Pane();//Pane Für Kacheln
+    visPane.setPrefSize(paneHeight, paneWidth - 256);
+
+    //BorderPane SearchList = new BorderPane();//Pane für Suchliste
+    //SearchList.setPrefSize(paneHeight,paneWidth/2);
+
+
 
     double oneHexHeight = getHexHeight();
     double oneHexWidth = getHexWidth();
@@ -79,28 +88,29 @@ public class Pattern {
     System.out.println("Rows:" + rows + " Columns:" + columns + " ActivePads:" + activePads);
 
     Boolean[][] padMap = createPadMap(rows, columns);
-    visPane =
-        printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
+    visPane = printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
     // iv
-    Button list = new Button("Liste");// liste Button
 
-   /* list.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent list) {
-        visPane.getChildren().clear();
-        Listenausgabe ausgabe = new Listenausgabe(query);
-        ausgabe.setWidth(paneWidth);
-        ausgabe.setHeight(paneHeight);
-        *//**
+
+   // list.setOnAction(new EventHandler<ActionEvent>() {
+     // @Override
+     // public void handle(ActionEvent Liste) {
+        //visPane.getChildren().clear();
+
+        Listenausgabe ausgabe = new Listenausgabe(results);
+        ausgabe.setWidth(256);
+        ausgabe.setHeight(610);
+        ausgabe.setLayoutX(paneWidth - 270);
+        ausgabe.setLayoutY(0);
+        /**
          * Listenausgabe an Patterngui weitergegeben
-         *//*
+         */
         visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
-      }
-
-    });*/
 
 
-    visPane.getChildren().addAll(list);
+    //}});
+
+    //visPane.getChildren().addAll(list);
 
 
   }
@@ -313,10 +323,7 @@ public class Pattern {
         System.out.println("Hallo");
         System.out.println(testlabel);
         System.out.println(largeTopicLabel.getText());
-        // GUI.getInstance();
-        // Funzt noch nicht da Scheiße!
         System.out.println("Text geholt von gui suchleiste: " + gui.getSuchleiste().getText());
-
         gui.setSuchleisteText(largeTopicLabel.getText());
       }
     });
@@ -353,35 +360,35 @@ public class Pattern {
         padMap[x][y] = false;
 
     for (int i = 0; i < activePads + 1; i++) {
-      switch (i) {
-        case 1:
-          padMap[insertColumn - 1][insertRow] = true;
-          break;
-        case 2:
-          padMap[insertColumn][insertRow] = true;
-          break;
-        case 3:
-          padMap[insertColumn - 2][insertRow] = true;
-          break;
-        case 4:
-          padMap[insertColumn][insertRow - 1] = true;
-          break;
-        case 5:
-          padMap[insertColumn - 2][insertRow - 1] = true;
-          break;
-        case 6:
-          padMap[insertColumn - 1][insertRow + 1] = true;
-          break;
-        case 7:
-          padMap[insertColumn - 1][insertRow - 1] = true;
-          break;
-        case 8:
-          padMap[insertColumn - 3][insertRow] = true;
-          break;
-        case 9:
-          padMap[insertColumn + 1][insertRow] = true;
-          break;
-      }
+        switch (i) {
+          case 1:
+            padMap[insertColumn - 1][insertRow] = true;
+            break;
+          case 2:
+            padMap[insertColumn][insertRow] = true;
+            break;
+          case 3:
+            padMap[insertColumn - 2][insertRow] = true;
+            break;
+          case 4:
+            padMap[insertColumn][insertRow - 1] = true;
+            break;
+          case 5:
+            padMap[insertColumn - 2][insertRow - 1] = true;
+            break;
+          case 6:
+            padMap[insertColumn - 1][insertRow + 1] = true;
+            break;
+          case 7:
+            padMap[insertColumn - 1][insertRow - 1] = true;
+            break;
+          case 8:
+            padMap[insertColumn - 3][insertRow] = true;
+            break;
+          case 9:
+            padMap[insertColumn + 1][insertRow] = true;
+            break;
+        }
     }
 
     return padMap;

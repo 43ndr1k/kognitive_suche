@@ -1,6 +1,15 @@
+/*
+ * @author Ivan Ivanikov
+ * @param Liste wird erzeugt indem die Waben überschrieben werden. Aufbau wie bei Google leicht und übersichtlich
+ * scrollpane hinzugefügt falls Listen zu groß und unübersichtlich werden
+ * Anbindung an Suchergebniss von Christian Schmidt
+ */
+
 package de.leipzig.htwk.list;
 
-import de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.searchApi.Results;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -10,12 +19,16 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
+import java.awt.*;
+import java.net.URI;
 import java.util.ArrayList;
 
 public class Listenausgabe {
   private int width;
   private int height;
-  private Controller mController = new Controller();
+  private int xpos;
+  private int ypos;
+
   public ArrayList<String> tags = new ArrayList<String>();
   public ArrayList<String> url = new ArrayList<String>();
   public ArrayList<String> kwic = new ArrayList<String>();
@@ -40,16 +53,26 @@ public class Listenausgabe {
     this.height = height;
   }
 
- /* public Listenausgabe(String query) {
-    mController.farooSearch(query);
-    Results r = mController.getResultList();
-    for (int i = 0; i < r.getResults().size(); i++) {
-      kwic.add(r.getResults().get(i).getKwic());
-      title.add(r.getResults().get(i).getTitle());
-      url.add(r.getResults().get(i).getUrl());
+  public void setLayoutX(int xpos) { this.xpos = xpos; }
+
+  public void setLayoutY(int ypos) { this.ypos = ypos; }
+
+  /**
+   * Erstellen der Liste
+   *
+   * @author Christian Schmidt
+   */
+  public Listenausgabe(Results results) {
+    //mController.farooSearch(query); benötigt ?
+    //Results results = mController.getResultList();
+    System.out.println(results.getResults().get(1).getTitle());
+    for (int i = 0; i < results.getResults().size(); i++) {
+      kwic.add(results.getResults().get(i).getKwic());
+      title.add(results.getResults().get(i).getTitle());
+      url.add(results.getResults().get(i).getUrl());
     }
 
-  }*/
+  }
 
   public ScrollPane ergebnisausgabe() {
     // HBox hbox;
@@ -57,39 +80,33 @@ public class Listenausgabe {
     VBox vbox2;
     BorderPane pane = new BorderPane();
     ScrollPane rol = new ScrollPane();
-    Hyperlink[] link = new Hyperlink[25];
+    Hyperlink[] link = new Hyperlink[50];
     Label[] label1 = new Label[50];
     Label[] label = new Label[25];
     // Label label2[] = new Label[25];
-    int anzsucherg = 10; /* Momentan immer 10 da nur 10 URLs von Faroo */
+    int anzsucherg = 20;
 
     final WebView browser = new WebView();
     final WebEngine webEngine = browser.getEngine();
     for (int k = 0; k < anzsucherg; k++) {
-      Hyperlink h = new Hyperlink();
-      // final String url = "http://www.oracle.com";
-      // final String url = "H:/Dokumente/Eigene Bilder/NeueWegeMD.pdf";
-     /* final String url = "http://www.uefa.com/MultimediaFiles/Download/Regulations/uefaorg/Regulations/02/09/88/17/2098817_DOWNLOAD.pdf";
-      // Hyperlink h = new Hyperlink(url); *//*getHyperlink from Nodelist
-      h.setOnAction(new EventHandler<ActionEvent>() {
-        public void handle(ActionEvent e) {
-          System.out.println("Hyperlink geklickt!");
-          webEngine.load(url);
-          Runtime.getRuntime().exec( "rundll32 url.dll,FileProtocolHandler " +
-          "javascript:location.href=' " + url + " ' " );
-          try {
-            Runtime.getRuntime().exec("rundll32 url.dll,FileProtocolHandler " + url);
-          } catch (IOException e1) {
-            e1.printStackTrace();
-          }
-        }
-      });*/
-      link[k] = h;
+    	  Hyperlink h = new Hyperlink(url.get(k));
+          h.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent link) {
+            	  try {
+                      Desktop.getDesktop().browse(new URI(h.getText()));//so sehen klickbare Links aus
+                  } catch (Exception e) {
+                  
+            }
+                System.out.println(url);
+                System.out.println(link);
+            }
+          });
+          link[k] = h;
       /*
        * arraylist.get(URL); from // link[k] = new Hyperlink("www.oracle.com");
        * /*arraylist.get(URL); from Arraylist
        */
-      link[k] = new Hyperlink(url.get(k));
+      
       /* arraylist.get(KWIC) von arraylist */
       // label[k] = new
       // Label("Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At");
@@ -116,6 +133,9 @@ public class Listenausgabe {
        * getHostServices().showDocument(link[k].getText()); } });
        */
     }
+    /*
+     * @param Inhalt wird gefüllt und ein funktionierendes Scrollpane ist vorhanden, um durch längere Listen zu Scrollen
+     */
     // vbox1.setMaxSize(1000, 1000);
     vbox1.setStyle("-fx-border-width: 2;");
     vbox1.setStyle("-fx-border-color: black;");
@@ -123,6 +143,8 @@ public class Listenausgabe {
     pane.getChildren().clear();
     pane.setCenter(vbox1);
     rol.setPrefSize((double) width, (double) height);
+    rol.setLayoutX((double) xpos);
+    rol.setLayoutY((double) ypos);
     rol.setContent(pane);
     rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
     // pane.setStyle(-);
