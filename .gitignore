@@ -143,3 +143,4 @@ out/
 
 *.log
 target/
+history.last
