@@ -296,7 +296,7 @@ public class Controller {
 
 
 								//TODO Zeile kann entfernt werden, wenn die gui die Methode closeDriver beim schließen aufruft!
-								//closeDriver();
+								closeDriver();
 
 								break;
 
