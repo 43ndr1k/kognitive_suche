@@ -160,7 +160,7 @@ public class SearchApi{
         } catch (WebDriverException ioe) {
             ioe.printStackTrace();
             Platform.exit();
-            throw new SearchApiExecption("Keine Internetverbindung möglich");
+            throw new SearchApiExecption("Keine Internetverbindung möglich oder Driver nicht vorhanden");
         }
 
         try {
