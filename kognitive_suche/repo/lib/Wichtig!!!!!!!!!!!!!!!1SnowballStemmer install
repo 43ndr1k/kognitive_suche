@@ -3,4 +3,4 @@
 * z.b. wie hier:
 * C:// ...workspace/kognitive_suche_maven/kognitive_suche/lib
 
-mvn install:install-file -Dfile=SnowballStemmer.jar -DgroupId=com.github.rholder -DartifactId=snowball-stemmer -Dversion=1.3 -Dpackaging=jar
+mvn install:install-file -Dfile=SnowballStemmer.jar -DgroupId=lib -DartifactId=SnowballStemmer -Dversion=1.0 -Dpackaging=jar
