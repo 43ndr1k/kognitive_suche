@@ -204,7 +204,7 @@ public class Controller {
 	 * @param searchword
 	 *            Übergabe des Suchwortes als String.
 	 */
-	public void initVisual(ReturnTagList list, String searchword, Results results) {
+	public void initVisual (ReturnTagList list, String searchword, Results results) {
 		/*
 		 * das Objekt Tag, welches aus der Klasse visualtest übernommen wird
 		 * dient zu Testzwecken und kann bei der fertigen Implementation durch
@@ -216,25 +216,27 @@ public class Controller {
 
 		BorderPane visPane = new BorderPane();
 		BorderPane homebuttonPane = new BorderPane();
-
+		System.out.println("Checkpoint 1");
 		homebuttonPane.setCenter(gui.goHomeButton());
 		homebuttonPane.setStyle("-fx-background-color: #FFF;");
 		homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
-
+		System.out.println("Checkpoint 2");
 		VisController visualController = new VisController(results);
 		visualController.setPane(visPane);
 		visualController.setQuery(searchword);
-		// iv
-		visualController
-				.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
+		System.out.println("Checkpoint 3");
+		visualController.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
 		visualController.setPaneWidth((int) gui.getStage().getWidth());
-
+		System.out.println("Checkpoint 4");
 		visPane.setCenter(visualController.startVisualize(tags));
+		System.out.println("Checkpoint 5");
 		visPane.setTop(homebuttonPane);
 		
-
+		System.out.println("Checkpoint Ende");
 		visual = new Scene(visPane);
+		
 		gui.setStageScene(visual);
+		System.out.println("fertig visual");
 	}
 
 	/**

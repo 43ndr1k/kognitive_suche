@@ -1,6 +1,5 @@
 package gui;
 
-
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.main.Main;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
@@ -40,7 +39,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
@@ -72,446 +75,492 @@ import javafx.util.Duration;
  */
 
 public class GUI extends Stage {
-  private static final int windowHeight = 768;
-  private static final int windowWidth = 1024;
-  private static final int FAROO = 0;
-  private static final int DUCKDUCKGO = 1;
+	private static final int windowHeight = 768;
+	private static final int windowWidth = 1280;
+	private static final int FAROO = 0;
+	private static final int DUCKDUCKGO = 1;
 
-  private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder direkt gestartet wird
-  private Controller mController;
-  public ArrayList<String> tags = new ArrayList<String>();
-  public ArrayList<String> url = new ArrayList<String>();
-  public ArrayList<String> kwic = new ArrayList<String>();
-  private BorderPane pane1 = new BorderPane();
-  Scene start;
-  private Stage stage;
-  TextField suchleiste;
-  private Timeline timeline = new Timeline();
-  private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
-  BorderPane loadingPane = new BorderPane();
-  Scene loadingScene;
-  ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
+	private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder
+								// direkt gestartet wird
+	private Controller mController;
+	public ArrayList<String> tags = new ArrayList<String>();
+	public ArrayList<String> url = new ArrayList<String>();
+	public ArrayList<String> kwic = new ArrayList<String>();
+	private BorderPane pane1 = new BorderPane();
+	Scene start;
+	private Stage stage;
+	TextField suchleiste;
+	private Timeline timeline = new Timeline();
+	private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
+	BorderPane loadingPane = new BorderPane();
+	Scene loadingScene;
+	ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
 
-  private static GUI instance;
+	private static GUI instance;
 
+	/**
+	 * Konstruktor wird benötigt um eine Instanz der GUI zu erstellen.
+	 * Threadunsichere Instanzerstellung.
+	 *
+	 */
+	private GUI() {
+		/*
+		 * Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen
+		 * aus PDFBox
+		 */
+		start = new Scene(pane1);
+		stage = new Stage();
+		suchleiste = new TextField();
+		loadingScene = new Scene(loadingPane);
+		mController = new Controller();
 
+		mController.setGUI(this);
+		mController.setParameter("de", "web", 1);
 
-  /**
-   * Konstruktor wird benötigt um eine Instanz der GUI zu erstellen. Threadunsichere Instanzerstellung.
-   *
-   */
-  private GUI() {
-    /* Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox */
-    start = new Scene(pane1);
-    stage = new Stage();
-    suchleiste = new TextField();
-    loadingScene = new Scene(loadingPane);
-    mController = new Controller();
+		/* Anzeige der Stage */
+		stage.setTitle("Kognitive Suche");
+		stage.centerOnScreen();
 
-    mController.setGUI(this);
-    mController.setParameter("de", "web", 1);
+		stage.setWidth(windowWidth);
+		stage.setHeight(windowHeight);
+		stage.setScene(drawHomeScreen());
 
-    /* Anzeige der Stage */
-    stage.setTitle("Kognitive Suche");
-    stage.centerOnScreen();
+		stage.setResizable(true);
+		stage.show();
+	}
 
-    stage.setWidth(windowWidth);
-    stage.setHeight(windowHeight);
-    stage.setScene(drawHomeScreen());
+	/**
+	 * Methode zur Erstellung des Buttons mit Logo für die Rückkehr auf die
+	 * Startseite.
+	 *
+	 * @author Sebastian Hügelmann
+	 * @return HBox
+	 */
+	public HBox goHomeButton() {
 
-    stage.setResizable(true);
-    stage.show();
-  }
+		HBox hboxHOME = new HBox();
+		final ImageView imv = new ImageView();
+		final Image image = new Image("file:static/icons/bild.jpg");
+		imv.setImage(image);
+		imv.setCursor(Cursor.HAND);
 
+		imv.addEventHandler(MouseEvent.MOUSE_CLICKED,
+				new EventHandler<MouseEvent>() {
 
-  /**
-   * Methode zur Erstellung des Buttons mit Logo für die Rückkehr auf die Startseite.
-   *
-   * @author Sebastian Hügelmann
-   * @return HBox
-   */
-  public HBox goHomeButton() {
+					@Override
+					public void handle(MouseEvent event) {
+						System.out.println("Tile pressed");
+						stage.setScene(drawHomeScreen());
+					}
+				});
 
-    HBox hboxHOME = new HBox();
-    final ImageView imv = new ImageView();
-    final Image image = new Image("file:static/icons/bild.jpg");
-    imv.setImage(image);
-    imv.setCursor(Cursor.HAND);
+		hboxHOME.getChildren().add(imv);
+		hboxHOME.setAlignment(Pos.CENTER);
+		hboxHOME.setPadding(new Insets(15, 15, 15, 15));
+		return hboxHOME;
+	}
 
-    imv.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+	private String InputStream() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-      @Override
-      public void handle(MouseEvent event) {
-        System.out.println("Tile pressed");
-        stage.setScene(drawHomeScreen());
-      }
-    });
+	/**
+	 * Methode zeichnet die Startszene
+	 *
+	 * @author Sebastian Hügelmann
+	 * @return Scene
+	 */
+	public Scene drawHomeScreen() {
+		pane1.getChildren().clear();
+		HBox hbox1 = new HBox();// horizontale Box für Suchleiste und Buttons
+		HBox hbox2 = new HBox();// schliessen box
+		HBox hbox3 = new HBox();// Horizontale Box für Buttons von vbox2 und
+								// vbox3
+		VBox vbox1 = new VBox();// vertikale Box für Logo, hbox2
+		VBox vbox2 = new VBox();// Vertikale Box für Sprachauswahl Buttons
+		VBox vbox3 = new VBox();// Vertikale Box für Suchartauswahl Buttons
+		final String[] SelectedLanguage = { "de" }; // Variable für
+													// Sprachauswahl
+		final String[] Selectedsrc = { "web" }; // Variable für Suchartauswahl
+		pane1.setStyle("-fx-background-color: #FFF;");
+		pane1.setCenter(vbox1);
+		pane1.setBottom(hbox2);// schliessen
 
-    hboxHOME.getChildren().add(imv);
-    hboxHOME.setAlignment(Pos.CENTER);
-    hboxHOME.setPadding(new Insets(15, 15, 15, 15));
-    return hboxHOME;
-  }
+		if (startMode == 1) {
+			Label pdfAnzeige = new Label();
+			pdfAnzeige = new Label("Eingelesene PDFs: "
+					+ mController.getPdfBoxDocuments().size());
+			pdfAnzeige.setStyle("-fx-font-size: 12pt;");
+			hbox3.getChildren().addAll(pdfAnzeige);
+		}
 
+		hbox1.setAlignment(Pos.CENTER);
+		hbox2.setAlignment(Pos.BOTTOM_RIGHT);// Rechte ecke postionsbestimmung
+												// closebox
 
-  private String InputStream() {
-    // TODO Auto-generated method stub
-    return null;
-  }
+		hbox3.setAlignment(Pos.BOTTOM_CENTER);
 
+		hbox3.setPadding(new Insets(-50));
+		hbox3.setSpacing(20);
 
-  /**
-   * Methode zeichnet die Startszene
-   *
-   * @author Sebastian Hügelmann
-   * @return Scene
-   */
-  public Scene drawHomeScreen() {
-    pane1.getChildren().clear();
-    HBox hbox1 = new HBox();// horizontale Box für Suchleiste und Buttons
-    HBox hbox2 = new HBox();// schliessen box
-    HBox hbox3 = new HBox();// Horizontale Box für Buttons von vbox2 und vbox3
-    VBox vbox1 = new VBox();// vertikale Box für Logo, hbox2
-    VBox vbox2 = new VBox();// Vertikale Box für Sprachauswahl Buttons
-    VBox vbox3 = new VBox();// Vertikale Box für Suchartauswahl Buttons
-    final String[] SelectedLanguage = {"de"}; // Variable für Sprachauswahl
-    final String[] Selectedsrc = {"web"}; // Variable für Suchartauswahl
-    pane1.setStyle("-fx-background-color: #FFF;");
-    pane1.setCenter(vbox1);
-    pane1.setBottom(hbox2);// schliessen
-    
-    if(startMode == 1)
-    {
-       Label pdfAnzeige = new Label();
-       pdfAnzeige = new Label("Eingelesene PDFs: " + mController.getPdfBoxDocuments().size());
-       pdfAnzeige.setStyle("-fx-font-size: 12pt;");
-       hbox3.getChildren().addAll(pdfAnzeige);
-    }
+		vbox2.setPadding(new Insets(10));
+		vbox2.setSpacing(10);
 
-    hbox1.setAlignment(Pos.CENTER);
-    hbox2.setAlignment(Pos.BOTTOM_RIGHT);// Rechte ecke postionsbestimmung closebox
+		vbox3.setPadding(new Insets(10));
+		vbox3.setSpacing(10);
 
-    hbox3.setAlignment(Pos.BOTTOM_CENTER);
+		hbox1.setPadding(new Insets(15, 30, 15, 30)); /*
+													 * Bestimmt den Abstand vom
+													 * Rand nach Innen
+													 */
+		hbox1.setSpacing(20); /* Bestimmt den Abstand der Elemente voneinander */
+		hbox1.setStyle("-fx-background-color: #FFF;"); /*
+														 * Bestimmt die
+														 * Hintergrundfarbe
+														 */
+		vbox1.setStyle("-fx-background-color: #FFF;");
+		vbox1.setAlignment(Pos.CENTER);
+		vbox1.setSpacing(50);
+		suchleiste.setMaxWidth(200);
+		suchleiste.clear();
 
-    hbox3.setPadding(new Insets(-50));
-    hbox3.setSpacing(20);
+		Button close = new Button("Schliessen");// button zum schliessen
 
-    vbox2.setPadding(new Insets(10));
-    vbox2.setSpacing(10);
+		close.setOnAction(new EventHandler<ActionEvent>() {
 
-    vbox3.setPadding(new Insets(10));
-    vbox3.setSpacing(10);
+			public void handle(ActionEvent event) {
+				Platform.exit();
 
-    hbox1.setPadding(new Insets(15, 30, 15, 30)); /* Bestimmt den Abstand vom Rand nach Innen */
-    hbox1.setSpacing(20); /* Bestimmt den Abstand der Elemente voneinander */
-    hbox1.setStyle("-fx-background-color: #FFF;"); /* Bestimmt die Hintergrundfarbe */
-    vbox1.setStyle("-fx-background-color: #FFF;");
-    vbox1.setAlignment(Pos.CENTER);
-    vbox1.setSpacing(50);
-    suchleiste.setMaxWidth(200);
-    suchleiste.clear();
+			}
 
-    Button close = new Button("Schliessen");// button zum schliessen
+		});
 
-    close.setOnAction(new EventHandler<ActionEvent>() {
+		suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent keyEvent) {
+				if (keyEvent.getCode() == KeyCode.ENTER) {
+					startQuery();
+				}
+			}
 
-      public void handle(ActionEvent event) {
-        Platform.exit();
+		});
 
-      }
+		hbox1.getChildren().add(suchleiste);
 
-    });
+		if (startMode == 0) {
 
-    suchleiste.setOnKeyPressed(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent keyEvent) {
-        if (keyEvent.getCode() == KeyCode.ENTER) {
-          startQuery();
-        }
-      }
+			Button sucheW = new Button("Suche in Web");
 
-    });
-    
-    hbox1.getChildren().add(suchleiste);
+			sucheW.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent sucheF) {
+					startQuery();
+				}
+			});
 
-    if(startMode == 0)
-    {
-    
-      Button sucheW = new Button("Suche in Web");
-  
-      sucheW.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent sucheF) {
-          startQuery();
-        }
-      });
-      
-      hbox1.getChildren().add(sucheW);
-      
-    }
-    
-    if(startMode == 1)
-    {
-    
-      Button sucheP = new Button("Suche in PDFs");
-  
-      sucheP.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent sucheP) {
-          
-        }
-      });
-      
-      hbox1.getChildren().add(sucheP);
-      
-    }
+			hbox1.getChildren().add(sucheW);
 
-    Button history = new Button("Verlauf");
-    history.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent sucheP) {
-          showHistory();
-      }
+		}
 
-    });
-    
-    hbox1.getChildren().add(history);
-    vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
-    return start;
-  }
-  
-    /**
-     * @author Fabian Freihube
-     * Methode um den Suchverlauf anzuzeigen
-     */
-    private void showHistory() {
-        // TODO Auto-generated method stub
-    
-        ArrayList<HistoryObject> historyData = mController.getHistory();
-        Collections.reverse(historyData);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        
-        Separator sTitle = new Separator();
-        VBox vbox1 = new VBox();
-        VBox titleBox = new VBox();
-        HBox lineBox;
-        BorderPane historyPane = new BorderPane();
-        BorderPane pane = new BorderPane();
-        ScrollPane rol = new ScrollPane();
-        Hyperlink[] link = new Hyperlink[historyData.size()];
-        Label dateLabel = new Label();
-        
-        Label title = new Label("Verlaufsübersicht:");
-        title.setStyle("-fx-font-size: 20pt;");
-        titleBox.getChildren().addAll(title, sTitle);
-        pane.setTop(titleBox);
+		if (startMode == 1) {
 
-        // Label label2[] = new Label[25];
+			Button sucheP = new Button("Suche in PDFs");
 
-        for (int k = 0; k < historyData.size(); k++) {      
-          dateLabel = new Label(dateFormat.format(historyData.get(k).date) + ": ");
-          link[k] = new Hyperlink(historyData.get(k).searchWord);
-          lineBox = new HBox();
-          lineBox.setStyle("-fx-padding: 5 5 5 5");
-          lineBox.getChildren().addAll(dateLabel, link[k]);
-          vbox1.getChildren().add(lineBox);
-          dateLabel.setWrapText(true);
-          dateLabel.setStyle("-fx-font-weight: italic;");
-          dateLabel.setStyle("-fx-label-padding: 0 0 0 0;");
-          dateLabel.setStyle("-fx-font-size: 20pt;");
-          link[k].setStyle("-fx-font-size: 18pt;");
-          
-          String searchword = historyData.get(k).searchWord;
-          
-          link[k].setOnAction(new EventHandler<ActionEvent>() {
-              @Override
-              public void handle(ActionEvent sucheP) {
-                  setSuchleisteText(searchword);
-              }
-            });
-        }
+			sucheP.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent sucheP) {
 
-        pane.setCenter(vbox1);
-        rol.setPrefSize(500, 500);
-        rol.setContent(pane);
-        rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-        rol.setStyle("-fx-padding: 25 25 25 25");
+				}
+			});
 
-        BorderPane homebuttonPane = new BorderPane();
+			hbox1.getChildren().add(sucheP);
 
-        homebuttonPane.setCenter(goHomeButton());
-        homebuttonPane.setStyle("-fx-background-color: #FFF;");
-        homebuttonPane.setPrefHeight(getWindowheight() * 0.15);
-        
-        historyPane.setTop(homebuttonPane);
-        historyPane.setCenter(rol);
-        Scene historyScene = new Scene (historyPane);
-        
-        stage.setScene(historyScene);
+		}
 
-    }
+		Button history = new Button("Verlauf");
+		history.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent sucheP) {
+				showHistory();
+			}
 
-  /**
-   * Diese Methode startet die Suche aus dem Controller
-   *
-   */
-  public void startQuery() {
-    stage.setScene(loadIndicator());
+		});
 
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
-        } catch (SearchApiExecption searchApiExecption) {
-          searchApiExecption.printStackTrace();
-        }
-      }
-    });//runlater Ende
-    
-//    final Task task = new Task(){                               // 1
-//        @Override
-//        public Void call() {
-//          try {
-//              mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
-//          } catch (SearchApiExecption e) {
-//              // TODO Auto-generated catch block
-//              e.printStackTrace();
-//          }
-//            return null;
-//        } 
-//    };
-//    new Thread(task).start();
-//    System.out.println("gestartet");
-    
-//    Task task = new Task<Void>() {
-//        @Override public Void call() {
-//          try {
-//              mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
-//          } catch (SearchApiExecption e) {
-//              // TODO Auto-generated catch block
-//              e.printStackTrace();
-//          }
-//            stage.setScene(mController.getVisual());
-//            return null;
-//        }
-//    };
+		hbox1.getChildren().add(history);
+		vbox1.getChildren().addAll(goHomeButton(), hbox1, hbox3);
+		return start;
+	}
+
+	/**
+	 * @author Fabian Freihube Methode um den Suchverlauf anzuzeigen
+	 */
+	private void showHistory() {
+		// TODO Auto-generated method stub
+
+		ArrayList<HistoryObject> historyData = mController.getHistory();
+		Collections.reverse(historyData);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+
+		Separator sTitle = new Separator();
+		VBox vbox1 = new VBox();
+		VBox titleBox = new VBox();
+		HBox lineBox;
+		BorderPane historyPane = new BorderPane();
+		BorderPane pane = new BorderPane();
+		ScrollPane rol = new ScrollPane();
+		Hyperlink[] link = new Hyperlink[historyData.size()];
+		Label dateLabel = new Label();
+
+		Label title = new Label("Verlaufsübersicht:");
+		title.setStyle("-fx-font-size: 20pt;");
+		titleBox.getChildren().addAll(title, sTitle);
+		pane.setTop(titleBox);
+
+		// Label label2[] = new Label[25];
+
+		for (int k = 0; k < historyData.size(); k++) {
+			dateLabel = new Label(dateFormat.format(historyData.get(k).date)
+					+ ": ");
+			link[k] = new Hyperlink(historyData.get(k).searchWord);
+			lineBox = new HBox();
+			lineBox.setStyle("-fx-padding: 5 5 5 5");
+			lineBox.getChildren().addAll(dateLabel, link[k]);
+			vbox1.getChildren().add(lineBox);
+			dateLabel.setWrapText(true);
+			dateLabel.setStyle("-fx-font-weight: italic;");
+			dateLabel.setStyle("-fx-label-padding: 0 0 0 0;");
+			dateLabel.setStyle("-fx-font-size: 20pt;");
+			link[k].setStyle("-fx-font-size: 18pt;");
+
+			String searchword = historyData.get(k).searchWord;
+
+			link[k].setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent sucheP) {
+					setSuchleisteText(searchword);
+				}
+			});
+		}
+
+		pane.setCenter(vbox1);
+		rol.setPrefSize(500, 500);
+		rol.setContent(pane);
+		rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		rol.setStyle("-fx-padding: 25 25 25 25");
+
+		BorderPane homebuttonPane = new BorderPane();
+
+		homebuttonPane.setCenter(goHomeButton());
+		homebuttonPane.setStyle("-fx-background-color: #FFF;");
+		homebuttonPane.setPrefHeight(getWindowheight() * 0.15);
+
+		historyPane.setTop(homebuttonPane);
+		historyPane.setCenter(rol);
+		Scene historyScene = new Scene(historyPane);
+
+		stage.setScene(historyScene);
+
+	}
+
+	/**
+	 * Diese Methode startet die Suche aus dem Controller
+	 *
+	 */
+	public void startQuery() {
+//		ExecutorService executor = Executors.newCachedThreadPool();
+//		Runnable r1 = new Runnable() {
+//			@Override public void run() {
+//				stage.setScene(loadIndicator());
+//			}
+//			};
+		stage.setScene(loadIndicator());
+
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					mController.querySearchEngine(DUCKDUCKGO,
+							suchleiste.getText());
+				} catch (SearchApiExecption searchApiExecption) {
+					searchApiExecption.printStackTrace();
+				}
+			}
+		});
+//		
+//		final Task task = new Task() {
+//			@Override
+//			public Void call() {
+//				try {
+//					mController.querySearchEngine(DUCKDUCKGO,
+//							suchleiste.getText());
+//				} catch (SearchApiExecption e) {
+//					e.printStackTrace();
+//				}
+//				Platform.runLater(new Runnable() {
+//					@Override
+//					public void run() {
+//						stage.setScene(mController.getVisual());
+//					}
+//				});
 //
-//    Thread th = new Thread(task);
-//    th.setDaemon(true);
-//    th.start();
-    
-  }
+//				return null;sse
+//			}
+//		};
+		
+//		executor.execute(r1);
+//		new Thread(task).start();
+		
+		//einzige Task die funktioniert, überspringt aber trotzdem den LoadingIndicator.
+//		final FutureTask query = new FutureTask(new Callable() {
+//			@Override
+//			public Scene call() throws Exception {
+//				try {
+//					 mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
+//					 } catch (SearchApiExecption searchApiExecption) {
+//					 searchApiExecption.printStackTrace();
+//					 }
+//				Scene visual = mController.getVisual();
+//				return visual;
+//			}
+//		});
+//		Thread t = new Thread(query);
+//		t.start();
+	
+//		Platform.runLater(query);
+//		stage.setScene(query.get());
+		
 
-  /**
-   * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.
-   *
-   * @author Sebastian Hügelmann
-   * @param suchleiste Suchleiste für den Suchbegriff.
-   */
+//		Task task = new Task<Void>() {
+//			@Override
+//			public Void call() {
+//				try {
+//					mController.querySearchEngine(DUCKDUCKGO,
+//							suchleiste.getText());
+//				} catch (SearchApiExecption e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				stage.setScene(mController.getVisual());
+//				return null;
+//			}
+//		};
+//
+//		Thread th = new Thread(task);
+//		th.setDaemon(true);
+//		th.start();
 
-  public void setSuchleisteText(String suchleiste) {
-    System.out.println("Übergebener Begriff " + suchleiste);
-    this.suchleiste.setText(suchleiste);
-    System.out.println(this.suchleiste.getText());
-    startQuery();
-  }
+	}
 
-  public static int getWindowheight() {
-    return windowHeight;
-  }
+	/**
+	 * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie
+	 * in der Visualisierung.
+	 *
+	 * @author Sebastian Hügelmann
+	 * @param suchleiste
+	 *            Suchleiste für den Suchbegriff.
+	 */
 
-  public static int getWindowwidth() {
-    return windowWidth;
-  }
+	public void setSuchleisteText(String suchleiste) {
+		System.out.println("Übergebener Begriff " + suchleiste);
+		this.suchleiste.setText(suchleiste);
+		System.out.println(this.suchleiste.getText());
+		startQuery();
+	}
 
-  public void setStageScene(Scene visual) {
-    this.stage.setScene(visual);
-    stage.setScene(visual);
-  }
+	public static int getWindowheight() {
+		return windowHeight;
+	}
 
-  public Stage getStage() {
-    return this.stage;
-  }
+	public static int getWindowwidth() {
+		return windowWidth;
+	}
 
+	public void setStageScene(Scene visual) {
+		this.stage.setScene(visual);
+		stage.setScene(visual);
+	}
 
-  private Scene loadIndicator() {
-    System.out.println("Ladebalken Methode gestartet!");
-    loadingPane.setStyle("-fx-background-color: #FFF;");
-    timeline.setCycleCount(Timeline.INDEFINITE);
+	public Stage getStage() {
+		return this.stage;
+	}
 
-    final KeyValue kv = new KeyValue(stroke, 0);
-    final KeyFrame kf = new KeyFrame(Duration.millis(1500), kv);
+	private Scene loadIndicator() {
+		System.out.println("Ladebalken Methode gestartet!");
+		loadingPane.setStyle("-fx-background-color: #FFF;");
+		timeline.setCycleCount(Timeline.INDEFINITE);
 
-    timeline.getKeyFrames().add(kf);
-    timeline.play();
+		final KeyValue kv = new KeyValue(stroke, 0);
+		final KeyFrame kf = new KeyFrame(Duration.millis(1500), kv);
 
-    // Vertikale Box für Loading Bar und darunter Label
-    VBox root = new VBox(3);
-    root.setAlignment(Pos.CENTER);
+		timeline.getKeyFrames().add(kf);
+		timeline.play();
 
-    // Stackpane für den Balken
-    StackPane progressIndicator = new StackPane();
+		// Vertikale Box für Loading Bar und darunter Label
+		VBox root = new VBox(3);
+		root.setAlignment(Pos.CENTER);
 
-    // Ladebalken
-    Rectangle bar = new Rectangle(350, 13);
-    bar.setFill(Color.TRANSPARENT);
-    bar.setStroke(Color.BLACK);
-    bar.setArcHeight(15);
-    bar.setArcWidth(15);
-    bar.setStrokeWidth(2);
+		// Stackpane für den Balken
+		StackPane progressIndicator = new StackPane();
 
-    // Viereck im balken
-    Rectangle progress = new Rectangle(342, 6);
-    progress.setFill(Color.BLACK);
-    progress.setStroke(Color.BLACK);
-    progress.setArcHeight(8);
-    progress.setArcWidth(8);
-    progress.setStrokeWidth(1.5);
-    progress.getStrokeDashArray().addAll(3.0, 7.0, 3.0, 7.0);
-    progress.strokeDashOffsetProperty().bind(stroke);
+		// Ladebalken
+		Rectangle bar = new Rectangle(350, 13);
+		bar.setFill(Color.TRANSPARENT);
+		bar.setStroke(Color.BLACK);
+		bar.setArcHeight(15);
+		bar.setArcWidth(15);
+		bar.setStrokeWidth(2);
 
-    // Hinzufügen zur StackPane
-    progressIndicator.getChildren().add(progress);
-    progressIndicator.getChildren().add(bar);
+		// Viereck im balken
+		Rectangle progress = new Rectangle(342, 6);
+		progress.setFill(Color.BLACK);
+		progress.setStroke(Color.BLACK);
+		progress.setArcHeight(8);
+		progress.setArcWidth(8);
+		progress.setStrokeWidth(1.5);
+		progress.getStrokeDashArray().addAll(3.0, 7.0, 3.0, 7.0);
+		progress.strokeDashOffsetProperty().bind(stroke);
 
-    // Stackpane zur VBox um darunter das label zu packen
-    root.getChildren().add(progressIndicator);
+		// Hinzufügen zur StackPane
+		progressIndicator.getChildren().add(progress);
+		progressIndicator.getChildren().add(bar);
 
-    Text label = new Text("Loading...");
-    label.setFill(Color.BLACK);
+		// Stackpane zur VBox um darunter das label zu packen
+		root.getChildren().add(progressIndicator);
 
-    // Label wird hinzugefügt
-    root.getChildren().add(label);
+		Text label = new Text("Loading...");
+		label.setFill(Color.BLACK);
 
-    // Jetzt ist alles in der VBox root
-    loadingPane.setCenter(root);
-    return loadingScene;
-  }
+		// Label wird hinzugefügt
+		root.getChildren().add(label);
 
-  public TextField getSuchleiste() {
-    // Auto-generated method stub
-    return suchleiste;
-  }
+		// Jetzt ist alles in der VBox root
+		loadingPane.setCenter(root);
+		return loadingScene;
+	}
 
-  public static GUI getInstance() {
-    if (instance == null) {
-      instance = new GUI();
-    }
-    return instance;
+	public TextField getSuchleiste() {
+		// Auto-generated method stub
+		return suchleiste;
+	}
 
-  }
-  
-  public Controller getController() {
-    return mController;
-  }
+	public static GUI getInstance() {
+		if (instance == null) {
+			instance = new GUI();
+		}
+		return instance;
 
+	}
 
-  public void setStartMode(int mode) {
-    this.startMode = mode;
-  }
-  
-  public void reDrawHomeScreen() {
-    stage.setScene(drawHomeScreen());
-  }
+	public Controller getController() {
+		return mController;
+	}
+
+	public void setStartMode(int mode) {
+		this.startMode = mode;
+	}
+
+	public void reDrawHomeScreen() {
+		stage.setScene(drawHomeScreen());
+	}
 }
