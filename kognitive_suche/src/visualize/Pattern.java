@@ -328,10 +328,7 @@ public class Pattern {
         System.out.println("Hallo");
         System.out.println(testlabel);
         System.out.println(largeTopicLabel.getText());
-        // GUI.getInstance();
-        // Funzt noch nicht da Scheiße!
         System.out.println("Text geholt von gui suchleiste: " + gui.getSuchleiste().getText());
-
         gui.setSuchleisteText(largeTopicLabel.getText());
       }
     });
