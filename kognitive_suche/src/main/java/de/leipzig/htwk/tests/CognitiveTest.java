@@ -1,3 +1,5 @@
+package de.leipzig.htwk.tests;
+
 import cognitive.search.ColognePhonetic;
 import cognitive.search.EditTags;
 import cognitive.search.ReturnTagList;
