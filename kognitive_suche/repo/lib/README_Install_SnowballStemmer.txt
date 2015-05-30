@@ -1,0 +1,6 @@
+/**
+* Folgenden Befehl in der Console ausführen. Die Console muss im Verzeichnis lib sich befinden.
+* z.b. wie hier:
+* C:// ...workspace/kognitive_suche_maven/kognitive_suche/lib
+
+mvn install:install-file -Dfile=SnowballStemmer.jar -DgroupId=lib -DartifactId=SnowballStemmer -Dversion=1.0 -Dpackaging=jar

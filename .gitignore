@@ -138,3 +138,9 @@ hs_err_pid*
 
 *.idea
 out/
+
+# log files
+
+*.log
+target/
+history.last
