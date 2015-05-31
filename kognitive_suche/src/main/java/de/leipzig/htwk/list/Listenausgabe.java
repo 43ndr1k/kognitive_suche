@@ -65,7 +65,6 @@ public class Listenausgabe {
   public Listenausgabe(Results results) {
     //mController.farooSearch(query); benötigt ?
     //Results results = mController.getResultList();
-    System.out.println(results.getResults().get(1).getTitle());
     for (int i = 0; i < results.getResults().size(); i++) {
       kwic.add(results.getResults().get(i).getKwic());
       title.add(results.getResults().get(i).getTitle());
@@ -84,8 +83,8 @@ public class Listenausgabe {
     Label[] label1 = new Label[50];
     Label[] label = new Label[25];
     // Label label2[] = new Label[25];
-    int anzsucherg = 20;
-
+    int anzsucherg = (20 > url.size()) ? url.size() : 20; //lässt sich auch auf unter 20 Ergbnisse erweitern und Funktioniert
+    
     final WebView browser = new WebView();
     final WebEngine webEngine = browser.getEngine();
     for (int k = 0; k < anzsucherg; k++) {
