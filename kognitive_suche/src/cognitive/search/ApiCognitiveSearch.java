@@ -63,6 +63,8 @@ public class ApiCognitiveSearch {
     EditTags edit = new EditTags(tags);
     edit.removeTagsFromWordList();
 
+    edit.removePreviousTags();
+    
     // edit.stem();
     edit.removeTagsLongerThanVar(15);
     // edit.findRepresentativeTags(findOutBlocNumbers());
