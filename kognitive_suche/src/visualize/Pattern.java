@@ -324,12 +324,9 @@ public class Pattern {
       public void handle(MouseEvent event) {
 
         gui = GUI.getInstance();
-
-        System.out.println("Hallo");
-        System.out.println(testlabel);
-        System.out.println(largeTopicLabel.getText());
-        System.out.println("Text geholt von gui suchleiste: " + gui.getSuchleiste().getText());
-        gui.setSuchleisteText(largeTopicLabel.getText());
+        
+        gui.getSuchleiste().setText(gui.getSuchleiste().getText() + "+" + largeTopicLabel.getText());
+        gui.setSuchleisteText(gui.getSuchleiste().getText());
       }
     });
 
