@@ -110,7 +110,7 @@ public class GUI extends Stage {
 
 		HBox hboxHOME = new HBox();
 		final ImageView imv = new ImageView();
-		final Image image = new Image("file:src/main/resources/images/bild.jpg");
+		final Image image = new Image("file:static/icons/bild.jpg");
 		imv.setImage(image);
 		imv.setCursor(Cursor.HAND);
 
