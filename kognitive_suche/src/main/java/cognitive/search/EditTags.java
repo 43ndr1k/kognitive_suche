@@ -1,6 +1,7 @@
 package cognitive.search;
 
 import general.functions.TxtReader;
+import gui.GUI;
 import snowballstemmer.GermanStemmer;
 
 import java.io.File;
@@ -82,7 +83,25 @@ public class EditTags {
     }
 
   }
-
+/*
+ * test.
+ * 
+ * @author Ivan Ivanikov
+ * 
+ */
+  public void removePreviousTags() {
+      String query = GUI.getInstance().getSuchleiste().getText().toString().toLowerCase().trim();
+      ReturnTagObject tag;
+      
+      for(int i = tags.getSize() - 1; i >= 0; i--) {
+          tag = tags.getTagObject(i);
+          
+           if(query.contains(tag.getTag().toString().trim().toLowerCase())) {
+               tags.deleteTag(tag.getTag().toString());
+          }
+      }
+  }
+  
   public void removeTagsLongerThanVar(int lengthVar) {
     for (int i = 0; i < tags.getSize(); i++) {
       if (tags.getTagObject(i).getTag().length() > lengthVar) {
@@ -143,13 +162,15 @@ public class EditTags {
   public void sortTagsByPriority() {
     tags.sortTagsByPriority();
   }
-
+//try catch verhindert kompletten Programmabsturz iv
   public void removeSpaces() {
     int i = 0;
-    while (("a").compareToIgnoreCase(tags.getTagObject(i).getTag()) > 0) {
-      tags.deleteTag(i);
-      i++;
-    }
+    try {
+	    while (("a").compareToIgnoreCase(tags.getTagObject(i).getTag()) > 0) {
+	    	tags.deleteTag(i);
+	    	i++;
+	    }
+    } catch(Exception e) {}
   }
 
   public void removeSearchwords() {
@@ -193,7 +214,7 @@ public class EditTags {
         // Die Tags werden auf Vorkommen in der aktuellen WorlList untersucht
         for (int i = 0; i < tags.getSize(); i++) {
           if (isInList(wordList, tags.getTagObject(i).getTag())) {
-            System.out.println(tags.getTagObject(i).getTag() + " wurde ersetzt durch: " + category);
+            //System.out.println(tags.getTagObject(i).getTag() + " wurde ersetzt durch: " + category);
             tags.renameTag(tags.getTagObject(i).getTag(), category);
           }
         }

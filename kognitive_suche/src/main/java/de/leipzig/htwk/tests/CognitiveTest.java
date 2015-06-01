@@ -1,8 +1,12 @@
 package de.leipzig.htwk.tests;
 
-import static org.junit.Assert.*;
-import cognitive.search.*;
+import cognitive.search.ColognePhonetic;
+import cognitive.search.EditTags;
+import cognitive.search.ReturnTagList;
+import cognitive.search.WordCount;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class CognitiveTest {
 
