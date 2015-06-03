@@ -67,6 +67,7 @@ import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.Duration;
+import java.awt.Toolkit;
 
 /**
  * Erstellung der GUI
@@ -371,7 +372,6 @@ public class GUI extends Stage {
 	 */
 	public void startQuery() {
 		stage.setScene(loadIndicator());
-
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
