@@ -17,10 +17,20 @@
 	</organization>
 
     <properties>
+
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.failOnError>true</maven.compiler.failOnError>
+
+        <groupId>${project.groupId}</groupId>
+        <artifactId>${project.artifactId}</artifactId>
+        <version>${project.version}</version>
+        <packaging>${project.packaging}</packaging>
+        <file>repo/lib/1.0/SnowballStemmer.jar</file>
+    
+
+
     </properties>
 
     <repositories>
@@ -215,24 +225,16 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-install-plugin</artifactId>
-                <version>2.4</version>
                 <executions>
                     <execution>
-                        <phase>compile</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
-                        <configuration>
-                            <groupId>SnowballStemmer</groupId>
-                            <artifactId>SnowballSteammer</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <file>repo/lib/1.0/SnowballStemmer.jar</file>
-
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
