@@ -30,7 +30,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -96,7 +95,7 @@ public class GUI extends Stage {
 	BorderPane loadingPane = new BorderPane();
 	Scene loadingScene;
 	ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
-	
+
 	private static GUI instance;
 
 	/**
@@ -119,10 +118,9 @@ public class GUI extends Stage {
 		mController.setParameter("de", "web", 1);
 
 		/* Anzeige der Stage */
-		Image icon = new Image("file:static/icons/icon.png");
-		stage.getIcons().add(icon);
 		stage.setTitle("Kognitive Suche");
 		stage.centerOnScreen();
+
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);
 		stage.setScene(drawHomeScreen());
@@ -370,12 +368,6 @@ public class GUI extends Stage {
 	 *
 	 */
 	public void startQuery() {
-//		ExecutorService executor = Executors.newCachedThreadPool();
-//		Runnable r1 = new Runnable() {
-//			@Override public void run() {
-//				stage.setScene(loadIndicator());
-//			}
-//			};
 		stage.setScene(loadIndicator());
 
 		Platform.runLater(new Runnable() {
@@ -389,69 +381,6 @@ public class GUI extends Stage {
 				}
 			}
 		});
-//		
-//		final Task task = new Task() {
-//			@Override
-//			public Void call() {
-//				try {
-//					mController.querySearchEngine(DUCKDUCKGO,
-//							suchleiste.getText());
-//				} catch (SearchApiExecption e) {
-//					e.printStackTrace();
-//				}
-//				Platform.runLater(new Runnable() {
-//					@Override
-//					public void run() {
-//						stage.setScene(mController.getVisual());
-//					}
-//				});
-//
-//				return null;sse
-//			}
-//		};
-		
-//		executor.execute(r1);
-//		new Thread(task).start();
-		
-		//einzige Task die funktioniert, überspringt aber trotzdem den LoadingIndicator.
-//		final FutureTask query = new FutureTask(new Callable() {
-//			@Override
-//			public Scene call() throws Exception {
-//				try {
-//					 mController.querySearchEngine(DUCKDUCKGO ,suchleiste.getText());
-//					 } catch (SearchApiExecption searchApiExecption) {
-//					 searchApiExecption.printStackTrace();
-//					 }
-//				Scene visual = mController.getVisual();
-//				return visual;
-//			}
-//		});
-//		Thread t = new Thread(query);
-//		t.start();
-	
-//		Platform.runLater(query);
-//		stage.setScene(query.get());
-		
-
-//		Task task = new Task<Void>() {
-//			@Override
-//			public Void call() {
-//				try {
-//					mController.querySearchEngine(DUCKDUCKGO,
-//							suchleiste.getText());
-//				} catch (SearchApiExecption e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				stage.setScene(mController.getVisual());
-//				return null;
-//			}
-//		};
-//
-//		Thread th = new Thread(task);
-//		th.setDaemon(true);
-//		th.start();
-
 	}
 
 	/**
