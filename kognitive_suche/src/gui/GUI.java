@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,7 +96,7 @@ public class GUI extends Stage {
 	BorderPane loadingPane = new BorderPane();
 	Scene loadingScene;
 	ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
-
+	
 	private static GUI instance;
 
 	/**
@@ -118,9 +119,10 @@ public class GUI extends Stage {
 		mController.setParameter("de", "web", 1);
 
 		/* Anzeige der Stage */
+		Image icon = new Image("file:static/icons/icon.png");
+		stage.getIcons().add(icon);
 		stage.setTitle("Kognitive Suche");
 		stage.centerOnScreen();
-
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);
 		stage.setScene(drawHomeScreen());
