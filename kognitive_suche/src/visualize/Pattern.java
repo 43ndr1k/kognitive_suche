@@ -273,7 +273,6 @@ public class Pattern {
     /**
      * @author Sebastian Hügelmann
      */
-    String testlabel = "baum";
     Label smallTopicLabel = new Label(labelText);
     Label largeTopicLabel = new Label(labelText);
 
@@ -322,11 +321,8 @@ public class Pattern {
     exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-
         gui = GUI.getInstance();
-        
-        gui.getSuchleiste().setText(gui.getSuchleiste().getText() + "+" + largeTopicLabel.getText());
-        gui.setSuchleisteText(gui.getSuchleiste().getText());
+        gui.setSuchleisteText(gui.getSuchleiste().getText() + "+" + largeTopicLabel.getText());
       }
     });
 
