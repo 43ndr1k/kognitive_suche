@@ -72,7 +72,7 @@ public class EditTags {
     TxtReader tr = new TxtReader();
     String tmp = "";
     try {
-      tmp = tr.readFile("stoplist_de.txt");
+      tmp = tr.readFile("src/main/resources/files/stoplist_de.txt");
     } catch (IOException e) {
       System.out.println("Stoplist datei nicht gefunden");
     }
@@ -112,7 +112,7 @@ public class EditTags {
 
   /**
    * @author Tobias Lenz
-   * @param limit - Länge der gekürzten ReturnTagList
+   * @param limit -gnitive_suche/Lists/Personen.txt Länge der gekürzten ReturnTagList
    * 
    *        Hier wird aus der ArrayListe eine subList erstellt und dem ReturnTagObject übergeben.
    *        Dadurch wird die Liste auf die gewünschte Länge gekürzt !Wird nur zur
@@ -193,7 +193,7 @@ public class EditTags {
    */
   public void kategorisieren() {
 
-    File[] files = new File("Lists").listFiles();
+    File[] files = new File("src/main/resources/Lists").listFiles();
 
     // Iteration über alle Files in dem Ordner Lists
     for (File list : files) {

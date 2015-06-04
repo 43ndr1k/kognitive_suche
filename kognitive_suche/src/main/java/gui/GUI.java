@@ -88,7 +88,7 @@ public class GUI extends Stage {
 		mController.setParameter("de", "web", 1);
 
 		/* Anzeige der Stage */
-		Image icon = new Image("file:static/icons/icon.png");
+		Image icon = new Image("file:src/main/resources/icons/icon.png");
 		stage.getIcons().add(icon);
 		stage.setTitle("Kognitive Suche");
 		stage.centerOnScreen();
@@ -112,7 +112,7 @@ public class GUI extends Stage {
 
 		HBox hboxHOME = new HBox();
 		final ImageView imv = new ImageView();
-		final Image image = new Image("file:static/icons/bild.jpg");
+		final Image image = new Image("file:src/main/resources/icons/bild.jpg");
 		imv.setImage(image);
 		imv.setCursor(Cursor.HAND);
 
