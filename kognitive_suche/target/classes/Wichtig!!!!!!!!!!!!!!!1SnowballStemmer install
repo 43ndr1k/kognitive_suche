@@ -1,5 +1,0 @@
-/**
-* Folgenden Befehl in der Console ausführen. Die Console muss im Verzeichnis lib sich befinden.
-
-
-mvn install:install-file -Dfile=SnowballStemmer.jar -DgroupId=com.github.rholder -DartifactId=snowball-stemmer -Dversion=1.3 -Dpackaging=jar
