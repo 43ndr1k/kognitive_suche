@@ -6,3 +6,5 @@ mvn validate
 # install maven dependencies
 echo "install maven dependencies"
 mvn clean install
+
+pause

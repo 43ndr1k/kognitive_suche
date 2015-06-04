@@ -80,13 +80,6 @@
         <resources>
             <resource>
                 <filtering>false</filtering>
-                <directory>${basedir}</directory>
-                <includes>
-                    <include>static/</include>
-                    <include>stoplist_de.txt</include>
-                </includes>
-            </resource>
-            <resource>
                 <directory>${basedir}/src/main</directory>
                 <includes>
                     <include>resources/</include>
