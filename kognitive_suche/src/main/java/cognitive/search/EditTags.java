@@ -72,7 +72,9 @@ public class EditTags {
     TxtReader tr = new TxtReader();
     String tmp = "";
     try {
-      tmp = tr.readFile("src/main/resources/files/stoplist_de.txt");
+      System.out.println(getClass().getResource("/resources/files/stoplist_de.txt").getFile().toString());
+
+      tmp = tr.readFile((getClass().getResource("/resources/files/stoplist_de.txt").getFile()));
     } catch (IOException e) {
       System.out.println("Stoplist datei nicht gefunden");
     }
@@ -185,7 +187,7 @@ public class EditTags {
   /**
    * @author Ivan Ivanikov
    * 
-   * @param Kategorien werden erstellt indem Listen aus dem Ordner Lists nach enthaltenen Begriffen
+   *  Kategorien werden erstellt indem Listen aus dem Ordner Lists nach enthaltenen Begriffen
    *        durchsucht werden z.z werden einfach alle gefundenen Objekte ausgegeben -> es sollen die
    *        Dateinamen ausgegeben werden um später die Tags aus speziellen listen ziehen zu können
    * 
@@ -193,7 +195,7 @@ public class EditTags {
    */
   public void kategorisieren() {
 
-    File[] files = new File("src/main/resources/Lists").listFiles();
+    File[] files = new File(getClass().getResource("/resources/Lists").getFile()).listFiles();
 
     // Iteration über alle Files in dem Ordner Lists
     for (File list : files) {
