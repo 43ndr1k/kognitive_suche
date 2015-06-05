@@ -34,8 +34,8 @@ public class Pad extends Group {
    */
   Polygon lightFrame = new Polygon();
 
-  private static final Image PAD_NORMALIMAGE = new Image("file:static/icons/normal_schwarz.png");
-  private static final Image PAD_LIGHTFRAME = new Image("file:static/icons/lightFrame.png");
+  private static final Image PAD_NORMALIMAGE = new Image("file:src/main/resources/icons/normal_schwarz.png");
+  private static final Image PAD_LIGHTFRAME = new Image("file:src/main/resources/icons/lightFrame.png");
 
   /**
    * Deklaration der verschiedenen Shapes.
