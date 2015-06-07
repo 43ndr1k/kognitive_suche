@@ -96,12 +96,12 @@ public class GUI extends Stage {
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);
 		stage.setScene(drawHomeScreen());
-
+		//damit der Treiber sich schließt
 		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	          public void handle(WindowEvent we) {
 	              mController.closeDriver();
 	          }
-	      });        
+	      });
 		stage.setResizable(true);
 		stage.show();
 	}
