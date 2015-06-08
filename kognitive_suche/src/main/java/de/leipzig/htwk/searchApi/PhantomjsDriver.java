@@ -33,7 +33,6 @@ public class PhantomjsDriver {
     public PhantomjsDriver() {
         //Create instance of PhantomJS driver
         DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
-
         capabilities.setCapability(PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY,getPHANTOMJSPhad());
         driver = new PhantomJSDriver(capabilities);
 
@@ -52,9 +51,6 @@ public class PhantomjsDriver {
      * @return var String mit dem Pfad zu phantomjs
      */
     private String getPHANTOMJSPhad() {
-        String phantomjs[] = {"src/main/resources/phantomjs/phantomjsLinux.bin",
-            "src/main/resources/phantomjs/phantomjsMac.bin", "src/main/resources/phantomjs/phantomjsWin.exe"};
-
 
         String os = "os.name";
 
@@ -66,13 +62,14 @@ public class PhantomjsDriver {
 
         switch (system) {
             case "Linux":
-                var = phantomjs[0];
+                //var = String.valueOf(getClass().getResource("/resources/phantomjs/phantomjsLinux.bin"));
+                var = "repo/lib/phantomjs/phantomjsLinux.bin";
                 break;
             case "Mac OS X":
-                var = phantomjs[1];
+                var = getClass().getResource("resources/phantomjs/phantomjsMac.bin").getPath();
                 break;
            default:
-                var = phantomjs[2];
+                var = getClass().getResource("/resources/phantomjs/phantomjsWin.exe").getPath();
                 break;
 
         }

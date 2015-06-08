@@ -32,11 +32,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import pdf.box.access.PDFDocument;
 import search.history.HistoryObject;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import javafx.stage.WindowEvent;
 
 /**
  * Erstellung der GUI
@@ -88,7 +88,7 @@ public class GUI extends Stage {
 		mController.setParameter("de", "web", 1);
 
 		/* Anzeige der Stage */
-		Image icon = new Image("file:src/main/resources/icons/icon.png");
+		Image icon = new Image(String.valueOf(getClass().getResource("/resources/icons/icon.png")));
 		stage.getIcons().add(icon);
 		stage.setTitle("Kognitive Suche");
 		stage.centerOnScreen();
@@ -96,7 +96,12 @@ public class GUI extends Stage {
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);
 		stage.setScene(drawHomeScreen());
-
+		//damit der Treiber sich schließt
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	              mController.closeDriver();
+	          }
+	      });
 		stage.setResizable(true);
 		stage.show();
 	}
@@ -112,7 +117,7 @@ public class GUI extends Stage {
 
 		HBox hboxHOME = new HBox();
 		final ImageView imv = new ImageView();
-		final Image image = new Image("file:src/main/resources/icons/bild.jpg");
+		final Image image = new Image(String.valueOf(getClass().getResource("/resources/icons/bild.jpg")));
 		imv.setImage(image);
 		imv.setCursor(Cursor.HAND);
 
