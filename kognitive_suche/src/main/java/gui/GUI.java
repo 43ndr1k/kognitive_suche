@@ -32,11 +32,11 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import pdf.box.access.PDFDocument;
 import search.history.HistoryObject;
-
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import javafx.stage.WindowEvent;
 
 /**
  * Erstellung der GUI
@@ -96,7 +96,12 @@ public class GUI extends Stage {
 		stage.setWidth(windowWidth);
 		stage.setHeight(windowHeight);
 		stage.setScene(drawHomeScreen());
-
+		//damit der Treiber sich schließt
+		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	          public void handle(WindowEvent we) {
+	              mController.closeDriver();
+	          }
+	      });
 		stage.setResizable(true);
 		stage.show();
 	}
