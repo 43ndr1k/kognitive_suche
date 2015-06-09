@@ -14,7 +14,7 @@ import org.openqa.selenium.phantomjs.PhantomJSDriver;
  */
 public class DuckDuckGoSearchApi extends SearchApi {
 
-    private static String URL = "https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&q=";
+    private static String URL = "https://duckduckgo.com/html/?kah=dk-da&kl=de-de&kad=de_DE&kaj=m&k1=-1&!safeoff&q=";
     private static String NEXTBUTTON = "navbutton";
     private static String TITLECLASS = "large";
     private static String LINKCLASS = "large";

@@ -4,8 +4,7 @@ import general.functions.TxtReader;
 import gui.GUI;
 import snowballstemmer.GermanStemmer;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -67,12 +66,46 @@ public class EditTags {
     }
   }
 
+  /**
+   * @Autor Hendrik Sawade
+   * Lese Txt Datei aus der Jar DAtei
+   * @param filename Pfad zu der datei
+   * @return sb Inhalt der Datei als langer String
+   * @throws IOException
+   */
+  public String readFromJARFile(String filename)
+      throws IOException
+  {
+    InputStream is = getClass().getResourceAsStream(filename);
+    InputStreamReader isr = new InputStreamReader(is);
+    BufferedReader br = new BufferedReader(isr);
+    StringBuffer sb = new StringBuffer();
+    String line;
+    while ((line = br.readLine()) != null)
+    {
+      sb.append(line + "\n");
+    }
+    br.close();
+    isr.close();
+    is.close();
+    return sb.toString();
+  }
+
   public void removeTagsFromWordList() {
     String wordList[];
     TxtReader tr = new TxtReader();
     String tmp = "";
     try {
-      tmp = tr.readFile("src/main/resources/files/stoplist_de.txt");
+
+
+      tmp = readFromJARFile("/resources/files/stoplist_de.txt");
+      System.out.println("1" + tmp);
+
+      //System.out.println(getClass().getResource("/resources/files/stoplist_de.txt").getFile().toString());
+      //tmp = tr.readFile(String.valueOf(getClass().getResource("/resources/files/stoplist_de.txt").getFile()));
+
+      //System.out.println("2" + tmp);
+
     } catch (IOException e) {
       System.out.println("Stoplist datei nicht gefunden");
     }
@@ -185,7 +218,7 @@ public class EditTags {
   /**
    * @author Ivan Ivanikov
    * 
-   * @param Kategorien werden erstellt indem Listen aus dem Ordner Lists nach enthaltenen Begriffen
+   *  Kategorien werden erstellt indem Listen aus dem Ordner Lists nach enthaltenen Begriffen
    *        durchsucht werden z.z werden einfach alle gefundenen Objekte ausgegeben -> es sollen die
    *        Dateinamen ausgegeben werden um später die Tags aus speziellen listen ziehen zu können
    * 
@@ -193,7 +226,9 @@ public class EditTags {
    */
   public void kategorisieren() {
 
-    File[] files = new File("src/main/resources/Lists").listFiles();
+    //URL url = getClass().getClassLoader().getResource("/resources/Lists");
+    //File[] files = new File(url.getFile()).listFiles();
+    File[] files = new File(getClass().getResource("/resources/Lists").getFile()).listFiles();
 
     // Iteration über alle Files in dem Ordner Lists
     for (File list : files) {
