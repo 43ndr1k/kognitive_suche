@@ -228,22 +228,29 @@ public class EditTags {
 
     //URL url = getClass().getClassLoader().getResource("/resources/Lists");
     //File[] files = new File(url.getFile()).listFiles();
-    File[] files = new File(getClass().getResource("/resources/Lists").getFile()).listFiles();
+    File[] files = null;
+    try {
+      files = new File(getClass().getResource("/resources/Lists").getFile()).listFiles();
+    } catch (Exception e) {
+      System.out.println("konnte  File nicht lesen");
+      e.printStackTrace();
+    }
 
     // Iteration über alle Files in dem Ordner Lists
     for (File list : files) {
       String category = list.getName().replaceAll(".txt", "");
-      System.out.println(list.getAbsolutePath());
+      System.out.println("File" +list.getName());
 
       if (list.isFile()) {
         String wordList[];
 
         // File öffnen
         try {
-          String tmp = new TxtReader().readFile(list.getAbsolutePath());
+          String tmp = readFromJARFile("/resources/Lists/" + list.getName());
+          System.out.println("gelesen");
           wordList = tmp.split("\n");
         } catch (IOException e) {
-          System.out.println("Konnte " + list.getAbsolutePath() + " nicht öffnen!");
+          System.out.println("Konnte " + list.getName() + " nicht öffnen!");
           break;
         }
         // Die Tags werden auf Vorkommen in der aktuellen WorlList untersucht
