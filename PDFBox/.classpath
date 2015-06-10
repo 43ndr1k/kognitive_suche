@@ -46,6 +46,6 @@
 	<classpathentry kind="lib" path="lib/pdfbox-1.8.5.jar"/>
 	<classpathentry kind="lib" path="lib/swixml-javadoc.jar"/>
 	<classpathentry kind="lib" path="lib/swixml.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/kogSuche"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/kognitive_Suche"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

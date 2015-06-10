@@ -13,8 +13,7 @@ import pdf.box.access.Pdfkeyword;
 public class KogSucheConnector {
 	
 	ArrayList<PDFDocument> kogSuchePDFDocuments = new ArrayList<PDFDocument> ();
-	ArrayList<Pdfkeyword> kogSuchePDFDocumentKeyword = new ArrayList<Pdfkeyword> ();
-	List<Keyword> PDFBoxKeywords;
+	String[] pdfTexts;
 	
 	Pdfboxconnector connection;
 
@@ -25,14 +24,8 @@ public class KogSucheConnector {
 	public void setSendPDFs(Map<Long, DocumentPdf> allDocuments) {
 		for (Map.Entry<Long, DocumentPdf> entry : allDocuments.entrySet())
 		{
-			PDFBoxKeywords = entry.getValue().getTags();
-			
-			for(int i = 0; i < PDFBoxKeywords.size(); i++)
-	        {
-				kogSuchePDFDocumentKeyword.add(new Pdfkeyword(PDFBoxKeywords.get(i).getTerm(),PDFBoxKeywords.get(i).getWeight()));
-	        }
-			
-			kogSuchePDFDocuments.add(new PDFDocument (entry.getValue().getFilename(), kogSuchePDFDocumentKeyword));
+			pdfTexts = entry.getValue().getText();
+			kogSuchePDFDocuments.add(new PDFDocument (entry.getValue().getFilename(), pdfTexts, pdfTexts.length));
 		}
 	}
 	
