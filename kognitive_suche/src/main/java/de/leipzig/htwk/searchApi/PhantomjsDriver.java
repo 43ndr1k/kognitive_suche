@@ -66,10 +66,12 @@ public class PhantomjsDriver {
                 var = "repo/lib/phantomjs/phantomjsLinux.bin";
                 break;
             case "Mac OS X":
-                var = getClass().getResource("resources/phantomjs/phantomjsMac.bin").getPath();
+                //var = getClass().getResource("resources/phantomjs/phantomjsMac.bin").getPath();
+                var = "repo/lib/phantomjs/phantomjsMac.bin";
                 break;
            default:
-                var = getClass().getResource("/resources/phantomjs/phantomjsWin.exe").getPath();
+                //var = getClass().getResource("/resources/phantomjs/phantomjsWin.exe").getPath();
+               var = "repo/lib/phantomjs/phantomjsWin.exe";
                 break;
 
         }
