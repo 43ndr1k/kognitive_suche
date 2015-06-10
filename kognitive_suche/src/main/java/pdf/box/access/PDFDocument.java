@@ -1,7 +1,5 @@
 package pdf.box.access;
 
-import java.util.ArrayList;
-
 public class PDFDocument {
 
   /**
@@ -15,12 +13,29 @@ public class PDFDocument {
    * @author Fabian Freihube
    */
 
-  String docname;
-  ArrayList<Pdfkeyword> keyWords = new ArrayList<Pdfkeyword>();
+  private String docname;
+  private String[] text;
+  private int pages;
 
-  public PDFDocument(String docname, ArrayList<Pdfkeyword> keywords) {
+  public String[] getText() {
+    return text;
+  }
+
+  public void setText(String[] text) {
+    this.text = text;
+  }
+
+  public int getPages() {
+    return pages;
+  }
+
+  public void setPages(int pages) {
+    this.pages = pages;
+  }
+
+  public PDFDocument(String docname, String[] text, int pages) {
     this.docname = docname;
-    this.keyWords = keywords;
+    this.text = text;
   }
 
   public String getDocname() {
@@ -31,13 +46,7 @@ public class PDFDocument {
     this.docname = docname;
   }
 
-  public ArrayList<Pdfkeyword> getKeywords() {
-    return keyWords;
-  }
 
-  public void setKeywords(ArrayList<Pdfkeyword> keywords) {
-    keyWords = keywords;
-  }
 
 
 }
