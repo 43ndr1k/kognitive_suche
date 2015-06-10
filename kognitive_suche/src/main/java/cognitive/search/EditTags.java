@@ -73,7 +73,7 @@ public class EditTags {
    * @return sb Inhalt der Datei als langer String
    * @throws IOException
    */
-  public String readFromJARFile(String filename)
+  public String readFromJarFile(String filename)
       throws IOException
   {
     InputStream is = getClass().getResourceAsStream(filename);
@@ -98,8 +98,8 @@ public class EditTags {
     try {
 
 
-      tmp = readFromJARFile("/resources/files/stoplist_de.txt");
-      System.out.println("1" + tmp);
+      tmp = readFromJarFile("/resources/files/stoplist_de.txt");
+
 
       //System.out.println(getClass().getResource("/resources/files/stoplist_de.txt").getFile().toString());
       //tmp = tr.readFile(String.valueOf(getClass().getResource("/resources/files/stoplist_de.txt").getFile()));
@@ -224,6 +224,7 @@ public class EditTags {
    * 
    * 
    */
+/*
   public void kategorisieren() {
 
     //URL url = getClass().getClassLoader().getResource("/resources/Lists");
@@ -258,6 +259,43 @@ public class EditTags {
     }
 
   }
+*/
+
+  public void kategorisieren() {
+
+    //URL url = getClass().getClassLoader().getResource("/resources/Lists");
+    //File[] files = new File(url.getFile()).listFiles();
+    File[] files = new File(getClass().getResource("/resources/Lists").getPath()).listFiles();
+
+    // Iteration über alle Files in dem Ordner Lists
+    for (File list : files) {
+      String category = list.getName().replaceAll(".txt", "");
+      System.out.println(list.getAbsolutePath());
+
+      if (list.isFile()) {
+        String wordList[];
+
+        // File öffnen
+        try {
+          String tmp = new TxtReader().readFile(list.getPath());
+          wordList = tmp.split("\n");
+        } catch (IOException e) {
+          System.out.println("Konnte " + list.getPath() + " nicht öffnen!");
+          break;
+        }
+        // Die Tags werden auf Vorkommen in der aktuellen WorlList untersucht
+        for (int i = 0; i < tags.getSize(); i++) {
+          if (isInList(wordList, tags.getTagObject(i).getTag())) {
+            //System.out.println(tags.getTagObject(i).getTag() + " wurde ersetzt durch: " + category);
+            tags.renameTag(tags.getTagObject(i).getTag(), category);
+          }
+        }
+
+      }
+    }
+
+  }
+
 
   /**
    * Binäre Suche
