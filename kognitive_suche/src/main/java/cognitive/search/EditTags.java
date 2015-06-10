@@ -265,6 +265,65 @@ public class EditTags {
     }
 
   }
+  public void setCover(ArrayList<Integer> blocNumbers) {
+    ArrayList<Integer> uncoveredBlocs = blocNumbers;// Liste der noch zu überdeckenden Textblöcke
+    ReturnTagList coverTags = new ReturnTagList(); // Tags, welche die Blöcke ausreichend überdecken
+    int i = 0;
+    while (!uncoveredBlocs.isEmpty() && i < tags.getSize()) {
+      if (alreadyCovered(uncoveredBlocs, tags.getTagObject(i).getBlocNumbers())) {
+       // if(2* tags.getTagObject(i).getNumOfBlocs()< blocNumbers.size()){
+        coverTags.addTagObject(tags.getTagObject(i).getTag(), tags.getTagObject(i).getBlocNumbers(), tags.getTagObject(i).getPriority());
+        uncoveredBlocs = deleteFrom(uncoveredBlocs, removeBlocNumbers(uncoveredBlocs, tags.getTagObject(i).getBlocNumbers()));
+      }//}
+      i++;
+      System.out.println(i);
+    }
+
+    tags = coverTags;
+
+  }
+
+  /**
+   * 
+   * @param blocNumbers
+   * @param uncoveredBlocs
+   * @return
+   */
+  private boolean alreadyCovered(ArrayList<Integer> blocNumbers, ArrayList<Integer> uncoveredBlocs) {
+    if (removeBlocNumbers(blocNumbers, uncoveredBlocs).isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
+  private ArrayList<Integer> removeBlocNumbers(ArrayList<Integer> blocNumbers,
+      ArrayList<Integer> uncoveredBlocs) {
+    for (int i = 0; i < uncoveredBlocs.size(); i++) {
+      for (int j = 0; j < blocNumbers.size(); j++) {
+        if (uncoveredBlocs.get(i) == blocNumbers.get(j)) {
+          blocNumbers.remove(j);
+        }
+      }
+    }
+    return blocNumbers;
+  }
+
+  /**
+   * @author Tobias Lenz
+   * 
+   * @param uncoveredBlocs
+   * @param coveredBlocs
+   * @return
+   */
+  private ArrayList<Integer> deleteFrom(ArrayList<Integer> uncoveredBlocs,
+      ArrayList<Integer> coveredBlocs) {
+    for (int i = 0; i < coveredBlocs.size(); i++) {
+      uncoveredBlocs.remove(coveredBlocs.get(i));
+    }
+    return coveredBlocs;
+
+  }
+
 
   /**
    * Binäre Suche

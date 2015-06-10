@@ -1,14 +1,11 @@
 package kog.suche;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import de.cpdfjarrtm.pdfborx.keyword.Keyword;
 import de.cpdfjarrtm.pdfborx.pdf.document.DocumentPdf;
 import pdf.box.access.Pdfboxconnector;
 import pdf.box.access.PDFDocument;
-import pdf.box.access.Pdfkeyword;
 
 public class KogSucheConnector {
 	

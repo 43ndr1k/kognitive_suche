@@ -228,6 +228,7 @@ public class GUI extends Stage {
       public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
           startQuery();
+
         }
       }
 
@@ -257,7 +258,7 @@ public class GUI extends Stage {
       sucheP.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent sucheP) {
-
+          startQuery();
         }
       });
 
@@ -358,7 +359,11 @@ public class GUI extends Stage {
       @Override
       public void run() {
         try {
-          mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
+          if (startMode == 0) {
+            mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
+          }else if(startMode == 1){
+            mController.startPDFSearch(suchleiste.getText());
+          }
         } catch (SearchApiExecption searchApiExecption) {
           searchApiExecption.printStackTrace();
         }
