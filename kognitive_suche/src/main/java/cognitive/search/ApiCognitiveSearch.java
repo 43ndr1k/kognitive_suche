@@ -71,7 +71,7 @@ public class ApiCognitiveSearch {
     edit.removeSpaces();
     edit.removeSearchwords();
     edit.sortTagsByPriority();
-    edit.setCover(findOutBlocNumbers());
+    //edit.setCover(findOutBlocNumbers());
     edit.kategorisieren();
     tags = edit.getTags();
     
