@@ -1,6 +1,6 @@
 package de.leipzig.htwk.tests;
 
-import cognitive.search.ReturnTagList;
+import de.leipzig.htwk.cognitive.search.ReturnTagList;
 
 public class deletTagTest {
 

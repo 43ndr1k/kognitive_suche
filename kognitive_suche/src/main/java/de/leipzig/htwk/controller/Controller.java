@@ -1,27 +1,26 @@
 package de.leipzig.htwk.controller;
 
-import cognitive.search.ApiCognitiveSearch;
-import cognitive.search.ReturnTagList;
+import de.leipzig.htkw.pdf.box.access.PDFDocument;
+import de.leipzig.htwk.cognitive.search.ApiCognitiveSearch;
+import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
+import de.leipzig.htwk.gui.GUI;
+import de.leipzig.htwk.search.history.HistoryObject;
+import de.leipzig.htwk.search.history.SearchHistory;
 import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
 import de.leipzig.htwk.searchApi.PhantomjsDriver;
 import de.leipzig.htwk.searchApi.Results;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
+import de.leipzig.htwk.visualize.VisController;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
-import gui.GUI;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
-
-import pdf.box.access.PDFDocument;
-import search.history.HistoryObject;
-import search.history.SearchHistory;
-import visualize.VisController;
 
 import java.util.ArrayList;
 
