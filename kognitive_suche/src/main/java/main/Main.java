@@ -1,6 +1,6 @@
 package main;
 
-import gui.GUI;
+import de.leipzig.htwk.gui.GUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
