@@ -1,7 +1,7 @@
 package de.leipzig.htwk.gui;
 
-import de.leipzig.htkw.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.controller.Controller;
+import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
 import javafx.animation.KeyFrame;
@@ -58,9 +58,13 @@ public class GUI extends Stage {
   static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
   static java.awt.Rectangle workAreaSize_ = GraphicsEnvironment.getLocalGraphicsEnvironment()
       .getMaximumWindowBounds();
+  private String operatingSystem = getOS();
 
-  private static final int windowHeight = (int) workAreaSize_.height;
-  private static final int windowWidth = (int) screenSize.getWidth();
+
+  private static final int windowHeight = 768;
+  private static final int windowWidth = 1280;
+  private static final int windowsWindowHeight = (int) workAreaSize_.height;
+  private static final int windowsWindowWidth = (int) screenSize.getWidth();
   private static final int FAROO = 0;
   private static final int DUCKDUCKGO = 1;
 
@@ -107,8 +111,16 @@ public class GUI extends Stage {
     stage.setTitle("Kognitive Suche");
     stage.centerOnScreen();
 
-    stage.setWidth(windowWidth);
-    stage.setHeight(windowHeight);
+
+    if (operatingSystem.equals("Windows 7")) {
+      stage.setWidth(windowsWindowWidth);
+      stage.setHeight(windowsWindowHeight);
+    } else {
+      stage.setWidth(windowWidth);
+      stage.setHeight(windowHeight);
+    }
+
+
     stage.setScene(drawHomeScreen());
     // damit der Treiber sich schließt
     stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -361,7 +373,7 @@ public class GUI extends Stage {
         try {
           if (startMode == 0) {
             mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
-          }else if(startMode == 1){
+          } else if (startMode == 1) {
             mController.startPDFSearch(suchleiste.getText());
           }
         } catch (SearchApiExecption searchApiExecption) {
@@ -480,4 +492,13 @@ public class GUI extends Stage {
   public void reDrawHomeScreen() {
     stage.setScene(drawHomeScreen());
   }
+
+  public String getOS() {
+    String os = "os.name";
+    String returnString;
+    Properties prop = System.getProperties();    
+    returnString = prop.getProperty(os);
+    return returnString;
+  }
+
 }

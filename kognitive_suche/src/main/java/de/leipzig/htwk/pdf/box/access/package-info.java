@@ -13,4 +13,4 @@
  * @author Fabian Freihube
  * @version 1.0
  */
-package de.leipzig.htkw.pdf.box.access;
+package de.leipzig.htwk.pdf.box.access;
