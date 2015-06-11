@@ -98,7 +98,7 @@ public class EditTags {
     try {
 
 
-      tmp = readFromJarFile("/resources/files/stoplist_de.txt");
+      tmp = readFromJarFile("/files/stoplist_de.txt");
 
 
       //System.out.println(getClass().getResource("/resources/files/stoplist_de.txt").getFile().toString());
@@ -207,7 +207,7 @@ public class EditTags {
   }
 
   public void removeSearchwords() {
-    String searchword = tags.getSearchword();
+    String searchword = ReturnTagList.getSearchword();
     String[] parts = searchword.split(" ");
     for (int i = 0; i < parts.length; i++) {
       tags.deleteTag(parts[i]);
@@ -291,10 +291,7 @@ public class EditTags {
    * @return
    */
   private boolean alreadyCovered(ArrayList<Integer> blocNumbers, ArrayList<Integer> uncoveredBlocs) {
-    if (removeBlocNumbers(blocNumbers, uncoveredBlocs).isEmpty()) {
-      return false;
-    }
-    return true;
+    return !removeBlocNumbers(blocNumbers, uncoveredBlocs).isEmpty();
   }
 
   private ArrayList<Integer> removeBlocNumbers(ArrayList<Integer> blocNumbers,
@@ -331,22 +328,24 @@ public class EditTags {
 
     //URL url = getClass().getClassLoader().getResource("/resources/Lists");
     //File[] files = new File(url.getFile()).listFiles();
-    File[] files = new File(getClass().getResource("/resources/Lists").getPath()).listFiles();
-
+    //File[] files = new File(getClass().getResource("/Lists").getPath()).listFiles();
+    
+    //Dateinamen
+    String[] filenames = {"Personen"};
     // Iteration über alle Files in dem Ordner Lists
-    for (File list : files) {
-      String category = list.getName().replaceAll(".txt", "");
-      System.out.println(list.getAbsolutePath());
+    for (String list : filenames) {
+      String category = list;
 
-      if (list.isFile()) {
+      if (!list.isEmpty()) {
         String wordList[];
 
         // File öffnen
         try {
-          String tmp = new TxtReader().readFile(list.getPath());
+          //String tmp = new TxtReader().readFile(list.getPath());
+          String tmp = readFromJarFile("/Lists/" + list + ".txt");
           wordList = tmp.split("\n");
         } catch (IOException e) {
-          System.out.println("Konnte " + list.getPath() + " nicht öffnen!");
+          System.out.println("Konnte " + "/Lists/" + list + " nicht öffnen!");
           break;
         }
         // Die Tags werden auf Vorkommen in der aktuellen WorlList untersucht

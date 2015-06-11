@@ -1,5 +1,6 @@
 package de.leipzig.htwk.searchApi;
 
+import de.leipzig.htwk.readResources.ReadResources;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.net.MalformedURLException;
@@ -14,7 +15,7 @@ public class main {
 
 
         PhantomJSDriver driver;
-        PhantomjsDriver dr = new PhantomjsDriver();
+       /* PhantomjsDriver dr = new PhantomjsDriver();
         driver = dr.getDriver();
         System.out.println("DUCK DUCK GO!!!!!!");
         DuckDuckGoSearchApi d = new DuckDuckGoSearchApi("wgt 2015", 80, driver); // Maximal 79 Ergebnisse zurzeit!!
@@ -26,9 +27,10 @@ public class main {
             System.out.println(d.getResultList().getResults().get(i).getKwic());
             System.out.println(d.getResultList().getResults().get(i).getUrl());
             System.out.println("#########################################################");
-        }
+        }*/
 
 
+        new ReadResources();
     }
 
 }
