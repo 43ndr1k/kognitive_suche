@@ -27,6 +27,8 @@ public class main {
             System.out.println(d.getResultList().getResults().get(i).getUrl());
             System.out.println("#########################################################");
         }
+
+
     }
 
 }
