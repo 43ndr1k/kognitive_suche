@@ -317,7 +317,7 @@ public class Pattern {
       @Override
       public void handle(MouseEvent event) {
         gui = GUI.getInstance();
-        gui.setSuchleisteText(gui.getSuchleiste().getText() + "+" + largeTopicLabel.getText());
+        gui.setSuchleisteText(tags.getSearchword() + " " + largeTopicLabel.getText());
       }
     });
 
