@@ -136,12 +136,12 @@ public class CognitiveTest {
 	public void isInList0() {
 		String[] wordList = new String[5];
 		EditTags edit = new EditTags(null);
-		wordList[0] = "Hey";
-		wordList[1] = "Hallo";
-		wordList[2] = "weiter";
-		wordList[3] = "gut";
-		wordList[4] = "schlecht";
-		String tag ="Hey";
+		wordList[0] = "Achso";
+		wordList[1] = "Albert";
+		wordList[2] = "Celsius";
+		wordList[3] = "Pflaume";
+		wordList[4] = "Wasser";
+		String tag ="Achso";
 		assertEquals(true, edit.isInList(wordList ,tag));
 	}
 	
@@ -149,12 +149,12 @@ public class CognitiveTest {
 	public void isInList1() {
 		String[] wordList = new String[5];
 		EditTags edit = new EditTags(null);
-		wordList[0] = "Hey";
-		wordList[1] = "Hallo";
-		wordList[2] = "weiter";
-		wordList[3] = "gut";
-		wordList[4] = "schlecht";
-		String tag ="Hallo";
+		wordList[0] = "Achso";
+		wordList[1] = "Albert";
+		wordList[2] = "Celsius";
+		wordList[3] = "Pflaume";
+		wordList[4] = "Wasser";
+		String tag ="Albert";
 		assertEquals(true, edit.isInList(wordList ,tag));
 	}
 	
@@ -162,12 +162,12 @@ public class CognitiveTest {
 	public void isInList2() {
 		String[] wordList = new String[5];
 		EditTags edit = new EditTags(null);
-		wordList[0] = "Hey";
-		wordList[1] = "Hallo";
-		wordList[2] = "weiter";
-		wordList[3] = "gut";
-		wordList[4] = "schlecht";
-		String tag ="weiter";
+		wordList[0] = "Achso";
+		wordList[1] = "Albert";
+		wordList[2] = "Celsius";
+		wordList[3] = "Pflaume";
+		wordList[4] = "Wasser";
+		String tag ="Celsius";
 		assertEquals(true, edit.isInList(wordList ,tag));
 	}
 	
@@ -175,12 +175,12 @@ public class CognitiveTest {
 	public void isInList3() {
 		String[] wordList = new String[5];
 		EditTags edit = new EditTags(null);
-		wordList[0] = "Hey";
-		wordList[1] = "Hallo";
-		wordList[2] = "weiter";
-		wordList[3] = "gut";
-		wordList[4] = "schlecht";
-		String tag ="gut";
+		wordList[0] = "Achso";
+		wordList[1] = "Albert";
+		wordList[2] = "Celsius";
+		wordList[3] = "Pflaume";
+		wordList[4] = "Wasser";
+		String tag ="Pflaume";
 		assertEquals(true, edit.isInList(wordList ,tag));
 	}
 	
@@ -188,12 +188,12 @@ public class CognitiveTest {
 	public void isInList4() {
 		String[] wordList = new String[5];
 		EditTags edit = new EditTags(null);
-		wordList[0] = "Hey";
-		wordList[1] = "Hallo";
-		wordList[2] = "weiter";
-		wordList[3] = "gut";
-		wordList[4] = "schlecht";
-		String tag ="schlecht";
+		wordList[0] = "Achso";
+		wordList[1] = "Albert";
+		wordList[2] = "Celsius";
+		wordList[3] = "Pflaume";
+		wordList[4] = "Wasser";
+		String tag ="Wasser";
 		assertEquals(true, edit.isInList(wordList ,tag));
 	}
 	
@@ -201,13 +201,13 @@ public class CognitiveTest {
 	public void isInList5() {
 		String[] wordList = new String[6];
 		EditTags edit = new EditTags(null);
-		wordList[0] = "Hey";
-		wordList[1] = "Hallo";
-		wordList[2] = "weiter";
-		wordList[3] = "gut";
-		wordList[4] = "schlecht";
-		wordList[5] = "test";
-		String tag ="hey";
+		wordList[0] = "Achso";
+		wordList[1] = "Albert";
+		wordList[2] = "Celsius";
+		wordList[3] = "Pflaume";
+		wordList[4] = "Wasser";
+		wordList[5] = "Ziel";
+		String tag ="Achso";
 		assertEquals(true, edit.isInList(wordList ,tag));
 	}
 	
@@ -215,13 +215,13 @@ public class CognitiveTest {
 	public void isInList6() {
 		String[] wordList = new String[6];
 		EditTags edit = new EditTags(null);
-		wordList[0] = "Hey";
-		wordList[1] = "Hallo";
-		wordList[2] = "weiter";
-		wordList[3] = "gut";
-		wordList[4] = "schlecht";
-		wordList[5] = "test";
-		String tag ="hey";
+		wordList[0] = "Achso";
+		wordList[1] = "Albert";
+		wordList[2] = "Celsius";
+		wordList[3] = "Pflaume";
+		wordList[4] = "Wasser";
+		wordList[5] = "Ziel";
+		String tag ="Albert";
 		assertEquals(true, edit.isInList(wordList ,tag));
 	}
 	
