@@ -1,4 +1,4 @@
-package de.leipzig.htkw.pdf.box.access;
+package de.leipzig.htwk.pdf.box.access;
 
 public interface Ipdfkeywords {
 

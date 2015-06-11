@@ -1,12 +1,12 @@
 package de.leipzig.htwk.controller;
 
-import de.leipzig.htkw.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.cognitive.search.ApiCognitiveSearch;
 import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
 import de.leipzig.htwk.faroo.api.ConfigFileManagement;
 import de.leipzig.htwk.gui.GUI;
+import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.SearchHistory;
 import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
