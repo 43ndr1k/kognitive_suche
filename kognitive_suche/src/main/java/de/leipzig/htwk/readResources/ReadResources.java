@@ -8,8 +8,11 @@ public class ReadResources {
 
     public ReadResources() {
         // Class.getResourceAsStream
-        Object resource = ReadResources.class.getResourceAsStream("/Lists");
-        System.out.println("1: A.class /Lists=" + resource.getClass().getClasses().getClass().getName().toString());
+        Object resource = ReadResources.class.getResourceAsStream("/");
+        Class a[] = resource.getClass().getClasses();
+        System.out.println(a.length);
+
+        //System.out.println("1: A.class /Lists=" + resource.getClass().getClasses());
     }
 
 

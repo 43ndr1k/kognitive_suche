@@ -329,7 +329,7 @@ public class EditTags {
     //URL url = getClass().getClassLoader().getResource("/resources/Lists");
     //File[] files = new File(url.getFile()).listFiles();
     //File[] files = new File(getClass().getResource("/Lists").getPath()).listFiles();
-    
+
     //Dateinamen
     String[] filenames = {"Personen"};
     // Iteration über alle Files in dem Ordner Lists
