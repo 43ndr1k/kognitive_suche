@@ -98,7 +98,7 @@ public class EditTags {
     try {
 
 
-      tmp = readFromJarFile("/files/stoplist_de.txt");
+      tmp = readFromJarFile("/resources/files/stoplist_de.txt");
 
 
       //System.out.println(getClass().getResource("/resources/files/stoplist_de.txt").getFile().toString());
@@ -342,7 +342,7 @@ public class EditTags {
         // File öffnen
         try {
           //String tmp = new TxtReader().readFile(list.getPath());
-          String tmp = readFromJarFile("/Lists/" + list + ".txt");
+          String tmp = readFromJarFile("/resources/Lists/" + list + ".txt");
           wordList = tmp.split("\n");
         } catch (IOException e) {
           System.out.println("Konnte " + "/Lists/" + list + " nicht öffnen!");
