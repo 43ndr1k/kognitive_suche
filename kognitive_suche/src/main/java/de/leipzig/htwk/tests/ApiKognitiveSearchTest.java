@@ -1,9 +1,9 @@
 package de.leipzig.htwk.tests;
 
 
-import cognitive.search.ReturnTagList;
+import de.leipzig.htwk.cognitive.search.ReturnTagList;
+import de.leipzig.htwk.general.functions.TxtReader;
 import de.leipzig.htwk.websearch.HTMLTools;
-import general.functions.TxtReader;
 
 public class ApiKognitiveSearchTest {
 

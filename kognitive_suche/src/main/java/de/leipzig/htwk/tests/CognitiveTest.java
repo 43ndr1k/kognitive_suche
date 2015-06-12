@@ -1,11 +1,11 @@
 package de.leipzig.htwk.tests;
 
-import cognitive.search.ColognePhonetic;
-import cognitive.search.EditTags;
-import cognitive.search.ReturnTagList;
-import cognitive.search.WordCount;
 import org.junit.Test;
 
+import de.leipzig.htwk.cognitive.search.ColognePhonetic;
+import de.leipzig.htwk.cognitive.search.EditTags;
+import de.leipzig.htwk.cognitive.search.ReturnTagList;
+import de.leipzig.htwk.cognitive.search.WordCount;
 import static org.junit.Assert.assertEquals;
 
 public class CognitiveTest {

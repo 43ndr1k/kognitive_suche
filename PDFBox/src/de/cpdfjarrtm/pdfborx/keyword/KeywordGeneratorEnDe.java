@@ -105,14 +105,6 @@ public class KeywordGeneratorEnDe implements KeywordGenerator {
         Collections.sort(keywords);
         Collections.reverse(keywords);
         
-        System.out.println("STARTKEY:"+doc.getFilename());
-        
-        for(int i = 0; i < keywords.size(); i++)
-        {
-        	System.out.println(keywords.get(i).getTerm()+":"+keywords.get(i).getWeight());
-        }
-        
-        System.out.println("ENDKEY:"+doc.getFilename());
         
         return keywords;
     }

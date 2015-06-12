@@ -16,7 +16,6 @@ import de.cpdfjarrtm.pdfborx.pdf.document.DocumentPdf;
 import de.cpdfjarrtm.pdfborx.pdf.document.BibtexFieldType;
 import de.cpdfjarrtm.pdfborx.pdf.document.DocumentFieldType;
 import de.cpdfjarrtm.pdfborx.util.Language;
-import gui.GUI;
 
 import java.awt.Point;
 import java.awt.Toolkit;
