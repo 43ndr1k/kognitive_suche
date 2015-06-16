@@ -1,3 +1,5 @@
+package faroo.api;
+
 import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
 import org.junit.Assert;
