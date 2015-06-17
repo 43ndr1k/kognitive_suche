@@ -1,6 +1,12 @@
 package de.leipzig.htwk.search.history;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -12,7 +18,7 @@ import java.util.ArrayList;
 public class SearchHistory {
 
 	File historyFile;
-	ArrayList<HistoryObject> historyData;
+	public ArrayList<HistoryObject> historyData;
 
 	/**
 	 * Öffnet die Hitsory-Datei
@@ -63,24 +69,27 @@ public class SearchHistory {
 
 		HistoryObject newObject = new HistoryObject(searchWord);
 		historyData.add(newObject);
-
-		FileOutputStream fos;
-		ObjectOutputStream oos;
-
-		try {
-			fos = new FileOutputStream(historyFile);
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(historyData);
-			oos.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		saveSearch();	
 	}
+	
+	public void saveSearch() {
+	  FileOutputStream fos;
+	    ObjectOutputStream oos;
 
+	    try {
+	        fos = new FileOutputStream(historyFile);
+	        oos = new ObjectOutputStream(fos);
+	        oos.writeObject(historyData);
+	        oos.close();
+	    } catch (FileNotFoundException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    } catch (IOException e) {
+	        // TODO Auto-generated catch block
+	        e.printStackTrace();
+	    }
+	}
+	
 	public ArrayList<HistoryObject> getSearches() {
 		return historyData;
 	}

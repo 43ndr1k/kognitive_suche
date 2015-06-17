@@ -16,8 +16,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -31,19 +35,15 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+import java.awt.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
-
-import javafx.stage.WindowEvent;
-
-import java.awt.Dimension;
-import java.awt.GraphicsEnvironment;
-import java.awt.Toolkit;
 
 
 /**
@@ -132,6 +132,9 @@ public class GUI extends Stage {
     stage.show();
   }
 
+  public void goToHome() {
+    stage.setScene(drawHomeScreen());
+  }
 
   /**
    * Methode zur Erstellung des Buttons mit Logo für die Rückkehr auf die Startseite.
@@ -372,6 +375,7 @@ public class GUI extends Stage {
       public void run() {
         try {
           if (startMode == 0) {
+            mController.setQuery(suchleiste.getText());
             mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
           } else if (startMode == 1) {
             mController.startPDFSearch(suchleiste.getText());

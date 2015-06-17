@@ -9,10 +9,7 @@ import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.SearchHistory;
-import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
-import de.leipzig.htwk.searchApi.PhantomjsDriver;
-import de.leipzig.htwk.searchApi.Results;
-import de.leipzig.htwk.searchApi.SearchApiExecption;
+import de.leipzig.htwk.searchApi.*;
 import de.leipzig.htwk.visualize.VisController;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
@@ -41,7 +38,6 @@ public class Controller {
   private int start = 1;
   private String key, url;
   private Results results = null;
-  private String query;
   private GUI gui;
   private String searchWord;
   private static ArrayList<PDFDocument> pdfBoxDocuments;
@@ -162,8 +158,8 @@ public class Controller {
    *
    * @param query query
    */
-  private void setQuery(String query) {
-    this.query = query;
+  public void setQuery(String query) {
+    this.searchWord = query;
   }
 
   /**
@@ -172,7 +168,7 @@ public class Controller {
    * @return query
    */
   public String getQuery() {
-    return this.query;
+    return this.searchWord;
   }
 
   /**
@@ -241,6 +237,7 @@ public class Controller {
 
 
 
+
   /**
    * @Autor Hendrik Sawade Die Suchanfrage an Faroo und DuckDuckGo, diese wird von der GUI
    *        aufgerufen.
@@ -249,51 +246,61 @@ public class Controller {
    */
   public void querySearchEngine(int pSearchEngine, String pSearchWord) throws SearchApiExecption {
 
-    this.searchWord = pSearchWord;
+   if (!this.searchWord.isEmpty()) {
 
-    lastSearches.addSearch(searchWord);
+     lastSearches.addSearch(searchWord);
 
-    switch (pSearchEngine) {
-      case 0:
-        System.out.println("Query Faroo");
-
-
-        System.out.println("Query Faroo");
-
-        Api api = new Api(key, url);
-        setQuery(searchWord);
-        try {
-          System.out.println("Suche gestartet");
-          this.results = api.query(this.start, searchWord, this.language, src);
-
-        } catch (APIExecption apiExecption) {
-          apiExecption.printStackTrace();
-        }
-
-        break;
-      case 1:
-
-        System.out.println("Query DuckDuckGo");
-        long zstVorher = System.currentTimeMillis();
-
-        DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(searchWord, 80, this.driver);
-        this.results = duckApi.getResultList();
+     switch (pSearchEngine) {
+       case 0:
+         System.out.println("Query Faroo");
 
 
-        long zstNachher = System.currentTimeMillis(); // Zeitmessung
-        System.out.println("Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher))
-            + " millisec");
+         System.out.println("Query Faroo");
+
+         Api api = new Api(key, url);
+         try {
+           System.out.println("Suche gestartet");
+           this.results = api.query(this.start, searchWord, this.language, src);
+
+         } catch (APIExecption apiExecption) {
+           apiExecption.printStackTrace();
+         }
+
+         break;
+       case 1:
+
+         System.out.println("Query DuckDuckGo");
+         long zstVorher = System.currentTimeMillis();
+
+         DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(this.searchWord, 80, this.driver);
+         this.results = duckApi.getResultList();
 
 
-        // TODO Zeile kann entfernt werden, wenn die gui die Methode closeDriver beim schließen
-        // aufruft!
-        // closeDriver();
+         long zstNachher = System.currentTimeMillis(); // Zeitmessung
+         System.out.println(
+             "Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher)) + " millisec");
 
-        break;
+         break;
 
-    }
+     }
 
-    beginWebSearch();
+     if(!this.results.getResults().isEmpty()) {
+       beginWebSearch();
+     } else {
+       ErrorMaske em = new ErrorMaske("Keine Ergebnisse Gefunden");
+       em.run();
+       em.showAndWait();
+        GUI.getInstance().goToHome();
+        throw new SearchApiExecption("Result Liste ist leer, keine Ergebnisse Gefunden");
+     }
+
+   } else {
+     ErrorMaske em = new ErrorMaske("Kein Suchbegriff eingebeben!");
+     em.run();
+     em.showAndWait();
+     GUI.getInstance().goToHome();
+     throw new SearchApiExecption("Kein Suchbegriff eingebeben!");
+   }
   }
 
 
