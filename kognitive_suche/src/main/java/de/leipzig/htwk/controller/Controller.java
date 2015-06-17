@@ -15,12 +15,14 @@ import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.BorderPane;
-
+import org.controlsfx.dialog.Dialogs;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import javafx.scene.control.Alert.AlertType;
 
 import java.util.ArrayList;
-
 /**
  * @author Hendrik Sawade
  */
@@ -287,17 +289,28 @@ public class Controller {
      if(!this.results.getResults().isEmpty()) {
        beginWebSearch();
      } else {
-       ErrorMaske em = new ErrorMaske("Keine Ergebnisse Gefunden");
-       em.run();
-       em.showAndWait();
-        GUI.getInstance().goToHome();
+       /**
+        * Error Meldung falls es keine Ergebnisse gefunden wurden.
+        */
+       Alert alert = new Alert(AlertType.ERROR);
+       alert.setTitle("Error Dialog");
+       alert.setHeaderText("Error Message");
+       alert.setContentText("Keine Ergebnisse zum Suchbegriff: " + this.searchWord + " gefunden!");
+       alert.showAndWait();
+       GUI.getInstance().goToHome();
         throw new SearchApiExecption("Result Liste ist leer, keine Ergebnisse Gefunden");
      }
 
    } else {
-     ErrorMaske em = new ErrorMaske("Kein Suchbegriff eingebeben!");
-     em.run();
-     em.showAndWait();
+
+     /**
+      * Error Meldungen, falls kein Suchbegriff eingegeben wurde.
+      */
+     Alert alert = new Alert(AlertType.ERROR);
+     alert.setTitle("Error Dialog");
+     alert.setHeaderText("Error Message");
+     alert.setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+     alert.showAndWait();
      GUI.getInstance().goToHome();
      throw new SearchApiExecption("Kein Suchbegriff eingebeben!");
    }
