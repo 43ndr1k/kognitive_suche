@@ -1,6 +1,5 @@
 package de.leipzig.htwk.searchApi;
 
-import de.leipzig.htwk.readResources.ReadResources;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.net.MalformedURLException;
@@ -30,7 +29,7 @@ public class main {
         }*/
 
 
-        new ReadResources();
+
     }
 
 }

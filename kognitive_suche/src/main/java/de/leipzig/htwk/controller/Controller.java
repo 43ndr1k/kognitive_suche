@@ -298,7 +298,7 @@ public class Controller {
        alert.setContentText("Keine Ergebnisse zum Suchbegriff: " + this.searchWord + " gefunden!");
        alert.showAndWait();
        GUI.getInstance().goToHome();
-        throw new SearchApiExecption("Result Liste ist leer, keine Ergebnisse Gefunden");
+        //throw new SearchApiExecption("Result Liste ist leer, keine Ergebnisse Gefunden");
      }
 
    } else {
@@ -312,7 +312,7 @@ public class Controller {
      alert.setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
      alert.showAndWait();
      GUI.getInstance().goToHome();
-     throw new SearchApiExecption("Kein Suchbegriff eingebeben!");
+     //throw new SearchApiExecption("Kein Suchbegriff eingebeben!");
    }
   }
 
