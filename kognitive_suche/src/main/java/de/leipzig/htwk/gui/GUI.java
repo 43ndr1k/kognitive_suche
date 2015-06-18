@@ -242,7 +242,19 @@ public class GUI extends Stage {
       @Override
       public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
-          startQuery();
+          if (!suchleiste.getText().isEmpty()) {
+            startQuery();
+          }
+          else {
+            /**
+             * Error Meldungen, falls kein Suchbegriff eingegeben wurde.
+             */
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Error Message");
+            alert.setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+            alert.showAndWait();
+          }
 
         }
       }
@@ -258,7 +270,20 @@ public class GUI extends Stage {
       sucheW.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent sucheF) {
-          startQuery();
+          if (!suchleiste.getText().isEmpty()) {
+              startQuery();
+          }
+          else {
+            /**
+             * Error Meldungen, falls kein Suchbegriff eingegeben wurde.
+             */
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error Dialog");
+            alert.setHeaderText("Error Message");
+            alert.setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+            alert.showAndWait();
+          }
+
         }
       });
 
@@ -364,6 +389,8 @@ public class GUI extends Stage {
 
   }
 
+
+
   /**
    * Diese Methode startet die Suche aus dem Controller
    *
@@ -375,8 +402,8 @@ public class GUI extends Stage {
       public void run() {
         try {
           if (startMode == 0) {
-            mController.setQuery(suchleiste.getText());
-            mController.querySearchEngine(DUCKDUCKGO, suchleiste.getText());
+              mController.setQuery(suchleiste.getText());
+              mController.querySearchEngine(DUCKDUCKGO);
           } else if (startMode == 1) {
             mController.startPDFSearch(suchleiste.getText());
           }
