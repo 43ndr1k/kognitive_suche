@@ -1,9 +1,12 @@
 package de.leipzig.htwk.gui;
 
+import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
+import de.leipzig.htwk.searchApi.Results;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
+import de.leipzig.htwk.visualize.VisController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -45,14 +48,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 
-
 /**
  * Erstellung der GUI
  *
  * @author Sebastian Hügelmann
  */
 @SuppressWarnings("restriction")
-public class GUI extends Stage {
+public class GUI extends Stage implements Callback {
 
 
   static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -244,15 +246,15 @@ public class GUI extends Stage {
         if (keyEvent.getCode() == KeyCode.ENTER) {
           if (!suchleiste.getText().isEmpty()) {
             startQuery();
-          }
-          else {
+          } else {
             /**
              * Error Meldungen, falls kein Suchbegriff eingegeben wurde.
              */
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Error Message");
-            alert.setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+            alert
+                .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
             alert.showAndWait();
           }
 
@@ -271,16 +273,16 @@ public class GUI extends Stage {
         @Override
         public void handle(ActionEvent sucheF) {
           if (!suchleiste.getText().isEmpty()) {
-              startQuery();
-          }
-          else {
+            startQuery();
+          } else {
             /**
              * Error Meldungen, falls kein Suchbegriff eingegeben wurde.
              */
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error Dialog");
             alert.setHeaderText("Error Message");
-            alert.setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+            alert
+                .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
             alert.showAndWait();
           }
 
@@ -397,22 +399,18 @@ public class GUI extends Stage {
    */
   public void startQuery() {
     stage.setScene(loadIndicator());
-    Platform.runLater(new Runnable() {
-      @Override
-      public void run() {
-        try {
-          if (startMode == 0) {
-              mController.setQuery(suchleiste.getText());
-              mController.querySearchEngine(DUCKDUCKGO);
-          } else if (startMode == 1) {
-            mController.startPDFSearch(suchleiste.getText());
-          }
-        } catch (SearchApiExecption searchApiExecption) {
-          searchApiExecption.printStackTrace();
-        }
-      }
-    });
+
+    if (startMode == 0) {
+      mController.setQuery(suchleiste.getText());
+      searchThread th = new searchThread(this,mController);
+      th.setSearchEngine(DUCKDUCKGO);
+      th.start();
+      
+    } else if (startMode == 1) {
+      mController.startPDFSearch(suchleiste.getText());
+    }
   }
+
 
   /**
    * Setter zum setzten des Suchleistens Textes nach Auswahl einer Kategorie in der Visualisierung.
@@ -512,9 +510,7 @@ public class GUI extends Stage {
 
   }
 
-  public Controller getController() {
-    return mController;
-  }
+
 
   public void setStartMode(int mode) {
     this.startMode = mode;
@@ -527,9 +523,68 @@ public class GUI extends Stage {
   public String getOS() {
     String os = "os.name";
     String returnString;
-    Properties prop = System.getProperties();    
+    Properties prop = System.getProperties();
     returnString = prop.getProperty(os);
     return returnString;
   }
+
+  public Controller getController() {
+    return mController;
+  }
+
+  /**
+   * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
+   *
+   * @author Fabian Freihube, Sebastian Hügelmann
+   * @param list Übergabe der gefundenen Ergebnisse per Liste.
+   * @param searchword Übergabe des Suchwortes als String.
+   */
+  public void initVisual(ReturnTagList list, String searchword, Results results) {
+
+    // setResultList(results); brauch ich vielleicht
+    System.out.println("startVisual Gestartet");
+    ReturnTagList tags = list;
+
+    BorderPane visPane = new BorderPane();
+    BorderPane homebuttonPane = new BorderPane();
+    System.out.println("Checkpoint 1");
+    homebuttonPane.setCenter(this.goHomeButton());
+    homebuttonPane.setStyle("-fx-background-color: #FFF;");
+    homebuttonPane.setPrefHeight(this.getWindowheight() * 0.15);
+    System.out.println("Checkpoint 2");
+    VisController visualController = new VisController(results);
+    visualController.setPane(visPane);
+    visualController.setQuery(searchword);
+    System.out.println("Checkpoint 3");
+    visualController.setPaneHeight((int) (this.getStage().getHeight() * 0.85));
+    visualController.setPaneWidth((int) this.getStage().getWidth());
+    System.out.println("Checkpoint 4");
+    visPane.setCenter(visualController.startVisualize(tags));
+    System.out.println("Checkpoint 5");
+    visPane.setTop(homebuttonPane);
+
+    System.out.println("Checkpoint Ende");
+    Scene visual = new Scene(visPane);
+
+    this.setStageScene(visual);
+    System.out.println("fertig visual");
+  }
+
+
+  private void startVisualisation() {
+    ReturnTagList tags = mController.getTags();
+    tags.testOutput(10);
+    Results results = mController.getResultList();
+    System.out.println(results);
+    initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
+
+  }
+
+  @Override
+  public void callback() {
+   startVisualisation();
+  }
+
+
 
 }

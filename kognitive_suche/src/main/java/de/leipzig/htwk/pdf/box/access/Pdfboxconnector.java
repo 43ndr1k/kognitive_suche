@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.gui.GUI;
+import de.leipzig.htwk.gui.searchThread;
 
 /**
  * Sorgt für die Annahme der PDFDocumentElemente, den start der Kog. Suche-GUI und die Weitegerabe der PDFDocuments an den Controller

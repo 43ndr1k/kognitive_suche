@@ -70,8 +70,7 @@ public class Listenausgabe {
     Label[] label = new Label[25];
     int anzsucherg = (20 > url.size()) ? url.size() : 20; //lässt sich auch auf unter 20 Ergbnisse erweitern und Funktioniert
     
-    final WebView browser = new WebView();
-    final WebEngine webEngine = browser.getEngine();
+  
     for (int k = 0; k < anzsucherg; k++) {
     	  Hyperlink h = new Hyperlink(url.get(k));
           h.setOnAction(new EventHandler<ActionEvent>() {

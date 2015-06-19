@@ -48,6 +48,7 @@ public class Controller {
   private PhantomJSDriver driver;
   // test
   private Scene visual;
+  private ReturnTagList tags;
 
   public Scene getVisual() {
     return visual;
@@ -116,7 +117,6 @@ public class Controller {
     long zstVorher = System.currentTimeMillis();
 
     ApiCognitiveSearch search = new ApiCognitiveSearch(searchText, searchWord);
-    ReturnTagList tags = new ReturnTagList();
 
     search.doWordCount(); // Häufigkeitsanalyse + Umgebungsanalyse
     search.doMergeTagInfos(); // Zusammenführen von Tag-Infos der Analysen
@@ -134,8 +134,7 @@ public class Controller {
         + " millisec");
 
     tags = search.getTags();
-    initVisual(tags, searchWord, results); // Aufruf der Visualisierung
-
+    
   }
 
   /**
@@ -174,48 +173,7 @@ public class Controller {
     return this.searchWord;
   }
 
-  /**
-   * Methode für die Visualisierung nach Eingabe eines Suchbegriffes
-   *
-   * @author Fabian Freihube, Sebastian Hügelmann
-   * @param list Übergabe der gefundenen Ergebnisse per Liste.
-   * @param searchword Übergabe des Suchwortes als String.
-   */
-  public void initVisual(ReturnTagList list, String searchword, Results results) {
-    /*
-     * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
-     * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
-     * werden.
-     */
-    // setResultList(results); brauch ich vielleicht
-    System.out.println("startVisual Gestartet");
-    ReturnTagList tags = list;
-
-    BorderPane visPane = new BorderPane();
-    BorderPane homebuttonPane = new BorderPane();
-    System.out.println("Checkpoint 1");
-    homebuttonPane.setCenter(gui.goHomeButton());
-    homebuttonPane.setStyle("-fx-background-color: #FFF;");
-    homebuttonPane.setPrefHeight(gui.getWindowheight() * 0.15);
-    System.out.println("Checkpoint 2");
-    VisController visualController = new VisController(results);
-    visualController.setPane(visPane);
-    visualController.setQuery(searchword);
-    System.out.println("Checkpoint 3");
-    visualController.setPaneHeight((int) (gui.getStage().getHeight() * 0.85));
-    visualController.setPaneWidth((int) gui.getStage().getWidth());
-    System.out.println("Checkpoint 4");
-    visPane.setCenter(visualController.startVisualize(tags));
-    System.out.println("Checkpoint 5");
-    visPane.setTop(homebuttonPane);
-
-    System.out.println("Checkpoint Ende");
-    visual = new Scene(visPane);
-
-    gui.setStageScene(visual);
-    System.out.println("fertig visual");
-  }
-
+ 
   /**
    * Methode zur Übergabe der GUI an den Controller.
    *
@@ -326,8 +284,15 @@ public class Controller {
     this.searchWord = searchWord;
     adaptPDFFormat();
   }
-
+/**
+ * Hier wird das PDF Objekt an die Anforderungen der CognitiveSearchAPI angepasst.
+ */
   private void adaptPDFFormat() {
     pdfBoxDocuments.size();
+  }
+
+  public ReturnTagList getTags() {
+    // TODO Auto-generated method stub
+    return this.tags;
   }
 }
