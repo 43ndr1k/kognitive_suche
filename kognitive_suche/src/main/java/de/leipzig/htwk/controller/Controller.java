@@ -9,6 +9,7 @@ import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.SearchHistory;
+import de.leipzig.htwk.search.history.tags.TagListHistory;
 import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
 import de.leipzig.htwk.searchApi.PhantomjsDriver;
 import de.leipzig.htwk.searchApi.Results;
@@ -21,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ public class Controller {
   private String searchWord;
   private static ArrayList<PDFDocument> pdfBoxDocuments;
   private SearchHistory lastSearches;
+  private TagListHistory tagListHistory;
   private PhantomJSDriver driver;
   // test
   private Scene visual;
@@ -63,6 +66,8 @@ public class Controller {
     PhantomjsDriver pJD = new PhantomjsDriver();
     this.driver = pJD.getDriver();
     lastSearches = new SearchHistory();
+    tagListHistory = new TagListHistory();
+    tagListHistory.clear();
   }
 
   /**
@@ -135,6 +140,7 @@ public class Controller {
 
     tags = search.getTags();
     initVisual(tags, searchWord, results); // Aufruf der Visualisierung
+    tagListHistory.addStep(tags);
 
   }
 
@@ -182,7 +188,7 @@ public class Controller {
    * @param searchword Übergabe des Suchwortes als String.
    */
   public void initVisual(ReturnTagList list, String searchword, Results results) {
-    /*
+    /*initVisual
      * das Objekt Tag, welches aus der Klasse visualtest übernommen wird dient zu Testzwecken und
      * kann bei der fertigen Implementation durch ein Objekt des Komplexen Suchalgorithmus ersezt
      * werden.
@@ -329,5 +335,10 @@ public class Controller {
 
   private void adaptPDFFormat() {
     pdfBoxDocuments.size();
+  }
+
+  public void clearTagListHistory() {
+    tagListHistory.clear();
+    
   }
 }

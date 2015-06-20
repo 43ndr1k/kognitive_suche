@@ -1,9 +1,10 @@
 package de.leipzig.htwk.cognitive.search;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ReturnTagObject {
+public class ReturnTagObject implements Serializable {
 
   /**
    * Objekt zur Weitergabe von Tags mit den dazugehörigen URLS.

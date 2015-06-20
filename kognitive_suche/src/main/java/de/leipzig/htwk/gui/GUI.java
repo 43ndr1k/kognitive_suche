@@ -157,7 +157,9 @@ public class GUI extends Stage {
       public void handle(MouseEvent event) {
         System.out.println("Tile pressed");
         stage.setScene(drawHomeScreen());
-      }
+        
+        mController.clearTagListHistory();
+        }
     });
 
     hboxHOME.getChildren().add(imv);
