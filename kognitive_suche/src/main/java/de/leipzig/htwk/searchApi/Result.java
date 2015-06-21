@@ -1,5 +1,7 @@
 package de.leipzig.htwk.searchApi;
 
+import java.io.Serializable;
+
 /**
  * @Autor Hendrik Sawade.
  */
@@ -18,7 +20,7 @@ package de.leipzig.htwk.searchApi;
  * @param firstIndexed
  * @param firstPublished
  */
-public class Result {
+public class Result implements Serializable {
 
 
   String title = "", kwic = "", author = "", votes = "", isNews = "";

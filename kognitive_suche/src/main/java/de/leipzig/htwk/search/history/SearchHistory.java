@@ -30,7 +30,6 @@ public class SearchHistory {
 			try {
 				historyFile.createNewFile();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 
@@ -46,13 +45,10 @@ public class SearchHistory {
 				historyData = (ArrayList<HistoryObject>) ois.readObject();
 				ois.close();
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -82,10 +78,8 @@ public class SearchHistory {
 	        oos.writeObject(historyData);
 	        oos.close();
 	    } catch (FileNotFoundException e) {
-	        // TODO Auto-generated catch block
 	        e.printStackTrace();
 	    } catch (IOException e) {
-	        // TODO Auto-generated catch block
 	        e.printStackTrace();
 	    }
 	}

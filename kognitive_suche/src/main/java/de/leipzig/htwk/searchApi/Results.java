@@ -2,6 +2,7 @@ package de.leipzig.htwk.searchApi;
 
 import de.leipzig.htwk.searchApi.Result;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Bereitstellung der Suchergebnisse.
  */
-public class Results {
+public class Results implements Serializable {
   private ArrayList<Result> results;
 
   /**

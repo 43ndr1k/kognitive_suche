@@ -166,7 +166,7 @@ public class ReturnTagList implements Serializable {
     }
   }
 
-  public static String getSearchword() {
+  public String getSearchword() {
     return searchword;
   }
 

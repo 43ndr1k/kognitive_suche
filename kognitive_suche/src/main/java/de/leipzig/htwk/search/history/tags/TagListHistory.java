@@ -10,26 +10,26 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import de.leipzig.htwk.cognitive.search.ReturnTagList;
+import de.leipzig.htwk.searchApi.Results;
 
 
 public class TagListHistory {
   
   File tagListHistoryFile;
-  ArrayList<ReturnTagList> tagListHistoryData;
+  ArrayList<TagListHistoryObject> tagListHistoryData;
   
   public TagListHistory () {
     
     tagListHistoryFile = new File("tagHistory.bin");
 
-    if (!tagListHistoryFile.exists()) {
+    if (!tagListHistoryFile.exists() || tagListHistoryFile.length() == 0) {
         try {
             tagListHistoryFile.createNewFile();
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
-        tagListHistoryData = new ArrayList<ReturnTagList>();
+        tagListHistoryData = new ArrayList<TagListHistoryObject>();
     } else {
 
         FileInputStream fis;
@@ -38,25 +38,28 @@ public class TagListHistory {
         try {
             fis = new FileInputStream(tagListHistoryFile);
             ois = new ObjectInputStream(fis);
-            tagListHistoryData = (ArrayList<ReturnTagList>) ois.readObject();
+            tagListHistoryData = (ArrayList<TagListHistoryObject>) ois.readObject();
             ois.close();
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
   }
   
-  public void addStep(ReturnTagList tagList) {
-    // TODO Auto-generated method stub
+  public void addStep(int pos, ReturnTagList tagList, Results results ) {
+	if(tagListHistoryData.size() != pos)  {
+		for(int i = pos; i < tagListHistoryData.size(); i++)
+			tagListHistoryData.remove(i);
+		
+	    tagListHistoryData.add(new TagListHistoryObject (tagList, results));
+	} else {
+	    tagListHistoryData.add(new TagListHistoryObject (tagList, results));
+	}
 
-    tagListHistoryData.add(tagList);
     save();   
 }
 
@@ -70,16 +73,19 @@ public void save() {
         oos.writeObject(tagListHistoryData);
         oos.close();
     } catch (FileNotFoundException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
     } catch (IOException e) {
-        // TODO Auto-generated catch block
         e.printStackTrace();
     }
 }
 
-public ReturnTagList getStep(int i) {
+public TagListHistoryObject getStep(int i) {
+	System.out.println("tagListHistoryData: " + tagListHistoryData.get(i).getTagList().getSearchword());
     return tagListHistoryData.get(i);
+}
+
+public int getStepsCount() {
+    return tagListHistoryData.size();
 }
 
 public void clear() {

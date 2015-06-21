@@ -52,8 +52,8 @@ public class VisController {
    * @param tags Tag Objekt
    * @return Pane mit positionierten Objekten
    */
-  public Pane startVisualize(ReturnTagList tags) {
-    Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags, this.gui, results);
+  public Pane startVisualize(ReturnTagList tags, int navMode) {
+    Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags, this.gui, results, navMode);
 
     return pattern.getPane();
   }
