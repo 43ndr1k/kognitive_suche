@@ -44,7 +44,7 @@ public class Pattern {
 
   private int activePads;
 
-  private static int MAX_TAGS = 9;
+  private static int MAX_TAGS = 7;
 
   private static Pane visPane;
 
@@ -69,7 +69,7 @@ public class Pattern {
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
     this.tags = tags;
-    this.activePads = tags.getSize();
+    this.activePads = 7;
     this.gui = gui;
     this.results = results;
     this.navMode = navMode;
@@ -200,7 +200,10 @@ public class Pattern {
                       numOfTags--;
               break;
               
-        	  case 2: break; //Platzhalter (vlt für das angeklickte Tag)
+        	  case 2: visPane =
+                      addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                              (x - 0.5), (y - 0.25), tags.getSearchword());
+        	  break;
         	  
         	  case 3: visPane =
                       addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
@@ -226,8 +229,11 @@ public class Pattern {
                     		  (x - 0.5), (y - 0.75), tags.getTagObject(rangeOfTags - numOfTags).getTag());
                       numOfTags--;
               break;
-              
-        	  case 2: break; //Platzhalter (vlt für das angeklickte Tag)
+                      
+        	  case 2: visPane =
+                      addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                              (x - 0.5), (y - 0.75), tags.getSearchword());
+        	  break;
         	  
         	  case 3: visPane =
                       addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
@@ -248,7 +254,34 @@ public class Pattern {
 
   }
 
-  private Pane addNavPad(double oneHexWidth, double columnCorrection,
+  private Pane addMidPad(double oneHexWidth, double columnCorrection,
+		double oneHexHeight, int rows, int columns, Pane visPane2, double x,
+		double y, String searchWord) {
+
+	    Pad pad = null;
+	    StackPane padPane = new StackPane();
+	    
+	    Label smallTopicLabel = new Label(searchWord);
+
+	    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+
+	    double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
+	    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
+
+	    pad = new Pad(PAD_SIZE, 0, 0, Color.WHITE);
+	    padPane.setLayoutX(xPos);
+	    padPane.setLayoutY(yPos);
+
+	    padPane.getChildren().add(pad.getShape());
+	    padPane.getChildren().add(smallTopicLabel);
+	    padPane.getChildren().add(pad.getLightShape());
+	   
+	    visPane.getChildren().add(padPane);
+
+	    return visPane;
+}
+
+private Pane addNavPad(double oneHexWidth, double columnCorrection,
 		double oneHexHeight, int rows, int columns, Pane visPane, double x,
 		double y, int navButtonMode) {
 	 
@@ -455,7 +488,7 @@ public class Pattern {
     for (int i = 0; i < activePads + 1; i++) {
         switch (i) {
           case 1:
-            padMap[insertColumn - 1][insertRow] = 1;
+            padMap[insertColumn - 1][insertRow] = 2;
             break;
           case 2:
             padMap[insertColumn][insertRow] = 1;

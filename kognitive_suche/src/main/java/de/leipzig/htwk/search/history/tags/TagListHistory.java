@@ -35,7 +35,11 @@ public class TagListHistory {
 }
 
 public TagListHistoryObject getStep(int i) {
-	System.out.println("tagListHistoryData: " + tagListHistoryData.get(i).getTagList().getSearchword());
+	
+	for(int j = 0; j < tagListHistoryData.size(); j++)
+		System.out.println("tagListHistoryData: " + tagListHistoryData.get(j).getTagList().getSearchword());
+	
+	
     return tagListHistoryData.get(i);
 }
 
