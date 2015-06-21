@@ -62,16 +62,18 @@ public class PhantomjsDriver {
 
         switch (system) {
             case "Linux":
-                //var = String.valueOf(getClass().getResource("/resources/phantomjs/phantomjsLinux.bin"));
-                var = "repo/lib/phantomjs/phantomjsLinux.bin";
+                //var = String.valueOf(getClass().getResource("/phantomjsLinux.bin"));
+
+                //new CopyResources("phantomjsLinux.bin");
+                var = "phantomjs/phantomjsLinux.bin";
                 break;
             case "Mac OS X":
                 //var = getClass().getResource("resources/phantomjs/phantomjsMac.bin").getPath();
-                var = "repo/lib/phantomjs/phantomjsMac.bin";
+                var = "phantomjs/phantomjsMac.bin";
                 break;
            default:
                 //var = getClass().getResource("/resources/phantomjs/phantomjsWin.exe").getPath();
-               var = "repo/lib/phantomjs/phantomjsWin.exe";
+               var = "phantomjs/phantomjsWin.exe";
                 break;
 
         }

@@ -6,7 +6,6 @@ import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.tags.TagListHistory;
 import de.leipzig.htwk.searchApi.Results;
-import de.leipzig.htwk.searchApi.SearchApiExecption;
 import de.leipzig.htwk.visualize.VisController;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -20,8 +19,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -113,7 +112,7 @@ public class GUI extends Stage implements Callback {
 
 
     /* Anzeige der Stage */
-    Image icon = new Image(String.valueOf(getClass().getResource("/resources/icons/icon.png")));
+    Image icon = new Image(String.valueOf(getClass().getResource("/icons/icon.png")));
     stage.getIcons().add(icon);
     stage.setTitle("Kognitive Suche");
     stage.centerOnScreen();
@@ -154,7 +153,7 @@ public class GUI extends Stage implements Callback {
     HBox hboxHOME = new HBox();
     final ImageView imv = new ImageView();
     final Image image =
-        new Image(String.valueOf(getClass().getResource("/resources/icons/bild.jpg")));
+        new Image(String.valueOf(getClass().getResource("/icons/bild.jpg")));
     imv.setImage(image);
     imv.setCursor(Cursor.HAND);
 

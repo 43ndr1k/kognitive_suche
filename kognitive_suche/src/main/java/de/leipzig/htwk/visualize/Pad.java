@@ -36,8 +36,8 @@ public class Pad extends Group {
 
 
 
-  private final Image PAD_NORMALIMAGE = new Image(String.valueOf(getClass().getResource("/resources/icons/normal_schwarz.png")));
-  private final Image PAD_LIGHTFRAME = new Image(String.valueOf(getClass().getResource("/resources/icons/lightFrame.png")));
+  private final Image PAD_NORMALIMAGE = new Image(String.valueOf(getClass().getResource("/icons/normal_schwarz.png")));
+  private final Image PAD_LIGHTFRAME = new Image(String.valueOf(getClass().getResource("/icons/lightFrame.png")));
 
   /**
    * Deklaration der verschiedenen Shapes.
