@@ -1,11 +1,12 @@
 package de.leipzig.htwk.cognitive.search;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class ReturnTagList {
+public class ReturnTagList implements Serializable {
   /**
    * @author Tobias Lenz
    * 

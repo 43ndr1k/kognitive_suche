@@ -9,6 +9,7 @@ import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.SearchHistory;
+import de.leipzig.htwk.search.history.tags.TagListHistory;
 import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
 import de.leipzig.htwk.searchApi.PhantomjsDriver;
 import de.leipzig.htwk.searchApi.Results;
@@ -21,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
+
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
@@ -64,6 +66,7 @@ public class Controller {
     PhantomjsDriver pJD = new PhantomjsDriver();
     this.driver = pJD.getDriver();
     lastSearches = new SearchHistory();
+   
   }
 
   /**
@@ -134,7 +137,7 @@ public class Controller {
         + " millisec");
 
     tags = search.getTags();
-    
+
   }
 
   /**
@@ -173,7 +176,7 @@ public class Controller {
     return this.searchWord;
   }
 
- 
+
   /**
    * Methode zur Übergabe der GUI an den Controller.
    *
@@ -291,8 +294,9 @@ public class Controller {
     pdfBoxDocuments.size();
   }
 
+
+
   public ReturnTagList getTags() {
-    // TODO Auto-generated method stub
-    return this.tags;
+    return tags;
   }
 }

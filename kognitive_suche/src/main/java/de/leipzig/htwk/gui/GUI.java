@@ -4,6 +4,7 @@ import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
+import de.leipzig.htwk.search.history.tags.TagListHistory;
 import de.leipzig.htwk.searchApi.Results;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
 import de.leipzig.htwk.visualize.VisController;
@@ -85,6 +86,7 @@ public class GUI extends Stage implements Callback {
   BorderPane loadingPane = new BorderPane();
   Scene loadingScene;
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
+  private TagListHistory tagListHistory;
 
   private static GUI instance;
 
@@ -105,6 +107,9 @@ public class GUI extends Stage implements Callback {
 
     mController.setGUI(this);
     mController.setParameter("de", "web", 1);
+    
+    tagListHistory = new TagListHistory();
+    tagListHistory.clear();
 
 
     /* Anzeige der Stage */
@@ -159,7 +164,9 @@ public class GUI extends Stage implements Callback {
       public void handle(MouseEvent event) {
         System.out.println("Tile pressed");
         stage.setScene(drawHomeScreen());
-      }
+        
+       tagListHistory.clear();
+        }
     });
 
     hboxHOME.getChildren().add(imv);
@@ -577,6 +584,7 @@ public class GUI extends Stage implements Callback {
     Results results = mController.getResultList();
     System.out.println(results);
     initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
+    tagListHistory.addStep(tags);
 
   }
 
