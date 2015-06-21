@@ -19,35 +19,7 @@ public class TagListHistory {
   ArrayList<TagListHistoryObject> tagListHistoryData;
   
   public TagListHistory () {
-    
-    tagListHistoryFile = new File("tagHistory.bin");
-
-    if (!tagListHistoryFile.exists() || tagListHistoryFile.length() == 0) {
-        try {
-            tagListHistoryFile.createNewFile();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-
-        tagListHistoryData = new ArrayList<TagListHistoryObject>();
-    } else {
-
-        FileInputStream fis;
-        ObjectInputStream ois;
-
-        try {
-            fis = new FileInputStream(tagListHistoryFile);
-            ois = new ObjectInputStream(fis);
-            tagListHistoryData = (ArrayList<TagListHistoryObject>) ois.readObject();
-            ois.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
+	  tagListHistoryData = new ArrayList<TagListHistoryObject>();
   }
   
   public void addStep(int pos, ReturnTagList tagList, Results results ) {
@@ -59,24 +31,7 @@ public class TagListHistory {
 	} else {
 	    tagListHistoryData.add(new TagListHistoryObject (tagList, results));
 	}
-
-    save();   
-}
-
-public void save() {
-  FileOutputStream fos;
-    ObjectOutputStream oos;
-
-    try {
-        fos = new FileOutputStream(tagListHistoryFile);
-        oos = new ObjectOutputStream(fos);
-        oos.writeObject(tagListHistoryData);
-        oos.close();
-    } catch (FileNotFoundException e) {
-        e.printStackTrace();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
+   
 }
 
 public TagListHistoryObject getStep(int i) {
@@ -90,7 +45,6 @@ public int getStepsCount() {
 
 public void clear() {
   tagListHistoryData.clear();
-  save();
 }
 
 }
