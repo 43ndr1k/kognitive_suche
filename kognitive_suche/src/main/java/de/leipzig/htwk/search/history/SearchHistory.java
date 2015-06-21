@@ -26,7 +26,7 @@ public class SearchHistory {
 	public SearchHistory() {
 		historyFile = new File("history.last");
 
-		if (!historyFile.exists()) {
+		if (!historyFile.exists() || historyFile.length() == 0) {
 			try {
 				historyFile.createNewFile();
 			} catch (IOException e1) {
