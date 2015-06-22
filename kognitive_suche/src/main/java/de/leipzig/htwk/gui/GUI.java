@@ -256,7 +256,7 @@ public class GUI extends Stage implements Callback {
       @Override
       public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
-          if (!suchleiste.getText().isEmpty()) {
+          if (!suchleiste.getText().trim().isEmpty()) {
             startQuery();
           } else {
             /**
@@ -284,7 +284,7 @@ public class GUI extends Stage implements Callback {
       sucheW.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent sucheF) {
-          if (!suchleiste.getText().isEmpty()) {
+          if (!suchleiste.getText().trim().isEmpty()) {
             startQuery();
           } else {
             /**
