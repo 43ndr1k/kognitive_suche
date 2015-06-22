@@ -207,7 +207,7 @@ public class EditTags {
   }
 
   public void removeSearchwords() {
-    String searchword = ReturnTagList.getSearchword();
+    String searchword = tags.getSearchword();
     String[] parts = searchword.split(" ");
     for (int i = 0; i < parts.length; i++) {
       tags.deleteTag(parts[i]);

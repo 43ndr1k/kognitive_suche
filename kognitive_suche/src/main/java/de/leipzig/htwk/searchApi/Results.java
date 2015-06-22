@@ -2,6 +2,7 @@ package de.leipzig.htwk.searchApi;
 
 import de.leipzig.htwk.searchApi.Result;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**

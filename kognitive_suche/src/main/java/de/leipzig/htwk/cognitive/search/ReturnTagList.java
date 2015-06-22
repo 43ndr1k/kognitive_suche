@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class ReturnTagList implements Serializable {
+public class ReturnTagList {
   /**
    * @author Tobias Lenz
    * 
@@ -15,12 +15,12 @@ public class ReturnTagList implements Serializable {
    * @param searchWord - Suchwort
    * @param tabObjects - Lister der Tags mit Wertigkeit und "Vorkommnissliste"
    */
-  private static String searchword;
+  private String searchword;
 
   private ArrayList<ReturnTagObject> tags = new ArrayList<ReturnTagObject>();
 
   public ReturnTagList(String searchword) {
-    ReturnTagList.searchword = searchword;
+    this.searchword = searchword;
   }
 
   public ReturnTagList() {}
@@ -166,7 +166,7 @@ public class ReturnTagList implements Serializable {
     }
   }
 
-  public static String getSearchword() {
+  public String getSearchword() {
     return searchword;
   }
 

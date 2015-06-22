@@ -48,6 +48,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 
+import com.sun.jna.Callback;
+
 /**
  * Erstellung der GUI
  *
@@ -86,6 +88,8 @@ public class GUI extends Stage implements Callback {
   Scene loadingScene;
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
   private TagListHistory tagListHistory;
+  private int btPosition = -1; //Position in der  Breadcrump Trail
+
 
   private static GUI instance;
 
@@ -164,7 +168,8 @@ public class GUI extends Stage implements Callback {
         System.out.println("Tile pressed");
         stage.setScene(drawHomeScreen());
         
-       tagListHistory.clear();
+        tagListHistory.clear();
+        btPosition = 0;    
         }
     });
 
@@ -250,7 +255,7 @@ public class GUI extends Stage implements Callback {
       @Override
       public void handle(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER) {
-          if (!suchleiste.getText().isEmpty()) {
+          if (!suchleiste.getText().trim().isEmpty()) {
             startQuery();
           } else {
             /**
@@ -278,7 +283,7 @@ public class GUI extends Stage implements Callback {
       sucheW.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent sucheF) {
-          if (!suchleiste.getText().isEmpty()) {
+          if (!suchleiste.getText().trim().isEmpty()) {
             startQuery();
           } else {
             /**
@@ -404,11 +409,12 @@ public class GUI extends Stage implements Callback {
    *
    */
   public void startQuery() {
+	  
     stage.setScene(loadIndicator());
 
     if (startMode == 0) {
       mController.setQuery(suchleiste.getText());
-      searchThread th = new searchThread(this,mController);
+      searchThread th = new searchThread(this, mController);
       th.setSearchEngine(DUCKDUCKGO);
       th.start();
       
@@ -565,7 +571,7 @@ public class GUI extends Stage implements Callback {
     visualController.setPaneHeight((int) (this.getStage().getHeight() * 0.85));
     visualController.setPaneWidth((int) this.getStage().getWidth());
     System.out.println("Checkpoint 4");
-    visPane.setCenter(visualController.startVisualize(tags));
+    visPane.setCenter(visualController.startVisualize(tags, getNavMode()));
     System.out.println("Checkpoint 5");
     visPane.setTop(homebuttonPane);
 
@@ -582,16 +588,49 @@ public class GUI extends Stage implements Callback {
     tags.testOutput(10);
     Results results = mController.getResultList();
     System.out.println(results);
+    
+    btPosition++;
+    tagListHistory.addStep(btPosition, tags, results);
+    
     initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
-    tagListHistory.addStep(tags);
 
   }
 
-  @Override
+  
   public void callback() {
    startVisualisation();
   }
 
+public void controllBTPosition(int change) {
+	switch(change) {
+	case -1: btPosition--; break;
+	case +1: btPosition++; break;
+	}
+	
+	mController.setTags(tagListHistory.getStep(btPosition).getTagList());
+	mController.setResultList(tagListHistory.getStep(btPosition).getResults());
+	
+	initVisual(tagListHistory.getStep(btPosition).getTagList(),
+			   tagListHistory.getStep(btPosition).getTagList().getSearchword(),
+			   tagListHistory.getStep(btPosition).getResults());
+	
+}
+
+public int getNavMode () {
+	
+	System.out.println("Pos: " + btPosition + " Steps: " +  tagListHistory.getStepsCount());
+	
+	if(btPosition == 0 && (tagListHistory.getStepsCount()-1) == 0)
+		return 0;
+	else if(btPosition == 0 && (tagListHistory.getStepsCount()-1) != 0)
+		return 2;
+	else if(btPosition != 0 && (tagListHistory.getStepsCount()-1) == btPosition)
+		return 1;
+	else if(btPosition != 0 && (tagListHistory.getStepsCount()-1) != btPosition)
+		return 3;
+	
+	return 0;
+}
 
 
 }

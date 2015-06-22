@@ -140,12 +140,8 @@ public class Controller {
 
   }
 
-  /**
-   * Setzt die Results Liste temporär für den simple Algorithmus.
-   *
-   * @param results - Results Liste
-   */
-  private void setResultList(Results results) {
+
+  public void setResultList(Results results) {
     this.results = results;
   }
 
@@ -299,4 +295,10 @@ public class Controller {
   public ReturnTagList getTags() {
     return tags;
   }
+
+public void setTags(ReturnTagList tagList) {
+	this.tags = tagList;
+	
+}
+  
 }
