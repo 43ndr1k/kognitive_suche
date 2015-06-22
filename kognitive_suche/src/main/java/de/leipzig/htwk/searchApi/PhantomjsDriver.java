@@ -21,14 +21,10 @@ public class PhantomjsDriver {
      * Pfad zu Phantomjs
      */
     String PHANTOMJS;
-
-
     /**
      * unitDriver lädt die Engerine für die Websuche.
      */
     private PhantomJSDriver driver;
-
-    //File f = new File((getClass().getResource("/lib/phantomjsLinux").getPath()));
 
     public PhantomjsDriver() {
         //Create instance of PhantomJS driver
@@ -53,31 +49,21 @@ public class PhantomjsDriver {
     private String getPHANTOMJSPhad() {
 
         String os = "os.name";
-
         Properties prop = System.getProperties();
         String system = prop.getProperty(os);
-        System.out.println( "Betriebssystem: " + system);
-
         String var = null;
 
         switch (system) {
             case "Linux":
-                //var = String.valueOf(getClass().getResource("/phantomjsLinux.bin"));
-
-                //new CopyResources("phantomjsLinux.bin");
                 var = "phantomjs/phantomjsLinux.bin";
                 break;
             case "Mac OS X":
-                //var = getClass().getResource("resources/phantomjs/phantomjsMac.bin").getPath();
                 var = "phantomjs/phantomjsMac.bin";
                 break;
            default:
-                //var = getClass().getResource("/resources/phantomjs/phantomjsWin.exe").getPath();
                var = "phantomjs/phantomjsWin.exe";
                 break;
-
         }
-
         return var;
     }
 }

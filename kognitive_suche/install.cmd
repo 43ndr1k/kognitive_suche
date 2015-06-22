@@ -4,6 +4,8 @@ echo "install local jars"
 
 # install maven dependencies
 echo "install maven dependencies"
-mvn validate clean install
+mvn validate 
+mvn clean 
+mvn install
 
 pause

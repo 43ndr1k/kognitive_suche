@@ -9,20 +9,16 @@ import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.SearchHistory;
-import de.leipzig.htwk.search.history.tags.TagListHistory;
 import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
 import de.leipzig.htwk.searchApi.PhantomjsDriver;
 import de.leipzig.htwk.searchApi.Results;
 import de.leipzig.htwk.searchApi.SearchApiExecption;
-import de.leipzig.htwk.visualize.VisController;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.layout.BorderPane;
-
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
@@ -199,7 +195,8 @@ public class Controller {
 
 
   /**
-   * @Autor Hendrik Sawade Die Suchanfrage an Faroo und DuckDuckGo, diese wird von der GUI
+   * @Autor Hendrik Sawade
+   * Die Suchanfrage an Faroo und DuckDuckGo, diese wird von der GUI
    *        aufgerufen.
    *
    * @return Results Liste mit den Ergebnisse.
