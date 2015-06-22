@@ -15,12 +15,12 @@ public class ReturnTagList {
    * @param searchWord - Suchwort
    * @param tabObjects - Lister der Tags mit Wertigkeit und "Vorkommnissliste"
    */
-  private static String searchword;
+  private String searchword;
 
   private ArrayList<ReturnTagObject> tags = new ArrayList<ReturnTagObject>();
 
   public ReturnTagList(String searchword) {
-    ReturnTagList.searchword = searchword;
+    this.searchword = searchword;
   }
 
   public ReturnTagList() {}

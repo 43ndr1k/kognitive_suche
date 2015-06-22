@@ -606,12 +606,12 @@ public void controllBTPosition(int change) {
 	case +1: btPosition++; break;
 	}
 	
+	mController.setTags(tagListHistory.getStep(btPosition).getTagList());
+	mController.setResultList(tagListHistory.getStep(btPosition).getResults());
+	
 	initVisual(tagListHistory.getStep(btPosition).getTagList(),
 			   tagListHistory.getStep(btPosition).getTagList().getSearchword(),
 			   tagListHistory.getStep(btPosition).getResults());
-	
-	mController.setTags(tagListHistory.getStep(btPosition).getTagList());
-	mController.setResultList(tagListHistory.getStep(btPosition).getResults());
 	
 }
 
