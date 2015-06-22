@@ -49,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 
+import com.sun.jna.Callback;
+
 /**
  * Erstellung der GUI
  *
@@ -413,7 +415,7 @@ public class GUI extends Stage implements Callback {
 
     if (startMode == 0) {
       mController.setQuery(suchleiste.getText());
-      searchThread th = new searchThread(this,mController);
+      searchThread th = new searchThread(this, mController);
       th.setSearchEngine(DUCKDUCKGO);
       th.start();
       
@@ -595,7 +597,7 @@ public class GUI extends Stage implements Callback {
 
   }
 
-  @Override
+  
   public void callback() {
    startVisualisation();
   }

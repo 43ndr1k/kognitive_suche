@@ -13,10 +13,10 @@ public class searchThread extends Thread {
   private int searchEnigne;
   Results results;
   ReturnTagList tags;
-  Callback c;
+  GUI c;
 
-  public searchThread(Callback c, Controller mController) {
-    this.c = c;
+  public searchThread(GUI gui, Controller mController) {
+    this.c = gui;
     this.mController = mController;
   }
 
