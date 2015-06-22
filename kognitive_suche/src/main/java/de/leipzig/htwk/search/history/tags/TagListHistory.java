@@ -23,21 +23,29 @@ public class TagListHistory {
   }
   
   public void addStep(int pos, ReturnTagList tagList, Results results ) {
-	if(tagListHistoryData.size() != pos)  {
-		for(int i = pos; i < tagListHistoryData.size(); i++)
-			tagListHistoryData.remove(i);
+    
+    System.out.println("ADD: tagListHistoryData.size: " + tagListHistoryData.size());
+    System.out.println("tagListHistoryData Pos: " + pos);
+    
+    if(tagListHistoryData.size() != 0)
+      for(int i = pos; i < tagListHistoryData.size(); i++)
+		tagListHistoryData.remove(i);
 		
-	    tagListHistoryData.add(new TagListHistoryObject (tagList, results));
-	} else {
-	    tagListHistoryData.add(new TagListHistoryObject (tagList, results));
+	tagListHistoryData.add(new TagListHistoryObject (tagList, results));
+    
+	for(int j = 0; j < tagListHistoryData.size(); j++)
+	{
+      System.out.println("tagListHistoryData: " + tagListHistoryData.get(j).getTagList().getSearchword() + " j: " + j);
+      System.out.println(tagListHistoryData.get(j).getTagList().toString());
 	}
+  
    
 }
 
 public TagListHistoryObject getStep(int i) {
 	
 	for(int j = 0; j < tagListHistoryData.size(); j++)
-		System.out.println("tagListHistoryData: " + tagListHistoryData.get(j).getTagList().getSearchword());
+		System.out.println("tagListHistoryData: " + tagListHistoryData.get(j).getTagList().getSearchword() + " j: " + j);
 	
 	
     return tagListHistoryData.get(i);

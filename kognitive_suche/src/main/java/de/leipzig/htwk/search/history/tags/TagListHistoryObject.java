@@ -10,7 +10,7 @@ public class TagListHistoryObject {
 
 	public TagListHistoryObject(ReturnTagList tagList, Results results) {
 		
-		this.tagList = tagList;
+		this.tagList = tagList;	
 		this.results = results;
 	
 	}
