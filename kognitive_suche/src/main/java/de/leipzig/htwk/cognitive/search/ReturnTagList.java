@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class ReturnTagList implements Serializable {
+public class ReturnTagList {
   /**
    * @author Tobias Lenz
    * 

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Bereitstellung der Suchergebnisse.
  */
-public class Results implements Serializable {
+public class Results {
   private ArrayList<Result> results;
 
   /**

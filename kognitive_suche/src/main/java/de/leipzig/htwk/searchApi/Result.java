@@ -20,7 +20,7 @@ import java.io.Serializable;
  * @param firstIndexed
  * @param firstPublished
  */
-public class Result implements Serializable {
+public class Result  {
 
 
   String title = "", kwic = "", author = "", votes = "", isNews = "";

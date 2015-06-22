@@ -1,11 +1,9 @@
 package de.leipzig.htwk.search.history.tags;
 
-import java.io.Serializable;
-
 import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.searchApi.Results;
 
-public class TagListHistoryObject implements Serializable{
+public class TagListHistoryObject {
 	
 	private ReturnTagList tagList;
 	private Results results;
