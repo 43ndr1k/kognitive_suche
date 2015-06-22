@@ -77,6 +77,12 @@
             <artifactId>controlsfx</artifactId>
             <version>8.20.9</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
+            <type>jar</type>
+        </dependency>
     </dependencies>
 
 <!-- Compilen -->
@@ -84,13 +90,17 @@
     <build>
         <resources>
             <resource>
-                <filtering>false</filtering>
-                <directory>${basedir}/src/main</directory>
-                <includes>
-                    <include>resources/</include>
-                </includes>
+                <directory>${basedir}/src/main/resources</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/binary/*</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/binary</directory>
             </resource>
         </resources>
+
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -118,12 +128,12 @@
                         <goals>
                             <goal>install-file</goal>
                         </goals>
-                        <phase>validate</phase>
+                        <phase>install</phase>
                     </execution>
                 </executions>
             </plugin>
 
-            <!--
+<!--
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>2.6</version>
@@ -138,7 +148,7 @@
                 <executions>
                     <execution>
                         <id>copy-resources</id>
-                        <phase>validate</phase>
+                        <phase>install</phase>
                         <goals>
                             <goal>copy-resources</goal>
                         </goals>
@@ -146,16 +156,19 @@
                             <outputDirectory>${basedir}/target/lib</outputDirectory>
                             <resources>
                                 <resource>
-                                    <directory>lib</directory>
-                                    <filtering>true</filtering>
+                                    <directory>${basedir}/src/main</directory>
+                                    <includes>
+                                        <include>resources/</include>
+                                    </includes>
+                                    <filtering>false</filtering>
                                 </resource>
                             </resources>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
-            -->
 
+-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -189,6 +202,34 @@
                     </execution>
                 </executions>
             </plugin>
+
+           <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <finalName>${project.artifactId}-standalone</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>main.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+
         </plugins>
     </build>
 
