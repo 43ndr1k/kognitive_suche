@@ -2,7 +2,6 @@ package de.leipzig.htwk.faroo.api;
 
 
 import com.google.gson.Gson;
-import de.leipzig.htwk.searchApi.Result;
 import de.leipzig.htwk.searchApi.Results;
 
 import java.io.BufferedReader;
@@ -79,14 +78,7 @@ public class Api {
 
       Gson gson = new Gson();
       Results results = gson.fromJson(response, Results.class);
-      if (results.getResults().size() != 0) {
-        return results;
-      } else {
-        Result res = new Result("Kein Ergebnis", "", "", "", "", "", "", "", "", "");
-        results.getResults().add(res);
-        return results;
-        // throw new Exception("Kein Ergebnis");
-      }
+     return results;
 
     } catch (Exception e) {
       e.printStackTrace();

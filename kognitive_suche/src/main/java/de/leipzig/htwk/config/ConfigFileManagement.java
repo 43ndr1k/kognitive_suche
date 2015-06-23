@@ -33,7 +33,7 @@ public class ConfigFileManagement {
       if (!file.exists()) {
         em.run();
         em.showAndWait();
-        if (!em.getkey().trim().isEmpty()) {
+        if (!em.getkey().trim().isEmpty() && !em.getPfad().isEmpty() && !em.geturl().isEmpty()) {
           erstelleConfigFile();
         } else {
           Platform.exit();

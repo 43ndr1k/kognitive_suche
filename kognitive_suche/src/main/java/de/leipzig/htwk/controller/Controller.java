@@ -9,10 +9,7 @@ import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.SearchHistory;
-import de.leipzig.htwk.searchApi.DuckDuckGoSearchApi;
-import de.leipzig.htwk.searchApi.PhantomjsDriver;
-import de.leipzig.htwk.searchApi.Results;
-import de.leipzig.htwk.searchApi.SearchApiExecption;
+import de.leipzig.htwk.searchApi.*;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
@@ -211,15 +208,21 @@ public class Controller {
      switch (pSearchEngine) {
        case 0:
          System.out.println("Query Faroo");
-
-
-         System.out.println("Query Faroo");
-
          Api api = new Api(key, url);
          try {
            System.out.println("Suche gestartet");
-           this.results = api.query(this.start, searchWord, this.language, src);
 
+           Results r;
+           ArrayList<Result> r1 = new ArrayList<Result>();
+           ArrayList<Result> r2 = new ArrayList<Result>();
+           for (int i = 1; i < 80; i = i +10) {
+             r = (api.query(i, searchWord, this.language, src));
+             r1 = r.getResults();
+             r2.addAll(r1);
+           }
+           Results r3 = new Results();
+           r3.setResults(r2);
+           this.results = r3;
          } catch (APIExecption apiExecption) {
            apiExecption.printStackTrace();
          }

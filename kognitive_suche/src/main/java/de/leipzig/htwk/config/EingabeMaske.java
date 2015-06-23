@@ -154,6 +154,10 @@ private void pfadBrowser() {
   pfadBox.setText(pfad);
 }
 
+  /**
+   * Ermittelt das Betriebsystem und gibt den Standardpfad zu phantomjs zurück.
+   * @return var Standardpfad zu Phantomjs
+   */
   private String os() {
     String os = "os.name";
     Properties prop = System.getProperties();

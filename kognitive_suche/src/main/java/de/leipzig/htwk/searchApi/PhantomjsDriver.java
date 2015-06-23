@@ -1,11 +1,8 @@
 package de.leipzig.htwk.searchApi;
 
-import javafx.stage.FileChooser;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.util.Properties;
 
 /**
  * @Autor Hendrik Sawade
@@ -42,32 +39,6 @@ public class PhantomjsDriver {
      */
     public PhantomJSDriver getDriver() {
         return driver;
-    }
-
-    /**
-     * Ermittelt das Betriebsystem und gibt den Pfad zu phantomjs zurück.
-     * @return var String mit dem Pfad zu phantomjs
-     */
-    private String getPHANTOMJSPhad() {
-
-        String os = "os.name";
-        Properties prop = System.getProperties();
-        String system = prop.getProperty(os);
-        String var = null;
-
-
-        switch (system) {
-            case "Linux":
-                var = "phantomjs/phantomjsLinux.bin";
-                break;
-            case "Mac OS X":
-                var = "phantomjs/phantomjsMac.bin";
-                break;
-           default:
-               var = "phantomjs/phantomjsWin.exe";
-                break;
-        }
-        return var;
     }
 }
 
