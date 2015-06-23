@@ -4,7 +4,7 @@ import de.leipzig.htwk.cognitive.search.ApiCognitiveSearch;
 import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.faroo.api.APIExecption;
 import de.leipzig.htwk.faroo.api.Api;
-import de.leipzig.htwk.faroo.api.ConfigFileManagement;
+import de.leipzig.htwk.config.ConfigFileManagement;
 import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
@@ -37,7 +37,7 @@ public class Controller {
    */
   private String language, src;
   private int start = 1;
-  private String key, url;
+  private String key, url, pfad;
   private Results results = null;
   private GUI gui;
   private String searchWord;
@@ -59,7 +59,8 @@ public class Controller {
     ConfigFileManagement config = new ConfigFileManagement();
     this.key = config.getKey();
     this.url = config.geturl();
-    PhantomjsDriver pJD = new PhantomjsDriver();
+    this.pfad = config.getPfad();
+    PhantomjsDriver pJD = new PhantomjsDriver(pfad);
     this.driver = pJD.getDriver();
     lastSearches = new SearchHistory();
    

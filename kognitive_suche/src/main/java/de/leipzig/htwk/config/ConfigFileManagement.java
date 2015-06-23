@@ -1,4 +1,4 @@
-package de.leipzig.htwk.faroo.api;
+package de.leipzig.htwk.config;
 
 import javafx.application.Platform;
 
@@ -15,7 +15,7 @@ import java.util.Properties;
 public class ConfigFileManagement {
 
 
-  private String key = "", url = "";
+  private String key = "", url = "", pfad = "";
   private EingabeMaske em = new EingabeMaske();
 
   /**
@@ -47,7 +47,7 @@ public class ConfigFileManagement {
     }
     key = properties.getProperty("key");
     url = properties.getProperty("url");
-
+    pfad = properties.getProperty("pfad");
   }
 
   /**
@@ -70,11 +70,18 @@ public class ConfigFileManagement {
   }
 
   /**
+   * Gibt den Pfad zu Phantomjs zurück.
+   * @return pfad
+   */
+  public  String getPfad () {
+    return  this.pfad;
+  }
+  /**
    * Erstellt ein config file sofern es das nicht gibt.
    */
   private void erstelleConfigFile() {
 
-    String key = "", url = "";
+    String key = "", url = "", pfad = "";
     Writer fw = null;
 
 
@@ -95,13 +102,24 @@ public class ConfigFileManagement {
     }
 
     try {
+      pfad = em.getPfad();
+      pfad = pfad.replaceAll("\\\\", "//");
+    } catch (Exception e) {
+      // Sollte eigentlich nie passieren
+      e.printStackTrace();
+    }
+
+    try {
       fw = new FileWriter("config.properties");
 
-      fw.write("# Dies ist der Faroo API Key\n");
-      fw.write("key = " + key + "\n");
+      fw.write("# Dies ist der Faroo API Key\n\n");
+      fw.write("key = " + key + "\n\n");
 
-      fw.write("# Dies ist die Faroo API URL\n");
-      fw.write("url = " + url + "\n");
+      fw.write("# Dies ist die Faroo API URL\n\n");
+      fw.write("url = " + url + "\n\n");
+
+      fw.write("# Dies ist der Pfad zu Phantomjs\n\n");
+      fw.write("pfad = " + pfad + "\n\n");
 
       fw.append(System.getProperty("line.separator")); // e.g. "\n"
     } catch (IOException e) {

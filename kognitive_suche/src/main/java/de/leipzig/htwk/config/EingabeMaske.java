@@ -1,4 +1,4 @@
-package de.leipzig.htwk.faroo.api;
+package de.leipzig.htwk.config;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,7 +12,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import java.io.File;
+import java.util.Properties;
 
 
 /**
@@ -27,12 +31,14 @@ public class EingabeMaske extends Stage {
   /**
    * Grafische eingabe Maske der Konfigurationsdatei.
    */
-  private String key = "", url;
+  private String key = "", url, pfad = "";
 
   public EingabeMaske() {
     super();
     setTitle("Konfigurationsmaske");
   }
+
+  final TextField pfadBox = new TextField();
 
   public void run() {
 
@@ -53,14 +59,33 @@ public class EingabeMaske extends Stage {
     keyTextBox.setMaxWidth(300);
     final TextField urlTextBox = new TextField();
     urlTextBox.setMaxWidth(300);
+
+    pfadBox.setMinWidth(300);
+    pfadBox.setMaxWidth(301);
     urlTextBox.setText("http://www.faroo.com/api?");
     keyTextBox.setText("2CJIbhzsHU4nlSqBVZ2OP3fimb4_");
-    Label lkey = new Label("Eingabe Key");
-    Label lurl = new Label("Eingabe URL");
-    VBox centerBox = new VBox(lkey, keyTextBox, lurl, urlTextBox);
+    pfad = os();
+    pfadBox.setText(pfad);
+    Label lkey = new Label("Eingabe Faroo Key");
+    Label lurl = new Label("Eingabe Faroo URL");
+    Label lpfad = new Label("Pfad zu Phantomjs");
+
+    Button browse = new Button("browse");
+    HBox CenterBox = new HBox( pfadBox, browse);
+    CenterBox.setAlignment(Pos.TOP_LEFT);
+    CenterBox.setPadding(new Insets(1, 1, 5, 5));
+    CenterBox.setSpacing(10);
+
+    VBox centerBox = new VBox(lkey, keyTextBox, lurl, urlTextBox, lpfad, CenterBox);
     centerBox.setAlignment(Pos.TOP_LEFT);
     centerBox.setPadding(new Insets(15, 15, 15, 15));
     centerBox.setSpacing(10);
+    browse.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent event) {
+        pfadBrowser();
+      }
+    });
 
     /**
      * Botom Pane
@@ -84,6 +109,7 @@ public class EingabeMaske extends Stage {
       public void handle(ActionEvent event) {
         key = keyTextBox.getText();
         url = urlTextBox.getText();
+
         close();
       }
     });
@@ -95,7 +121,7 @@ public class EingabeMaske extends Stage {
     pane.setTop(topBox);
     pane.setCenter(centerBox);
     pane.setBottom(botombox);
-    Scene scene = new Scene(pane, 450, 300);
+    Scene scene = new Scene(pane, 450, 400);
     setScene(scene);
   }
 
@@ -116,5 +142,38 @@ public class EingabeMaske extends Stage {
   public String geturl() {
     return this.url;
   }
+
+  public String getPfad() {
+    return this.pfad;
+  }
+
+private void pfadBrowser() {
+  FileChooser fileChooser = new FileChooser();
+  File file = fileChooser.showOpenDialog(this);
+  pfad = file.getAbsolutePath();
+  pfadBox.setText(pfad);
+}
+
+  private String os() {
+    String os = "os.name";
+    Properties prop = System.getProperties();
+    String system = prop.getProperty(os);
+    String var = null;
+
+
+    switch (system) {
+      case "Linux":
+        var = "phantomjs/phantomjsLinux.bin";
+        break;
+      case "Mac OS X":
+        var = "phantomjs/phantomjsMac.bin";
+        break;
+      default:
+        var = "phantomjs/phantomjsWin.exe";
+        break;
+    }
+    return var;
+  }
+
 
 }
