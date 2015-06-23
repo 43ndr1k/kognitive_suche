@@ -120,6 +120,27 @@ public class Pattern {
 
 
   }
+  
+  public void addTag(double x, double y, String tag) {
+	  x += .0; //sinvoller code
+	  y += .25;
+	  
+	  if(x % 2 != 0) {
+		  y -= .25;
+	  }
+	  
+	  Pane pad = addColorPad(
+			  getHexWidth(),
+			  getColumnCorrection(getHexHeight()),
+			  getHexHeight(),
+			  getRows(getHexHeight()),
+			  getColumns(getHexWidth(), getColumnCorrection(getHexHeight())),
+			  visPane,
+			  x, y, tag
+	  );
+  }
+  
+  
 
   /**
    * Berechnet die Anzahl der Spalten in Abhängikeit von der Größe der Hexagons und des Feldes.
@@ -189,9 +210,9 @@ public class Pattern {
         for (int x = 0; x < columns; x++) {
           if ((x % 2) == 0) {
         	  switch(padMap[x][y]) {
-        	  case 0: visPane =
-                      addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                              (x - 0.5), (y - 0.25));
+        	  case 0: //visPane =
+                      //addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                       //       (x - 0.5), (y - 0.25));
         	  break;
         	  
         	  case 1: visPane =
@@ -219,9 +240,9 @@ public class Pattern {
            
           } else {
         	  switch(padMap[x][y]) {
-        	  case 0: visPane =
-                      addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    		  (x - 0.5), (y - 0.75));
+        	  case 0: //visPane =
+                     // addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                    //		  (x - 0.5), (y - 0.75));
         	  break;
         	  
         	  case 1: visPane =
@@ -444,13 +465,21 @@ private Pane addNavPad(double oneHexWidth, double columnCorrection,
     });
 
     /**
-     * @author Sebastian Hügelmann
+     * @author Nicht Sebastian Hügelmann
      */
     exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-        gui = GUI.getInstance();
-        gui.setSuchleisteText(tags.getSearchword() + " " + largeTopicLabel.getText());
+    	  /*addTag(x, y - 1, "TAG!"); Patternpositionen später zum einkommentieren
+    	  addTag(x, y + 1, "TAG!");
+    	  addTag(x + 1, y - .5, "TAG!");
+    	  addTag(x + 1, y + .5, "TAG!");
+    	  addTag(x - 1, y - .5, "TAG!");
+    	  addTag(x - 1, y + .5, "TAG!");
+    	  
+    	  addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane, x, y, labelText);
+    	  */
+          gui.getInstance().setSuchleisteText(tags.getSearchword() + " " + largeTopicLabel.getText());
       }
     });
 
