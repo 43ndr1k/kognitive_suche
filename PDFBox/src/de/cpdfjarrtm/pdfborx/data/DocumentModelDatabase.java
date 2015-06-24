@@ -52,7 +52,7 @@ public class DocumentModelDatabase implements DocumentModel {
             for (BibtexFieldType field : document.getFields()) {        //jedes vorhandene bibtex feld
                 addQuery += (field.toString()+",");                     //namentlich in tabelle eintragen
             }
-            addQuery += "FILENAME,VERSION,ENCRYPTED";                   //sowie filename, version und encrypted, benötigt, um document lucene zu erzeugen
+            addQuery += "FILENAME,PATH,VERSION,ENCRYPTED";                   //sowie filename, version und encrypted, benötigt, um document lucene zu erzeugen
             addQuery += ") VALUES (";
             for (BibtexFieldType field : document.getFields()) {        //enstsprechende werte dazu eintragen
                 addQuery += ("?,");    
@@ -61,7 +61,7 @@ public class DocumentModelDatabase implements DocumentModel {
             
             //"'" + document.getField(field) +
             
-            addQuery += ("?,?,?);"); //sowie die extra-felder
+            addQuery += ("?,?,?,?);"); //sowie die extra-felder
             
             try {
                 ResultSet generatedKeys = null;
@@ -72,8 +72,9 @@ public class DocumentModelDatabase implements DocumentModel {
                     counter++;
                 }
                 statement.setString(counter, document.getFilename());
-                statement.setString(counter + 1, document.getVersion());
-                statement.setBoolean(counter + 2, document.isEncrypted());
+                statement.setString(counter +1, document.getPath());
+                statement.setString(counter + 2, document.getVersion());
+                statement.setBoolean(counter + 3, document.isEncrypted());
                 
                 statement.execute();
                 //statement.executeUpdate(statement.toString(), Statement.RETURN_GENERATED_KEYS);
@@ -204,9 +205,10 @@ public class DocumentModelDatabase implements DocumentModel {
                 }
                               
                 String filename = rs.getString("FILENAME"), version = rs.getString("VERSION");
+                String path = rs.getString("PATH");
                 Boolean encrypted = rs.getBoolean("ENCRYPTED");
                 
-                DocumentPdf document = new DocumentLucene(tempMap, id ,filename,tempText.toArray(new String[0]), version ,encrypted);
+                DocumentPdf document = new DocumentLucene(tempMap, id ,filename, path,tempText.toArray(new String[0]), version ,encrypted);
                 PreparedStatement ps3 = connection.prepareStatement("SELECT * FROM CUSTOM_FIELDS WHERE PDF_ID = " + id + ";");
                 ResultSet rs3 = ps3.getResultSet();
                 if(rs3 != null) {
