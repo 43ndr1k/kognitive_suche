@@ -98,7 +98,7 @@ public class GUI extends Stage implements Callback {
    * Instanzerstellung.
    *
    */
-  private GUI() {
+  public GUI() {
     /*
      * Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox
      */

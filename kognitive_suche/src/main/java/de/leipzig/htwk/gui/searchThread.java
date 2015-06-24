@@ -23,20 +23,23 @@ public class searchThread extends Thread {
   @SuppressWarnings("restriction")
   @Override
   public void run() {
+
+
+    try {
+      mController.querySearchEngine(searchEnigne);
+    } catch (SearchApiExecption e) {
+      e.printStackTrace();
+    }
+    results = mController.getResultList();
+    tags = mController.getTags();
     Platform.runLater(new Runnable() {
       @Override
       public void run() {
-
-        try {
-          mController.querySearchEngine(searchEnigne);
-        } catch (SearchApiExecption e) {
-          e.printStackTrace();
-        }
-        results = mController.getResultList();
-        tags = mController.getTags();
         c.callback();
+
       }
     });
+
 
   }
 
