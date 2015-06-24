@@ -122,6 +122,7 @@ public class DatabaseController implements DatabaseInterface {
                         "VOLUME VARCHAR(255), " +
                         "YEAR VARCHAR(255), " +
                         "FILENAME VARCHAR(255), " +
+                        "PATH VARCHAR(255), " +
                         "VERSION VARCHAR (255), " +
                         "ENCRYPTED BOOLEAN, " +
                         "PRIMARY KEY (PDF_ID));";
