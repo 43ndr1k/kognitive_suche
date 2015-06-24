@@ -177,7 +177,7 @@ public class GUI extends Stage implements Callback {
         stage.setScene(drawHomeScreen());
 
         tagListHistory.clear();
-        btPosition = 0;
+        btPosition = -1;
       }
     });
 
