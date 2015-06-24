@@ -44,7 +44,7 @@ public class Pattern {
 
   private int activePads;
 
-  private static int MAX_TAGS = 7;
+  private final int MAX_TAGS = 7;
 
   private static Pane visPane;
 
@@ -71,7 +71,12 @@ public class Pattern {
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
     this.tags = tags;
-    this.activePads = 7;
+    if (tags.getSize() < MAX_TAGS) {
+      this.activePads = tags.getSize();
+    } else {
+      this.activePads = 7;
+    }
+
     this.gui = gui;
     this.results = results;
     this.navMode = navMode;
