@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
 
-import com.sun.jna.Callback;
 
 /**
  * Erstellung der GUI
@@ -72,9 +71,9 @@ public class GUI extends Stage implements Callback {
   private static final int FAROO = 0;
   private static final int DUCKDUCKGO = 1;
 
-  private int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder
-  // direkt gestartet wird
-  private Controller mController;
+  private static int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder
+  // direkt gestartet wird 0 - WebSuche 1 - PDFSuche
+  private static Controller mController;
   public ArrayList<String> tags = new ArrayList<String>();
   public ArrayList<String> url = new ArrayList<String>();
   public ArrayList<String> kwic = new ArrayList<String>();
@@ -88,8 +87,7 @@ public class GUI extends Stage implements Callback {
   Scene loadingScene;
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
   private TagListHistory tagListHistory;
-  private int btPosition = -1; //Position in der  Breadcrump Trail
-
+  private int btPosition = -1; // Position in der Breadcrump Trail
 
   private static GUI instance;
 
@@ -98,19 +96,30 @@ public class GUI extends Stage implements Callback {
    * Instanzerstellung.
    *
    */
-  public GUI() {
+  private GUI() {
     /*
      * Notwendig um eine Instanz der GUI zu erstellen. Wichtig für aufrufen aus PDFBox
      */
+
+  }
+
+  /**
+   * NUR mit Angabe des StartModes wird die GUI erstellt
+   * 
+   * @param mode
+   */
+  public void setStartMode(int mode) {
+    startMode = mode;
+    mController = new Controller();
+    mController.setStartMode(startMode);
+    if (startMode == 0) {
+      mController.setParameter("de", "web", 1);
+    }
     start = new Scene(pane1);
     stage = new Stage();
     suchleiste = new TextField();
     loadingScene = new Scene(loadingPane);
-    mController = new Controller();
 
-    mController.setGUI(this);
-    mController.setParameter("de", "web", 1);
-    
     tagListHistory = new TagListHistory();
     tagListHistory.clear();
 
@@ -156,8 +165,7 @@ public class GUI extends Stage implements Callback {
 
     HBox hboxHOME = new HBox();
     final ImageView imv = new ImageView();
-    final Image image =
-        new Image(String.valueOf(getClass().getResource("/icons/bild.jpg")));
+    final Image image = new Image(String.valueOf(getClass().getResource("/icons/bild.jpg")));
     imv.setImage(image);
     imv.setCursor(Cursor.HAND);
 
@@ -167,20 +175,16 @@ public class GUI extends Stage implements Callback {
       public void handle(MouseEvent event) {
         System.out.println("Tile pressed");
         stage.setScene(drawHomeScreen());
-        
+
         tagListHistory.clear();
-        btPosition = 0;    
-        }
+        btPosition = 0;
+      }
     });
 
     hboxHOME.getChildren().add(imv);
     hboxHOME.setAlignment(Pos.CENTER);
     hboxHOME.setPadding(new Insets(15, 15, 15, 15));
     return hboxHOME;
-  }
-
-  private String InputStream() {
-    return null;
   }
 
   /**
@@ -190,6 +194,8 @@ public class GUI extends Stage implements Callback {
    * @return Scene
    */
   public Scene drawHomeScreen() {
+
+    String searchButtonText = "Suche";
     pane1.getChildren().clear();
     HBox hbox1 = new HBox();// horizontale Box für Suchleiste und Buttons
     HBox hbox2 = new HBox();// schliessen box
@@ -206,10 +212,12 @@ public class GUI extends Stage implements Callback {
     pane1.setBottom(hbox2);// schliessen
 
     if (startMode == 1) {
-      Label pdfAnzeige = new Label();
-      pdfAnzeige = new Label("Eingelesene PDFs: " + mController.getPdfBoxDocuments().size());
-      pdfAnzeige.setStyle("-fx-font-size: 12pt;");
-      hbox3.getChildren().addAll(pdfAnzeige);
+      if (mController.getPdfBoxDocuments() != null) {
+        Label pdfAnzeige = new Label();
+        pdfAnzeige = new Label("Eingelesene PDFs: " + mController.getPdfBoxDocuments().size());
+        pdfAnzeige.setStyle("-fx-font-size: 12pt;");
+        hbox3.getChildren().addAll(pdfAnzeige);
+      }
     }
 
     hbox1.setAlignment(Pos.CENTER);
@@ -277,47 +285,35 @@ public class GUI extends Stage implements Callback {
     hbox1.getChildren().add(suchleiste);
 
     if (startMode == 0) {
-
-      Button sucheW = new Button("Suche in Web");
-
-      sucheW.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent sucheF) {
-          if (!suchleiste.getText().trim().isEmpty()) {
-            startQuery();
-          } else {
-            /**
-             * Error Meldungen, falls kein Suchbegriff eingegeben wurde.
-             */
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error Dialog");
-            alert.setHeaderText("Error Message");
-            alert
-                .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
-            alert.showAndWait();
-          }
-
-        }
-      });
-
-      hbox1.getChildren().add(sucheW);
-
+      searchButtonText = "WebSuche";
+    } else if (startMode == 1) {
+      searchButtonText = "Suche in PDFs";
     }
 
-    if (startMode == 1) {
+    Button suchButton = new Button(searchButtonText);
 
-      Button sucheP = new Button("Suche in PDFs");
-
-      sucheP.setOnAction(new EventHandler<ActionEvent>() {
-        @Override
-        public void handle(ActionEvent sucheP) {
+    suchButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent sucheF) {
+        if (!suchleiste.getText().trim().isEmpty()) {
           startQuery();
+        } else {
+          /**
+           * Error Meldungen, falls kein Suchbegriff eingegeben wurde.
+           */
+          Alert alert = new Alert(Alert.AlertType.ERROR);
+          alert.setTitle("Error Dialog");
+          alert.setHeaderText("Error Message");
+          alert
+              .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+          alert.showAndWait();
         }
-      });
 
-      hbox1.getChildren().add(sucheP);
+      }
+    });
 
-    }
+    hbox1.getChildren().add(suchButton);
+
 
     Button history = new Button("Verlauf");
     history.setOnAction(new EventHandler<ActionEvent>() {
@@ -409,18 +405,13 @@ public class GUI extends Stage implements Callback {
    *
    */
   public void startQuery() {
-	  
-    stage.setScene(loadIndicator());
 
-    if (startMode == 0) {
-      mController.setQuery(suchleiste.getText());
-      searchThread th = new searchThread(this, mController);
-      th.setSearchEngine(DUCKDUCKGO);
-      th.start();
-      
-    } else if (startMode == 1) {
-      mController.startPDFSearch(suchleiste.getText());
-    }
+    stage.setScene(loadIndicator());
+    mController.setQuery(suchleiste.getText());
+    searchThread th = new searchThread(this, mController, startMode);
+    th.setSearchEngine(DUCKDUCKGO);
+    th.start();
+
   }
 
 
@@ -522,12 +513,6 @@ public class GUI extends Stage implements Callback {
 
   }
 
-
-
-  public void setStartMode(int mode) {
-    this.startMode = mode;
-  }
-
   public void reDrawHomeScreen() {
     stage.setScene(drawHomeScreen());
   }
@@ -551,6 +536,7 @@ public class GUI extends Stage implements Callback {
    * @param list Übergabe der gefundenen Ergebnisse per Liste.
    * @param searchword Übergabe des Suchwortes als String.
    */
+  @SuppressWarnings("static-access")
   public void initVisual(ReturnTagList list, String searchword, Results results) {
 
     // setResultList(results); brauch ich vielleicht
@@ -582,55 +568,61 @@ public class GUI extends Stage implements Callback {
     System.out.println("fertig visual");
   }
 
-
+  /**
+   * Annahme der Ergebnisse de Suche und Aufruf der Visualisierung
+   */
   private void startVisualisation() {
     ReturnTagList tags = mController.getTags();
-    tags.testOutput(10);
     Results results = mController.getResultList();
-    System.out.println(results);
-    
+
     btPosition++;
     tagListHistory.addStep(btPosition, tags, results);
-    
+
     initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
 
   }
 
-  
+  /**
+   * Aufruf der Visualisierung nach Erhalt des Callbacks
+   */
   public void callback() {
-   startVisualisation();
+    System.out.println("Callback erhalten. Alles Roger!");
+    startVisualisation();
   }
 
-public void controllBTPosition(int change) {
-	switch(change) {
-	case -1: btPosition--; break;
-	case +1: btPosition++; break;
-	}
-	
-	mController.setTags(tagListHistory.getStep(btPosition).getTagList());
-	mController.setResultList(tagListHistory.getStep(btPosition).getResults());
-	
-	initVisual(tagListHistory.getStep(btPosition).getTagList(),
-			   tagListHistory.getStep(btPosition).getTagList().getSearchword(),
-			   tagListHistory.getStep(btPosition).getResults());
-	
-}
+  public void controllBTPosition(int change) {
+    switch (change) {
+      case -1:
+        btPosition--;
+        break;
+      case +1:
+        btPosition++;
+        break;
+    }
 
-public int getNavMode () {
-	
-	System.out.println("Pos: " + btPosition + " Steps: " +  tagListHistory.getStepsCount());
-	
-	if(btPosition == 0 && (tagListHistory.getStepsCount()-1) == 0)
-		return 0;
-	else if(btPosition == 0 && (tagListHistory.getStepsCount()-1) != 0)
-		return 2;
-	else if(btPosition != 0 && (tagListHistory.getStepsCount()-1) == btPosition)
-		return 1;
-	else if(btPosition != 0 && (tagListHistory.getStepsCount()-1) != btPosition)
-		return 3;
-	
-	return 0;
-}
+    mController.setTags(tagListHistory.getStep(btPosition).getTagList());
+    mController.setResultList(tagListHistory.getStep(btPosition).getResults());
+
+    initVisual(tagListHistory.getStep(btPosition).getTagList(), tagListHistory.getStep(btPosition)
+        .getTagList().getSearchword(), tagListHistory.getStep(btPosition).getResults());
+
+  }
+
+  public int getNavMode() {
+
+    System.out.println("Pos: " + btPosition + " Steps: " + tagListHistory.getStepsCount());
+
+    if (btPosition == 0 && (tagListHistory.getStepsCount() - 1) == 0)
+      return 0;
+    else if (btPosition == 0 && (tagListHistory.getStepsCount() - 1) != 0)
+      return 2;
+    else if (btPosition != 0 && (tagListHistory.getStepsCount() - 1) == btPosition)
+      return 1;
+    else if (btPosition != 0 && (tagListHistory.getStepsCount() - 1) != btPosition)
+      return 3;
+
+    return 0;
+  }
 
 
 }

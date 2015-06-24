@@ -9,7 +9,8 @@ import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.gui.searchThread;
 
 /**
- * Sorgt für die Annahme der PDFDocumentElemente, den start der Kog. Suche-GUI und die Weitegerabe der PDFDocuments an den Controller
+ * Sorgt für die Annahme der PDFDocumentElemente, den start der Kog. Suche-GUI und die Weitegerabe
+ * der PDFDocuments an den Controller
  * 
  * @author Fabian Freihube
  *
@@ -37,13 +38,13 @@ public class Pdfboxconnector extends Application {
   @Override
   public void start(Stage arg0) throws Exception {
     // TODO Auto-generated method stub
-    
+
     GUI gui = GUI.getInstance();
     gui.setStartMode(1);
     mController = gui.getController();
     mController.setPDFBoxDocuments(Pdfboxconnector.pdfBoxDocuments);
     gui.reDrawHomeScreen();
-    
+
   }
-  
+
 }

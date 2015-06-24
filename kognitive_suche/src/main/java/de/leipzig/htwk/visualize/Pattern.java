@@ -57,14 +57,16 @@ public class Pattern {
 
   /**
    * Generiert das Feld von Hexagons
-   *  @param paneHeight Höhe des Feldes
+   * 
+   * @param paneHeight Höhe des Feldes
    * @param paneWidth Breite des Feldes
    * @param query
    * @param tags
    * @param gui
    * @param navMode Gibt an ob es ein Button nach vorne und hinten geben soll
    */
-  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags, GUI gui, Results results, int navMode) {
+  public Pattern(int paneHeight, int paneWidth, String query, ReturnTagList tags, GUI gui,
+      Results results, int navMode) {
     // Auto-generated method stub
     this.paneHeight = paneHeight;
     this.paneWidth = paneWidth;
@@ -75,11 +77,11 @@ public class Pattern {
     this.navMode = navMode;
 
 
-    visPane = new Pane();//Pane Für Kacheln
+    visPane = new Pane();// Pane Für Kacheln
     visPane.setPrefSize(paneHeight, paneWidth - 256);
 
-    //BorderPane SearchList = new BorderPane();//Pane für Suchliste
-    //SearchList.setPrefSize(paneHeight,paneWidth/2);
+    // BorderPane SearchList = new BorderPane();//Pane für Suchliste
+    // SearchList.setPrefSize(paneHeight,paneWidth/2);
 
 
 
@@ -94,53 +96,49 @@ public class Pattern {
     System.out.println("Rows:" + rows + " Columns:" + columns + " ActivePads:" + activePads);
 
     int[][] padMap = createPadMap(rows, columns);
-    visPane = printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
+    visPane =
+        printPattern(padMap, oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
     // iv
 
 
-   // list.setOnAction(new EventHandler<ActionEvent>() {
-     // @Override
-     // public void handle(ActionEvent Liste) {
-        //visPane.getChildren().clear();
+    // list.setOnAction(new EventHandler<ActionEvent>() {
+    // @Override
+    // public void handle(ActionEvent Liste) {
+    // visPane.getChildren().clear();
 
-        Listenausgabe ausgabe = new Listenausgabe(results);
-        ausgabe.setWidth(256);
-        ausgabe.setHeight(610);
-        ausgabe.setLayoutX(paneWidth - 270);
-        ausgabe.setLayoutY(0);
-        /**
-         * Listenausgabe an Patterngui weitergegeben
-         */
-        visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
+    Listenausgabe ausgabe = new Listenausgabe(results);
+    ausgabe.setWidth(256);
+    ausgabe.setHeight(610);
+    ausgabe.setLayoutX(paneWidth - 270);
+    ausgabe.setLayoutY(0);
+    /**
+     * Listenausgabe an Patterngui weitergegeben
+     */
+    visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
 
 
-    //}});
+    // }});
 
-    //visPane.getChildren().addAll(list);
+    // visPane.getChildren().addAll(list);
 
 
   }
-  
+
   public void addTag(double x, double y, String tag) {
-	  x += .0; //sinvoller code
-	  y += .25;
-	  
-	  if(x % 2 != 0) {
-		  y -= .25;
-	  }
-	  
-	  Pane pad = addColorPad(
-			  getHexWidth(),
-			  getColumnCorrection(getHexHeight()),
-			  getHexHeight(),
-			  getRows(getHexHeight()),
-			  getColumns(getHexWidth(), getColumnCorrection(getHexHeight())),
-			  visPane,
-			  x, y, tag
-	  );
+    x += .0; // sinvoller code
+    y += .25;
+
+    if (x % 2 != 0) {
+      y -= .25;
+    }
+
+    Pane pad =
+        addColorPad(getHexWidth(), getColumnCorrection(getHexHeight()), getHexHeight(),
+            getRows(getHexHeight()),
+            getColumns(getHexWidth(), getColumnCorrection(getHexHeight())), visPane, x, y, tag);
   }
-  
-  
+
+
 
   /**
    * Berechnet die Anzahl der Spalten in Abhängikeit von der Größe der Hexagons und des Feldes.
@@ -205,165 +203,178 @@ public class Pattern {
       numOfTags = MAX_TAGS;
     }
     int rangeOfTags = numOfTags;
-    
-    for (int y = 0; y < rows; y++) {
-        for (int x = 0; x < columns; x++) {
-          if ((x % 2) == 0) {
-        	  switch(padMap[x][y]) {
-        	  case 0: //visPane =
-                      //addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                       //       (x - 0.5), (y - 0.25));
-        	  break;
-        	  
-        	  case 1: visPane =
-                      addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                              (x - 0.5), (y - 0.25), tags.getTagObject(rangeOfTags - numOfTags).getTag());
-                      numOfTags--;
-              break;
-              
-        	  case 2: visPane =
-                      addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                              (x - 0.5), (y - 0.25), tags.getSearchword());
-        	  break;
-        	  
-        	  case 3: visPane =
-                      addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                              (x - 0.5), (y - 0.25), 1);
-                      break; // Navbutton zurück
-                      
-        	  case 4: visPane =
-                      addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                              (x - 0.5), (y - 0.25), 2);
-                      break; // Navbutton vor
-        	  
-        	  }
-           
-          } else {
-        	  switch(padMap[x][y]) {
-        	  case 0: //visPane =
-                     // addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    //		  (x - 0.5), (y - 0.75));
-        	  break;
-        	  
-        	  case 1: visPane =
-                      addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    		  (x - 0.5), (y - 0.75), tags.getTagObject(rangeOfTags - numOfTags).getTag());
-                      numOfTags--;
-              break;
-                      
-        	  case 2: visPane =
-                      addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                              (x - 0.5), (y - 0.75), tags.getSearchword());
-        	  break;
-        	  
-        	  case 3: visPane =
-                      addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    		  (x - 0.5), (y - 0.75), 1);
-                      break; // Navbutton zurück
 
-        	  case 4: visPane =
-                      addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
-                    		  (x - 0.5), (y - 0.75), 2);
-                      break; // Navbutton vor                      
-        	  
-        	  }
-            }
+    for (int y = 0; y < rows; y++) {
+      for (int x = 0; x < columns; x++) {
+        if ((x % 2) == 0) {
+          switch (padMap[x][y]) {
+            case 0: // visPane =
+                    // addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
+                    // visPane,
+                    // (x - 0.5), (y - 0.25));
+              break;
+
+            case 1:
+              visPane =
+                  addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.25), tags.getTagObject(rangeOfTags - numOfTags).getTag());
+              numOfTags--;
+              break;
+
+            case 2:
+              visPane =
+                  addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.25), tags.getSearchword());
+              break;
+
+            case 3:
+              visPane =
+                  addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.25), 1);
+              break; // Navbutton zurück
+
+            case 4:
+              visPane =
+                  addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.25), 2);
+              break; // Navbutton vor
+
           }
+
+        } else {
+          switch (padMap[x][y]) {
+            case 0: // visPane =
+                    // addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
+                    // visPane,
+                    // (x - 0.5), (y - 0.75));
+              break;
+
+            case 1:
+              visPane =
+                  addColorPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.75), tags.getTagObject(rangeOfTags - numOfTags).getTag());
+              numOfTags--;
+              break;
+
+            case 2:
+              visPane =
+                  addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.75), tags.getSearchword());
+              break;
+
+            case 3:
+              visPane =
+                  addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.75), 1);
+              break; // Navbutton zurück
+
+            case 4:
+              visPane =
+                  addNavPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane,
+                      (x - 0.5), (y - 0.75), 2);
+              break; // Navbutton vor
+
+          }
+        }
+      }
     }
-    
+
     return visPane;
 
   }
 
-  private Pane addMidPad(double oneHexWidth, double columnCorrection,
-		double oneHexHeight, int rows, int columns, Pane visPane2, double x,
-		double y, String searchWord) {
+  private Pane addMidPad(double oneHexWidth, double columnCorrection, double oneHexHeight,
+      int rows, int columns, Pane visPane2, double x, double y, String searchWord) {
 
-	    Pad pad = null;
-	    StackPane padPane = new StackPane();
-	    
-	    Label smallTopicLabel = new Label(searchWord);
+    Pad pad = null;
+    StackPane padPane = new StackPane();
 
-	    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+    Label smallTopicLabel = new Label(searchWord);
 
-	    double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
-	    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
+    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
 
-	    pad = new Pad(PAD_SIZE, 0, 0, Color.WHITE);
-	    padPane.setLayoutX(xPos);
-	    padPane.setLayoutY(yPos);
+    double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
+    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
 
-	    padPane.getChildren().add(pad.getShape());
-	    padPane.getChildren().add(smallTopicLabel);
-	    padPane.getChildren().add(pad.getLightShape());
-	   
-	    visPane.getChildren().add(padPane);
+    pad = new Pad(PAD_SIZE, 0, 0, Color.WHITE);
+    padPane.setLayoutX(xPos);
+    padPane.setLayoutY(yPos);
 
-	    return visPane;
-}
+    padPane.getChildren().add(pad.getShape());
+    padPane.getChildren().add(smallTopicLabel);
+    padPane.getChildren().add(pad.getLightShape());
 
-private Pane addNavPad(double oneHexWidth, double columnCorrection,
-		double oneHexHeight, int rows, int columns, Pane visPane, double x,
-		double y, int navButtonMode) {
-	 
-	    Pad pad = null;
-	    StackPane padPane = new StackPane();
-	    
-	    Label smallTopicLabel;
-	    
-	    if(navButtonMode == 1)
-	    	smallTopicLabel = new Label("←");
-	    else
-	    	smallTopicLabel = new Label("→");
+    visPane.getChildren().add(padPane);
 
-	    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 60));
+    return visPane;
+  }
 
-	    double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
-	    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
+  @SuppressWarnings("restriction")
+  private Pane addNavPad(double oneHexWidth, double columnCorrection, double oneHexHeight,
+      int rows, int columns, Pane visPane, double x, double y, int navButtonMode) {
 
-	    pad = new Pad(PAD_SIZE, 0, 0, COLOR_LIGHTGREY);
-	    padPane.setLayoutX(xPos);
-	    padPane.setLayoutY(yPos);
+    Pad pad = null;
+    StackPane padPane = new StackPane();
 
-	    padPane.getChildren().add(pad.getShape());
-	    padPane.getChildren().add(smallTopicLabel);
-	    padPane.getChildren().add(pad.getLightShape());
-	   
+    Label smallTopicLabel;
 
-	    visPane.getChildren().add(padPane);
-	    
-	    pad.getLightShape().setOnMouseEntered(event -> {
-	        ((Shape) ((StackPane) ((Shape) event.getTarget()).getParent()).getChildren().get(0)).setFill(COLOR_SUPERLIGHTGREY);
-	      });
-	    
-	    pad.getLightShape().setOnMouseExited(event -> {
-	        ((Shape) ((StackPane) ((Shape) event.getTarget()).getParent()).getChildren().get(0)).setFill(COLOR_LIGHTGREY);
-	      });
+    if (navButtonMode == 1)
+      smallTopicLabel = new Label("←");
+    else
+      smallTopicLabel = new Label("→");
+
+    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 60));
+
+    double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
+    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
+
+    pad = new Pad(PAD_SIZE, 0, 0, COLOR_LIGHTGREY);
+    padPane.setLayoutX(xPos);
+    padPane.setLayoutY(yPos);
+
+    padPane.getChildren().add(pad.getShape());
+    padPane.getChildren().add(smallTopicLabel);
+    padPane.getChildren().add(pad.getLightShape());
 
 
-	    if(navButtonMode == 1) {
-		    padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-		      @Override
-		      public void handle(MouseEvent event) {
-		        gui = GUI.getInstance();
-		        gui.controllBTPosition(-1);
-		      }
-		    });
-	    } else {
-		    padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			  @Override
-			  public void handle(MouseEvent event) {
-				  gui = GUI.getInstance();
-			      gui.controllBTPosition(+1);
-			  }
-		    });
-	    }
+    visPane.getChildren().add(padPane);
 
-	    return visPane;
-	  
-}
+    pad.getLightShape().setOnMouseEntered(
+        event -> {
+          ((Shape) ((StackPane) ((Shape) event.getTarget()).getParent()).getChildren().get(0))
+              .setFill(COLOR_SUPERLIGHTGREY);
+        });
 
-/**
+    pad.getLightShape().setOnMouseExited(
+        event -> {
+          ((Shape) ((StackPane) ((Shape) event.getTarget()).getParent()).getChildren().get(0))
+              .setFill(COLOR_LIGHTGREY);
+        });
+
+
+    if (navButtonMode == 1) {
+      padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          gui = GUI.getInstance();
+          gui.controllBTPosition(-1);
+        }
+      });
+    } else {
+      padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        @Override
+        public void handle(MouseEvent event) {
+          gui = GUI.getInstance();
+          gui.controllBTPosition(+1);
+        }
+      });
+    }
+
+    return visPane;
+
+  }
+
+  /**
    * Fügt ein neues inaktives Hexagon hinzu.
    * 
    * @param oneHexWidth Breite eines Hexagons
@@ -376,6 +387,7 @@ private Pane addNavPad(double oneHexWidth, double columnCorrection,
    * @param y Y-Position des Hexagons
    * @return visPane mit neuem aktiven Hexagon
    */
+  @SuppressWarnings({"restriction", "unused"})
   private Pane addGreyPad(double oneHexWidth, double columnCorrection, double oneHexHeight,
       int rows, int columns, Pane visPane, double x, double y) {
     Pad pad;
@@ -470,16 +482,15 @@ private Pane addNavPad(double oneHexWidth, double columnCorrection,
     exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
-    	  /*addTag(x, y - 1, "TAG!"); Patternpositionen später zum einkommentieren
-    	  addTag(x, y + 1, "TAG!");
-    	  addTag(x + 1, y - .5, "TAG!");
-    	  addTag(x + 1, y + .5, "TAG!");
-    	  addTag(x - 1, y - .5, "TAG!");
-    	  addTag(x - 1, y + .5, "TAG!");
-    	  
-    	  addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane, x, y, labelText);
-    	  */
-          gui.getInstance().setSuchleisteText(tags.getSearchword() + " " + largeTopicLabel.getText());
+        /*
+         * addTag(x, y - 1, "TAG!"); Patternpositionen später zum einkommentieren addTag(x, y + 1,
+         * "TAG!"); addTag(x + 1, y - .5, "TAG!"); addTag(x + 1, y + .5, "TAG!"); addTag(x - 1, y -
+         * .5, "TAG!"); addTag(x - 1, y + .5, "TAG!");
+         * 
+         * addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane, x, y,
+         * labelText);
+         */
+        gui.getInstance().setSuchleisteText(tags.getSearchword() + " " + largeTopicLabel.getText());
       }
     });
 
@@ -515,51 +526,55 @@ private Pane addNavPad(double oneHexWidth, double columnCorrection,
         padMap[x][y] = 0;
 
     for (int i = 0; i < activePads + 1; i++) {
-        switch (i) {
-          case 1:
-            padMap[insertColumn - 1][insertRow] = 2;
-            break;
-          case 2:
-            padMap[insertColumn][insertRow] = 1;
-            break;
-          case 3:
-            padMap[insertColumn - 2][insertRow] = 1;
-            break;
-          case 4:
-            padMap[insertColumn][insertRow - 1] = 1;
-            break;
-          case 5:
-            padMap[insertColumn - 2][insertRow - 1] = 1;
-            break;
-          case 6:
-            padMap[insertColumn - 1][insertRow + 1] = 1;
-            break;
-          case 7:
-            padMap[insertColumn - 1][insertRow - 1] = 1;
-            break;
-          case 8:
-            padMap[insertColumn - 3][insertRow] = 1;
-            break;
-          case 9:
-            padMap[insertColumn + 1][insertRow] = 1;
-            break;
-        }
-        
-        //Navbuttons
-        
-        switch (navMode) {
+      switch (i) {
+        case 1:
+          padMap[insertColumn - 1][insertRow] = 2;
+          break;
+        case 2:
+          padMap[insertColumn][insertRow] = 1;
+          break;
+        case 3:
+          padMap[insertColumn - 2][insertRow] = 1;
+          break;
+        case 4:
+          padMap[insertColumn][insertRow - 1] = 1;
+          break;
+        case 5:
+          padMap[insertColumn - 2][insertRow - 1] = 1;
+          break;
+        case 6:
+          padMap[insertColumn - 1][insertRow + 1] = 1;
+          break;
+        case 7:
+          padMap[insertColumn - 1][insertRow - 1] = 1;
+          break;
+        case 8:
+          padMap[insertColumn - 3][insertRow] = 1;
+          break;
+        case 9:
+          padMap[insertColumn + 1][insertRow] = 1;
+          break;
+      }
 
-	        case 1: padMap[insertColumn - 3][insertRow - 1] = 3; //Zurück
-	        		break;	
-	        case 2: padMap[insertColumn + 1][insertRow - 1] = 4; //Vor
-					break;
-	        case 3: padMap[insertColumn - 3][insertRow - 1] = 3; //Zurück
-					padMap[insertColumn + 1][insertRow - 1] = 4; //Vor
-					break;		
-				
-		default: break;
-        
-        }
+      // Navbuttons
+
+      switch (navMode) {
+
+        case 1:
+          padMap[insertColumn - 3][insertRow - 1] = 3; // Zurück
+          break;
+        case 2:
+          padMap[insertColumn + 1][insertRow - 1] = 4; // Vor
+          break;
+        case 3:
+          padMap[insertColumn - 3][insertRow - 1] = 3; // Zurück
+          padMap[insertColumn + 1][insertRow - 1] = 4; // Vor
+          break;
+
+        default:
+          break;
+
+      }
 
     }
 
@@ -571,12 +586,12 @@ private Pane addNavPad(double oneHexWidth, double columnCorrection,
     // Auto-generated method stub
   }
 
-    /**
-     * Methode zur Übergabe der GUI an den Controller.
-     *
-     * @author Sebastian Hügelmann
-     */
-    public void setGUI(GUI gui) {
-        this.gui = gui;
-    }
+  /**
+   * Methode zur Übergabe der GUI an den Controller.
+   *
+   * @author Sebastian Hügelmann
+   */
+  public void setGUI(GUI gui) {
+    this.gui = gui;
+  }
 }

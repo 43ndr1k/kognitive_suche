@@ -34,7 +34,8 @@ public class ApiCognitiveSearch {
 
 
   }
-/**
+
+  /**
  * 
  */
   public void doWordCount() {
@@ -44,9 +45,10 @@ public class ApiCognitiveSearch {
     zstNachher = System.currentTimeMillis();
     System.out.println("Zeit benötigt: WordCount: " + ((zstNachher - zstVorher)) + " millisec");
   }
-/**
- * Hier werden die Ergebnisse der 
- */
+
+  /**
+   * Hier werden die Ergebnisse der
+   */
   public void doMergeTagInfos() {
 
     merge = new AddTagInfos(searchWord);
@@ -56,25 +58,26 @@ public class ApiCognitiveSearch {
     tags = merge.getReturnTagList();
 
   }
-/**
+
+  /**
  * 
  */
   public void doEditTags() {
     EditTags edit = new EditTags(tags);
     edit.removeTagsFromWordList();
 
-   // edit.removePreviousTags();
-    
+    // edit.removePreviousTags();
+
     // edit.stem();
     edit.removeTagsLongerThanVar(15);
     // edit.findRepresentativeTags(findOutBlocNumbers());
     edit.removeSpaces();
     edit.removeSearchwords();
     edit.sortTagsByPriority();
-    //edit.setCover(findOutBlocNumbers());
+    // edit.setCover(findOutBlocNumbers());
     edit.kategorisieren();
     tags = edit.getTags();
-    
+
 
   }
 

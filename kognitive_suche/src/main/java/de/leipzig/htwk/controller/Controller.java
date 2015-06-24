@@ -19,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
+
 /**
  * @author Hendrik Sawade
  */
@@ -33,35 +34,40 @@ public class Controller {
    * Die Parameter für die Weitergabe der einzelnen Informationen.
    */
   private String language, src;
-  private int start = 1;
   private String key, url, pfad;
   private Results results = null;
-  private GUI gui;
   private String searchWord;
   private static ArrayList<PDFDocument> pdfBoxDocuments;
   private SearchHistory lastSearches;
   private PhantomJSDriver driver;
-  // test
-  private Scene visual;
   private ReturnTagList tags;
-
-  public Scene getVisual() {
-    return visual;
-  }
 
   /**
    * Ruft das Konfiguationsfile ab. In dieser steht der Faroo Key und die Faroo API URL.
    */
   public Controller() {
-    ConfigFileManagement config = new ConfigFileManagement();
-    this.key = config.getKey();
-    this.url = config.geturl();
-    this.pfad = config.getPfad();
-    PhantomjsDriver pJD = new PhantomjsDriver(pfad);
-    this.driver = pJD.getDriver();
+
     lastSearches = new SearchHistory();
-   
+
   }
+
+  /**
+   * hier wird der StartMode übergeben und die Für den jeweiligen Modi benötigten Funktionen
+   * aufgerufen
+   * 
+   * @param startMode 0 - webSuche 1- PDFSuche
+   */
+  public void setStartMode(int startMode) {
+    if (startMode == 0) {
+      ConfigFileManagement config = new ConfigFileManagement();
+      this.key = config.getKey();
+      this.url = config.geturl();
+      this.pfad = config.getPfad();
+      PhantomjsDriver pJD = new PhantomjsDriver(pfad);
+      this.driver = pJD.getDriver();
+    }
+  }
+
 
   /**
    * Parameter für die Faroo API
@@ -73,7 +79,6 @@ public class Controller {
   public void setParameter(String l, String _src, int s) {
     this.language = l;
     this.src = _src;
-    this.start = s;
   }
 
 
@@ -166,16 +171,6 @@ public class Controller {
     return this.searchWord;
   }
 
-
-  /**
-   * Methode zur Übergabe der GUI an den Controller.
-   *
-   * @author Sebastian Hügelmann
-   */
-  public void setGUI(GUI gui) {
-    this.gui = gui;
-  }
-
   /**
    * Annahme der PDFDocument Elemente
    *
@@ -191,10 +186,8 @@ public class Controller {
 
 
 
-
   /**
-   * @Autor Hendrik Sawade
-   * Die Suchanfrage an Faroo und DuckDuckGo, diese wird von der GUI
+   * @Autor Hendrik Sawade Die Suchanfrage an Faroo und DuckDuckGo, diese wird von der GUI
    *        aufgerufen.
    *
    * @return Results Liste mit den Ergebnisse.
@@ -203,62 +196,62 @@ public class Controller {
 
 
 
-     lastSearches.addSearch(searchWord);
+    lastSearches.addSearch(searchWord);
 
-     switch (pSearchEngine) {
-       case 0:
-         System.out.println("Query Faroo");
-         Api api = new Api(key, url);
-         try {
-           System.out.println("Suche gestartet");
+    switch (pSearchEngine) {
+      case 0:
+        System.out.println("Query Faroo");
+        Api api = new Api(key, url);
+        try {
+          System.out.println("Suche gestartet");
 
-           Results r;
-           ArrayList<Result> r1 = new ArrayList<Result>();
-           ArrayList<Result> r2 = new ArrayList<Result>();
-           for (int i = 1; i < 80; i = i +10) {
-             r = (api.query(i, searchWord, this.language, src));
-             r1 = r.getResults();
-             r2.addAll(r1);
-           }
-           Results r3 = new Results();
-           r3.setResults(r2);
-           this.results = r3;
-         } catch (APIExecption apiExecption) {
-           apiExecption.printStackTrace();
-         }
+          Results r;
+          ArrayList<Result> r1 = new ArrayList<Result>();
+          ArrayList<Result> r2 = new ArrayList<Result>();
+          for (int i = 1; i < 80; i = i + 10) {
+            r = (api.query(i, searchWord, this.language, src));
+            r1 = r.getResults();
+            r2.addAll(r1);
+          }
+          Results r3 = new Results();
+          r3.setResults(r2);
+          this.results = r3;
+        } catch (APIExecption apiExecption) {
+          apiExecption.printStackTrace();
+        }
 
-         break;
-       case 1:
+        break;
+      case 1:
 
-         System.out.println("Query DuckDuckGo");
-         long zstVorher = System.currentTimeMillis();
+        System.out.println("Query DuckDuckGo");
+        long zstVorher = System.currentTimeMillis();
 
-         DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(this.searchWord, 80, this.driver);
-         this.results = duckApi.getResultList();
+        DuckDuckGoSearchApi duckApi = new DuckDuckGoSearchApi(this.searchWord, 80, this.driver);
+        this.results = duckApi.getResultList();
 
 
-         long zstNachher = System.currentTimeMillis(); // Zeitmessung
-         System.out.println(
-             "Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher)) + " millisec");
+        long zstNachher = System.currentTimeMillis(); // Zeitmessung
+        System.out.println("Zeit benötigt: DuckDuckGo Suche Gesamt: " + ((zstNachher - zstVorher))
+            + " millisec");
 
-         break;
+        break;
 
-     }
+    }
 
-     if(!this.results.getResults().isEmpty()) {
-       beginWebSearch();
-     } else {
-       /**
-        * Error Meldung falls es keine Ergebnisse gefunden wurden.
-        */
-       Alert alert = new Alert(AlertType.ERROR);
-       alert.setTitle("Error Dialog");
-       alert.setHeaderText("Error Message");
-       alert.setContentText("Keine Ergebnisse zum Suchbegriff: \n" + this.searchWord + " gefunden!");
-       alert.showAndWait();
-       GUI.getInstance().goToHome();
+    if (!this.results.getResults().isEmpty()) {
+      beginWebSearch();
+    } else {
+      /**
+       * Error Meldung falls es keine Ergebnisse gefunden wurden.
+       */
+      Alert alert = new Alert(AlertType.ERROR);
+      alert.setTitle("Error Dialog");
+      alert.setHeaderText("Error Message");
+      alert.setContentText("Keine Ergebnisse zum Suchbegriff: \n" + this.searchWord + " gefunden!");
+      alert.showAndWait();
+      GUI.getInstance().goToHome();
 
-     }
+    }
   }
 
 
@@ -266,7 +259,9 @@ public class Controller {
    * @Autor Hendrik Sawade Schließt den phantomjs Driver
    */
   public void closeDriver() {
-    this.driver.quit();
+    if (driver != null) {
+      this.driver.quit();
+    }
   }
 
 
@@ -277,18 +272,20 @@ public class Controller {
   /**
    * Her wird die Suche der PDF-Dokumente aufgerufen Vorher müssen dem Controller die Dateien
    * übergeben werden
-   * 
-   * @param searchWord
    */
-  public void startPDFSearch(String searchWord) {
-    this.searchWord = searchWord;
+  public void startPDFSearch() {
     adaptPDFFormat();
   }
-/**
- * Hier wird das PDF Objekt an die Anforderungen der CognitiveSearchAPI angepasst.
- */
+
+  /**
+   * Hier wird das PDF Objekt an die Anforderungen der CognitiveSearchAPI angepasst.
+   */
   private void adaptPDFFormat() {
+    String[] searchText = null;
     pdfBoxDocuments.size();
+
+    beginCognitiveSearch(searchText, searchWord);
+
   }
 
 
@@ -297,9 +294,10 @@ public class Controller {
     return tags;
   }
 
-public void setTags(ReturnTagList tagList) {
-	this.tags = tagList;
-	
-}
-  
+  public void setTags(ReturnTagList tagList) {
+    this.tags = tagList;
+
+  }
+
+
 }

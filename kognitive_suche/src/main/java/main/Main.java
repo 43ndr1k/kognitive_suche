@@ -15,6 +15,7 @@ public class Main extends Application{
 
   @Override
   public void start(Stage arg0) throws Exception {
-    GUI.getInstance();
+    GUI gui = GUI.getInstance();
+    gui.setStartMode(1); // StartMode 0 -WebSuche
   }
 }
