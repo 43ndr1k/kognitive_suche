@@ -81,8 +81,6 @@ public class GUI extends Stage implements Callback {
   Scene start;
   private Stage stage;
   TextField suchleiste;
-  private Timeline timeline = new Timeline();
-  private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
   BorderPane loadingPane = new BorderPane();
   Scene loadingScene;
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
@@ -447,8 +445,11 @@ public class GUI extends Stage implements Callback {
   }
 
   private Scene loadIndicator() {
+    DoubleProperty stroke = new SimpleDoubleProperty(100.0);
     System.out.println("Ladebalken Methode gestartet!");
     loadingPane.setStyle("-fx-background-color: #FFF;");
+
+    Timeline timeline = new Timeline();
     timeline.setCycleCount(Timeline.INDEFINITE);
 
     final KeyValue kv = new KeyValue(stroke, 0);
