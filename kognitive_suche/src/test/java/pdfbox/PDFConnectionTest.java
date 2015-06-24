@@ -25,7 +25,7 @@ public class PDFConnectionTest extends Application {
     ArrayList<PDFDocument> pdfs = new ArrayList<PDFDocument>();
     String[] text = {"Hier", "Könnte", "Ihre", "Werbung", "Stehen"};
     PDFDocument pdf = new PDFDocument("Räuber Hotzenplotz", text, 5);
-    return null;
+    return pdfs;
 
   }
 
