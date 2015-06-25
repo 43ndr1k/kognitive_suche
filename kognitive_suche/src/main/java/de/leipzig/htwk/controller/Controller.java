@@ -13,6 +13,7 @@ import de.leipzig.htwk.searchApi.*;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -245,12 +246,19 @@ public class Controller {
       /**
        * Error Meldung falls es keine Ergebnisse gefunden wurden.
        */
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+         
+    
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error Dialog");
       alert.setHeaderText("Error Message");
-      alert.setContentText("Keine Ergebnisse zum Suchbegriff: \n" + this.searchWord + " gefunden!");
+      alert.setContentText("Keine Ergebnisse zum Suchbegriff: \n" + searchWord + " gefunden!");
       alert.showAndWait();
-      GUI.getInstance().goToHome();
+        }
+      });
+      //GUI.getInstance().goToHome();
 
     }
   }

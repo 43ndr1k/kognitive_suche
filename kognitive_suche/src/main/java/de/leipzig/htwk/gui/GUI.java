@@ -5,6 +5,7 @@ import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.tags.TagListHistory;
+import de.leipzig.htwk.search.history.tags.TagListHistoryObject;
 import de.leipzig.htwk.searchApi.Results;
 import de.leipzig.htwk.visualize.VisController;
 import javafx.animation.KeyFrame;
@@ -576,10 +577,22 @@ public class GUI extends Stage implements Callback {
     ReturnTagList tags = mController.getTags();
     Results results = mController.getResultList();
 
-    btPosition++;
-    tagListHistory.addStep(btPosition, tags, results);
+    // Falls keine Ergebnisse gefunden wurden wird zum Homescreen bzw. zur letzten Tag auswahl
+    // zurückgekehrt
+    if (results == null || tags == null) {
+      if (btPosition == -1) {
+        this.reDrawHomeScreen();
+      } else {
+        TagListHistoryObject his = tagListHistory.getStep(btPosition);
+        initVisual(his.getTagList(), his.getTagList().getSearchword(), his.getResults());
+      }
+    } else {
 
-    initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
+      btPosition++;
+      tagListHistory.addStep(btPosition, tags, results);
+
+      initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
+    }
 
   }
 
