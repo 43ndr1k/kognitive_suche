@@ -71,6 +71,7 @@ public class GUI extends Stage implements Callback {
   private static final int windowsWindowWidth = (int) screenSize.getWidth();
   private static final int FAROO = 0;
   private static final int DUCKDUCKGO = 1;
+  
 
   private static int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder
   // direkt gestartet wird 0 - WebSuche 1 - PDFSuche
@@ -87,8 +88,13 @@ public class GUI extends Stage implements Callback {
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
   private TagListHistory tagListHistory;
   private int btPosition = -1; // Position in der Breadcrump Trail
-
+  private VisController visualController;
+  private String clickedTagName;
+  private double clickedTagX;
+  private double clickedTagY;
   private static GUI instance;
+  
+  
 
   /**
    * Konstruktor wird benötigt um eine Instanz der GUI zu erstellen. Threadunsichere
@@ -405,7 +411,7 @@ public class GUI extends Stage implements Callback {
    */
   public void startQuery() {
 
-    stage.setScene(loadIndicator());
+    stage.setScene(loadIndicator()); 
     mController.setQuery(suchleiste.getText());
     searchThread th = new searchThread(this, mController, startMode);
     th.setSearchEngine(DUCKDUCKGO);
@@ -552,7 +558,7 @@ public class GUI extends Stage implements Callback {
     homebuttonPane.setStyle("-fx-background-color: #FFF;");
     homebuttonPane.setPrefHeight(this.getWindowheight() * 0.15);
     System.out.println("Checkpoint 2");
-    VisController visualController = new VisController(results);
+    visualController = new VisController(results);
     visualController.setPane(visPane);
     visualController.setQuery(searchword);
     System.out.println("Checkpoint 3");
@@ -574,7 +580,7 @@ public class GUI extends Stage implements Callback {
    * Annahme der Ergebnisse de Suche und Aufruf der Visualisierung
    */
   private void startVisualisation() {
-    ReturnTagList tags = mController.getTags();
+   ReturnTagList tags = mController.getTags();
     Results results = mController.getResultList();
 
     // Falls keine Ergebnisse gefunden wurden wird zum Homescreen bzw. zur letzten Tag auswahl
@@ -601,8 +607,27 @@ public class GUI extends Stage implements Callback {
    */
   public void callback() {
     System.out.println("Callback erhalten. Alles Roger!");
-    startVisualisation();
+    //startVisualisation();    ---callback wird ersetzt 
+  
+    if (visualController == null){
+    	startVisualisation();
+    }
+    else{
+    	addNewTags();
+    
+    }
   }
+  
+  private void addNewTags(){
+	
+	  ReturnTagList tags = mController.getTags();
+	  visualController.getPattern().addNewTags(tags,clickedTagX, clickedTagY, clickedTagName);
+	  //Scene visual = new Scene(visualController.getPane());
+//System.out.println(getStage());
+//System.out.println(getStage().getScene());
+	   this.setStageScene(visualController.getPane().getScene());
+  }
+  
 
   public void controllBTPosition(int change) {
     switch (change) {
@@ -637,6 +662,13 @@ public class GUI extends Stage implements Callback {
 
     return 0;
   }
+
+public void setClickedTag(double x, double y, String tagName, String suchleiste) {
+	clickedTagY = y;
+	clickedTagX = x;
+	clickedTagName = tagName;
+	this.suchleiste.setText(suchleiste);
+}
 
 
 }

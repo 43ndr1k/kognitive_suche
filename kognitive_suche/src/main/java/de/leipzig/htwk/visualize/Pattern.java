@@ -373,6 +373,7 @@ public class Pattern {
           gui.controllBTPosition(+1);
         }
       });
+    	
     }
 
     return visPane;
@@ -482,7 +483,7 @@ public class Pattern {
     });
 
     /**
-     * @author Nicht Sebastian Hügelmann
+     * @author Sebastian Hügelmann
      */
     exPadPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
       @Override
@@ -495,7 +496,10 @@ public class Pattern {
          * addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane, x, y,
          * labelText);
          */
-        gui.getInstance().setSuchleisteText(tags.getSearchword() + " " + largeTopicLabel.getText());
+    	  tags.setSearchWord(tags.getSearchword() + " " + largeTopicLabel.getText());
+    	  gui.getInstance().setClickedTag(x,y, labelText, tags.getSearchword());
+    	 
+        gui.getInstance().setSuchleisteText(tags.getSearchword());
       }
     });
 
@@ -512,7 +516,7 @@ public class Pattern {
   }
 
   /**
-   * Generiert aus der Anzahl der aktiven Pads und den Reihen und Spalten ein Array das anzeigt
+   * Generiert aus der Anzahl der aktiven Pads und den Reihen und Spalten ein Array, welches anzeigt,
    * welche Felder aktiv sind und was in diesem Feld für ein Pad ist.
    * 
    * @param rows Anzahl der Reihen
@@ -599,4 +603,20 @@ public class Pattern {
   public void setGUI(GUI gui) {
     this.gui = gui;
   }
-}
+
+  public void addNewTags(ReturnTagList tags, double x, double y, String labelText ) {
+	  activePads=(tags.getSize() < MAX_TAGS-1)?tags.getSize():MAX_TAGS-1;//und das ist shorthand if und else
+	Double[] xs = {x, x, x+1, x+1, x-1, x-1};
+	Double[] ys = {y-1, y+1, y-.5,y+.5,y-.5,y+.5};  
+
+	for (int i = 0; i < activePads; i++ ){ 
+		addTag(xs[i],ys[i], tags.getTagObject(i).getTag());
+	}
+addMidPad(getHexWidth(),
+		getColumnCorrection(getHexHeight()),
+		getHexHeight(),
+		getRows(getHexHeight()),
+		getColumns(getHexWidth(),getColumnCorrection(getHexHeight())),visPane, x, y, labelText);
+	}
+  }
+

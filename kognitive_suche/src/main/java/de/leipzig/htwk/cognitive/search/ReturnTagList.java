@@ -169,6 +169,10 @@ public class ReturnTagList {
   public String getSearchword() {
     return searchword;
   }
+  
+  public void setSearchWord(String searchword){
+	  this.searchword = searchword;
+  }
 
   public ArrayList<ReturnTagObject> getTagObjects() {
     return tags;
