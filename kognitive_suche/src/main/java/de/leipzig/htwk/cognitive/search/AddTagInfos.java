@@ -70,7 +70,18 @@ public class AddTagInfos {
   private void addInfo(String string, int textBlocNumber, Double priority) {
     tags.addTagObject(string, textBlocNumber, priority);
   }
-
+/**
+ * Funktion, um einen Funktionswert für eine gegeben Funktion zu berechnen
+ * 
+ * Funktionen:
+ * mx+n
+ * ax²+bx+c
+ * e^x
+ * @param function - Funktion, welche berechnet werden soll
+ * @param values - Parameter der Funktion !Müssen! entsprechende Länge haben
+ * @param i - Funktionswert, welcher berechnet werden soll
+ * @return Funktionswert bzw. 0 falls Funktion unbekannt
+ */
   private double getFunctionPriority(String function, double[] values, int i) {
     double retValue;
     switch (function) {

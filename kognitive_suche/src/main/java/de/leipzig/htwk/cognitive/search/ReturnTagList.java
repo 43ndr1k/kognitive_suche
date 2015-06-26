@@ -102,9 +102,10 @@ public class ReturnTagList {
   }
 
   /**
-   * 
+   * Funktion um einen TagObject zu erhalten, welches den übergebenen Tag erhält
+   * Hierzu wird die Binäre Suche verwendet.
    * @param tag
-   * @return
+   * @return ReturnTagObject, welches tag enthält, null falls Tag nicht enthalten
    */
   public ReturnTagObject getTagByTagName(String tag) {
     tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
@@ -127,7 +128,12 @@ public class ReturnTagList {
 
     return null;
   }
-
+/**
+ * Zum Ersetzen eines Tag-Objects durch ein anderes
+ * 
+ * @param oldTag - TagObject, welches ersetzt wird
+ * @param newTag - TagObject, welchem Eigenschaften des Neuen hinzugefügt werden
+ */
   public void renameTag(String oldTag, String newTag) {
     ReturnTagObject tmp = getTagByTagName(oldTag);
     if (tmp != null) {
@@ -136,7 +142,10 @@ public class ReturnTagList {
     }
 
   }
-
+/**
+ * Löscht den tag
+ * @param tag
+ */
   public void deleteTag(String tag) {
     tags.remove(getTagByTagName(tag));
   }
