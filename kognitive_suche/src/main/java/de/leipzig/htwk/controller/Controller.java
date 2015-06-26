@@ -298,7 +298,7 @@ public class Controller {
 
       String title = pdf.getDocname();
       title = title.substring(title.lastIndexOf('/') + 1, title.lastIndexOf('.'));
-      String kwic = pdf.getText()[1];
+      String kwic = pdf.getText()[0];
       String url = pdf.getDocname();
       result.add(new Result(title, kwic, url));
     }
