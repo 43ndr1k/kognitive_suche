@@ -141,9 +141,12 @@ public class SearchApi{
      * @throws SearchApiExecption
      */
     public void query(String query) throws SearchApiExecption {
-        query = encoding(query);
-        searching(this.url + query);
-
+        if (!query.isEmpty()) {
+            query = encoding(query);
+            searching(this.url + query);
+        } else {
+            throw new SearchApiExecption("Kein Suchwort eingegeben!");
+        }
     }
 
     /**
@@ -278,9 +281,9 @@ public class SearchApi{
     public Results getResultList() throws SearchApiExecption{
         Results results = new Results();
         results.setResults(resultList);
-        if (resultList.isEmpty()){
+        /*if (resultList.isEmpty()){
             throw new SearchApiExecption("Result Liste ist leer, keine Ergebnisse Gefunden");
-        }
+        }*/
         return results;
     }
 

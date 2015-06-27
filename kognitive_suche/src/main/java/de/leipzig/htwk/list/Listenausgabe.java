@@ -20,6 +20,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.awt.*;
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -70,21 +71,44 @@ public class Listenausgabe {
     Label[] label = new Label[25];
     int anzsucherg = (20 > url.size()) ? url.size() : 20; //lässt sich auch auf unter 20 Ergbnisse erweitern und Funktioniert
     
-    final WebView browser = new WebView();
-    final WebEngine webEngine = browser.getEngine();
+  
     for (int k = 0; k < anzsucherg; k++) {
-    	  Hyperlink h = new Hyperlink(url.get(k));
-          h.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent link) {
-            	  try {
-                      Desktop.getDesktop().browse(new URI(h.getText()));//so sehen klickbare Links aus
-                  } catch (Exception e) {
-                  
+            String linkString = url.get(k);
+            Hyperlink h = new Hyperlink(linkString);
+            
+            if(linkString.charAt(linkString.length()-1) == 'f' 
+                && linkString.charAt(linkString.length()-2) == 'd' 
+                && linkString.charAt(linkString.length()-3) == 'p' 
+                && linkString.charAt(linkString.length()-4) == '.')
+            {
+              h.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent link) {
+                      try {
+                          File pdf = new File (linkString);
+                          Desktop.getDesktop().open(pdf);//so sehen klickbare Links aus
+                      } catch (Exception e) {
+                      
+                }
+                    System.out.println(url);
+                    System.out.println(link);
+                }
+              });
+            } else {
+              h.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent link) {
+                      try {
+                          Desktop.getDesktop().browse(new URI(h.getText()));//so sehen klickbare Links aus
+                      } catch (Exception e) {
+                      
+                }
+                    System.out.println(url);
+                    System.out.println(link);
+                }
+              });
             }
-                System.out.println(url);
-                System.out.println(link);
-            }
-          });
+
+            
+
           link[k] = h;
       label1[k] = new Label(kwic.get(k));
       label[k] = new Label(title.get(k));

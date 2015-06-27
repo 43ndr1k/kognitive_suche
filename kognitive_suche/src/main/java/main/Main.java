@@ -1,6 +1,6 @@
 package main;
 
-import gui.GUI;
+import de.leipzig.htwk.gui.GUI;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,6 +15,7 @@ public class Main extends Application{
 
   @Override
   public void start(Stage arg0) throws Exception {
-    GUI.getInstance();
+    GUI gui = GUI.getInstance();
+    gui.setStartMode(0); // StartMode 0 -WebSuche
   }
 }

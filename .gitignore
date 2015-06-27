@@ -145,3 +145,7 @@ out/
 *.log
 target/
 history.last
+history.bin
+tagHistory.last
+tagHistory.bin
+config.properties
