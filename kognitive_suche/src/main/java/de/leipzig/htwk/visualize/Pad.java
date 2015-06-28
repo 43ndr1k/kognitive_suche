@@ -33,8 +33,9 @@ public class Pad extends Group {
    * Rahmen des gro�en Hexagons
    */
   Polygon lightFrame = new Polygon();
-
-
+  
+  private int xInPadMap;
+  private int yInPadMap;
 
   private final Image PAD_NORMALIMAGE = new Image(String.valueOf(getClass().getResource("/icons/normal_schwarz.png")));
   private final Image PAD_LIGHTFRAME = new Image(String.valueOf(getClass().getResource("/icons/lightFrame.png")));
@@ -47,8 +48,10 @@ public class Pad extends Group {
    * @param locationX Postition entlang der X-Achse
    * @param locationY Postition entlang der Y-Achse
    * @param fillColor F�llfarbe
+ * @param yInPadMap 
+ * @param xInPadMap 
    */
-  public Pad(double size, double locationX, double locationY, Color fillColor) {
+  public Pad(double size, double locationX, double locationY, Color fillColor, int xInPadMap, int yInPadMap) {
     this.shape = setHexagon(size, locationX, locationY);
     this.lightShape = setHexagon(size + 1, locationX, locationY);
     this.expandedShape = setHexagon(2.2 * size, locationX, locationY);
@@ -58,6 +61,9 @@ public class Pad extends Group {
     this.expandedShape.setFill(fillColor);
     this.lightShape.setFill(new ImagePattern(PAD_NORMALIMAGE, 0, 0, 1, 1, true));
     this.expandedLightShape.setFill(new ImagePattern(PAD_LIGHTFRAME, 0, 0, 1, 1, true));
+    
+    this.xInPadMap = xInPadMap;
+    this.yInPadMap = yInPadMap;
 
   }
 
@@ -124,5 +130,13 @@ public class Pad extends Group {
   public Polygon getExLightShape() {
     return expandedLightShape;
   }
+
+public int getX() {
+	return xInPadMap;
+}
+
+public int getY() {
+	return yInPadMap;
+}
 
 }

@@ -558,7 +558,8 @@ public class GUI extends Stage implements Callback {
     homebuttonPane.setStyle("-fx-background-color: #FFF;");
     homebuttonPane.setPrefHeight(this.getWindowheight() * 0.15);
     System.out.println("Checkpoint 2");
-    visualController = new VisController(results);
+    visualController = new VisController();
+    visualController.setResults(results);
     visualController.setPane(visPane);
     visualController.setQuery(searchword);
     System.out.println("Checkpoint 3");
@@ -621,10 +622,16 @@ public class GUI extends Stage implements Callback {
   private void addNewTags(){
 	
 	  ReturnTagList tags = mController.getTags();
-	  visualController.getPattern().addNewTags(tags,clickedTagX, clickedTagY, clickedTagName);
+	  Results results = mController.getResultList();
+	  visualController.updatePattern(tags);
+	  visualController.setResults(results);
 	  //Scene visual = new Scene(visualController.getPane());
 //System.out.println(getStage());
 //System.out.println(getStage().getScene());
+	  
+	  
+	  
+	  
 	   this.setStageScene(visualController.getPane().getScene());
   }
   
