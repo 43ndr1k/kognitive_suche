@@ -1,12 +1,17 @@
-package de.leipzig.htwk.tests;
+package searchApi;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertNull;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import de.leipzig.htwk.searchApi.Result;
+
+/**
+ * @author Sadik Ulusan
+ */
 
 public class ResultTest {
   static Result newResult;

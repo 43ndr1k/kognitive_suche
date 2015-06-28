@@ -1,6 +1,7 @@
-package de.leipzig.htwk.tests;
+package searchApi;
 
 import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
@@ -11,23 +12,27 @@ import org.junit.Test;
 import de.leipzig.htwk.searchApi.Result;
 import de.leipzig.htwk.searchApi.Results;
 
+/**
+ * @author Sadik Ulusan
+ */
+
 public class ResultsTest {
 
   @Test
   public void test() {
     Results testObject;
     testObject = new Results();
-    
+
     List<Result> ArrayListTest;
     ArrayListTest = new ArrayList<Result>();
-    
-    assertNull( testObject.getResults());
-    
+
+    assertNull(testObject.getResults());
+
     testObject.setResults(ArrayListTest);
-    assertEquals(ArrayListTest ,testObject.getResults());
-    
-    
+    assertEquals(ArrayListTest, testObject.getResults());
+
+
   }
- 
+
 
 }
