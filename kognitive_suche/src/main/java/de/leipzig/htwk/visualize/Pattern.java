@@ -1,7 +1,5 @@
 package de.leipzig.htwk.visualize;
 
-
-
 import java.util.ArrayList;
 
 import de.leipzig.htwk.cognitive.search.ReturnTagList;
@@ -13,14 +11,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Window;
+
 
 /**
  * Generierung des Feldes von Hexagons
@@ -31,11 +28,9 @@ public class Pattern {
 
   private int paneWidth;
   private int paneHeight;
-  private int navMode;
-  private int stepX = 0;
-  private int stepY = 0;
   private int stepCorrection = 0;
   private int selectedPad = 10;
+  private int navMode = 0;
   private Results results;
   private ArrayList<Pad> savedPads = new ArrayList<Pad>();
   private static final double PAD_SIZE = 102;
@@ -60,7 +55,7 @@ public class Pattern {
 
   private static ReturnTagList tags;
   
-  private ScrollPane scroll;
+  private Pane cuted;
   
   private int[][] padMap;
 
@@ -96,20 +91,18 @@ public class Pattern {
     this.results = results;
     this.navMode = navMode;
 
-
     visPane = new Pane();// Pane Für Kacheln
-    visPane.setPrefSize(paneHeight, paneWidth - 256);
+    visPane.setPrefSize(this.paneHeight, this.paneWidth - 320);
 
     // BorderPane SearchList = new BorderPane();//Pane für Suchliste
     // SearchList.setPrefSize(paneHeight,paneWidth/2);
-
-
 
     double oneHexHeight = getHexHeight();
     double oneHexWidth = getHexWidth();
     double columnCorrection = getColumnCorrection(oneHexHeight);
 
-    // Berechnung der Zeilen und Spaltenanzahl in Abhängigkeit von Fenstergröße und PadSize
+    // Berechnung der Zeilen und Spaltenanzahl in Abhängigkeit von
+    // Fenstergröße und PadSize
     int rows = getRows(oneHexHeight);
     int columns = getColumns(oneHexWidth, columnCorrection);
 
@@ -120,31 +113,28 @@ public class Pattern {
         printPattern( oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane);
     // iv
 
-
     // list.setOnAction(new EventHandler<ActionEvent>() {
     // @Override
     // public void handle(ActionEvent Liste) {
     // visPane.getChildren().clear();
 
     Listenausgabe ausgabe = new Listenausgabe(results);
-    ausgabe.setWidth(256);
-    ausgabe.setHeight(610);
-    ausgabe.setLayoutX(paneWidth - 270);
+    ausgabe.setWidth(320);
+    ausgabe.setHeight(paneHeight);
+    ausgabe.setLayoutX(paneWidth - 334);
     ausgabe.setLayoutY(0);
     /**
      * Listenausgabe an Patterngui weitergegeben
      */
     visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
-
+    visPane.setStyle("-fx-background-color:#FFF;");
+    
+	cuted = new Pane();
+	cuted.getChildren().add(visPane);
 
     // }});
 
     // visPane.getChildren().addAll(list);
-    
-    scroll = new ScrollPane();
-    scroll.setContent(visPane);
-
-
   }
 
   public void addTag(double x, double y, String tag) {
@@ -160,8 +150,6 @@ public class Pattern {
             getRows(getHexHeight()),
             getColumns(getHexWidth(), getColumnCorrection(getHexHeight())), visPane, x, y, tag, 0, 0);
   }
-
-
 
   /**
    * Berechnet die Anzahl der Spalten in Abhängikeit von der Größe der Hexagons und des Feldes.
@@ -231,11 +219,13 @@ public class Pattern {
       for (int x = 0; x < columns; x++) {
         if ((x % 2) == 0) {
           switch (padMap[x][y]) {
+
             case 0: visPane =
                     addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
                     visPane,
                     (x - 0.5), (y - 0.25),
                     x, y);
+
               break;
 
             case 1:
@@ -306,6 +296,7 @@ public class Pattern {
 
         } else {
           switch (padMap[x][y]) {
+
             case 0: visPane =
                     addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
                     visPane,
@@ -474,7 +465,6 @@ private Pane addMidPad(double oneHexWidth, double columnCorrection, double oneHe
     padPane.getChildren().add(smallTopicLabel);
     padPane.getChildren().add(pad.getLightShape());
 
-
     visPane.getChildren().add(padPane);
 
     pad.getLightShape().setOnMouseEntered(
@@ -489,25 +479,23 @@ private Pane addMidPad(double oneHexWidth, double columnCorrection, double oneHe
               .setFill(COLOR_LIGHTGREY);
         });
 
-
     if (navButtonMode == 1) {
-      padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-          gui = GUI.getInstance();
-          gui.controllBTPosition(-1);
-        }
-      });
-    } else {
-      padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-        @Override
-        public void handle(MouseEvent event) {
-          gui = GUI.getInstance();
-          gui.controllBTPosition(+1);
-        }
-      });
-    	
-    }
+        padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            gui = GUI.getInstance();
+            gui.controllBTPosition(-1);
+          }
+        });
+      } else {
+        padPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+          public void handle(MouseEvent event) {
+            gui = GUI.getInstance();
+            gui.controllBTPosition(+1);
+          }
+        });
+
+      }
 
     return visPane;
 
@@ -635,6 +623,7 @@ private Pane addMidPad(double oneHexWidth, double columnCorrection, double oneHe
          * addMidPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns, visPane, x, y,
          * labelText);
          */
+    	  
     	  tags.setSearchWord(tags.getSearchword() + " " + largeTopicLabel.getText());
     	  gui.getInstance().setClickedTag(x,y, labelText, tags.getSearchword());
     	  
@@ -665,8 +654,8 @@ private Pane genLinkPane() {
   }
 
   /**
-   * Generiert aus der Anzahl der aktiven Pads und den Reihen und Spalten ein Array, welches anzeigt,
-   * welche Felder aktiv sind und was in diesem Feld für ein Pad ist.
+   * Generiert aus der Anzahl der aktiven Pads und den Reihen und Spalten ein Array, welches
+   * anzeigt, welche Felder aktiv sind und was in diesem Feld für ein Pad ist.
    * 
    * @param rows Anzahl der Reihen
    * @param columns Anzahl der Spalten
@@ -734,8 +723,20 @@ private Pane genLinkPane() {
     return padMap;
   }
 
-  public ScrollPane getPane() {
-    return scroll;
+
+  public Pane getPane() {
+    return cuted;
+
+  //public Pane getPane() {
+    // Funktioniert soweit, der Getter muss nur noch auf ScrollPane gesetzt
+    // werden. Und die Scrollleiste der Listenausgabe verschoben werden.
+    // ScrollPane rol = new ScrollPane();
+    // rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+    // rol.setStyle("-fx-background-color:#FFF;");
+    // rol.setContent(visPane);
+
+  //  return visPane;
+
   }
 
   /**
@@ -796,13 +797,13 @@ addMidPad(getHexWidth(),
 				  if(i == midColumn + 1)
 				  {
 					  if(j == midRow)
-					  	  { stepX++; toggleStepcorrection(); System.out.println("0");}
+					  	  { toggleStepcorrection(); System.out.println("0");}
 					  
 					  if(j == midRow + 1)
-						  { stepX++; stepY++;toggleStepcorrection(); System.out.println("1");}
+						  { toggleStepcorrection(); System.out.println("1");}
 						  
 					  if(j == midRow - 1)
-						  { stepX++; stepY--; toggleStepcorrection(); System.out.println("2");}
+						  { toggleStepcorrection(); System.out.println("2");}
 						  
 				  }
 
@@ -811,22 +812,22 @@ addMidPad(getHexWidth(),
 					  if(j == midRow) {System.out.println("3");}
 					  
 					  if(j == midRow + 1)
-					  	{ stepY++; System.out.println("4"); }
+					  	{ System.out.println("4"); }
 						  
 					  if(j == midRow - 1)
-					  	{ stepY--; System.out.println("5"); }
+					  	{ System.out.println("5"); }
 				  }
 					  
 				  if(i == midColumn - 1)
 				  {
 					  if(j == midRow)
-						  { stepX--; toggleStepcorrection(); System.out.println("6");}
+					      { toggleStepcorrection(); System.out.println("6");}
 					  
 					  if(j == midRow - 1)
-						  { stepX--; stepY--; toggleStepcorrection(); System.out.println("7");}
+						  {  toggleStepcorrection(); System.out.println("7");}
 					  
 					  if(j == midRow + 1)
-					  	  { stepX--; stepY++; toggleStepcorrection(); System.out.println("8");}
+					  	  {  toggleStepcorrection(); System.out.println("8");}
 				  }
 				  
 				  savedPads.add(new Pad(0, 0, 0, null, i, j));
@@ -836,7 +837,7 @@ addMidPad(getHexWidth(),
 			  }
 	  
 	  visPane = new Pane();// Pane Für Kacheln
-	  visPane.setPrefSize(paneHeight, paneWidth - 256); 
+	  visPane.setPrefSize(paneHeight, paneWidth - 320); 
 	  
 	  for(int i = 0; i < savedPads.size(); i++)
 	  {
@@ -850,14 +851,14 @@ addMidPad(getHexWidth(),
 			  rows, columns, visPane);
 	  
 	  Listenausgabe ausgabe = new Listenausgabe(results);
-	  ausgabe.setWidth(256);
-	  ausgabe.setHeight(610);
-	  ausgabe.setLayoutX(paneWidth - 270);
-	  ausgabe.setLayoutY(0);
+	    ausgabe.setWidth(320);
+	    ausgabe.setHeight(paneHeight);
+	    ausgabe.setLayoutX(paneWidth - 334);
+	    ausgabe.setLayoutY(0);
 	  visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
 	  
-	  scroll = new ScrollPane();
-	  scroll.setContent(visPane);
+	  cuted = new Pane();
+	  cuted.getChildren().add(visPane);
 
   }
 
@@ -867,5 +868,6 @@ addMidPad(getHexWidth(),
 		else 
 			stepCorrection = 0;
 	}
+  
 }
 

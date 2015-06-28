@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 
 /**
@@ -66,7 +67,7 @@ public int getPaneWidth() {
    * @param tags Tag Objekt
    * @return Pane mit positionierten Objekten
    */
-  public ScrollPane startVisualize(ReturnTagList tags, int navMode) {
+  public Pane startVisualize(ReturnTagList tags, int navMode) {
     pattern = new Pattern(paneHeight, paneWidth, query, tags, this.gui, results, navMode);
 
     return pattern.getPane();
@@ -112,5 +113,6 @@ public Parent getPane() {
 public void updatePattern(ReturnTagList tags) {
 	pattern.update(tags);
 	((BorderPane) (pane)).setCenter(pattern.getPane());
+
 }
 }

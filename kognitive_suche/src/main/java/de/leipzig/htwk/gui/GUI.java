@@ -626,12 +626,14 @@ public class GUI extends Stage implements Callback {
 	  visualController.updatePattern(tags);
 	  visualController.setResults(results);
 	  //Scene visual = new Scene(visualController.getPane());
-//System.out.println(getStage());
-//System.out.println(getStage().getScene());
-	  
-	  
-	  
-	  
+	  //System.out.println(getStage());
+	  //System.out.println(getStage().getScene());
+	  BorderPane homebuttonPane = new BorderPane();
+	  homebuttonPane.setCenter(this.goHomeButton());
+	  homebuttonPane.setStyle("-fx-background-color: #FFF;");
+	  homebuttonPane.setPrefHeight(this.getWindowheight() * 0.15);
+	 
+	   ((BorderPane) visualController.getPane()).setTop(homebuttonPane);
 	   this.setStageScene(visualController.getPane().getScene());
   }
   
@@ -674,7 +676,8 @@ public void setClickedTag(double x, double y, String tagName, String suchleiste)
 	clickedTagY = y;
 	clickedTagX = x;
 	clickedTagName = tagName;
-	this.suchleiste.setText(suchleiste);
+	//Wieso?
+	//this.suchleiste.setText(suchleiste);
 }
 
 

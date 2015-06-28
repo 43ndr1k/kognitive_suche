@@ -1,8 +1,6 @@
 /**
- * @author Ivan Ivanikov
- * @param Liste wird erzeugt indem die Waben überschrieben werden. Aufbau wie bei Google leicht und übersichtlich
- * scrollpane hinzugefügt falls Listen zu groß und unübersichtlich werden
- * Anbindung an Suchergebniss von Christian Schmidt
+ * Klasse erstellt die Listenausgabe, welche rechts in der Visualisierung erscheint.
+ * @author Sebastian Hügelmann, Christian Schmidt, Ivan Ivanikov
  */
 
 package de.leipzig.htwk.list;
@@ -47,11 +45,6 @@ public class Listenausgabe {
 
   public void setLayoutY(int ypos) { this.ypos = ypos; }
 
-  /**
-   * Erstellen der Liste
-   *
-   * @author Christian Schmidt
-   */
   public Listenausgabe(Results results) {
     for (int i = 0; i < results.getResults().size(); i++) {
       kwic.add(results.getResults().get(i).getKwic());
@@ -75,6 +68,9 @@ public class Listenausgabe {
     for (int k = 0; k < anzsucherg; k++) {
             String linkString = url.get(k);
             Hyperlink h = new Hyperlink(linkString);
+            h.setWrapText(true);
+            h.setMaxWidth(300);
+            h.setStyle("-fx-padding: 0 0 0 0");
             
             if(linkString.charAt(linkString.length()-1) == 'f' 
                 && linkString.charAt(linkString.length()-2) == 'd' 
@@ -113,26 +109,26 @@ public class Listenausgabe {
       label1[k] = new Label(kwic.get(k));
       label[k] = new Label(title.get(k));
       vbox2 = new VBox();
-      vbox2.setStyle("-fx-border-width: 2;");
-      vbox2.setStyle("-fx-border-color: black;");
       vbox2.getChildren().addAll(label[k], label1[k], link[k]);
       vbox1.getChildren().add(vbox2);
-      label[k].setMaxSize(600, 300);
+      label[k].setMaxSize(300, 300);
       label[k].setWrapText(true);
-      label[k].setStyle("-fx-label-padding: 0 0 10 0;");
-      label[k].setStyle("-fx-font-weight: bold;");
+      label[k].setStyle("-fx-label-padding: 15 0 5 0;-fx-font-weight: bold;");
+      label1[k].setMaxSize(300,300);
       label1[k].setWrapText(true);
       label1[k].setStyle("-fx-label-padding: 0 0 0 0;");
     }
-    vbox1.setStyle("-fx-border-width: 2;");
-    vbox1.setStyle("-fx-border-color: black;");
+
     pane.getChildren().clear();
     pane.setCenter(vbox1);
+    pane.setStyle("-fx-background-color:#FFF;");
+    System.out.println("Breite: "+width+" Höhe: "+height);
     rol.setPrefSize((double) width, (double) height);
     rol.setLayoutX((double) xpos);
     rol.setLayoutY((double) ypos);
     rol.setContent(pane);
     rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+    rol.setStyle("-fx-background-color:#FFF;");
     return rol;
   }
 
