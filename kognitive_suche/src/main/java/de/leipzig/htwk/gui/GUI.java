@@ -667,7 +667,8 @@ public void setClickedTag(double x, double y, String tagName, String suchleiste)
 	clickedTagY = y;
 	clickedTagX = x;
 	clickedTagName = tagName;
-	this.suchleiste.setText(suchleiste);
+	//Wieso?
+	//this.suchleiste.setText(suchleiste);
 }
 
 
