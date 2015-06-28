@@ -179,8 +179,13 @@ public class GUI extends Stage implements Callback {
       @Override
       public void handle(MouseEvent event) {
         System.out.println("Tile pressed");
+        
+        mController.setResultList(null);
+        mController.setTags(null);
+        visualController = null;
+        
         stage.setScene(drawHomeScreen());
-
+        
         tagListHistory.clear();
         btPosition = -1;
       }
