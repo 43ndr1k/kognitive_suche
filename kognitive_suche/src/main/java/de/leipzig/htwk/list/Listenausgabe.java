@@ -75,6 +75,9 @@ public class Listenausgabe {
     for (int k = 0; k < anzsucherg; k++) {
             String linkString = url.get(k);
             Hyperlink h = new Hyperlink(linkString);
+            h.setWrapText(true);
+            h.setMaxWidth(300);
+            h.setStyle("-fx-padding: 0 0 0 0");
             
             if(linkString.charAt(linkString.length()-1) == 'f' 
                 && linkString.charAt(linkString.length()-2) == 'd' 
@@ -113,21 +116,22 @@ public class Listenausgabe {
       label1[k] = new Label(kwic.get(k));
       label[k] = new Label(title.get(k));
       vbox2 = new VBox();
-      vbox2.setStyle("-fx-border-width: 2;");
-      vbox2.setStyle("-fx-border-color: black;");
+      //vbox2.setStyle("-fx-border-width: 2;");
+      //vbox2.setStyle("-fx-border-color: black;");
       vbox2.getChildren().addAll(label[k], label1[k], link[k]);
       vbox1.getChildren().add(vbox2);
-      label[k].setMaxSize(600, 300);
+      label[k].setMaxSize(300, 300);
       label[k].setWrapText(true);
-      label[k].setStyle("-fx-label-padding: 0 0 10 0;");
-      label[k].setStyle("-fx-font-weight: bold;");
+      label[k].setStyle("-fx-label-padding: 15 0 5 0;-fx-font-weight: bold;");
+      label1[k].setMaxSize(300,300);
       label1[k].setWrapText(true);
       label1[k].setStyle("-fx-label-padding: 0 0 0 0;");
     }
-    vbox1.setStyle("-fx-border-width: 2;");
-    vbox1.setStyle("-fx-border-color: black;");
+    //vbox1.setStyle("-fx-border-width: 2;");
+    //vbox1.setStyle("-fx-border-color: black;");
     pane.getChildren().clear();
     pane.setCenter(vbox1);
+    System.out.println("Breite: "+width+" Höhe: "+height);
     rol.setPrefSize((double) width, (double) height);
     rol.setLayoutX((double) xpos);
     rol.setLayoutY((double) ypos);

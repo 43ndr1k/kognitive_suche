@@ -83,7 +83,7 @@ public class Pattern {
 
 
     visPane = new Pane();// Pane Für Kacheln
-    visPane.setPrefSize(paneHeight, paneWidth - 256);
+    visPane.setPrefSize(paneHeight, paneWidth - 320);
 
     // BorderPane SearchList = new BorderPane();//Pane für Suchliste
     // SearchList.setPrefSize(paneHeight,paneWidth/2);
@@ -112,9 +112,9 @@ public class Pattern {
     // visPane.getChildren().clear();
 
     Listenausgabe ausgabe = new Listenausgabe(results);
-    ausgabe.setWidth(256);
+    ausgabe.setWidth(320);
     ausgabe.setHeight(610);
-    ausgabe.setLayoutX(paneWidth - 270);
+    ausgabe.setLayoutX(paneWidth - 334);
     ausgabe.setLayoutY(0);
     /**
      * Listenausgabe an Patterngui weitergegeben
