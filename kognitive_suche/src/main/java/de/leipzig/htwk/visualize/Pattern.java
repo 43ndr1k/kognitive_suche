@@ -83,7 +83,6 @@ public class Pattern {
     this.results = results;
     this.navMode = navMode;
 
-
     visPane = new Pane();// Pane Für Kacheln
     visPane.setPrefSize(paneHeight, paneWidth - 320);
 
@@ -601,7 +600,6 @@ public class Pattern {
 	//rol.setContent(visPane);
 	
     return visPane;
-    // Auto-generated method stub
   }
 
   /**

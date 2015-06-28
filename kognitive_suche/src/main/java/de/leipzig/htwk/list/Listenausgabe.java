@@ -1,8 +1,6 @@
 /**
- * @author Ivan Ivanikov
- * @param Liste wird erzeugt indem die Waben überschrieben werden. Aufbau wie bei Google leicht und übersichtlich
- * scrollpane hinzugefügt falls Listen zu groß und unübersichtlich werden
- * Anbindung an Suchergebniss von Christian Schmidt
+ * Klasse erstellt die Listenausgabe, welche rechts in der Visualisierung erscheint.
+ * @author Sebastian Hügelmann, Christian Schmidt, Ivan Ivanikov
  */
 
 package de.leipzig.htwk.list;
@@ -47,11 +45,6 @@ public class Listenausgabe {
 
   public void setLayoutY(int ypos) { this.ypos = ypos; }
 
-  /**
-   * Erstellen der Liste
-   *
-   * @author Christian Schmidt
-   */
   public Listenausgabe(Results results) {
     for (int i = 0; i < results.getResults().size(); i++) {
       kwic.add(results.getResults().get(i).getKwic());
@@ -116,8 +109,6 @@ public class Listenausgabe {
       label1[k] = new Label(kwic.get(k));
       label[k] = new Label(title.get(k));
       vbox2 = new VBox();
-      //vbox2.setStyle("-fx-border-width: 2;");
-      //vbox2.setStyle("-fx-border-color: black;");
       vbox2.getChildren().addAll(label[k], label1[k], link[k]);
       vbox1.getChildren().add(vbox2);
       label[k].setMaxSize(300, 300);
@@ -127,8 +118,7 @@ public class Listenausgabe {
       label1[k].setWrapText(true);
       label1[k].setStyle("-fx-label-padding: 0 0 0 0;");
     }
-    //vbox1.setStyle("-fx-border-width: 2;");
-    //vbox1.setStyle("-fx-border-color: black;");
+
     pane.getChildren().clear();
     pane.setCenter(vbox1);
     pane.setStyle("-fx-background-color:#FFF;");
