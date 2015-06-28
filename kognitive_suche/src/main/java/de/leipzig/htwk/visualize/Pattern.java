@@ -28,13 +28,13 @@ public class Pattern {
 
   private int paneWidth;
   private int paneHeight;
-  private int stepCorrection = 0;
+  private int stepCorrection = 1;
   private int selectedPad = 10;
   private int navMode = 0;
   private Results results;
   private ArrayList<Pad> savedPads = new ArrayList<Pad>();
-  private static final double PAD_SIZE = 102;
-  private static final double PAD_OFFSET = 3;
+  private static final double PAD_SIZE = 60;
+  private static final double PAD_OFFSET = 10;
 
   private static final Color COLOR_LIGHTGREEN = Color.web("#9FDA9F");
   private static final Color COLOR_ORANGE = Color.web("#FFC63E");
@@ -220,13 +220,13 @@ public class Pattern {
         if ((x % 2) == 0) {
           switch (padMap[x][y]) {
 
-            case 0: visPane =
-                    addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
-                    visPane,
-                    (x - 0.5), (y - 0.25),
-                    x, y);
-
-              break;
+//            case 0: visPane =
+//                    addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
+//                    visPane,
+//                    (x - 0.5), (y - 0.25),
+//                    x, y);
+//
+//              break;
 
             case 1:
               visPane =
@@ -297,12 +297,12 @@ public class Pattern {
         } else {
           switch (padMap[x][y]) {
 
-            case 0: visPane =
-                    addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
-                    visPane,
-                    (x - 0.5), (y - 0.75),
-                    x, y);
-              break;
+//            case 0: visPane =
+//                    addGreyPad(oneHexWidth, columnCorrection, oneHexHeight, rows, columns,
+//                    visPane,
+//                    (x - 0.5), (y - 0.75),
+//                    x, y);
+//              break;
 
             case 1:
               visPane =
@@ -390,7 +390,7 @@ public class Pattern {
 
 	    Label smallTopicLabel = new Label(topicWord);
 
-	    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+	    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, (PAD_SIZE/6)));
 
 	    double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
 	    double yPos = (oneHexHeight + PAD_OFFSET) * (y);
@@ -419,12 +419,13 @@ private Pane addMidPad(double oneHexWidth, double columnCorrection, double oneHe
 
     Label smallTopicLabel = new Label(topicWord);
 
-    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
+    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, (PAD_SIZE/6)));
+    smallTopicLabel.setTextFill(Color.WHITE);
 
     double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
     double yPos = (oneHexHeight + PAD_OFFSET) * (y);
 
-    pad = new Pad(PAD_SIZE, 0, 0, Color.WHITE,
+    pad = new Pad(PAD_SIZE, 0, 0, Color.BLACK,
             xInPadMap, yInPadMap);
     padPane.setLayoutX(xPos);
     padPane.setLayoutY(yPos);
@@ -569,8 +570,8 @@ private Pane addMidPad(double oneHexWidth, double columnCorrection, double oneHe
     Label smallTopicLabel = new Label(labelText);
     Label largeTopicLabel = new Label(labelText);
 
-    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 15));
-    largeTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
+    smallTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, (PAD_SIZE/6)));
+    largeTopicLabel.setFont(Font.font("Verdana", FontWeight.BOLD, (PAD_SIZE/6)*2));
 
     double xPos = (oneHexWidth - columnCorrection + PAD_OFFSET) * (x);
     double yPos = (oneHexHeight + PAD_OFFSET) * (y);
@@ -781,7 +782,7 @@ addMidPad(getHexWidth(),
 	  
 	  double hexWidth = getHexWidth();
 	  double hexHeight = getHexHeight();
-	  double cc = getColumnCorrection(hexWidth) - 8;
+	  double cc = getColumnCorrection(hexWidth);
 	  
 	  int rows = getRows(hexHeight);
 	  int columns = getColumns(hexWidth, cc); 
