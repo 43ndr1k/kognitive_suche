@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import de.cpdfjarrtm.pdfborx.pdf.document.DocumentPdf;
-import pdf.box.access.Pdfboxconnector;
-import pdf.box.access.PDFDocument;
+import de.leipzig.htwk.pdf.box.access.PDFDocument;
+import de.leipzig.htwk.pdf.box.access.Pdfboxconnector;
 
 public class KogSucheConnector {
 	
@@ -22,7 +22,8 @@ public class KogSucheConnector {
 		for (Map.Entry<Long, DocumentPdf> entry : allDocuments.entrySet())
 		{
 			pdfTexts = entry.getValue().getText();
-			kogSuchePDFDocuments.add(new PDFDocument (entry.getValue().getFilename(), pdfTexts, pdfTexts.length));
+			kogSuchePDFDocuments.add(new PDFDocument (entry.getValue().getPath(), pdfTexts, pdfTexts.length));
+			System.out.println(entry.getValue().getPath() + " " + pdfTexts.length);
 		}
 	}
 	

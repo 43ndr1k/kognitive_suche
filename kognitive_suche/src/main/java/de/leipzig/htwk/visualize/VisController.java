@@ -4,7 +4,12 @@ package de.leipzig.htwk.visualize;
 import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.searchApi.Results;
+import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
 
 /**
  * Controller der Visualisierung
@@ -22,15 +27,25 @@ public class VisController {
   private static Pane pane;
   private static String query;
   private GUI gui;
+  private static Pattern pattern;
+  
+  public VisController() {
 
-  public VisController(Results results) {
-    this.results = results;
   }
 
 
 
+  public Results getResults() {
+	return results;
+}
 
-  public int getPaneWidth() {
+
+  public void setResults(Results results) {
+	this.results = results;
+}
+
+
+public int getPaneWidth() {
     return paneWidth;
   }
 
@@ -53,7 +68,7 @@ public class VisController {
    * @return Pane mit positionierten Objekten
    */
   public Pane startVisualize(ReturnTagList tags, int navMode) {
-    Pattern pattern = new Pattern(paneHeight, paneWidth, query, tags, this.gui, results, navMode);
+    pattern = new Pattern(paneHeight, paneWidth, query, tags, this.gui, results, navMode);
 
     return pattern.getPane();
   }
@@ -80,4 +95,24 @@ public class VisController {
   public static void setQuery(String query) {
     VisController.query = query;
   }
+  
+  public static Pattern getPattern(){
+	  return pattern;
+  }
+
+
+
+
+public Parent getPane() {
+	return pane;
+	}
+
+
+
+
+public void updatePattern(ReturnTagList tags) {
+	pattern.update(tags, results);
+	((BorderPane) (pane)).setCenter(pattern.getPane());
+
+}
 }

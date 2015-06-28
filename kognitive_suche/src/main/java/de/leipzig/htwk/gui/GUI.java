@@ -5,6 +5,7 @@ import de.leipzig.htwk.controller.Controller;
 import de.leipzig.htwk.pdf.box.access.PDFDocument;
 import de.leipzig.htwk.search.history.HistoryObject;
 import de.leipzig.htwk.search.history.tags.TagListHistory;
+import de.leipzig.htwk.search.history.tags.TagListHistoryObject;
 import de.leipzig.htwk.searchApi.Results;
 import de.leipzig.htwk.visualize.VisController;
 import javafx.animation.KeyFrame;
@@ -70,6 +71,7 @@ public class GUI extends Stage implements Callback {
   private static final int windowsWindowWidth = (int) screenSize.getWidth();
   private static final int FAROO = 0;
   private static final int DUCKDUCKGO = 1;
+  
 
   private static int startMode = 0; // gibt an ob die Kog Suche aus der PDFBox oder
   // direkt gestartet wird 0 - WebSuche 1 - PDFSuche
@@ -81,15 +83,18 @@ public class GUI extends Stage implements Callback {
   Scene start;
   private Stage stage;
   TextField suchleiste;
-  private Timeline timeline = new Timeline();
-  private DoubleProperty stroke = new SimpleDoubleProperty(100.0);
   BorderPane loadingPane = new BorderPane();
   Scene loadingScene;
   ArrayList<PDFDocument> pdfBoxDocuments = new ArrayList<PDFDocument>();
   private TagListHistory tagListHistory;
   private int btPosition = -1; // Position in der Breadcrump Trail
-
+  private VisController visualController;
+  private String clickedTagName;
+  private double clickedTagX;
+  private double clickedTagY;
   private static GUI instance;
+  
+  
 
   /**
    * Konstruktor wird benötigt um eine Instanz der GUI zu erstellen. Threadunsichere
@@ -174,10 +179,15 @@ public class GUI extends Stage implements Callback {
       @Override
       public void handle(MouseEvent event) {
         System.out.println("Tile pressed");
+        
+        mController.setResultList(null);
+        mController.setTags(null);
+        visualController = null;
+        
         stage.setScene(drawHomeScreen());
-
+        
         tagListHistory.clear();
-        btPosition = 0;
+        btPosition = -1;
       }
     });
 
@@ -406,7 +416,7 @@ public class GUI extends Stage implements Callback {
    */
   public void startQuery() {
 
-    stage.setScene(loadIndicator());
+    stage.setScene(loadIndicator()); 
     mController.setQuery(suchleiste.getText());
     searchThread th = new searchThread(this, mController, startMode);
     th.setSearchEngine(DUCKDUCKGO);
@@ -447,8 +457,11 @@ public class GUI extends Stage implements Callback {
   }
 
   private Scene loadIndicator() {
+    DoubleProperty stroke = new SimpleDoubleProperty(100.0);
     System.out.println("Ladebalken Methode gestartet!");
     loadingPane.setStyle("-fx-background-color: #FFF;");
+
+    Timeline timeline = new Timeline();
     timeline.setCycleCount(Timeline.INDEFINITE);
 
     final KeyValue kv = new KeyValue(stroke, 0);
@@ -550,7 +563,8 @@ public class GUI extends Stage implements Callback {
     homebuttonPane.setStyle("-fx-background-color: #FFF;");
     homebuttonPane.setPrefHeight(this.getWindowheight() * 0.15);
     System.out.println("Checkpoint 2");
-    VisController visualController = new VisController(results);
+    visualController = new VisController();
+    visualController.setResults(results);
     visualController.setPane(visPane);
     visualController.setQuery(searchword);
     System.out.println("Checkpoint 3");
@@ -572,13 +586,25 @@ public class GUI extends Stage implements Callback {
    * Annahme der Ergebnisse de Suche und Aufruf der Visualisierung
    */
   private void startVisualisation() {
-    ReturnTagList tags = mController.getTags();
+   ReturnTagList tags = mController.getTags();
     Results results = mController.getResultList();
 
-    btPosition++;
-    tagListHistory.addStep(btPosition, tags, results);
+    // Falls keine Ergebnisse gefunden wurden wird zum Homescreen bzw. zur letzten Tag auswahl
+    // zurückgekehrt
+    if (results == null || tags == null) {
+      if (btPosition == -1) {
+        this.reDrawHomeScreen();
+      } else {
+        TagListHistoryObject his = tagListHistory.getStep(btPosition);
+        initVisual(his.getTagList(), his.getTagList().getSearchword(), his.getResults());
+      }
+    } else {
 
-    initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
+      btPosition++;
+      tagListHistory.addStep(btPosition, tags, results);
+
+      initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
+    }
 
   }
 
@@ -587,8 +613,35 @@ public class GUI extends Stage implements Callback {
    */
   public void callback() {
     System.out.println("Callback erhalten. Alles Roger!");
-    startVisualisation();
+    //startVisualisation();    ---callback wird ersetzt 
+  
+    if (visualController == null){
+    	startVisualisation();
+    }
+    else{
+    	addNewTags();
+    
+    }
   }
+  
+  private void addNewTags(){
+	
+	  ReturnTagList tags = mController.getTags();
+	  Results results = mController.getResultList();
+	  visualController.setResults(results);
+	  visualController.updatePattern(tags);
+	  //Scene visual = new Scene(visualController.getPane());
+	  //System.out.println(getStage());
+	  //System.out.println(getStage().getScene());
+	  BorderPane homebuttonPane = new BorderPane();
+	  homebuttonPane.setCenter(this.goHomeButton());
+	  homebuttonPane.setStyle("-fx-background-color: #FFF;");
+	  homebuttonPane.setPrefHeight(this.getWindowheight() * 0.15);
+	 
+	   ((BorderPane) visualController.getPane()).setTop(homebuttonPane);
+	   this.setStageScene(visualController.getPane().getScene());
+  }
+  
 
   public void controllBTPosition(int change) {
     switch (change) {
@@ -623,6 +676,14 @@ public class GUI extends Stage implements Callback {
 
     return 0;
   }
+
+public void setClickedTag(double x, double y, String tagName, String suchleiste) {
+	clickedTagY = y;
+	clickedTagX = x;
+	clickedTagName = tagName;
+	//Wieso?
+	//this.suchleiste.setText(suchleiste);
+}
 
 
 }

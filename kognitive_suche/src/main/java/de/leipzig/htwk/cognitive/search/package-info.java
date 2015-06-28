@@ -1,11 +1,13 @@
-//TODO Tobias, das Kommentar bitte gut schreiben, du weißt am besten, was in diesem Package passiert.
-//TODO Steffen, das Kommentar bitte gut schreiben, du weißt am besten, was in diesem Package passiert.
 /**
- * Der erste Satz als kurze Beschreibung des Packages {@code cogintive.search}.
- * Eine ausführlichere Beschreibung der ganzen Zauberei, die hier gehext wird.
+ * Hier werden Schlüsselwörter(Tags) aus Textblöcken und einem Suchwort generiert {@code cogintive.search}.
+ * Auf die Textblöcke wird eine Häufigkeitsanalyse und eine Umgebungsanalyse angewendet.
+ * Die dadurch entstandenen Tags werden zusammengefügt und ihnen wird eine Priorität zugeordnet.
+ * Danach ist es möglich bestimmte Tags zu entfernen oder Tag-Informationen die auf andere Weise erhalten wurden (Überschriften, Datenbanken)
+ * hinzuzufügen.
  * <p>
- * Eventuell ein zweiter Absatz der Beschreibung.
- *  
+ * Als letztes werden die Tags über die Klasse EditTags bearbeitet (stoplist, removeSearchWord, stem).
+ * 
+ * Die Tag werden als Objekt vom Typ ReturnTagList zurückgegeben.
  * @author Tobias Lenz
  * @author Steffen Schreiber
  */

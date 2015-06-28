@@ -176,6 +176,13 @@ public interface DocumentPdf {
     String getFilename();
     
     /**
+     * Get the file path.
+     * 
+     * @return  The absolute path of the original document.
+     */
+    String getPath();
+    
+    /**
      * Get the document's language.
      * 
      * @return  The documents language.

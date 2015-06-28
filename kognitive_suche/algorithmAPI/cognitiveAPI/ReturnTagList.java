@@ -1,7 +1,6 @@
-package de.leipzig.htwk.cognitive.search;
+package cognitiveAPI;
 
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -15,12 +14,12 @@ public class ReturnTagList {
    * @param searchWord - Suchwort
    * @param tabObjects - Lister der Tags mit Wertigkeit und "Vorkommnissliste"
    */
-  private String searchword;
+  private static String searchword;
 
   private ArrayList<ReturnTagObject> tags = new ArrayList<ReturnTagObject>();
 
   public ReturnTagList(String searchword) {
-    this.searchword = searchword;
+    ReturnTagList.searchword = searchword;
   }
 
   public ReturnTagList() {}
@@ -102,10 +101,9 @@ public class ReturnTagList {
   }
 
   /**
-   * Funktion um einen TagObject zu erhalten, welches den übergebenen Tag erhält
-   * Hierzu wird die Binäre Suche verwendet.
+   * 
    * @param tag
-   * @return ReturnTagObject, welches tag enthält, null falls Tag nicht enthalten
+   * @return
    */
   public ReturnTagObject getTagByTagName(String tag) {
     tag = tag.replaceAll("[^a-zA-Z0-9 äöüÄÖÜß]", " ");
@@ -128,12 +126,7 @@ public class ReturnTagList {
 
     return null;
   }
-/**
- * Zum Ersetzen eines Tag-Objects durch ein anderes
- * 
- * @param oldTag - TagObject, welches ersetzt wird
- * @param newTag - TagObject, welchem Eigenschaften des Neuen hinzugefügt werden
- */
+
   public void renameTag(String oldTag, String newTag) {
     ReturnTagObject tmp = getTagByTagName(oldTag);
     if (tmp != null) {
@@ -142,10 +135,7 @@ public class ReturnTagList {
     }
 
   }
-/**
- * Löscht den tag
- * @param tag
- */
+
   public void deleteTag(String tag) {
     tags.remove(getTagByTagName(tag));
   }
@@ -175,12 +165,8 @@ public class ReturnTagList {
     }
   }
 
-  public String getSearchword() {
+  public static String getSearchword() {
     return searchword;
-  }
-  
-  public void setSearchWord(String searchword){
-	  this.searchword = searchword;
   }
 
   public ArrayList<ReturnTagObject> getTagObjects() {
