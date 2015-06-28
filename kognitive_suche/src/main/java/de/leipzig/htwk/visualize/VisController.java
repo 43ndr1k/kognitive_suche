@@ -6,6 +6,8 @@ import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.searchApi.Results;
 import javafx.scene.Parent;
 import javafx.scene.layout.Pane;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 /**
  * Controller der Visualisierung

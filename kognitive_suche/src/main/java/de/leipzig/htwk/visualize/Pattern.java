@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 
 /**
  * Generierung des Feldes von Hexagons
@@ -113,13 +115,14 @@ public class Pattern {
 
     Listenausgabe ausgabe = new Listenausgabe(results);
     ausgabe.setWidth(320);
-    ausgabe.setHeight(610);
+    ausgabe.setHeight(paneHeight);
     ausgabe.setLayoutX(paneWidth - 334);
     ausgabe.setLayoutY(0);
     /**
      * Listenausgabe an Patterngui weitergegeben
      */
     visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
+    visPane.setStyle("-fx-background-color:#FFF;");
 
 
     // }});
@@ -591,6 +594,12 @@ public class Pattern {
   }
 
   public Pane getPane() {
+	//Funktioniert soweit, der Getter muss nur noch auf ScrollPane gesetzt werden. Und die Scrollleiste der Listenausgabe verschoben werden.
+	//ScrollPane rol = new ScrollPane();
+	//rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+	//rol.setStyle("-fx-background-color:#FFF;");
+	//rol.setContent(visPane);
+	
     return visPane;
     // Auto-generated method stub
   }

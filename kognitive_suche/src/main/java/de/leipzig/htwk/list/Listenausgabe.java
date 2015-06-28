@@ -131,12 +131,14 @@ public class Listenausgabe {
     //vbox1.setStyle("-fx-border-color: black;");
     pane.getChildren().clear();
     pane.setCenter(vbox1);
+    pane.setStyle("-fx-background-color:#FFF;");
     System.out.println("Breite: "+width+" Höhe: "+height);
     rol.setPrefSize((double) width, (double) height);
     rol.setLayoutX((double) xpos);
     rol.setLayoutY((double) ypos);
     rol.setContent(pane);
     rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+    rol.setStyle("-fx-background-color:#FFF;");
     return rol;
   }
 
