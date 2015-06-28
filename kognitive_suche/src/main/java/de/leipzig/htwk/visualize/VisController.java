@@ -5,7 +5,11 @@ import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.searchApi.Results;
 import javafx.scene.Parent;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+
 
 /**
  * Controller der Visualisierung
@@ -25,14 +29,23 @@ public class VisController {
   private GUI gui;
   private static Pattern pattern;
   
-  public VisController(Results results) {
-    this.results = results;
+  public VisController() {
+
   }
 
 
 
+  public Results getResults() {
+	return results;
+}
 
-  public int getPaneWidth() {
+
+  public void setResults(Results results) {
+	this.results = results;
+}
+
+
+public int getPaneWidth() {
     return paneWidth;
   }
 
@@ -93,4 +106,13 @@ public class VisController {
 public Parent getPane() {
 	return pane;
 	}
+
+
+
+
+public void updatePattern(ReturnTagList tags) {
+	pattern.update(tags);
+	((BorderPane) (pane)).setCenter(pattern.getPane());
+
+}
 }
