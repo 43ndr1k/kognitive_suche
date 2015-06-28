@@ -120,7 +120,7 @@ public class Pattern {
 
     Listenausgabe ausgabe = new Listenausgabe(results);
     ausgabe.setWidth(320);
-    ausgabe.setHeight(paneHeight);
+    ausgabe.setHeight(paneHeight-38);
     ausgabe.setLayoutX(paneWidth - 334);
     ausgabe.setLayoutY(0);
     /**
