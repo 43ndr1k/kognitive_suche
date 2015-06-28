@@ -5,6 +5,7 @@ import de.cpdfjarrtm.pdfborx.keyword.Keyword;
 import de.cpdfjarrtm.pdfborx.parser.biblio.Citation;
 import de.cpdfjarrtm.pdfborx.util.Language;
 import de.cpdfjarrtm.pdfborx.util.VecTextField;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -12,6 +13,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.LongField;
@@ -45,6 +47,7 @@ public class DocumentLucene implements DocumentPdf {
      *          The docuemnts id. (Use -1 if unknown at creation time)
      * @param   filename
      *          The documents filename, without path. Used for hashing.
+     * @param path 
      * @param   text
      *          The documents plain text as String array sorted by page.
      * @param   version
@@ -56,6 +59,7 @@ public class DocumentLucene implements DocumentPdf {
             Map<BibtexFieldType, String> bibtexfields,
             final long id,
             final String filename,
+            final String path, 
             final String[] text,
             final String version,
             final boolean isEncrypted) {
@@ -78,6 +82,7 @@ public class DocumentLucene implements DocumentPdf {
 
         this.doc.add(new LongField(DocumentFieldType.ID_TYPE.name(), id, Field.Store.YES));
         this.doc.add(new StringField(DocumentFieldType.FILENAME_TYPE.name(), filename, Field.Store.YES));
+        this.doc.add(new StringField(DocumentFieldType.PATH_TYPE.name(), path, Field.Store.YES));
         this.doc.add(new VecTextField(DocumentFieldType.FULL_TEXT_TYPE.name(), fullText, Field.Store.NO));
         this.doc.add(new StringField(BibtexFieldType.KEY.name(), filename, Field.Store.YES));
         
@@ -352,6 +357,11 @@ public class DocumentLucene implements DocumentPdf {
     @Override
     public void addListener(DocumentListener listener) {
         dirtyListeners.add(listener);
+    }
+
+    @Override
+    public String getPath() {
+      return _getField(DocumentFieldType.PATH_TYPE.name());
     }
     
 }

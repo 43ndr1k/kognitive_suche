@@ -13,9 +13,11 @@ import de.leipzig.htwk.searchApi.*;
 import de.leipzig.htwk.websearch.HTMLTools;
 import de.leipzig.htwk.websearch.Static;
 import de.leipzig.htwk.websearch.ThreadRun;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 
 import java.util.ArrayList;
@@ -244,12 +246,19 @@ public class Controller {
       /**
        * Error Meldung falls es keine Ergebnisse gefunden wurden.
        */
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+         
+    
       Alert alert = new Alert(AlertType.ERROR);
       alert.setTitle("Error Dialog");
       alert.setHeaderText("Error Message");
-      alert.setContentText("Keine Ergebnisse zum Suchbegriff: \n" + this.searchWord + " gefunden!");
+      alert.setContentText("Keine Ergebnisse zum Suchbegriff: \n" + searchWord + " gefunden!");
       alert.showAndWait();
-      GUI.getInstance().goToHome();
+        }
+      });
+      //GUI.getInstance().goToHome();
 
     }
   }
@@ -274,21 +283,47 @@ public class Controller {
    * übergeben werden
    */
   public void startPDFSearch() {
-    adaptPDFFormat();
+    String[] searchText = adaptPDFFormat();
+    adaptResultListToPDFFormat();
+    beginCognitiveSearch(searchText, searchWord);
+  }
+
+  /**
+   * Hier wird die Result Liste an die Daten der PDF-Dateien angepasst
+   */
+  private void adaptResultListToPDFFormat() {
+    ArrayList<Result> result = new ArrayList<Result>();
+    for (int i = 0; i < pdfBoxDocuments.size(); i++) {
+      PDFDocument pdf = pdfBoxDocuments.get(i);
+
+      String title = pdf.getDocname();
+      title = title.substring(title.lastIndexOf('/') + 1, title.lastIndexOf('.'));
+      String kwic = pdf.getText()[0];
+      String url = pdf.getDocname();
+      result.add(new Result(title, kwic, url));
+    }
+    results = new Results();
+    results.setResults(result);
   }
 
   /**
    * Hier wird das PDF Objekt an die Anforderungen der CognitiveSearchAPI angepasst.
+   * 
+   * @return
    */
-  private void adaptPDFFormat() {
-    String[] searchText = null;
-    pdfBoxDocuments.size();
+  private String[] adaptPDFFormat() {
+    String[] searchText = new String[pdfBoxDocuments.size()];
+    for (int i = 0; i < pdfBoxDocuments.size(); i++) {
+      PDFDocument pdf = pdfBoxDocuments.get(i);
+      searchText[i] = "";
+      for (int j = 0; j < pdf.getText().length; j++) {
+        searchText[i] += pdf.getText()[j]+ " ";
+      }
+    }
+    return searchText;
 
-    beginCognitiveSearch(searchText, searchWord);
 
   }
-
-
 
   public ReturnTagList getTags() {
     return tags;

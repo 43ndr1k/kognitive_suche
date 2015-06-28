@@ -1,8 +1,6 @@
 /**
- * @author Ivan Ivanikov
- * @param Liste wird erzeugt indem die Waben überschrieben werden. Aufbau wie bei Google leicht und übersichtlich
- * scrollpane hinzugefügt falls Listen zu groß und unübersichtlich werden
- * Anbindung an Suchergebniss von Christian Schmidt
+ * Klasse erstellt die Listenausgabe, welche rechts in der Visualisierung erscheint.
+ * @author Sebastian Hügelmann, Christian Schmidt, Ivan Ivanikov
  */
 
 package de.leipzig.htwk.list;
@@ -20,6 +18,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 import java.awt.*;
+import java.io.File;
 import java.net.URI;
 import java.util.ArrayList;
 
@@ -46,11 +45,6 @@ public class Listenausgabe {
 
   public void setLayoutY(int ypos) { this.ypos = ypos; }
 
-  /**
-   * Erstellen der Liste
-   *
-   * @author Christian Schmidt
-   */
   public Listenausgabe(Results results) {
     for (int i = 0; i < results.getResults().size(); i++) {
       kwic.add(results.getResults().get(i).getKwic());
@@ -72,42 +66,69 @@ public class Listenausgabe {
     
   
     for (int k = 0; k < anzsucherg; k++) {
-    	  Hyperlink h = new Hyperlink(url.get(k));
-          h.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent link) {
-            	  try {
-                      Desktop.getDesktop().browse(new URI(h.getText()));//so sehen klickbare Links aus
-                  } catch (Exception e) {
-                  
+            String linkString = url.get(k);
+            Hyperlink h = new Hyperlink(linkString);
+            h.setWrapText(true);
+            h.setMaxWidth(300);
+            h.setStyle("-fx-padding: 0 0 0 0");
+            
+            if(linkString.charAt(linkString.length()-1) == 'f' 
+                && linkString.charAt(linkString.length()-2) == 'd' 
+                && linkString.charAt(linkString.length()-3) == 'p' 
+                && linkString.charAt(linkString.length()-4) == '.')
+            {
+              h.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent link) {
+                      try {
+                          File pdf = new File (linkString);
+                          Desktop.getDesktop().open(pdf);//so sehen klickbare Links aus
+                      } catch (Exception e) {
+                      
+                }
+                    System.out.println(url);
+                    System.out.println(link);
+                }
+              });
+            } else {
+              h.setOnAction(new EventHandler<ActionEvent>() {
+                public void handle(ActionEvent link) {
+                      try {
+                          Desktop.getDesktop().browse(new URI(h.getText()));//so sehen klickbare Links aus
+                      } catch (Exception e) {
+                      
+                }
+                    System.out.println(url);
+                    System.out.println(link);
+                }
+              });
             }
-                System.out.println(url);
-                System.out.println(link);
-            }
-          });
+
+            
+
           link[k] = h;
       label1[k] = new Label(kwic.get(k));
       label[k] = new Label(title.get(k));
       vbox2 = new VBox();
-      vbox2.setStyle("-fx-border-width: 2;");
-      vbox2.setStyle("-fx-border-color: black;");
       vbox2.getChildren().addAll(label[k], label1[k], link[k]);
       vbox1.getChildren().add(vbox2);
-      label[k].setMaxSize(600, 300);
+      label[k].setMaxSize(300, 300);
       label[k].setWrapText(true);
-      label[k].setStyle("-fx-label-padding: 0 0 10 0;");
-      label[k].setStyle("-fx-font-weight: bold;");
+      label[k].setStyle("-fx-label-padding: 15 0 5 0;-fx-font-weight: bold;");
+      label1[k].setMaxSize(300,300);
       label1[k].setWrapText(true);
       label1[k].setStyle("-fx-label-padding: 0 0 0 0;");
     }
-    vbox1.setStyle("-fx-border-width: 2;");
-    vbox1.setStyle("-fx-border-color: black;");
+
     pane.getChildren().clear();
     pane.setCenter(vbox1);
+    pane.setStyle("-fx-background-color:#FFF;");
+    System.out.println("Breite: "+width+" Höhe: "+height);
     rol.setPrefSize((double) width, (double) height);
     rol.setLayoutX((double) xpos);
     rol.setLayoutY((double) ypos);
     rol.setContent(pane);
     rol.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+    rol.setStyle("-fx-background-color:#FFF;");
     return rol;
   }
 

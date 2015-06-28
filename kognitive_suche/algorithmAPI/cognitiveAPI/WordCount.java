@@ -1,4 +1,4 @@
-package de.leipzig.htwk.cognitive.search;
+package cognitiveAPI;
 
 
 import java.util.ArrayList;
@@ -29,6 +29,7 @@ public class WordCount {
                                                         // Leerzeichen sind Hinweis:
                                                         // "Reguläre Ausdrücke"
       String[] parts = text.split(" ");
+
       for (int j = 0; j < parts.length; j++) { // Der Textblock wird durchsucht
         if (doesContain(searchWord, parts[j])) { // Falls Das Suchwort vorkommt, wird findTagNearby
                                                  // aufgerufen
@@ -74,13 +75,13 @@ public class WordCount {
    * @param word - Word, welches auf Vorkommen im Suchstring geprüft werden soll
    * @return true - falls Word enthalten false - sonst
    */
-  // private
+  //private
   public boolean doesContain(String searchword, String word) {
     String[] parts = searchword.split(" ");
-    for (int i = 0; i < parts.length; i++) {
-      text = parts[i];
-      text = text.replaceAll("[?.!/^#:;]", "");
-      parts[i] = text;
+    for (int i = 0; i < parts.length; i++) {	
+       text = parts[i];
+       text = text.replaceAll("[?.!/^#:;]", "");
+       parts[i] = text;
     }
     for (int i = 0; i < parts.length; i++) {
       if (parts[i].equalsIgnoreCase(word)) {

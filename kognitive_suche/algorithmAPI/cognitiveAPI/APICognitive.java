@@ -1,8 +1,8 @@
-package de.leipzig.htwk.cognitive.search;
+package cognitiveAPI;
 
 import java.util.ArrayList;
 
-public class ApiCognitiveSearch {
+public class APICognitive {
   /**
    * Algorithmus zur Erkennung von Schlüsselbegriffen Diese Klasse nimmt ein Array von Textblöcken,
    * optional mit Adressen (URL oder Speicheradressen) entgegen und gibt eine sich aus diesen
@@ -28,14 +28,13 @@ public class ApiCognitiveSearch {
   private String[] searchText;
   private String searchWord;
 
-  public ApiCognitiveSearch(String[] searchText, String searchWord) {
+  public APICognitive(String[] searchText, String searchWord) {
     this.searchText = searchText;
     this.searchWord = searchWord;
 
 
   }
-
-  /**
+/**
  * 
  */
   public void doWordCount() {
@@ -45,10 +44,9 @@ public class ApiCognitiveSearch {
     zstNachher = System.currentTimeMillis();
     System.out.println("Zeit benötigt: WordCount: " + ((zstNachher - zstVorher)) + " millisec");
   }
-
-  /**
-   * Hier werden die Ergebnisse der
-   */
+/**
+ * Hier werden die Ergebnisse der 
+ */
   public void doMergeTagInfos() {
 
     merge = new AddTagInfos(searchWord);
@@ -58,26 +56,25 @@ public class ApiCognitiveSearch {
     tags = merge.getReturnTagList();
 
   }
-
-  /**
+/**
  * 
  */
   public void doEditTags() {
     EditTags edit = new EditTags(tags);
-    
     edit.removeTagsFromWordList();
+
+    edit.removePreviousTags();
     
-
-
     // edit.stem();
     edit.removeTagsLongerThanVar(15);
+    // edit.findRepresentativeTags(findOutBlocNumbers());
     edit.removeSpaces();
     edit.removeSearchwords();
+    tags = edit.getTags();
     edit.sortTagsByPriority();
-    // edit.setCover(findOutBlocNumbers());
     edit.kategorisieren();
     tags = edit.getTags();
-
+    
 
   }
 

@@ -11,6 +11,7 @@ public enum DocumentFieldType {
     FULL_TEXT_TYPE,
     LANGUAGE_TYPE,
     FILENAME_TYPE,
+    PATH_TYPE,
     HASH_TYPE,
     ID_TYPE,
     ABSTRACT_TYPE,

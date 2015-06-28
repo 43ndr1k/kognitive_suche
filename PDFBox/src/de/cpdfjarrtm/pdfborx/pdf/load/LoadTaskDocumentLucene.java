@@ -162,6 +162,7 @@ class LoadTaskDocumentLucene implements Runnable {
                     bibtexfields,
                     -1,
                     file.getName(),
+                    file.getAbsolutePath(),
                     text,
                     Float.toString(version),
                     encrypted
