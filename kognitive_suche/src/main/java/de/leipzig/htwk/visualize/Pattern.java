@@ -763,9 +763,10 @@ addMidPad(getHexWidth(),
 		getColumns(getHexWidth(),getColumnCorrection(getHexHeight())),visPane, x, y, labelText, 0 , 0);
 	}
 
-  public void update(ReturnTagList tags) {
+  public void update(ReturnTagList tags, Results results) {
 	  int midColumn;
 	  int midRow;
+	  this.results = results;
 	  
 	  if(selectedPad == 11) {
 		  midColumn = padMap.length/2 - 1;

@@ -623,8 +623,8 @@ public class GUI extends Stage implements Callback {
 	
 	  ReturnTagList tags = mController.getTags();
 	  Results results = mController.getResultList();
-	  visualController.updatePattern(tags);
 	  visualController.setResults(results);
+	  visualController.updatePattern(tags);
 	  //Scene visual = new Scene(visualController.getPane());
 	  //System.out.println(getStage());
 	  //System.out.println(getStage().getScene());

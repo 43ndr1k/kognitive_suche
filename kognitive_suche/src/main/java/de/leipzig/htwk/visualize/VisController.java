@@ -111,7 +111,7 @@ public Parent getPane() {
 
 
 public void updatePattern(ReturnTagList tags) {
-	pattern.update(tags);
+	pattern.update(tags, results);
 	((BorderPane) (pane)).setCenter(pattern.getPane());
 
 }
