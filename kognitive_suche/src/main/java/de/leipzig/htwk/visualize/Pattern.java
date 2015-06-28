@@ -130,6 +130,7 @@ public class Pattern {
     visPane.setStyle("-fx-background-color:#FFF;");
     
 	cuted = new Pane();
+	cuted.setStyle("-fx-background-color:#FFF;");
 	cuted.getChildren().add(visPane);
 
     // }});
@@ -839,6 +840,7 @@ addMidPad(getHexWidth(),
 			  }
 	  
 	  visPane = new Pane();// Pane Für Kacheln
+	  visPane.setStyle("-fx-background-color:#FFF;");
 	  visPane.setPrefSize(paneHeight, paneWidth - 320); 
 	  
 	  for(int i = 0; i < savedPads.size(); i++)
@@ -860,6 +862,7 @@ addMidPad(getHexWidth(),
 	  visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
 	  
 	  cuted = new Pane();
+	  cuted.setStyle("-fx-background-color:#FFF;");
 	  cuted.getChildren().add(visPane);
 
   }
