@@ -1,7 +1,9 @@
 package de.leipzig.htwk.searchApi;
 
+import de.leipzig.htwk.searchApi.Result;
+
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Autor Hendrik Sawade.
@@ -11,14 +13,14 @@ import java.util.List;
  * Bereitstellung der Suchergebnisse.
  */
 public class Results {
-  private List<Result> results;
+  private ArrayList<Result> results;
 
   /**
    * Gibt die Result_ Liste zurück
    * 
    * @return results
    */
-  public List<Result> getResults() {
+  public ArrayList<Result> getResults() {
     return results;
   }
 
@@ -27,7 +29,7 @@ public class Results {
    * 
    * @param results
    */
-  public void setResults(List<Result> results) {
+  public void setResults(ArrayList<Result> results) {
     this.results = results;
   }
 }

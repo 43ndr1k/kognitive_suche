@@ -16,10 +16,10 @@ import de.leipzig.htwk.general.functions.TxtReader;
  */
 
 public class TxtReaderTest {
-
+  
   @Test
   public void testReadFile() {
-
+    
     TxtReader test = new TxtReader();
     try {
       String rueckgabewert = test.readFile("test.txt");

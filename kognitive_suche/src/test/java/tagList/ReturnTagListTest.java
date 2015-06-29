@@ -5,7 +5,7 @@ import de.leipzig.htwk.cognitive.search.ReturnTagList;
 public class ReturnTagListTest {
 
   public static void main(String[] args) {
-
+  
     ReturnTagList tags = new ReturnTagList("Peter");
     tags.addTagObject("Maffay", 1);
     tags.addTagObject("Lustig", 3);
@@ -20,8 +20,8 @@ public class ReturnTagListTest {
 
     tags.testOutput(10);
     System.out.println(tags.getSize());
-
-
+    
+    
   }
 
 }
