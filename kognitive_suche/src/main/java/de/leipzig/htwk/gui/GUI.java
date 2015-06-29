@@ -557,6 +557,7 @@ public class GUI extends Stage implements Callback {
     ReturnTagList tags = list;
 
     BorderPane visPane = new BorderPane();
+    visPane.setMinSize(0, 0);
     BorderPane homebuttonPane = new BorderPane();
     System.out.println("Checkpoint 1");
     homebuttonPane.setCenter(this.goHomeButton());
@@ -631,7 +632,7 @@ public class GUI extends Stage implements Callback {
 	  visualController.setResults(results);
 	  visualController.updatePattern(tags);
 	  //Scene visual = new Scene(visualController.getPane());
-	  //System.out.println(getStage());
+	  //System.out.println (getStage());
 	  //System.out.println(getStage().getScene());
 	  BorderPane homebuttonPane = new BorderPane();
 	  homebuttonPane.setCenter(this.goHomeButton());
@@ -640,6 +641,10 @@ public class GUI extends Stage implements Callback {
 	 
 	   ((BorderPane) visualController.getPane()).setTop(homebuttonPane);
 	   this.setStageScene(visualController.getPane().getScene());
+  }
+  
+  public VisController getVisualController() {
+	  return this.visualController;
   }
   
 
