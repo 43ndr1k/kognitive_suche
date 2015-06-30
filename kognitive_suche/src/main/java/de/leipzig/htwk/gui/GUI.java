@@ -347,10 +347,9 @@ public class GUI extends Stage implements Callback {
 
     ArrayList<HistoryObject> historyData = mController.getHistory();
 
-    if(VerlaufTemp == 0) {
-      Collections.reverse(historyData);
-      VerlaufTemp++;
-    }
+
+    Collections.reverse(historyData);//
+
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     Separator sTitle = new Separator();
@@ -409,7 +408,10 @@ public class GUI extends Stage implements Callback {
     historyPane.setCenter(rol);
     Scene historyScene = new Scene(historyPane);
 
+    Collections.reverse(historyData);//
+
     stage.setScene(historyScene);
+
 
   }
 
