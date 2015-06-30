@@ -93,6 +93,7 @@ public class GUI extends Stage implements Callback {
   private double clickedTagX;
   private double clickedTagY;
   private static GUI instance;
+  private int VerlaufTemp;
   
   
 
@@ -315,7 +316,7 @@ public class GUI extends Stage implements Callback {
           alert.setTitle("Error Dialog");
           alert.setHeaderText("Error Message");
           alert
-              .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+                  .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
           alert.showAndWait();
         }
 
@@ -345,7 +346,11 @@ public class GUI extends Stage implements Callback {
   private void showHistory() {
 
     ArrayList<HistoryObject> historyData = mController.getHistory();
-    Collections.reverse(historyData);
+
+    if(VerlaufTemp == 0) {
+      Collections.reverse(historyData);
+      VerlaufTemp++;
+    }
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     Separator sTitle = new Separator();
@@ -557,6 +562,7 @@ public class GUI extends Stage implements Callback {
     ReturnTagList tags = list;
    
     BorderPane visPane = new BorderPane();
+    visPane.setMinSize(0, 0);
     BorderPane homebuttonPane = new BorderPane();
     System.out.println("Checkpoint 1");
     homebuttonPane.setCenter(this.goHomeButton());
@@ -579,6 +585,7 @@ public class GUI extends Stage implements Callback {
     Scene visual = new Scene(visPane);
 
     this.setStageScene(visual);
+
     System.out.println("fertig visual");
   }
 
@@ -639,7 +646,7 @@ public class GUI extends Stage implements Callback {
 	  visualController.setResults(results);
 	  visualController.updatePattern(tags);
 	  //Scene visual = new Scene(visualController.getPane());
-	  //System.out.println(getStage());
+	  //System.out.println (getStage());
 	  //System.out.println(getStage().getScene());
 	  BorderPane homebuttonPane = new BorderPane();
 	  homebuttonPane.setCenter(this.goHomeButton());
@@ -648,6 +655,10 @@ public class GUI extends Stage implements Callback {
 	 
 	   ((BorderPane) visualController.getPane()).setTop(homebuttonPane);
 	   this.setStageScene(visualController.getPane().getScene());
+  }
+  
+  public VisController getVisualController() {
+	  return this.visualController;
   }
   
 

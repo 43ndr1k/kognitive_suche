@@ -6,6 +6,8 @@ import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.gui.GUI;
 import de.leipzig.htwk.list.Listenausgabe;
 import de.leipzig.htwk.searchApi.Results;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -17,6 +19,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.scene.layout.BorderPane;
 
 
 /**
@@ -56,8 +59,10 @@ public class Pattern {
 
   private static Pane visPane;
 
-  private ReturnTagList tags;
-
+  private  ReturnTagList tags;
+  
+  private Listenausgabe ausgabe;
+  
   private Pane cuted;
 
   private int[][] padMap;
@@ -124,7 +129,7 @@ public class Pattern {
     // public void handle(ActionEvent Liste) {
     // visPane.getChildren().clear();
 
-    Listenausgabe ausgabe = new Listenausgabe(results);
+    ausgabe = new Listenausgabe(results);
     ausgabe.setWidth(320);
     ausgabe.setHeight(paneHeight - 38);
     ausgabe.setLayoutX(paneWidth - 334);
@@ -132,24 +137,27 @@ public class Pattern {
     /**
      * Listenausgabe an Patterngui weitergegeben
      */
-    visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
+    //visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
     visPane.setStyle("-fx-background-color:#FFF;");
-
-    cuted = new Pane();
-    cuted.setStyle("-fx-background-color:#FFF;");
-    cuted.getChildren().add(visPane);
+    
+	cuted = new Pane();
+	cuted.setStyle("-fx-background-color:#FFF;");
+	cuted.getChildren().add(visPane);
 
     // }});
 
     // visPane.getChildren().addAll(list);
   }
-
+/**
+ *Methode zur Erstellung der Waben.
+ * @author Ivan Ivanikov
+ * @param x ist die Verschiebung in x Richtung
+ * @param y ist die Verschiebung in y Richtung
+ * @param tag
+ */
   public void addTag(double x, double y, String tag) {
-    x += .0; // sinvoller code
-    y += .25;
-
-    if (x % 2 != 0) {
-      y -= .25;
+	if (x % 2 == 0) {
+      y += .25;
     }
 
     Pane pad =
@@ -843,9 +851,17 @@ public class Pattern {
     return padMap;
   }
 
-
+  /**
+   * Scrollpane passt sich jetzt der Größe an
+   *    * @return Pane
+   */
   public Pane getPane() {
-    return cuted;
+	  BorderPane bPane = new BorderPane();
+	  bPane.setStyle("-fx-background-color:red;");
+	  bPane.setCenter(visPane);
+	  bPane.setRight(ausgabe.ergebnisausgabe());
+
+      return bPane;
 
     // public Pane getPane() {
     // Funktioniert soweit, der Getter muss nur noch auf ScrollPane gesetzt
@@ -884,6 +900,7 @@ public class Pattern {
   }
 
   public void update(ReturnTagList tags, Results results) {
+    
     int midColumn;
     int midRow;
     this.results = results;
@@ -996,12 +1013,11 @@ public class Pattern {
     System.out.println("Rows:" + rows + " Columns:" + columns + " ActivePads:" + activePads);
     visPane = printPattern(hexWidth, cc, hexHeight, rows, columns, visPane);
 
-    Listenausgabe ausgabe = new Listenausgabe(results);
+    ausgabe = new Listenausgabe(results);
     ausgabe.setWidth(320);
     ausgabe.setHeight(paneHeight);
     ausgabe.setLayoutX(paneWidth - 334);
     ausgabe.setLayoutY(0);
-    visPane.getChildren().addAll(ausgabe.ergebnisausgabe());
 
     cuted = new Pane();
     cuted.setStyle("-fx-background-color:#FFF;");
