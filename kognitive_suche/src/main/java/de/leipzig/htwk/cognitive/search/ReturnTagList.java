@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 
-public class ReturnTagList {
+public class ReturnTagList implements Cloneable {
   /**
    * @author Tobias Lenz
    * 
@@ -190,4 +190,9 @@ public class ReturnTagList {
   public void setTagObjects(ArrayList<ReturnTagObject> tagObjects) {
     this.tags = tagObjects;
   }
+  
+  public Object clone() { 
+    try { return super.clone(); } catch (CloneNotSupportedException e) {}
+    return null; 
+  } 
 }
