@@ -23,7 +23,7 @@ public class ResultsTest {
     Results testObject;
     testObject = new Results();
 
-    List<Result> ArrayListTest;
+    ArrayList<Result> ArrayListTest;
     ArrayListTest = new ArrayList<Result>();
 
     assertNull(testObject.getResults());

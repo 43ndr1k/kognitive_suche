@@ -1,13 +1,9 @@
 package History;
 
 import static org.junit.Assert.assertEquals;
+
 /**
- * 
- * 
- * 
  * @author Sadik Ulusan
- * 
- *
  */
 
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class SearchHistoryTest {
   public void testHistory() {
     int length;
     HistoryObject foo;
-   
+
     ArrayList<HistoryObject> searchHistory;
     searchHistory = testHistory.getSearches();
     length = searchHistory.size();
