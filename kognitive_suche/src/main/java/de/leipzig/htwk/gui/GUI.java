@@ -93,6 +93,7 @@ public class GUI extends Stage implements Callback {
   private double clickedTagX;
   private double clickedTagY;
   private static GUI instance;
+  private int VerlaufTemp;
   
   
 
@@ -315,7 +316,7 @@ public class GUI extends Stage implements Callback {
           alert.setTitle("Error Dialog");
           alert.setHeaderText("Error Message");
           alert
-              .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
+                  .setContentText("Kein Suchbegriff eingegeben! \n Bitte geben Sie einen Suchbegriff ein.");
           alert.showAndWait();
         }
 
@@ -345,7 +346,10 @@ public class GUI extends Stage implements Callback {
   private void showHistory() {
 
     ArrayList<HistoryObject> historyData = mController.getHistory();
-    Collections.reverse(historyData);
+
+
+    Collections.reverse(historyData);//
+
     DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
     Separator sTitle = new Separator();
@@ -404,7 +408,10 @@ public class GUI extends Stage implements Callback {
     historyPane.setCenter(rol);
     Scene historyScene = new Scene(historyPane);
 
+    Collections.reverse(historyData);//
+
     stage.setScene(historyScene);
+
 
   }
 
@@ -555,8 +562,9 @@ public class GUI extends Stage implements Callback {
     // setResultList(results); brauch ich vielleicht
     System.out.println("startVisual Gestartet");
     ReturnTagList tags = list;
-
+   
     BorderPane visPane = new BorderPane();
+    visPane.setMinSize(0, 0);
     BorderPane homebuttonPane = new BorderPane();
     System.out.println("Checkpoint 1");
     homebuttonPane.setCenter(this.goHomeButton());
@@ -579,14 +587,21 @@ public class GUI extends Stage implements Callback {
     Scene visual = new Scene(visPane);
 
     this.setStageScene(visual);
+
     System.out.println("fertig visual");
+  }
+
+  private void addStepToTagListHistory() {
+    btPosition++;
+    tagListHistory.addStep(btPosition, mController.getTags(), mController.getResultList());
+    System.out.println("Step hinzugefügt: " + mController.getTags().getSearchword() + " Pos: " + btPosition);
   }
 
   /**
    * Annahme der Ergebnisse de Suche und Aufruf der Visualisierung
    */
   private void startVisualisation() {
-   ReturnTagList tags = mController.getTags();
+    ReturnTagList tags = mController.getTags();
     Results results = mController.getResultList();
 
     // Falls keine Ergebnisse gefunden wurden wird zum Homescreen bzw. zur letzten Tag auswahl
@@ -597,12 +612,11 @@ public class GUI extends Stage implements Callback {
       } else {
         TagListHistoryObject his = tagListHistory.getStep(btPosition);
         initVisual(his.getTagList(), his.getTagList().getSearchword(), his.getResults());
+        
       }
     } else {
-
-      btPosition++;
-      tagListHistory.addStep(btPosition, tags, results);
-
+      
+      addStepToTagListHistory();
       initVisual(tags, tags.getSearchword(), results); // Starten der Visualisierung
     }
 
@@ -614,12 +628,13 @@ public class GUI extends Stage implements Callback {
   public void callback() {
     System.out.println("Callback erhalten. Alles Roger!");
     //startVisualisation();    ---callback wird ersetzt 
-  
+      
     if (visualController == null){
     	startVisualisation();
     }
     else{
-    	addNewTags();
+           
+      addNewTags();
     
     }
   }
@@ -628,10 +643,12 @@ public class GUI extends Stage implements Callback {
 	
 	  ReturnTagList tags = mController.getTags();
 	  Results results = mController.getResultList();
+	  addStepToTagListHistory();
+
 	  visualController.setResults(results);
 	  visualController.updatePattern(tags);
 	  //Scene visual = new Scene(visualController.getPane());
-	  //System.out.println(getStage());
+	  //System.out.println (getStage());
 	  //System.out.println(getStage().getScene());
 	  BorderPane homebuttonPane = new BorderPane();
 	  homebuttonPane.setCenter(this.goHomeButton());
@@ -642,22 +659,29 @@ public class GUI extends Stage implements Callback {
 	   this.setStageScene(visualController.getPane().getScene());
   }
   
+  public VisController getVisualController() {
+	  return this.visualController;
+  }
+  
 
-  public void controllBTPosition(int change) {
-    switch (change) {
-      case -1:
-        btPosition--;
-        break;
-      case +1:
-        btPosition++;
-        break;
+  public void controllBTPosition(int pos) {
+    
+    btPosition = pos;
+    
+    if(btPosition != -1)
+    {
+      mController.setTags(tagListHistory.getStep(btPosition).getTagList());
+      mController.setResultList(tagListHistory.getStep(btPosition).getResults());
+  
+      addNewTags();
+    } else {
+      
+      mController.setTags(tagListHistory.getStep(0).getTagList());
+      mController.setResultList(tagListHistory.getStep(0).getResults());
+      System.out.println("In das MidPad wurde eingfügt: " + tagListHistory.getStep(0).getTagList().getSearchword());
+      startVisualisation();
+      
     }
-
-    mController.setTags(tagListHistory.getStep(btPosition).getTagList());
-    mController.setResultList(tagListHistory.getStep(btPosition).getResults());
-
-    initVisual(tagListHistory.getStep(btPosition).getTagList(), tagListHistory.getStep(btPosition)
-        .getTagList().getSearchword(), tagListHistory.getStep(btPosition).getResults());
 
   }
 

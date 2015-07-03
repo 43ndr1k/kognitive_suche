@@ -9,6 +9,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.sym;
+
 import de.leipzig.htwk.cognitive.search.ReturnTagList;
 import de.leipzig.htwk.searchApi.Results;
 
@@ -24,30 +26,23 @@ public class TagListHistory {
   
   public void addStep(int pos, ReturnTagList tagList, Results results ) {
     
-    System.out.println("ADD: tagListHistoryData.size: " + tagListHistoryData.size());
-    System.out.println("tagListHistoryData Pos: " + pos);
+    ReturnTagList savedTagList =  (ReturnTagList) tagList.clone();
+    
+    int size = tagListHistoryData.size();
     
     if(tagListHistoryData.size() != 0)
-      for(int i = pos; i < tagListHistoryData.size(); i++)
-		tagListHistoryData.remove(i);
+      for(int i = pos; i < size; i++)
+      {
+        System.out.println("Removing Pos: " + pos + " i: " + i + " Data: " + tagListHistoryData.get(pos).getTagList().getSearchword());
+		tagListHistoryData.remove(pos);
+      }
 		
-	tagListHistoryData.add(new TagListHistoryObject (tagList, results));
+	tagListHistoryData.add(new TagListHistoryObject (savedTagList, results));
     
-	for(int j = 0; j < tagListHistoryData.size(); j++)
-	{
-      System.out.println("tagListHistoryData: " + tagListHistoryData.get(j).getTagList().getSearchword() + " j: " + j);
-      System.out.println(tagListHistoryData.get(j).getTagList().toString());
-	}
-  
    
 }
 
 public TagListHistoryObject getStep(int i) {
-	
-	for(int j = 0; j < tagListHistoryData.size(); j++)
-		System.out.println("tagListHistoryData: " + tagListHistoryData.get(j).getTagList().getSearchword() + " j: " + j);
-	
-	
     return tagListHistoryData.get(i);
 }
 

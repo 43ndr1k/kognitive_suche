@@ -36,6 +36,10 @@ public class Listenausgabe {
   public void setWidth(int width) {
     this.width = width;
   }
+  
+  public int getWidth() {
+	  return this.width;
+  }
 
   public void setHeight(int height) {
     this.height = height;
@@ -122,7 +126,6 @@ public class Listenausgabe {
     pane.getChildren().clear();
     pane.setCenter(vbox1);
     pane.setStyle("-fx-background-color:#FFF;");
-    System.out.println("Breite: "+width+" Höhe: "+height);
     rol.setPrefSize((double) width, (double) height);
     rol.setLayoutX((double) xpos);
     rol.setLayoutY((double) ypos);
